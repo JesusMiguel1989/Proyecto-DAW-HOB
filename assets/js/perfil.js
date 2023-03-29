@@ -68,6 +68,7 @@ window.addEventListener("load", () => {
     botones[2].addEventListener("click", () => {
         //borrar
         console.log("opcion Borrar");
+        borrar("borrar",alias.value,key.value);
     })
 
     botones[3].addEventListener("click", () => {
@@ -78,5 +79,6 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('mail');
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
+        location.replace("http://localhost/proyecto/index.html");
     })
 })
