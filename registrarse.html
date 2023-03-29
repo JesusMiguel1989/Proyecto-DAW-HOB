@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Registrarse</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="./assets/imagenes/favicon.png" rel="icon">
+    <link href="./assets/imagenes/apptouch.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/custom.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./assets/css/custom.css">
+</head>
+
+<body>
+
+    <!-- ======= Mobile nav toggle button ======= -->
+    <i class="bi bi-list mobile-nav-toggle d-xl-none" id="menus"></i>
+
+    <!-- ======= Header ======= -->
+    <header id="header">
+        <div class="d-flex flex-column">
+
+            <!--MENU de la IZQUIERDA-->
+            <div class="profile">
+                <img src="assets/imagenes/recortado.png" alt="" class="img-fluid rounded-circle">
+                <h1 class="text-light"><a href="index.html"><span class="hb">H</span><span class="o">O</span><span
+                            class="hb">B</span></a></h1>
+                <div class="social-links mt-3 text-center">
+                    <a href="https://twitter.com/?lang=es" title="twitter" class="twitter"><span
+                            style="display: none">.</span><i class="bx bxl-twitter" title="twitter"></i></a>
+                    <a href="https://www.facebook.com/" title="facebook" class="facebook"><span
+                            style="display: none">.</span><i class="bx bxl-facebook" title="facebook"></i></a>
+                    <a href="https://www.instagram.com/" title="instagram" class="instagram"><span
+                            style="display: none">.</span><i class="bx bxl-instagram" title="Instagram"></i></a>
+                    <a href="https://web.telegram.org/z/" title="telegram" class="telegram"><span
+                            style="display: none">.</span><i class="bx bxl-telegram" title="telegram"></i></a>
+                    <a href="https://web.whatsapp.com/" title="whatsapp" class="whatsapp"><span
+                            style="display: none">.</span><i class="bx bxl-whatsapp" title="Whatsapp"></i></a>
+                    <a href="https://www.deviantart.com/" title="Devianart" class="devianart"><span
+                            style="display: none">.</span><i class="bx bxl-deviantart" title="devianart"></i></a>
+                </div>
+            </div>
+
+            <form id="buscador" alt="buscador" title="buscar">
+                <label for="Ibuscar" style="display: none;">Buscar</label>
+                <input id="Ibuscar" type="text" title="Buscar">
+                <button type="button" class="btn btn-secondary Ibuscador" title="Buscar">
+                    <i class="bi-search"></i>
+                </button>
+            </form>
+
+            <nav id="navbar" class="nav-menu navbar">
+                <ul>
+                    <li><a href="./identificarse.html" class="nav-link scrollto"><i class="bx bx-user"></i>
+                            <span>Identificarse</span></a></li>
+                    <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i>
+                            <span>Perfil</span></a></li>
+                    <li class="nav-link scrollto">
+                        <button class="boton btn btn-toggle d-inline-flex align-items-center rounded"
+                            data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                            <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
+                        <div class="collapse" id="home-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="./retro.html"
+                                        class="link-light d-inline-flex text-decoration-none rounded">Retro Gamming</a>
+                                </li>
+                                <li><a href="./arte.html"
+                                        class="link-light d-inline-flex text-decoration-none rounded">Arte</a></li>
+                                <li><a href="./lectura.html"
+                                        class="link-light d-inline-flex text-decoration-none rounded">Lectura</a></li>
+                                <li><a href="./senderismo.html"
+                                        class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
+                            <span>Tiendas Locales</span></a></li>
+                    <li><a href="./sugerencias.html" class="nav-link scrollto"><i class="bx bx-home"></i>
+                            <span>Sugerencias</span></a></li>
+                    <li><a href="./preguntas.html" class="nav-link scrollto"><i class="bx bx-question-mark"></i>
+                            <span>Preguntas Frecuentes</span></a></li>
+                </ul>
+            </nav><!-- .nav-menu -->
+        </div>
+    </header><!-- End Header -->
+
+
+
+
+    <!-- ======= inicio Section ======= Pantalla inicial de la plantilla, foto derecha -->
+    <section id="seccion">
+        <div id="formulario">
+            <form id="inicio" action="php/Registro.php" method="POST"
+                class="d-flex flex-column justify-content-center align-items-center m-0 vh-100 needs-validation"
+                novalidate>
+                <h1 class="rtitulo">Registro</h1><br>
+
+                <div class="col-auto text-left inicio-container rfondor">
+                    <!-- data-aos="fade-in" -->
+                    <fieldset>
+                        <center>
+                            <h1 class="rfiel">Datos Web </h1>
+                        </center>
+                        <div class="row justify-content-center">
+                            <div class="col-7 col-sm-4 col-md-4 col-xl-6 text-start text-sm-end">
+                                <label for="remail" class="titulo">Email*:</label>
+                            </div>
+                            <div class="col-7 col-sm-4 col-sm-8 col-xl-6  has-validation text-start text-sm-start">
+                                <input type="mail" id="remail" name="mail" class="texto-identificarse" title="Email" required><br>
+                                <div id="validacion1" class="invalid-feedback">
+                                    <span>Error en el correo.</span>
+                                </div>
+                                <span class="rlabel">Ej.: ejemplo@ejemplo.com</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-0 text-end">
+                                
+                            </div>
+                            <div class="col-7 col-sm-4 col-md-4 col-xl-6 text-start text-sm-end titulo">
+                                <label for="key">Contraseña*:</label>
+                            </div>
+                            <div class="col-7 col-sm-4 col-sm-8 col-xl-6  has-validation text-start text-sm-start">
+                                <input type="password" name="key" id="key" class="texto-identificarse" title="contraseña"
+                                    required><br>
+                                <div id="validacion2" class="invalid-feedback">
+                                    <span>Contraseña invalida.</span>
+                                </div>
+                                <span class="rlabel">8 caracteres alfanumericos</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <!-- <div class="col-7 col-sm-0  text-end">
+                    
+                            </div> -->
+                            <div class="col-7 col-sm-4 col-md-4 col-xl-6 text-start text-sm-end titulo">
+                                <label for="key2">Repite Contraseña*:</label><br>
+                            </div>
+                            <div class="col-7 col-sm-4 col-sm-8 col-xl-6  has-validation text-star text-sm-start">
+                                <input type="password" name="key2" id="key2" class="texto-identificarse repite"
+                                    title="contraseña" required><br>
+                                <div id="validacion3" class="invalid-feedback">
+                                    <span>No es la misma contraseña.</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                    <fieldset>
+                        <center>
+                            <h1 class="rfiel">Datos personales</h1>
+                        </center>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-0  text-end">
+                    
+                            </div>
+                            <div class="col-7 col-sm-4 col-md-4 col-xl-6 text-start text-sm-end titulo">
+                                <label for="rnombre">Nombre*:</label><br>
+                            </div>
+                            <div class="col-7 col-sm-4 col-sm-8 col-xl-6  has-validation text-star text-sm-start">
+                                <input type="text" name="nombre" id="rnombre" class="texto-identificarse" title="Nombre"><br>
+                                <div id="validacion34" class="invalid-feedback">
+                                    <span>El nombre existe o esta vacio.</span>
+                                </div>
+                                <span class="rlabel">Ej.: tu nombre o apodo</span>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-0  text-end">
+                    
+                            </div>
+                            <div class="col-7 col-sm-4 col-md-4 col-xl-6 text-start text-sm-end titulo">
+                                <label for="rfecha">F. Nacimiento*:</label><br>
+                            </div>
+                            <div class="col-7 col-sm-4 col-sm-8 col-xl-6  has-validation text-star text-sm-start">
+                                <input type="date" name="fecha" id="rfecha" class="texto-identificarse" title="F.Nacimiento"><br>
+                                <div id="validacion4" class="invalid-feedback">
+                                    <span>Fecha erronea o eres menor.</span>
+                                </div>
+                                <span class="rlabel">Ej.: Tu fecha nacimiento</span>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-sm-0  text-end">
+                    
+                            </div>
+                            <div class="col-7 col-sm-4 col-md-4 col-xl-6 text-start text-sm-end titulo">
+                                <label for="rlocalidad">Localidad:</label><br>
+                            </div>
+                            <div class="col-7 col-sm-4 col-sm-8 col-xl-6  has-validation text-star text-sm-start">
+                                <select name="localidad" id="rlocalidad" class="btn dropdown-toggle rcombo"
+                                    title="Localidad">
+                                    <option class="rop">Cuenca</option>
+                                    <option class="rop">Toledo</option>
+                                    <option class="rop">Albacete</option>
+                                    <option class="rop">C. Real</option>
+                                    <option class="rop">Guadalajara</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-1  text-end">
+                    
+                        </div>
+                        <div class="col-9 col-sm-11 col-md-11 col-xl-11 text-end text-sm-start titulo">
+                            <input type="checkbox" id="condiciones" class="repite" title="Condiciones">
+                            <label for="condiciones"><b>Aceptas</b> nuestros terminos y condiciones*.<br></label>
+                            <div id="validacion5" class="invalid-feedback">
+                                <span>Acepta condiciones de uso.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-0  text-end">
+                    
+                        </div>
+                        <div class="col-8 col-sm-8 col-md-8 col-xl-8 text-end text-sm-center titulo">
+                            <input type="checkbox" id="rRobot" class="repite" title="F.Nacimiento">
+                            <label for="rRobot">No soy un robot</label><br>
+                            <div id="validacion6" class="invalid-feedback">
+                                <span>Eres un robot.</span>
+                            </div>
+                        </div>
+                        <div class="col-4 col-sm-4 text-start">
+                            <img src="./assets/capcha2.png" id="avatar" alt="capcha registro" title="Capcha">
+                        </div>
+                    </div>
+
+                    <center>
+                        <div class="row botonesid">
+                            <div class="col col-12 ">
+                                <input type="submit" id="enviar" name="registro" value="Registrar" class="botones" title="Registrarse"
+                                    alt="Boton registro">
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+
+    <footer id="footer">
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span class="hb">H</span><span class="o">O</span><span
+                        class="hb">B</span></strong>
+            </div>
+            <div class="credits">
+                <span>Diseñada por <a href="https://github.com/JesusMiguel1989">Jesús Jimenez de la Casa</a></span>
+                <span><a href="politica.html">Poltica de Privacidad</a></span>
+                <span><a href="aviso.html">Aviso Legal</a></span><br>
+            </div>
+        </div>
+    </footer><!-- End  Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><span
+            style="display: none"></span><i class="bi bi-arrow-up-short"></i></a>
+    <!-- <a href="#" class="back-to-top d-flex align-items-center justify-content-center" title="bootstrap"><span style="display: none">.</span><i
+        class="bi bi-arrow-up-short"></i></a> -->
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/typed.js/typed.min.js"></script>
+    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/menus.js"></script>
+    <script src="assets/js/registro.js"></script>
+</body>
+
+</html>

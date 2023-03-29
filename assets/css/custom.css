@@ -1,0 +1,1276 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  position: relative;
+  z-index: -200;
+  font-family: "Open Sans", sans-serif;
+  color: #272829;
+  background: url("../imagenes/fondoverde1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* a {
+  color: #137aa9e6;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #137aa9e6;
+  text-decoration: none;
+} */
+
+/*--------------------------------------------------------------
+# Back to top button
+--------------------------------------------------------------*/
+/*.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: 996;
+  background: #137aa9e6;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 0.4s;
+}
+
+.back-to-top i {
+  font-size: 28px;
+  color: #fff;
+  line-height: 0;
+}
+
+.back-to-top:hover {
+  background: #2eafec;
+  color: #fff;
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+}*/
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  transition: all ease-in-out 0.5s;
+  z-index: 9997;
+  transition: all 0.5s;
+  padding: 0 15px;
+  background: #040b14;
+  overflow-y: auto;
+}
+
+/******************************foto tortuga*************************************/
+#header .profile img {
+  margin: 15px auto;
+  display: block;
+  width: 120px;
+  border: 8px solid #2c2f3f;
+}
+
+/* ******************************Texto HOB bj tortuga********************** */
+#header .profile h1 {
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  -moz-text-align-last: center;
+  text-align-last: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* #header .profile h1 a,
+#header .profile h1 a:hover {
+  color: #fff;
+  text-decoration: none;
+} */
+
+#header .profile .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #212431;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+#header .profile .social-links a:hover {
+  background: #137aa9e6;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* #main {
+  margin-left: 300px;
+} */
+
+@media (max-width: 1199px) {
+  #header {
+    left: -300px;
+  }
+
+  /* #main {
+    margin-left: 0;
+  } */
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+.nav-menu {
+  padding: 30px 0 0 0;
+}
+
+.nav-menu * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-menu>ul>li {
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-menu a,
+.nav-menu a:focus {
+  display: flex;
+  align-items: center;
+  color: #a8a9b4;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.nav-menu a i,
+.nav-menu a:focus i {
+  font-size: 24px;
+  padding-right: 8px;
+  color: #6f7180;
+}
+
+.nav-menu a:hover,
+.nav-menu .active,
+.nav-menu .active:focus,
+.nav-menu li:hover>a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-menu a:hover i,
+.nav-menu .active i,
+.nav-menu .active:focus i,
+.nav-menu li:hover>a i {
+  color: #137aa9e6;
+}
+
+/* Mobile Navigation */
+.mobile-nav-toggle {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 9998;
+  border: 0;
+  font-size: 24px;
+  transition: all 0.4s;
+  outline: none !important;
+  background-color: #137aa9e6;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.mobile-nav-active {
+  overflow: hidden;
+}
+
+.mobile-nav-active #header {
+  left: 0;
+}
+
+/*--------------------------------------------------------------
+#  Section
+--------------------------------------------------------------*/
+
+
+#inicio:before {
+  content: "";
+  padding-left: 100px;
+  padding-right: 0%;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background: url("../imagenes/fondoverde1.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  /*background: rgba(5, 13, 24, 0.3);*/
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+
+}
+
+@media (max-width: 1200px) {
+  #inicio .inicio-container {
+    position: relative;
+    z-index: 2;
+    /* min-width: 400px; */
+    justify-content: center;
+
+  }
+
+  .listadoretro {
+    margin-left: 10%;
+  }
+}
+
+#inicio h1 {
+  font-family: "Cookie", sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 40px;
+  color: black;
+  z-index: 5;
+}
+
+/* #inicio p {
+  color: #145776e6;
+  margin-bottom: 50px;
+  font-size: 26px;
+  font-family: cookie, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+} 
+
+#inicio p span {
+  color: #fff;
+  padding-bottom: 4px;
+  letter-spacing: 1px;
+  border-bottom: 3px solid #f4eca4;
+  color: #137aa9e6;
+}*/
+
+/*-----------------------
+# Para pantallas pc
+------------------------*/
+
+@media (min-width: 1200px) {
+  #inicio .inicio-container {
+    position: relative;
+    z-index: 2;
+    top: 5%;
+    left: 12%;
+    margin: -25px 0 0 -25px;
+  }
+}
+
+@media (max-width:1200) {
+  #inicio .inicio-container {
+    position: relative;
+    z-index: 2;
+    top: 15%;
+    left: 50%;
+    margin-top: 15%;
+  }
+}
+
+#hobies {
+  display: flex;
+}
+
+.boton {
+  color: white;
+}
+
+/*-----retro Gaming--Libros--Senderismo--Pintar-----*/
+#hobies #retro .gaming,
+#hobies #lectura .libros,
+#hobies #sendero .senderos,
+#hobies #arte .pintar {
+  width: 100px;
+  height: 100px;
+  float: left;
+  padding: 15px;
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer, #footerp {
+  text-align: center;
+  padding: 15px;
+  color: #f4f6fd;
+  margin-top: 15px;
+  font-size: 12px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 9999;
+  background: #040b14;
+}
+
+
+
+#footer .copyright {
+  text-align: center;
+}
+
+#footer .credits {
+  padding-top: 5px;
+  text-align: center;
+  font-size: 13px;
+  color: #eaebf0;
+}
+
+@media (max-width: 1199px) {
+  #footer {
+    width: 100%;
+    margin-bottom: 0px;
+  }
+}
+
+/* -------------estilo color letras del titulo */
+.hb {
+  color: rgb(255, 217, 107);
+}
+
+.o {
+  color: rgb(112, 173, 71);
+}
+
+/*---------------------------------------Identificarse.html----------*/
+.recortado {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+#enviar {
+  font-weight: bold;
+  margin-left: 80px;
+  margin-right: 10px;
+  border-radius: 15%;
+}
+
+#olvido {
+  font-weight: bold;
+  border-radius: 15%;
+}
+
+#registrarse {
+  font-weight: bold;
+  border-radius: 15%;
+  margin-left: 10px;
+}
+
+.br {
+  display: none;
+}
+
+/*****************************************************MOVIL*********************/
+@media (max-width: 376px) {
+  .rnav {
+    width: 480px;
+  }
+
+  .lfoto {
+    margin-top: 25px;
+    margin-left: 25%;
+    width: 60%;
+  }
+
+  #header .profile img {
+    margin: 7px auto;
+    display: block;
+    width: 80px;
+  }
+
+  #Ibuscar {
+    max-width: 220px;
+    margin-bottom: 0px;
+  }
+
+  .rcombo {
+    min-width: 80px;
+    margin-top: 10px;
+    background-color: white;
+  }
+
+  .rlabel {
+    font-size: 15px;
+    color: #656b86;
+  }
+
+  .inputperfil {
+    margin: 1px;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 150px;
+  }
+
+  .rtitulo {
+    text-align: center;
+    margin-top: 275px;
+    font-size: 20px;
+    z-index: 5;
+    size: 20;
+  }
+
+  .rfiel, #inicio h1 {
+    font-style: italic;
+    font-weight: bold;
+    color: #09628b;
+    font-size: 25px;
+    margin-bottom: 5px;
+    
+  }
+
+  .rfondoi {
+    width: 350px;
+    height: 350px;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    /* padding: 30px; */
+    margin-left: 5px;
+    border-radius: 5%;
+    padding: 5px;
+  }
+
+  .rfondo {
+    width: 95%;
+    height: 650px;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    /* padding: 30px; */
+    margin-left: 5px;
+    border-radius: 5%;
+    padding: 10px 7px 10px 7px;
+  }
+
+  .rfondor {
+    width: 95%;
+    height: 820px;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    /* padding: 30px; */
+    margin-left: 5px;
+    border-radius: 5%;
+    padding: 5px;
+    margin-bottom: 40px;
+  }
+
+  .rfondo2 {
+    width: 95%;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    /* padding: 30px; */
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 5%;
+    height: 75%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .rfondo3 {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 5%;
+    width: 400px;
+    margin-right: 1px;
+    margin-left: 1px;
+  }
+
+  .rfondo4 {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding-top: 20px;
+    padding-bottom: 80px;
+    border-radius: 5%;
+    width: 360px;
+    height: 470px;
+    margin-right: 1px;
+    margin-left: 25px;
+    margin-top: 5px;
+  }
+
+  #footer {
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 14px;
+    position: relative;
+    left: 0;
+    bottom: -220px;
+    width: 100%;
+    z-index: 9999;
+    background: #040b14;
+  }
+
+  #footerp {
+    text-align: center;
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 14px;
+    position: relative;
+    left: 0;
+    bottom: -40px;
+    width: 100%;
+    z-index: 9999;
+    background: #040b14;
+  }
+
+  #footer1 {
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 14px;
+    position: relative;
+    left: 0;
+    top: 950px;
+    width: 125%;
+    z-index: 9999;
+    background: #040b14;
+    justify-content: center;
+  }
+
+  #footer2 {
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 14px;
+    position: relative;
+    left: 0;
+    top: 950px;
+    width: 100%;
+    z-index: 9999;
+    background: #040b14;
+    justify-content: center;
+  }
+
+  .movil {
+    width: 80px;
+    height: 80px;
+  }
+
+  .br {
+    display: block;
+  }
+
+  .texto-identificarse,
+  .input-sugerencia {
+    font-size: 15px;
+    max-width: 150px;
+    /* margin-top: 10px; */
+  }
+
+  #enviar {
+    margin-left: 0px;
+    font-weight: bold;
+    border-radius: 15%;
+    margin-bottom: 3px;
+  }
+
+  #olvido {
+    font-weight: bold;
+    border-radius: 15%;
+    margin-bottom: 3px;
+  }
+
+  #registrarse {
+    font-weight: bold;
+    border-radius: 15%;
+  }
+
+  .txt {
+    margin-top: 10px;
+    width: 150px;
+    background-color: #eaebf0;
+    color: #040b14;
+    font-weight: bold;
+  }
+
+  .ppreguntas {
+    font-size: 15px;
+    color: black;
+    font-style: italic;
+    font-weight: bold;
+    margin-left: 10%;
+  }
+
+  .titulo {
+    font-weight: bold;
+    font-family: sans-serif;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    padding-right: 10px;
+    /* padding-left: 10px; */
+    display: flex;
+    /* justify-content: center; */
+    color: #1d2529e6;
+    font-size: 18px;
+  }
+
+  #tituloPreguntas {
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 30px;
+    margin-left: 30%;
+  }
+
+  .fotoretro {
+    margin-top: 30%;
+    width: 140px;
+  }
+}
+
+.botones:hover {
+  background-color: rgb(255, 217, 107);
+  color: rgb(37, 57, 24);
+  font-weight: bold;
+}
+
+/****************Media para mantener el alncho de los input fuera del movil*********/
+@media (min-width: 376px) {
+
+  .rcombo {
+    min-width: 240px;
+    margin-top: 10px;
+    background-color: white;
+  }
+
+  .rlabel {
+    font-size: 15px;
+    color: #656b86;
+  }
+
+  .texto-identificarse,
+  .input-sugerencia {
+    margin-top: 10px;
+    min-width: 240px;
+    max-height: 40px;
+    font-size: 15px;
+  }
+
+  .inputperfil {
+    margin: 1px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .rfondoi {
+    width: 600px;
+    height: 425px;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    /* padding: 30px; */
+    margin-left: 5px;
+    border-radius: 5%;
+    padding: 5px;
+  }
+
+  .rfondo {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px;
+    /* margin-left: 38%; */
+    /* min-width: 600px; */
+    /* height: 99%; */
+    border-radius: 5%;
+    width: 650px;
+  }
+
+  .rfondor {
+    width: 575px;
+    height: 730px;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    /* padding: 30px; */
+    margin-left: 5px;
+    border-radius: 5%;
+    /* padding-left: 50px; */
+    padding-top: 50px;
+  }
+
+  .rfondo2 {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px;
+
+    border-radius: 5%;
+    width: 950px;
+  }
+
+  .rfondo3 {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px 15px 15px 0px;
+    border-radius: 5%;
+    width: 550px;
+    margin-right: 15px;
+    margin-left: 15px;
+    padding-left: 5px;
+  }
+
+  .rfondo4 {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 5%;
+    width: 500px;
+    margin-right: 1px;
+    margin-left: 25px;
+    margin-top: 5px;
+  }
+
+
+
+  #footer1{
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 14px;
+    position: relative;
+    left: 0;
+    top: 865px;
+    width: 100%;
+    z-index: 9999;
+    background: #040b14;
+    justify-content: center;
+  }
+
+  .ppreguntas {
+    font-size: 22px;
+    color: black;
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  #tituloPreguntas {
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 30px;
+    margin-left: 40%;
+  }
+
+  .rtitulo {
+    font-size: 20px;
+  }
+
+  .fotoretro {
+    float: left;
+    /* margin-left: 60px;
+    margin-right: 40px; */
+    width: 150px;
+    height: 150px;
+  }
+
+  .lfoto {
+    margin-top: 100px;
+    margin-left: 10%;
+    width: 60%;
+  }
+
+  .titulo {
+    font-weight: bold;
+    font-family: sans-serif;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
+    letter-spacing: 1px;
+    color: #1d2529e6;
+    font-size: 18px;
+  }
+}
+
+
+
+.texto-identificarse:hover {
+  background-color: rgba(255, 192, 203, 0.727);
+}
+
+.texto-identificarse:focus {
+  background-color: rgba(255, 192, 203, 0.727);
+}
+
+.botonesid {
+  margin-top: 20px;
+  margin-right: 14px;
+  /*margin-left: 35px;*/
+  font-size: 20px;
+}
+
+/*---------------------------------------Sugerencias.html----------*/
+
+
+.texto-sugerencia {
+  padding-right: 10px;
+  padding-left: 10px;
+
+}
+
+.txt {
+  margin-top: 10px;
+  /* width: 240px; */
+  background-color: #eaebf0;
+  color: #040b14;
+  font-weight: bold;
+}
+
+/* .input-sugerencia {
+  margin-top: 15px;
+  background-color: #eaebf0;
+  color: #040b14;
+  font-weight: bold;
+} */
+
+.input-sugerencia:hover,
+.txt:hover {
+  background-color: rgba(255, 192, 203, 0.727);
+}
+
+.input-sugerencia:focus,
+.txt:focus {
+  background-color: rgba(255, 192, 203, 0.727);
+}
+
+.btn-sugerencia {
+  margin-top: 15px;
+  border-radius: 20%;
+  font-weight: bold;
+}
+
+.btn-sugerencia:hover {
+  background-color: rgb(255, 217, 107);
+  /* color: rgb(112, 173, 71); */
+  color: black;
+}
+
+/********************************************Perfil***************/
+.perfil {
+  position: absolute;
+  top: 40%;
+  border: 2px solid rgb(255, 217, 107);
+  width: 500px;
+  margin: 0px auto;
+}
+
+.labelperfil {
+  letter-spacing: 1px;
+  /* color: #137aa9e6; */
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.fotoperfil {
+  width: 100px;
+  height: 100px;
+  border-radius: 30%;
+  margin-bottom: 10px;
+}
+
+/* inputperfilRS {
+  margin: 1px;
+  font-size: 20px;
+  font-weight: bold;
+} */
+
+.red {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+/*****************************************Preguntas Frecuentes**************/
+.preguntas {
+  position: absolute;
+  font-size: 20px;
+  width: 90%;
+}
+
+#preguntas1-collapse,
+#preguntas2-collapse,
+#preguntas3-collapse,
+#preguntas4-collapse {
+  width: 100%;
+  color: black;
+}
+
+/* .Prespuestas {
+  font-size: 15px;
+} */
+
+.lista {
+  margin-left: 200px;
+}
+
+.botonP {
+  color: #040b14;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#Pre1:focus,
+#Pre2:focus,
+#Pre3:focus,
+#Pre4:focus {
+  color: #137aa9e6;
+}
+
+.botonP:focus .bi {
+  transform: rotate(90deg)
+}
+
+.botonP:inactive .bi {
+  transform: rotate(-90deg)
+}
+
+/**********************************************Tiendas******************/
+.sBuscador {
+  margin-top: 100px;
+}
+
+.fototienda {
+  float: left;
+  margin-left: 60px;
+  margin-right: 40px;
+  width: 150px;
+  height: 150px;
+}
+
+.tTitulo {
+  font-weight: bold;
+  font-family: cookie, sans-serif;
+  padding-bottom: 4px;
+  padding-right: 10px;
+  padding-left: 10px;
+  letter-spacing: 1px;
+  color: #137aa9e6;
+  font-size: 35px;
+}
+
+#btnTienda {
+  color: #040b14;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.lupa {
+  width: 28px;
+  height: 28px;
+  border-radius: 15%;
+}
+
+.tTienda {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.tMostrar {
+  float: left;
+}
+
+#divTiendas {
+  display: none;
+}
+
+/**********************************************Retrogaming**************/
+.listadoretro2 {
+  display: flex;
+  margin-top: 10px;
+}
+
+.nes,
+.n64,
+.NGC,
+.gameboy,
+.advance {
+  display: flex;
+  float: left;
+}
+
+.tienda {
+  position: relative;
+  vertical-align: bottom;
+  width: 100px;
+  height: 100px;
+  margin-left: 50%;
+}
+
+/************************************************arte****************/
+.arte {
+  position: absolute;
+  justify-content: center;
+}
+
+@media (max-width: 400px) {
+  .Anavbar {
+    /**font-size: 10px;**/
+    height: 50px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1198px) {
+  .Anavbar {
+    margin-left: 10px;
+    margin-right: 10%;
+    height: 50px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1199px) {
+  .listadoretro {
+    margin-left: 25%;
+  }
+
+  .Anavbar {
+    margin-left: 25%;
+    margin-right: 10%;
+    height: 50px;
+  }
+}
+
+.ah1 {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.amargen {
+  margin-left: 5%;
+}
+
+.aFoto {
+  width: 90%;
+  margin-top: 20px;
+}
+
+.alabel {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.arow {
+  margin-right: 5%;
+}
+
+
+/**********************************************buscador***********/
+
+#Ibuscar {
+  background-color: white;
+  color: #a8a9b4;
+}
+
+.Ibuscador:hover {
+  color: #37b3ed;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+
+.Ibuscador {
+  background-color: #040b14;
+  border: 1px solid transparent;
+}
+
+#buscador {
+  justify-items: center;
+  margin-left: 10px;
+}
+
+/************************************************lectura***********/
+.ltortuga {
+  width: 40px;
+  height: 40px;
+  float: left;
+}
+
+.lcontenido {
+  position: absolute;
+  margin-top: 100px;
+}
+
+.lfilas {
+  margin-top: 100px;
+  padding-left: 5%;
+}
+
+.ltortugas {
+  display: flex;
+  opacity: 1;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+
+
+#lpaginas,
+#lautor,
+#ltitulo,
+#lsinopsis {
+  margin-top: 5px;
+}
+
+
+/***********************************arte_ideas*************/
+.aifoto {
+  width: 400px;
+  height: 650px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/************************************registro***************/
+
+.avatar {
+  width: 10%;
+  /* height: 80px; */
+  margin-bottom: 10px;
+  margin: 0 auto;
+}
+
+#rhobbie,
+.rop {
+  background-color: white;
+}
+
+#rhobbie:hover,
+#avatar:hover,
+.rcombo:hover {
+  background-color: rgba(255, 192, 203, 0.727);
+}
+
+#rvolver {
+  border-radius: 15%;
+}
+
+.ayuda {
+  font-style: italic;
+  font-size: 20px;
+  color: #656b86;
+}
+
+
+.rfiel {
+  font-style: italic;
+  font-weight: bold;
+  color: #09628b;
+  font-size: 20px;
+  margin-bottom: 5px;
+  
+}
+
+.repite {
+  margin-bottom: 20px;
+  ;
+}
+
+.rcondiciones {
+  font-size: 15px;
+}
+/****************************************Senderismo**************/
+.sguia {
+  margin-top: 10px;
+}
+
+.smapa {
+  margin-top: 20px;
+}
+
+.slabel {
+  margin-top: 20px;
+  width: 50%;
+}
+
+.stxt {
+  margin-top: 20px;
+}
+
+.slabels {
+  line-height: 20px;
+  margin-bottom: 27px;
+  font-weight: bold;
+
+}
+
+.smaps {
+  width: 100%;
+  height: 100%;
+}
+
+.scontainer {
+  width: 90%;
+  margin-left: 35px;
+}
+
+.aviso {
+  min-width: 50%;
+  justify-content: center;
+}
+
+.rnav {
+  width: 100%;
+}
+
+.errores {
+  display: flex;
+  float: right;
+  right: 5px;
+  z-index: 99;
+  width: 28%;
+  background-color: rgb(152, 226, 202);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+  /* padding: 30px; */
+  margin-right: 25px;
+  margin-top: 5px;
+  border-radius: 5%;
+  padding-left: 50px;
+  padding-top: 50px;
+  border-radius: 15%;
+}
