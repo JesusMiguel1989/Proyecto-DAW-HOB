@@ -2,8 +2,19 @@
 async function modificacion(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6) {
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5+"&condicion6="+condicion6, {
+        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6, {
         method: "PUT",
+        headers: { "Content-type": "application/json" }
+    });
+
+    response = await response.json();
+    return Promise.resolve(response);
+}
+
+//funcion asincrona para el borrado
+async function borrar(opcion, condicion, condicion2) {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI?opcion=" + opcion + "&condicion=" + condicion + "&condicion2="+condicion2, {
+        method: "DELETE",
         headers: { "Content-type": "application/json" }
     });
 
@@ -40,12 +51,12 @@ window.addEventListener("load", () => {
         let fecha_dada = new Date(mili_fecha);
         let mili = fecha1.getTime() - fecha_dada.getTime();
 
-        let antiguo=sessionStorage.getItem('alias');
+        let antiguo = sessionStorage.getItem('alias');
 
         if (expresion_key.test(key.value) && expresionmail.test(mail.value) && expresion_nom.test(alias.value) && mili > milisegundos) {
-            console.log("cambiar_usuario",alias.value,fecha.value,localidad.value,mail.value,key.value,antiguo);
-            
-            modificacion("cambiar_usuario",alias.value,fecha.value,localidad.value,mail.value,key.value,antiguo).then(data => {
+            console.log("cambiar_usuario", alias.value, fecha.value, localidad.value, mail.value, key.value, antiguo);
+
+            modificacion("cambiar_usuario", alias.value, fecha.value, localidad.value, mail.value, key.value, antiguo).then(data => {
 
                 console.log(data);
 
@@ -68,6 +79,8 @@ window.addEventListener("load", () => {
     botones[2].addEventListener("click", () => {
         //borrar
         console.log("opcion Borrar");
+        borrar("borrar",alias.value,key.value);
+        //location
     })
 
     botones[3].addEventListener("click", () => {
@@ -78,5 +91,7 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('mail');
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
+        location.replace("http://localhost/proyecto/index.html");
+        
     })
 })

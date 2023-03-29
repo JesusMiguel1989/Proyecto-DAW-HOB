@@ -72,6 +72,35 @@ if(!$conexion){
         }
 
         //opcion de borrado de usuario
+        if($opcion=="borrar"){
+            //cojo la condicion que sera la clave primaria
+            $condicion=$_GET['condicion'];
+            $condicion2=$_GET['condicion2'];
+
+            //primero hago la comprobacion de la contraseña
+            $previa=mysqli_query($conexion,"SELECT contraseña FROM USUARIOS WHERE ALIAS='".$condicion."'");
+            $fila=mysqli_fetch_row($previa);
+            //comprobamos la clave dada con la de la BBDD
+            if(password_verify($condicion2,$fila[0])){
+                //realizo el borrado en funcion del alias dado
+                $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$condicion."'");
+
+                //hago una busqueda para comprobar
+                $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
+
+                //recorro los resultados
+                while($fila=mysqli_fetch_row($resultado)){
+                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4]];
+                }//while que lo recorre
+            }
+
+            
+
+            //indico en la cabecera que sera un json
+            header("Content-type: application/json; charset=utf-8");
+            //muestro el JSON por pantalla
+            echo json_encode($array);
+        }
     }
 }
 ?>
