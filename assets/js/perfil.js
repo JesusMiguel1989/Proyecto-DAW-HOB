@@ -11,6 +11,20 @@ async function modificacion(opcion, condicion1, condicion2, condicion3, condicio
     return Promise.resolve(response);
 }
 
+//funcion asincrona para la eliminacion de datos
+async function borrar(opcion, condicion1, condicion2) {
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+    "&condicion2=" + condicion2);
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+        "&condicion2=" + condicion2 , {
+        method: "DELETE",
+        headers: { "Content-type": "application/json" }
+    });
+
+    response = await response.json();
+    return Promise.resolve(response);
+}
+
 //campos
 let alias = document.getElementById("palias");//campo alias
 let fecha = document.getElementById("pnacimiento");//campo Fecha nacimiento
@@ -69,6 +83,12 @@ window.addEventListener("load", () => {
         //borrar
         console.log("opcion Borrar");
         borrar("borrar",alias.value,key.value);
+        sessionStorage.removeItem('alias');
+        sessionStorage.removeItem('fecha');
+        sessionStorage.removeItem('mail');
+        sessionStorage.removeItem('localidad');
+        sessionStorage.removeItem('key');
+        location.replace("http://localhost/proyecto/index.html");
     })
 
     botones[3].addEventListener("click", () => {
