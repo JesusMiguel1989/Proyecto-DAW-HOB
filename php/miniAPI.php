@@ -70,6 +70,8 @@ if(!$conexion){
             //muestro el JSON por pantalla
             echo json_encode($array);
         }
+
+        //opcion de borrado de usuario
     }
 }
 ?>
