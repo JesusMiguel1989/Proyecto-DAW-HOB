@@ -328,7 +328,8 @@ a:hover {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
-#footer, #footerp {
+/* #footerp */
+#footer{
   text-align: center;
   padding: 15px;
   color: #f4f6fd;
@@ -450,13 +451,14 @@ a:hover {
     size: 20;
   }
 
-  .rfiel, #inicio h1 {
+  .rfiel,
+  #inicio h1 {
     font-style: italic;
     font-weight: bold;
     color: #09628b;
     font-size: 25px;
     margin-bottom: 5px;
-    
+
   }
 
   .rfondoi {
@@ -764,7 +766,7 @@ a:hover {
 
 
 
-  #footer1{
+  #footer1 {
     padding: 15px;
     color: #f4f6fd;
     margin-top: 15px;
@@ -776,6 +778,20 @@ a:hover {
     z-index: 9999;
     background: #040b14;
     justify-content: center;
+  }
+
+  #footerp {
+    text-align: center;
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 12px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 9999;
+    background: #040b14;
   }
 
   .ppreguntas {
@@ -824,7 +840,21 @@ a:hover {
   }
 }
 
-
+@media (min-width: 1200px){
+  #footerp{
+    text-align: center;
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 12px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    z-index: 9999;
+    background: #040b14;
+  }
+}
 
 .texto-identificarse:hover {
   background-color: rgba(255, 192, 203, 0.727);
@@ -1203,7 +1233,7 @@ a:hover {
   color: #09628b;
   font-size: 20px;
   margin-bottom: 5px;
-  
+
 }
 
 .repite {
@@ -1214,6 +1244,7 @@ a:hover {
 .rcondiciones {
   font-size: 15px;
 }
+
 /****************************************Senderismo**************/
 .sguia {
   margin-top: 10px;

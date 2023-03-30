@@ -42,12 +42,14 @@ async function borrar(opcion, condicion1, condicion2) {
     return Promise.resolve(response);
 }
 
+
 //campos
 let alias = document.getElementById("palias");//campo alias
 let fecha = document.getElementById("pnacimiento");//campo Fecha nacimiento
 let mail = document.getElementById("pemail");//campo email
 let localidad = document.getElementById("plocalidad");//campo localidad
 let key = document.getElementById("pkey");//campo contraseña
+let foto =document.getElementById("foto");//elemento foto del perfil
 //let check=document.getElementsByName("RS");//checbox Redes sociales
 
 //div validaciones
@@ -63,6 +65,18 @@ localidad.value = sessionStorage.getItem('localidad');
 
 window.addEventListener("load", () => {
     let botones = document.getElementsByName("cambiar");
+
+    let oculto =document.getElementById("oculto");
+    oculto.value=sessionStorage.getItem('alias');
+
+    let imagenes= document.getElementById("imagenes");
+
+    if(sessionStorage.getItem('foto')!="null"){
+        foto.setAttribute("src",sessionStorage.getItem('foto'));
+    }else{
+        foto.setAttribute("src","./assets/imagenes/casco.jpg");
+    }
+    
 
     botones[0].addEventListener("click", () => {
         //Cambiar
@@ -80,7 +94,7 @@ window.addEventListener("load", () => {
         let antiguo = sessionStorage.getItem('alias');
 
         nombre().then(data => {
-            if (!data.includes(alias.value)) {
+            if (!data.includes(alias.value) || alias.value==antiguo) {
                 validacion.style.display = "none";
                 validacion1.style.display="none";
                 validacion2.style.display="none";
@@ -101,6 +115,7 @@ window.addEventListener("load", () => {
                         sessionStorage.setItem('key', data[0][4]);
                         sessionStorage.setItem('fecha', data[0][1]);
                         sessionStorage.setItem('localidad', data[0][2]);
+                        sessionStorage.setItem('foto', data[0][5]);
                     });
                 } else {
                     //no cumple las condiciones
@@ -141,6 +156,7 @@ window.addEventListener("load", () => {
     botones[1].addEventListener("click", () => {
         //Cambiar Imagen
         console.log("opcion Cambiar Imagen");
+        foto.setAttribute("src",sessionStorage.getItem('foto'));
     })
 
     botones[2].addEventListener("click", () => {
@@ -152,8 +168,9 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('mail');
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
+        sessionStorage.removeItem('foto');
         location.replace("http://localhost/proyecto/index.html");
-    })
+    });//boton borrar perfil
 
     botones[3].addEventListener("click", () => {
         //Cerrar Session
@@ -163,6 +180,17 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('mail');
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
+        sessionStorage.removeItem('foto');
         location.replace("http://localhost/proyecto/index.html");
+    });//boton cerrar sesion
+
+    imagenes.addEventListener("submit",(e)=>{
+        let archivo=document.getElementById("archivo");
+
+        let exp=/.+\.png$|.+\.jpg$|.+\.jpeg$/;
+        let resultado=exp.test(archivo.value);
+        if(!resultado){
+           e.preventDefault(); 
+        }
     })
 })

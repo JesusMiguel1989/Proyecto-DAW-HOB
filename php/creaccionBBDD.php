@@ -52,7 +52,8 @@
                 F_NACIMIENTO date not null,
                 LOCALIDAD varchar(30),
                 EMAIL varchar(40) not null,
-                CONTRASEÑA varchar(100) not null
+                CONTRASEÑA varchar(100) not null,
+                FOTO varchar(44)
             )");
             //comprobaciones
             if($tusuarios){
