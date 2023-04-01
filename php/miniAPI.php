@@ -40,6 +40,30 @@ if(!$conexion){
             echo json_encode($array);
         }//if opcion usuario
 
+        if($opcion=="usuario1"){
+            
+            //recojo las condiciones de busqueda (alias y contraseña)
+            $condicion=$_GET['condicion'];
+            $condicion2=$_GET['condicion2'];
+            
+            //hago la consulta
+            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
+
+            //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
+            while($fila=mysqli_fetch_row($resultado)){
+                //compruebo la contraseña que me dio el usuario
+                if($condicion2==$fila[4]){
+                    //guardo los resultados en un array que depues devolvere como JSON
+                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
+                }//verificacion de la contraseña
+            }//while que lo recorre
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }//if opcion usuario
+
         //opcion que modifica los datos del usuario
         if($opcion=="cambiar_usuario"){
             //recojo las condiciones para la modificacion
@@ -165,6 +189,24 @@ if(!$conexion){
             $extension=substr(strstr($condicion['type'],"/"),1);
             
             $destino="C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion['name'];
+
+            if(file_exists("C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion2.".png")){
+                $ext="png";
+            }
+            if(file_exists("C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion2.".jpg")){
+                $ext="jpg";
+            }
+            if(file_exists("C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion2.".jpeg")){
+                $ext="jpeg";
+            }
+
+            echo "C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion2.".".$ext."<br>";
+            //borrado de la foto si estuviera
+            if(unlink("C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion2.".".$ext)){
+                echo "correcto";
+            }else{
+                echo "lastima, continuar?";
+            }
 
             //copio el fichero en la carpeta del servidor
             if(copy($condicion['tmp_name'],$destino)){

@@ -53,7 +53,7 @@
                 LOCALIDAD varchar(30),
                 EMAIL varchar(40) not null,
                 CONTRASEÑA varchar(100) not null,
-                FOTO varchar(44)
+                FOTO varchar(100)
             )");
             //comprobaciones
             if($tusuarios){

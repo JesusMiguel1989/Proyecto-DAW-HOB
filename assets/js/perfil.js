@@ -42,6 +42,17 @@ async function borrar(opcion, condicion1, condicion2) {
     return Promise.resolve(response);
 }
 
+async function alias1(opcion, condicion1, condicion2) {
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
+
+    response = await response.json();
+    return Promise.resolve(response);
+}//funcion asincrona que devuelve los datos del usuario si es correcto
+
 
 //campos
 let alias = document.getElementById("palias");//campo alias
@@ -49,12 +60,12 @@ let fecha = document.getElementById("pnacimiento");//campo Fecha nacimiento
 let mail = document.getElementById("pemail");//campo email
 let localidad = document.getElementById("plocalidad");//campo localidad
 let key = document.getElementById("pkey");//campo contraseña
-let foto =document.getElementById("foto");//elemento foto del perfil
+let foto = document.getElementById("foto");//elemento foto del perfil
 //let check=document.getElementsByName("RS");//checbox Redes sociales
 
 //div validaciones
 let validacion = document.getElementById("validacion");
-let validacion1=document.getElementById("validacion1");
+let validacion1 = document.getElementById("validacion1");
 let validacion2 = document.getElementById("validacion2");
 let validacion4 = document.getElementById("validacion4");
 
@@ -66,17 +77,36 @@ localidad.value = sessionStorage.getItem('localidad');
 window.addEventListener("load", () => {
     let botones = document.getElementsByName("cambiar");
 
-    let oculto =document.getElementById("oculto");
-    oculto.value=sessionStorage.getItem('alias');
+    let oculto = document.getElementById("oculto");
+    oculto.value = sessionStorage.getItem('alias');
 
-    let imagenes= document.getElementById("imagenes");
+    let imagenes = document.getElementById("imagenes");
 
-    if(sessionStorage.getItem('foto')!="null"){
-        foto.setAttribute("src",sessionStorage.getItem('foto'));
-    }else{
-        foto.setAttribute("src","./assets/imagenes/casco.jpg");
+    console.log(sessionStorage.getItem('foto'));
+    if (sessionStorage.getItem('alias') != "") {
+        alias1("usuario1", sessionStorage.getItem('alias'), sessionStorage.getItem('key')).then(data => {
+            console.log(data);
+            sessionStorage.setItem('alias', data[0][0]);
+            sessionStorage.setItem('fecha', data[0][1]);
+            sessionStorage.setItem('localidad', data[0][2]);
+            sessionStorage.setItem('mail', data[0][3]);
+            sessionStorage.setItem('key', data[0][4]);
+            sessionStorage.setItem('foto', data[0][5]);
+
+            if (sessionStorage.getItem('foto')) {
+                if (sessionStorage.getItem('foto') != "null") {
+                    foto.setAttribute("src", sessionStorage.getItem('foto'));
+                } else {
+                    foto.setAttribute("src", "./assets/imagenes/casco.jpg");
+                }
+            } else {
+                foto.setAttribute("src", "./assets/imagenes/casco.jpg");
+            }
+        });
     }
-    
+
+
+
 
     botones[0].addEventListener("click", () => {
         //Cambiar
@@ -94,16 +124,16 @@ window.addEventListener("load", () => {
         let antiguo = sessionStorage.getItem('alias');
 
         nombre().then(data => {
-            if (!data.includes(alias.value) || alias.value==antiguo) {
+            if (!data.includes(alias.value) || alias.value == antiguo) {
                 validacion.style.display = "none";
-                validacion1.style.display="none";
-                validacion2.style.display="none";
-                validacion4.style.display="none";
+                validacion1.style.display = "none";
+                validacion2.style.display = "none";
+                validacion4.style.display = "none";
 
                 alias.style.border = "1px solid black";
-                key.style.border="1px solid black";
-                mail.style.border="1px solid black";
-                fecha.style.border="1px solid black";
+                key.style.border = "1px solid black";
+                mail.style.border = "1px solid black";
+                fecha.style.border = "1px solid black";
 
                 if (expresion_key.test(key.value) && expresionmail.test(mail.value) && expresion_nom.test(alias.value) && mili > milisegundos) {
 
@@ -120,27 +150,27 @@ window.addEventListener("load", () => {
                 } else {
                     //no cumple las condiciones
                     if (!expresion_key.test(key.value)) {
-                        key.style.border="2px solid red";
-                        validacion2.style.display="block";
-                    }else{
-                        key.style.border="1px solid black";
-                        validacion2.style.display="none";
+                        key.style.border = "2px solid red";
+                        validacion2.style.display = "block";
+                    } else {
+                        key.style.border = "1px solid black";
+                        validacion2.style.display = "none";
                     }
 
                     if (!expresionmail.test(mail.value)) {
-                        mail.style.border="2px solid red";
-                        validacion1.style.display="block";
-                    }else{
-                        mail.style.border="1px solid black";
-                        validacion1.style.display="none";
+                        mail.style.border = "2px solid red";
+                        validacion1.style.display = "block";
+                    } else {
+                        mail.style.border = "1px solid black";
+                        validacion1.style.display = "none";
                     }
 
                     if (!mili > milisegundos) {
-                        fecha.style.border="2px solid red";
-                        validacion4.style.display="block";
-                    }else{
-                        fecha.style.border="1px solid black";
-                        validacion4.style.display="none";
+                        fecha.style.border = "2px solid red";
+                        validacion4.style.display = "block";
+                    } else {
+                        fecha.style.border = "1px solid black";
+                        validacion4.style.display = "none";
                     }
                 }
             } else {
@@ -156,7 +186,7 @@ window.addEventListener("load", () => {
     botones[1].addEventListener("click", () => {
         //Cambiar Imagen
         console.log("opcion Cambiar Imagen");
-        foto.setAttribute("src",sessionStorage.getItem('foto'));
+        foto.setAttribute("src", sessionStorage.getItem('foto'));
     })
 
     botones[2].addEventListener("click", () => {
@@ -184,13 +214,13 @@ window.addEventListener("load", () => {
         location.replace("http://localhost/proyecto/index.html");
     });//boton cerrar sesion
 
-    imagenes.addEventListener("submit",(e)=>{
-        let archivo=document.getElementById("archivo");
+    imagenes.addEventListener("submit", (e) => {
+        let archivo = document.getElementById("archivo");
 
-        let exp=/.+\.png$|.+\.jpg$|.+\.jpeg$/;
-        let resultado=exp.test(archivo.value);
-        if(!resultado){
-           e.preventDefault(); 
+        let exp = /.+\.png$|.+\.jpg$|.+\.jpeg$/;
+        let resultado = exp.test(archivo.value);
+        if (!resultado) {
+            e.preventDefault();
         }
     })
 })
