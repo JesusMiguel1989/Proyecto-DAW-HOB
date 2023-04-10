@@ -329,7 +329,7 @@ a:hover {
 # Footer
 --------------------------------------------------------------*/
 /* #footerp */
-#footer{
+#footer {
   text-align: center;
   padding: 15px;
   color: #f4f6fd;
@@ -408,6 +408,12 @@ a:hover {
     width: 480px;
   }
 
+  #lfoto {
+    margin-top: 25px;
+    /* margin-left: 25%; */
+    width: 60%;
+  }
+
   .lfoto {
     margin-top: 25px;
     margin-left: 25%;
@@ -431,7 +437,7 @@ a:hover {
     background-color: white;
   }
 
-  .rcombos{
+  .rcombos {
     min-width: 80px;
     margin-top: 3px;
     background-color: white;
@@ -472,7 +478,6 @@ a:hover {
     height: 350px;
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-    /* padding: 30px; */
     margin-left: 5px;
     border-radius: 5%;
     padding: 5px;
@@ -483,7 +488,6 @@ a:hover {
     height: 550px;
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-    /* padding: 30px; */
     margin-left: 5px;
     border-radius: 5%;
     padding: 10px 7px 10px 7px;
@@ -494,7 +498,6 @@ a:hover {
     height: 820px;
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-    /* padding: 30px; */
     margin-left: 5px;
     border-radius: 5%;
     padding: 5px;
@@ -505,7 +508,6 @@ a:hover {
     width: 95%;
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-    /* padding: 30px; */
     margin-left: 15px;
     margin-right: 15px;
     border-radius: 5%;
@@ -536,6 +538,16 @@ a:hover {
     margin-right: 1px;
     margin-left: 25px;
     margin-top: 5px;
+  }
+
+  .rfondo5 {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 5%;
+    width: 90%;
+    margin-left: 22px;
   }
 
   #footer {
@@ -650,9 +662,7 @@ a:hover {
     padding-top: 8px;
     padding-bottom: 4px;
     padding-right: 10px;
-    /* padding-left: 10px; */
     display: flex;
-    /* justify-content: center; */
     color: #1d2529e6;
     font-size: 18px;
   }
@@ -668,6 +678,14 @@ a:hover {
   .fotoretro {
     margin-top: 30%;
     width: 140px;
+  }
+
+  #resultados {
+    margin-left: 10%;
+  }
+
+  #lsinopsis2 {
+    min-width: 210px;
   }
 }
 
@@ -686,7 +704,7 @@ a:hover {
     background-color: white;
   }
 
-  .rcombos{
+  .rcombos {
     min-width: 270px;
     margin-top: 3px;
     background-color: white;
@@ -726,9 +744,6 @@ a:hover {
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     padding: 30px;
-    /* margin-left: 38%; */
-    /* min-width: 600px; */
-    /* height: 99%; */
     border-radius: 5%;
     width: 650px;
   }
@@ -777,7 +792,14 @@ a:hover {
     margin-top: 5px;
   }
 
-
+  .rfondo5 {
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px;
+    margin-top: 30px;
+    border-radius: 5%;
+    width: 500px;
+  }
 
   #footer1 {
     padding: 15px;
@@ -834,6 +856,14 @@ a:hover {
     height: 150px;
   }
 
+  #lfoto2 {
+    
+    width: 100%;
+    /* image-rendering: crisp-edges; */
+    image-rendering: -moz-crisp-edges;
+    object-fit: fill;
+  }
+
   .lfoto {
     margin-top: 100px;
     margin-left: 10%;
@@ -851,10 +881,18 @@ a:hover {
     color: #1d2529e6;
     font-size: 18px;
   }
+
+  #resultados {
+    margin-left: 7%;
+  }
+
+  #lsinopsis2 {
+    min-width: 65%;
+  }
 }
 
-@media (min-width: 1200px){
-  #footerp{
+@media (min-width: 1200px) {
+  #footerp {
     text-align: center;
     padding: 15px;
     color: #f4f6fd;
@@ -866,6 +904,10 @@ a:hover {
     width: 300px;
     z-index: 9999;
     background: #040b14;
+  }
+
+  #resultados {
+    margin-left: 25%;
   }
 }
 
@@ -886,27 +928,10 @@ a:hover {
 
 /*---------------------------------------Sugerencias.html----------*/
 
-
 .texto-sugerencia {
   padding-right: 10px;
   padding-left: 10px;
-
 }
-
-.txt {
-  margin-top: 10px;
-  /* width: 240px; */
-  background-color: #eaebf0;
-  color: #040b14;
-  font-weight: bold;
-}
-
-/* .input-sugerencia {
-  margin-top: 15px;
-  background-color: #eaebf0;
-  color: #040b14;
-  font-weight: bold;
-} */
 
 .input-sugerencia:hover,
 .txt:hover {
@@ -1191,15 +1216,31 @@ a:hover {
   margin-bottom: 10px;
 }
 
-
+#divbuscar {
+  z-index: 6;
+  display: none;
+  font-weight: bold;
+}
 
 #lpaginas,
 #lautor,
 #ltitulo,
-#lsinopsis {
+#lsinopsis,
+.ltbISBN {
   margin-top: 5px;
 }
 
+.lbuscador {
+  background-color: rgba(0, 0, 0, 0.79);
+  color: white;
+  border: 0px;
+}
+
+#tarjeta {
+  justify-content: center;
+  vertical-align: middle;
+  margin: 15px;
+}
 
 /***********************************arte_ideas*************/
 .aifoto {
@@ -1318,4 +1359,57 @@ a:hover {
   padding-left: 50px;
   padding-top: 50px;
   border-radius: 15%;
+}
+
+/* ************************Estrellitas************************************** */
+/* 1 el color
+label{ color:grey;}
+escondo el radio
+input[type = "radio"]{ display:none;}
+apareceran a la inversa
+.clasificacion{
+  direction: rtl;/* right to left 
+  unicode-bidi: bidi-override;/* bidi de bidireccional 
+}
+hover
+label:hover{color:orange;}
+hover de las precedentes
+label:hover ~ label{color:orange;}
+al seleccionar una las precedentes se ponen a ese color
+input[type = "radio"]:checked ~ label{color:orange;} */
+
+.estrellas {
+  width: 250px;
+  margin: 0 auto;
+  height: 50px;
+}
+
+.estrellas p {
+  text-align: center;
+}
+
+.estrellas label {
+  font-size: 25px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+/* label:hover, */
+label:hover~label {
+  color: orange;
+}
+
+input[type="radio"]:checked~label {
+  color: orange;
 }

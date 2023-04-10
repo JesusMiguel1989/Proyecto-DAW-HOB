@@ -25,11 +25,14 @@
                     $_SESSION['nombre']=$nombre;
                     $_SESSION['key']=$key;
                     //lo devuelvo por la cabecera
-                    header("Refresh:0; url=../index.html?nombre=".$_SESSION['nombre']."&key=".$_SESSION['key']);
+                    header("Refresh:0; url=../index.html");
                 }else{
+                    echo "llega por el else";
                     //en caso de no coincidir vuelve a la principal sin pasar datos
-                    header("Refresh:0; url=index.html");
+                    header("Refresh:10; url=../identificarse.html");
                 }
+            }else{
+                header("Refresh:0; url=../identificarse.html");
             }
         }
     }

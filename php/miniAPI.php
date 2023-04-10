@@ -125,6 +125,7 @@ if(!$conexion){
             echo json_encode($array);
         }//borrado
 
+        //opcion para regenerar la contraseña
         if($opcion=="correo"){
             
             //recojo las condiciones de busqueda (alias y contraseña)
@@ -177,6 +178,60 @@ if(!$conexion){
                 echo json_encode($array);
             }  
         }//opcion correo
+
+        //opcion para agregar libro LEIDO
+        if($opcion=="agregarleido"){
+            //guardo los datos
+            $condicion1=$_GET['condicion1'];
+            $condicion2=$_GET['condicion2'];
+            $condicion3=$_GET['condicion3'];
+            //le quito las barras bajas del titulo
+            $condicion3=str_replace("_"," ",$condicion3);
+            $condicion4=$_GET['condicion4'];
+            //le quito los espacios al autor
+            $condicion4=str_replace("_"," ",$condicion4);
+            $condicion5=$_GET['condicion5'];
+            $condicion6=$_GET['condicion6'];
+            $condicion7=$_GET['condicion7'];
+            $condicion8=$_GET['condicion8'];
+
+            /* echo $opcion."<br>".$condicion1."<br>".$condicion2."<br>".$condicion3."<br>".$condicion4."<br>".
+            $condicion5."<br>".$condicion6."<br>".$condicion7."<br>".$condicion8."<br>"; */
+
+            //1 compruebo que el usuario este en la base de datos
+            $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion2."'");
+
+            //si devuelve 1 o mas datos es que eexiste el usuario
+            if(mysqli_num_rows($comprobadorUsuario)==1){
+
+                $comprobarUsuISBN=mysqli_query($conexion,"SELECT * FROM LIBROS 
+                        WHERE ALIAS='".$condicion2."' AND COD_LIBRO='".$condicion1."'");
+                if(mysqli_num_rows($comprobarUsuISBN)!=true){
+                    //si no existe, inserto el libro
+                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
+                            VALUES('".$condicion1."','".$condicion2."','".$condicion3."','".$condicion4."','".$condicion5."','".$condicion6
+                            ."','".$condicion7."','".$condicion8."')");
+                            echo mysqli_error($conexion);
+                }else{
+                    echo "ese libro ya lo tienes asignado";
+                }//comprobacion de si el usuario tiene ese libro ya registrado
+            }else{
+                echo "Lo siento ese usuario no existe";
+            }//comprobacion de usuario
+
+            $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$condicion2."'");
+            while($fila=mysqli_fetch_row($comprobadorUsuario)){
+                //guardo los resultados en un array que depues devolvere como JSON
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $aux++;
+            }//while que lo recorre 
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }
+
 
         //opcion para la modificacion de la imagen
         $opcionfoto=$_POST['condicion'];

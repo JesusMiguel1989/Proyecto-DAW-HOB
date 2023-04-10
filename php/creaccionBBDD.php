@@ -225,9 +225,9 @@
                 TITULO varchar(60) not null,
                 AUTOR varchar(60) not null,
                 PAGINAS varchar(4) not null,
-                PORTADA varchar(40) not null,
+                PORTADA varchar(100) not null,
                 LEIDO ENUM('SI','NO') not null,
-                VALORACION varchar(2),
+                VALORACION int(2),
                 Primary Key (COD_LIBRO,ALIAS)
             )");
 

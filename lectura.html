@@ -117,13 +117,19 @@
                 <div class="collapse navbar-collapse" id="navbarsArte">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="lectura.html">Leyendo</a>
+                            <input type="button" class="nav-link active lbuscador" aria-current="page" id="lbuscar"
+                                value="Buscador">
+                            <!-- <a class="nav-link active" aria-current="page" href="lectura.html">buscador</a> -->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Leidos</a>
+                            <input type="button" class="nav-link active lbuscador" aria-current="page" id="lleyendo"
+                                value="Leyendo">
+                            <!-- <a class="nav-link" href="#">Leyendo</a> -->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Preferidos</a>
+                            <input type="button" class="nav-link active lbuscador" aria-current="page" id="lleidos"
+                                value="Leidos">
+                            <!-- <a class="nav-link" href="#">Leidos</a> -->
                         </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="#">Sagas</a>
@@ -132,13 +138,168 @@
                 </div>
             </div>
         </nav>
-        <div class="row lcontenido">
+
+        <div id="divbuscar">
+            <div class="row ">
+                <div class="col-1 col-md-3 col-lg-5">
+
+                </div>
+                <div class="col-11 col-md-9 col-lg-7 rfondo5">
+                    <h1>Buscador</h1>
+                    <div class="row">
+                        <!-- <div class="col-3" -->
+                        <div class="col-12 col-md-6 text-center text-md-end">
+                            <label for="lbtitulo">Dime el titulo: </label>
+                        </div>
+                        <div class="col-12 col-md-6 text-center text-md-start">
+                            <input type="text" id="lbtitulo" name="lbtitulo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-3" -->
+                        <div class="col-12 col-md-6 text-center text-md-end">
+                            <label for="lbautor" class="ltbISBN">Dime el autor: </label>
+                        </div>
+                        <div class="col-12 col-md-6 text-center text-md-start">
+                            <input type="text" id="lbautor" name="lbator" class="ltbISBN">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6 text-center text-md-end">
+                            <label for="lbISBN" class="ltbISBN">Dime el ISBN: </label>
+                        </div>
+                        <div class="col-12 col-md-6 text-center text-md-start">
+                            <input type="text" id="lbISBN" name="lbISBN" class="ltbISBN">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="clo-12 text-center text-md-center">
+                            <input type="button" id="lblanzar" value="Buscar" class="ltbISBN btn-sugerencia">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tarjeta">
+                <div class="row">
+                    <div class="col-0 col-md-1 col-lg-3">
+
+                    </div>
+                    <div class="col-0 col-md-10 col-lg-8">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-12 col-md-3 text-center ">
+                                <img src=""  id="lfoto2">
+                                <!-- class="lfoto" -->
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-1 col-md-0 col-lg-0 col-xl-0 text-center text-sm-end">
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-5 col-md-3 col-lg-3 col-xl-3 text-center text-sm-end">
+                                        <label for="ltitulo2" class="alabel">Título</label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 text-center text-sm-start">
+                                        <input type="text" id="ltitulo2" value="" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-1 col-md-0 col-lg-0 col-xl-0 text-center text-sm-end">
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-5 col-md-3 col-lg-3 col-xl-3 text-center text-sm-end">
+                                        <label for="lautor2" class="alabel">Autor</label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 text-center text-sm-start">
+                                        <input type="text" id="lautor2" value="Javier Negrete" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-1 col-md-0 col-lg-0 col-xl-0 text-center text-sm-end">
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-5 col-md-3 col-lg-3 col-xl-3 text-center text-sm-end">
+                                        <label for="lpaginas2" class="alabel">Páginas</label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 text-center text-sm-start">
+                                        <input type="text" id="lpaginas2" value="1008" readonly>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 text-center">
+                                        <label for="lsinopsis2" class="alabel">Sinopsis</label>
+                                    </div>
+                                    <div
+                                        class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 text-center">
+                                        <textarea type="text" id="lsinopsis2" readonly cols="60" rows="6"
+                                            class="txt"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div
+                                        class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 text-center">
+                                        <label for="lvaloracion2" class="alabel">Tu Valoración</label>
+                                    </div>
+                                    <div
+                                        class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 text-center">
+                                        <form class="estrellas">
+                                            <p class="clasificacion">
+                                                <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                      --><label for="radio1">★</label><!--
+                                      --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                      --><label for="radio2">★</label><!--
+                                      --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                      --><label for="radio3">★</label><!--
+                                      --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                      --><label for="radio4">★</label><!--
+                                      --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                      --><label for="radio5">★</label>
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <center>
+                                        <h2><b>Añadir a:</b></h2>
+                                    </center>
+                                    <div class="col-12 col-xs-12 col-sm-6 text-center">
+                                        <input type="button" id="actual" value="Leyendo" name="leyendo"
+                                            class="ltbISBN btn-sugerencia">
+                                    </div>
+                                    <div class="col-12 col-xs-12 col-sm-6 text-center">
+                                        <input type="button" id="anterior" value="Leido" name="leido"
+                                            class="ltbISBN btn-sugerencia">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="resultados">
+
+            </div>
+        </div>
+
+
+        <div class="row lcontenido" id="divleyendo">
             <div class="col col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12 col-12 ">
             </div>
             <div class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 ">
                 <div class="row">
                     <div class="col col-xl-4 col-lg-4 col-md-10 col-sm-12 col-xs-12 col-12 ">
                         <img src="./assets/imagenes/lectura/espartano.jpg" class="lfoto">
+                        <!--  id="lfoto" -->
                     </div>
                     <div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12 col-12 lfilas">
                         <div class="row">
@@ -187,9 +348,12 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+        </div>
+
+        <div id="divleidos">
+
         </div>
     </section>
 
@@ -228,6 +392,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/menus.js"></script>
+    <script src="assets/js/lectura.js"></script>
 
 </body>
 

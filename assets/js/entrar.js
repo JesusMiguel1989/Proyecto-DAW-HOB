@@ -1,6 +1,8 @@
+
 async function alias(opcion, condicion1, condicion2) {
     console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" +
+        opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -22,7 +24,7 @@ async function olvido(opcion, condicion1, condicion2) {
 
 window.addEventListener("load", () => {
     let nombre = document.getElementById("nombre");//campo nombre
-    let contraseña = document.getElementById("contraseña");//campo contraseña
+    let key = document.getElementById("key");//campo key
     let enviar = document.getElementById("enviar");//boton enviar submit
     let fondo = document.getElementById("rfondoi");//fondo del formulario
     //let olvido = document.getElementById("olvido");//btn olvido
@@ -30,7 +32,9 @@ window.addEventListener("load", () => {
     let pedir = document.getElementById("pedir");//boton del menu de olvido
 
     let validacion = document.getElementById("validacion");//div con el error 1
+    let validacion1 = document.getElementById("validacion1");//div con el error 1
     let validacion2 = document.getElementById("validacion2");//div con el error 2
+    let validacion3 = document.getElementById("validacion3");//div con el error 1
 
     entrada.addEventListener("submit", (e) => {
         let validador = true;
@@ -46,32 +50,43 @@ window.addEventListener("load", () => {
             validacion.style.display = "none";
         }
 
-        if (contraseña.value == "") {
+        if (key.value == "") {
             validador = false;
-            contraseña.style.border = "2px solid red";
+            key.style.border = "2px solid red";
             fondo.style.height = "500px";
             validacion2.style.display = "block";
             validacion2.style.fontWeight = "bold";
             e.preventDefault();
         } else {
             fondo.style.height = "425px";
-            contraseña.style.border = "1px solid black";
+            key.style.border = "1px solid black";
             validacion2.style.display = "none";
         }
+        console.log(nombre.value + "\n" + key.value);
 
         if (validador) {
-            alias("usuario", nombre.value, contraseña.value).then(data => {
+            alias("usuario", nombre.value, key.value).then(data => {
                 console.log(data);
-                sessionStorage.setItem('alias', data[0][0]);
-                sessionStorage.setItem('fecha', data[0][1]);
-                sessionStorage.setItem('localidad', data[0][2]);
-                sessionStorage.setItem('mail', data[0][3]);
-                sessionStorage.setItem('key', data[0][4]);
-                sessionStorage.setItem('foto', data[0][5]);
+                if (data == "") {
+                    validacion1.style.display = "block";
+                    validacion3.style.display = "block";
+                } else {
+                    validacion1.style.display = "none";
+                    validacion3.style.display = "none";
+                    sessionStorage.setItem('alias', data[0][0]);
+                    sessionStorage.setItem('fecha', data[0][1]);
+                    sessionStorage.setItem('localidad', data[0][2]);
+                    sessionStorage.setItem('mail', data[0][3]);
+                    sessionStorage.setItem('key', data[0][4]);
+                    sessionStorage.setItem('foto', data[0][5]);
+                    location.replace('http://localhost/proyecto/index.html');
+                }
+
             });
         }
     })//click de enviar
 
+    //olvido de contraseña
     pedir.addEventListener("click", (e) => {
         //variables
         let validador = true;
@@ -121,6 +136,5 @@ window.addEventListener("load", () => {
         } else {
             e.preventDefault();
         }
-
     })
 })
