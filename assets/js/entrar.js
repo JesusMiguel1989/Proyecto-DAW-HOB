@@ -1,6 +1,11 @@
+let validacion = document.getElementById("validacion");//div con el error 1
+let validacion1 = document.getElementById("validacion1");//div con el error 1
+let validacion2 = document.getElementById("validacion2");//div con el error 2
+let validacion3 = document.getElementById("validacion3");//div con el error 1
+
 
 async function alias(opcion, condicion1, condicion2) {
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
+    //console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" +
         opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "GET",
@@ -8,6 +13,29 @@ async function alias(opcion, condicion1, condicion2) {
     });
 
     response = await response.json();
+
+    if (response == "") {
+        validacion1.style.display = "block";
+        validacion3.style.display = "block";
+    } else {
+        validacion1.style.display = "none";
+        validacion3.style.display = "none";
+        sessionStorage.setItem('alias', response[0][0]);
+        sessionStorage.setItem('fecha', response[0][1]);
+        sessionStorage.setItem('localidad', response[0][2]);
+        sessionStorage.setItem('mail', response[0][3]);
+        sessionStorage.setItem('key', response[0][4]);
+        sessionStorage.setItem('foto', response[0][5]);
+
+        //redireccionamiento del usuario segun rol
+        let perfil = sessionStorage.getItem("alias");
+        if (perfil == "Administrador") {
+            window.location.replace("http://localhost/proyecto/admin.html");
+        } else {
+            location.replace('http://localhost/proyecto/index.html');
+        }
+    }
+
     return Promise.resolve(response);
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
@@ -28,15 +56,10 @@ window.addEventListener("load", () => {
     let enviar = document.getElementById("enviar");//boton enviar submit
     let fondo = document.getElementById("rfondoi");//fondo del formulario
     //let olvido = document.getElementById("olvido");//btn olvido
-    let entrada = document.getElementById("entrada");//formulario
+    let entrada = document.getElementById("enviar");//formulario
     let pedir = document.getElementById("pedir");//boton del menu de olvido
 
-    let validacion = document.getElementById("validacion");//div con el error 1
-    let validacion1 = document.getElementById("validacion1");//div con el error 1
-    let validacion2 = document.getElementById("validacion2");//div con el error 2
-    let validacion3 = document.getElementById("validacion3");//div con el error 1
-
-    entrada.addEventListener("submit", (e) => {
+    entrada.addEventListener("click", async (e) => {
         let validador = true;
 
         if (nombre.value == "") {
@@ -65,25 +88,9 @@ window.addEventListener("load", () => {
         console.log(nombre.value + "\n" + key.value);
 
         if (validador) {
-            alias("usuario", nombre.value, key.value).then(data => {
-                console.log(data);
-                if (data == "") {
-                    validacion1.style.display = "block";
-                    validacion3.style.display = "block";
-                } else {
-                    validacion1.style.display = "none";
-                    validacion3.style.display = "none";
-                    sessionStorage.setItem('alias', data[0][0]);
-                    sessionStorage.setItem('fecha', data[0][1]);
-                    sessionStorage.setItem('localidad', data[0][2]);
-                    sessionStorage.setItem('mail', data[0][3]);
-                    sessionStorage.setItem('key', data[0][4]);
-                    sessionStorage.setItem('foto', data[0][5]);
-                    location.replace('http://localhost/proyecto/index.html');
-                }
-
-            });
+            await alias("usuario", nombre.value, key.value);
         }
+
     })//click de enviar
 
     //olvido de contraseña

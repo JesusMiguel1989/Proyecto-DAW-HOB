@@ -53,7 +53,9 @@
                 LOCALIDAD varchar(30),
                 EMAIL varchar(40) not null,
                 CONTRASEÑA varchar(100) not null,
-                FOTO varchar(100)
+                FOTO varchar(100),
+                ESTADO enum('OK','Pendiente','Banneado') not null DEFAULT 'Pendiente',
+                F_REGISTRO date not null
             )");
             //comprobaciones
             if($tusuarios){
@@ -133,12 +135,14 @@
 
             //Tiendas
             $trelacion=mysqli_query($conexion,"CREATE TABLE TIENDAS (
-                COD_TIENDA varchar(4) Primary Key,
+                COD_TIENDA varchar(6) Primary Key,
                 LOCALIDAD varchar(30) not null,
                 PROVINCIA varchar(30) not null,
                 NOMBRE varchar(40) not null,
                 DIRECCION varchar(80) not null,
-                TELEFONO varchar(14)
+                TELEFONO varchar(14),
+                COD_HOBBIE VARCHAR(2) not null,
+                LOGO VARCHAR(250) not null
             )");
 
             //comprobaciones
@@ -271,6 +275,14 @@
             }else{
                 echo mysqli_error($conexion);
             }
+
+            //BLACKLIST
+            $trelacion=mysqli_query($conexion,"CREATE TABLE BLACKLIST (
+                ALIAS varchar(40) not null,
+                FEC_TOPE DATE not null,
+                MOTIVO varchar(150) not null,
+                Primary Key (ALIAS)
+            )");
         }
     }//else
 ?>

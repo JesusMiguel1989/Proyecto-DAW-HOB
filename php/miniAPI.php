@@ -12,9 +12,20 @@ if(!$conexion){
     
     if(mysqli_query($conexion,"use HOBBIES")){
         $opcion=$_GET['opcion'];
+        $op=$_POST['opcion'];
         
         /* echo $_GET['opcion']."<br>"; */
         
+        //hago limpia de usuarios que no han hecho el ultimo paso del registro (correo)
+        $fecha=date("Y-m-d");
+
+        $resultado=mysqli_query($conexion,"SELECT ALIAS FROM USUARIOS WHERE F_REGISTRO<'".$fecha."'");
+
+        $aux=0;
+        while($fila=mysqli_fetch_row($resultado)){
+            $eliminacion=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$fila[0]."'");
+        }
+
         //opcion que devuelve los datos del usuario que le indiquemos
         if($opcion=="usuario"){
             
@@ -23,7 +34,7 @@ if(!$conexion){
             $condicion2=$_GET['condicion2'];
             
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."' AND ESTADO='OK'");
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
@@ -33,6 +44,9 @@ if(!$conexion){
                     $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
                 }//verificacion de la contraseña
             }//while que lo recorre
+
+            //cambio el valor de la variable para  que ejecute la instruccion de actualizar tabla (BLACKLIST)
+            $opcion="redencion";
 
             //indico que sera un JSON con UTF-8
             header("Content-type: application/json; charset=utf-8");
@@ -108,15 +122,16 @@ if(!$conexion){
             //comprobamos la clave dada con la de la BBDD
             if(password_verify($condicion2,$fila[0])){
                 //realizo el borrado en funcion del alias dado
+                $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$condicion."'");
                 $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$condicion."'");
 
-                //hago una busqueda para comprobar
+                /* //hago una busqueda para comprobar
                 $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
 
                 //recorro los resultados
                 while($fila=mysqli_fetch_row($resultado)){
                     $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
-                }//while que lo recorre
+                }//while que lo recorre */
             }
 
             //indico en la cabecera que sera un json
@@ -179,60 +194,6 @@ if(!$conexion){
             }  
         }//opcion correo
 
-        //opcion para agregar libro LEIDO
-        if($opcion=="agregarleido"){
-            //guardo los datos
-            $condicion1=$_GET['condicion1'];
-            $condicion2=$_GET['condicion2'];
-            $condicion3=$_GET['condicion3'];
-            //le quito las barras bajas del titulo
-            $condicion3=str_replace("_"," ",$condicion3);
-            $condicion4=$_GET['condicion4'];
-            //le quito los espacios al autor
-            $condicion4=str_replace("_"," ",$condicion4);
-            $condicion5=$_GET['condicion5'];
-            $condicion6=$_GET['condicion6'];
-            $condicion7=$_GET['condicion7'];
-            $condicion8=$_GET['condicion8'];
-
-            /* echo $opcion."<br>".$condicion1."<br>".$condicion2."<br>".$condicion3."<br>".$condicion4."<br>".
-            $condicion5."<br>".$condicion6."<br>".$condicion7."<br>".$condicion8."<br>"; */
-
-            //1 compruebo que el usuario este en la base de datos
-            $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion2."'");
-
-            //si devuelve 1 o mas datos es que eexiste el usuario
-            if(mysqli_num_rows($comprobadorUsuario)==1){
-
-                $comprobarUsuISBN=mysqli_query($conexion,"SELECT * FROM LIBROS 
-                        WHERE ALIAS='".$condicion2."' AND COD_LIBRO='".$condicion1."'");
-                if(mysqli_num_rows($comprobarUsuISBN)!=true){
-                    //si no existe, inserto el libro
-                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
-                            VALUES('".$condicion1."','".$condicion2."','".$condicion3."','".$condicion4."','".$condicion5."','".$condicion6
-                            ."','".$condicion7."','".$condicion8."')");
-                            echo mysqli_error($conexion);
-                }else{
-                    echo "ese libro ya lo tienes asignado";
-                }//comprobacion de si el usuario tiene ese libro ya registrado
-            }else{
-                echo "Lo siento ese usuario no existe";
-            }//comprobacion de usuario
-
-            $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$condicion2."'");
-            while($fila=mysqli_fetch_row($comprobadorUsuario)){
-                //guardo los resultados en un array que depues devolvere como JSON
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
-                $aux++;
-            }//while que lo recorre 
-
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
-        }
-
-
         //opcion para la modificacion de la imagen
         $opcionfoto=$_POST['condicion'];
 
@@ -285,6 +246,427 @@ if(!$conexion){
             echo json_encode($array); */
             header("Refresh:0; url=http://localhost/proyecto/perfil.html");
         }//if cambio foto
-    }
+
+        ///////////////////////////Libros/////////////////////////////////////
+
+        //opcion para agregar libro LEIDO
+        if($opcion=="agregarleido"){
+            //guardo los datos
+            $cod=$_GET['condicion1'];
+            $alias=$_GET['condicion2'];
+            $alias=str_replace("_"," ",$alias);
+            $titulo=$_GET['condicion3'];
+            //le quito las barras bajas del titulo
+            $titulo=str_replace("_"," ",$titulo);
+            $autor=$_GET['condicion4'];
+            //le quito los espacios al autor
+            $autor=str_replace("_"," ",$autor);
+            $pag=$_GET['condicion5'];
+            $portada=$_GET['condicion6'];
+            $leido=$_GET['condicion7'];//si o no
+            $valoracion=$_GET['condicion8'];
+
+            echo $opcion."<br>".$cod."<br>".$alias."<br>".$titulo."<br>".$autor."<br>".
+            $pag."<br>".$portada."<br>".$leido."<br>".$valoracion."<br>";
+
+            //1 compruebo que el usuario este en la base de datos
+            $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."'");
+           
+            //si devuelve 1 o mas datos es que eexiste el usuario
+            if(mysqli_num_rows($comprobadorUsuario)==1){
+
+                $comprobarUsuISBN=mysqli_query($conexion,"SELECT * FROM LIBROS 
+                        WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
+                
+                if(mysqli_num_rows($comprobarUsuISBN)==0){
+
+                    echo "INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
+                    VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
+                    ."','".$leido."',".$valoracion.")";
+                    
+                    //si no existe, inserto el libro
+                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
+                    VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
+                    ."','".$leido."',".$valoracion.")");
+                    echo mysqli_error($conexion);
+                }else{
+                    echo "llega2";
+                    //si y alo tienes comprobamos si te lo has terminado
+                    if(mysqli_num_rows($comprobarUsuISBN)==1){
+                        
+                        $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET COD_LIBRO='".$cod."', ALIAS='".$alias."'
+                        , TITULO='".$titulo."', AUTOR='".$autor."', PAGINAS='".$pag."', PORTADA='".$portada."'
+                        , LEIDO='".$leido."', VALORACION='".$valoracion."'
+                        WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
+                        /* mysqli_error($conexion); */
+                    }
+                }//comprobacion de si el usuario tiene ese libro ya registrado
+            }else{
+                //echo "Lo siento ese usuario no existe";
+            }//comprobacion de usuario
+
+            /* $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$condicion2."'");
+            while($fila=mysqli_fetch_row($comprobadorUsuario)){
+                //guardo los resultados en un array que depues devolvere como JSON
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $aux++;
+            }//while que lo recorre 
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array); */
+        }
+
+        //opcion para mostrar libros que no estan terminados
+        if($opcion=="mostrarLeyendo"){
+            $alias=$_GET['condicion1'];
+            $limite=intval($_GET['condicion2']);
+
+            $alias=str_replace("_"," ",$alias);
+
+            $resultado=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='NO'
+            LIMIT ".$limite.",20");
+                        /* LIMIT ".$limite.",20 */
+
+            while($fila=mysqli_fetch_row($resultado)){
+                //guardo los resultados en un array que depues devolvere como JSON
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $aux++;
+            }//while que lo recorre 
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }
+
+        //modificacion de libro
+        if($opcion=="modificarLibro"){
+            $alias=$_GET['condicion1'];
+            $cod=$_GET['condicion2'];
+            $nota=$_GET['condicion3'];
+
+            $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET LEIDO='SI', VALORACION='".$nota."'
+                        WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'"); 
+            
+        }
+
+        //eliminacion del libro por abandono
+        if($opcion=="eliminarLibro"){
+            $alias=$_GET['condicion1'];
+            $cod=$_GET['condicion2'];
+
+            $borrado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM BLACKLIST)");
+        }
+        
+        //para mostrar ibros leidos de usuario indicado
+        if($opcion=="mostrarLeidos"){
+            $alias=$_GET['condicion1'];
+
+            $resultado=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='SI'");
+
+            while($fila=mysqli_fetch_row($resultado)){
+                //guardo los resultados en un array que depues devolvere como JSON
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $aux++;
+            }//while que lo recorre 
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }//funcion que muestra los libros leidos
+
+        //ranking
+        if($opcion=="ranking")  {
+            $resultado=mysqli_query($conexion,"SELECT COD_LIBRO , TITULO, AUTOR, PAGINAS, PORTADA, AVG(VALORACION)
+                                    FROM libros
+                                    WHERE LEIDO='SI'
+                                    GROUP BY COD_LIBRO, TITULO, AUTOR, PAGINAS, PORTADA
+                                    ORDER BY AVG(VALORACION) DESC");
+
+            while($fila=mysqli_fetch_row($resultado)){
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
+                $aux++;
+            }//while que lo recorre 
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }//ranking 
+        
+        //copia de seguridad
+        if($opcion=="copiaSeguridad"){
+            //me quedo con la fecha de hoy para usarla en el nombre
+            $fechaActual=date("Y-m-d");
+            $nombreArchivo="copia".$fechaActual.".sql";
+
+            //ejecutamos el mysqldump
+            $resultado=exec('C:/ServidorLocal/mysql/bin/mysqldump --opt -h localhost -u root --password="1234" hobbies > C:/Apache24/htdocs/proyecto/restore/'.$nombreArchivo);
+            //segun el resultado que de informo de este
+            switch($resultado){
+                case 0:
+                    //todo correcto
+                    echo "todo corecto";
+                    break;
+                case 1:
+                    //error
+                    echo "pues no";
+                    break;
+                case 2:
+                    //error
+                    echo "que nooooo";
+                    break;
+                default:
+                    break;
+            }
+
+            header("Refresh:5 ; url=http://localhost/proyecto/admin.html");
+        }//copia de seguridad
+
+        if($op=="restore"){
+            //recojo la ubicacion y la extension para saber si es una copia de seguridad o no
+            $fichero=$_FILES['fichero']['tmp_name'];
+            $tipo=$_FILES['fichero']['type'];
+            if($tipo=="application/octet-stream"){
+                //creo una variable que almacenara la ruta donde se guardara
+                $destino="C:/Apache24/htdocs/proyecto/restore/backup.sql";
+                //copio el fichero dado por el administrador en la carpeta indicada
+                if(move_uploaded_file($fichero,$destino)){
+                    ////////////////////////////////////////////CUIDADO RUTA
+                    $resultado=exec('C:\ServidorLocal\mysql\bin\mysql -h localhost -u root --password="1234" hobbies < C:/Apache24/htdocs/proyecto/restore/backup.sql');
+                    switch($resultado){
+                        case 0:
+                            echo 'La base de datos <b>BibliotecaJimenezJM</b> se ha restaurado correctamente ';
+                            break;
+                        case 1:
+                            echo 'Se ha producido un error al exportar <b>bibliotecajimenezjm</b> a '.getcwd().'/' .$mysqlExportPath .'</b>';
+                            break;
+                        case 2:
+                            echo 'Se ha producido un error de exportación, compruebe la siguiente información';
+                            break;
+                        default:
+                            echo "Nose como has llegado hasta aqui, pero te felicito";
+                            break;
+                    }
+                }
+            }else{
+                echo "se siente";
+            } 
+            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+        }//opcion restore
+
+        //eliminacion de usuarios por castigo
+        if($opcion=="eliminacion"){
+            $alias=$_GET['condicion1'];
+
+            //hago el borrado del usuario
+            $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$condicion."'");
+            $opcion="actualizar";
+        }
+
+        //actualizar la bbdd (eliminacion de registros de usuarios eliminados)
+        if($opcion=="actualizar"){
+            $resultado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS NOT IN (SELECT ALIAS FROM USUARIOS)");
+            $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS NOT IN (SELECT ALIAS FROM USUARIOS)");
+        }
+
+        if($opcion=="agregartienda"){
+            $cod=$_GET['condicion1'];
+            $nombre=$_GET['condicion2'];
+            $telefono=$_GET['condicion3'];
+            $direccion=$_GET['condicion4'];
+            $localidad=$_GET['condicion5'];
+            $provincia=$_GET['condicion6'];
+            $cod_hob=$_GET['condicion7'];
+            $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE)
+                VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."')");
+            
+            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+        }
+
+        if($opcion=="cod_hobbie"){
+            $resultado=mysqli_query($conexion,"SELECT ID_HOBBIE FROM HOBBIE");
+
+            while($fila=mysqli_fetch_row($resultado)){
+                $array[$aux]=[$fila[0]];
+                $aux++;
+            }//while que lo recorre
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }
+
+        //opcion para ver los codigos insertados
+        if($opcion=="cod"){
+            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA FROM TIENDAS");
+
+            while($fila=mysqli_fetch_row($resultado)){
+                $array[$aux]=[$fila[0]];
+                $aux++;
+            }//while que lo recorre
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }//opcion para ver los codigos insertados
+
+        //opcion para borrar tienda
+        if($opcion=="borrartienda"){
+            $cod=$_GET['condicion1'];
+            $resultado=mysqli_query($conexion,"DELETE FROM TIENDAS WHERE COD_TIENDA='".$cod."'");
+        }//borrar tienda
+
+        //buscar tienda
+        if($opcion=="buscartienda"){
+            $cod=$_GET['condicion1'];
+            //hago la consulta
+            $resultado=mysqli_query($conexion,"SELECT * FROM TIENDAS WHERE COD_TIENDA='".$cod."'");
+
+            //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
+            while($fila=mysqli_fetch_row($resultado)){
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
+                $aux++;
+            }//while que lo recorre
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }//buscar tienda
+
+        //buscar usuario
+        if($opcion=="buscarusuario"){
+            $alias=$_GET['condicion1'];
+            //hago la consulta
+            $resultado=mysqli_query($conexion,"SELECT EMAIL FROM USUARIOS WHERE ALIAS='".$alias."'");
+
+            //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
+            while($fila=mysqli_fetch_row($resultado)){
+                $array[$aux]=[$fila[0]];
+                $aux++;
+            }//while que lo recorre
+
+            if(mysqli_num_rows($resultado)==0){
+                $array[$aux]=["No esta registrado"];
+            }
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }//buscar usuario
+
+        //banear usuario
+        if($opcion=="banearusuario"){
+            $alias=$_GET['condicion1'];
+            $motivo=$_GET['condicion2'];
+
+            //calculo la fecha del banneo, seran 30 dias
+            $fechaActual=date("Y-m-d");
+            $fecha=new DateTime($fechaActual);
+            $fecha->add(new DateInterval('P30D'));
+            $dia=$fecha->format("N");
+
+            $fechaCaducidad=$fecha->format("Y-m-d");
+
+            $motivo=str_replace("_"," ",$motivo);
+
+            $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='Banneado' WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"INSERT INTO BLACKLIST (ALIAS, FEC_TOPE, MOTIVO)
+                    VALUES ('".$alias."','".$fechaCaducidad."','".$motivo."')");
+        }//banear usuario
+
+        //perdonar usuario
+        if($opcion=="perdonarusuario"){
+            $alias=$_GET['condicion1'];
+            $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."'");
+            //$resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$alias."'");
+        }//perdonar usuario
+
+        //actualizacion de los usuarios baneados
+        if($opcion=="redencion"){
+            $fechaActual=date("Y-m-d");
+            //busco los usuarios que han cumplido con su castigo
+            $resultado=mysqli_query($conexion,"SELECT ALIAS FROM BLACKLIST WHERE FEC_TOPE<='".$fechaActual."'");
+            //recorro la tabla de los usuarios baneados para eliminar los registros
+            while($fila=mysqli_fetch_row($resultado)){
+                //se borran
+                $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$alias."'");
+                $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."'");
+                //mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$fila[0]."'");
+            }//while que recorreo los resultaods de la select
+        }//opcion redencion
+
+        //opcion para buscar libro
+        if($opcion=="buscarLibro"){
+            $cod=$_GET['condicion1'];
+
+            $resultados=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE COD_LIBRO='".$cod."'");
+
+             //recorro las posibles salidas )
+            $fila=mysqli_fetch_row($resultados);
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($fila);
+        }//opcion buscar libro
+
+        if($opcion=="modificarLibro"){
+            $cod=$_GET['condicion1'];
+            $alias=$_GET['condicion2'];
+            $titulo=$_GET['condicion3'];
+            $titulo=str_replace("_"," ",$titulo);
+            $autor=$_GET['condicion4'];
+            //le quito los espacios al autor
+            $autor=str_replace("_"," ",$autor);
+            $pag=$_GET['condicion5'];
+            $portada=$_GET['condicion6'];
+            $leido=$_GET['condicion7'];//si o no
+            $valoracion=$_GET['condicion8'];
+
+            //modificamos el registro que tenga los datos indicados
+            $resultado=mysqli_query($conexion,"UPDATE LIBROS SET TITULO='".$titulo."', AUTOR='".$autor."',
+                     PAGINAS='".$pag."', PORTADA='".$portada."', LEIDO='".$leido."', VALORACION='".$valoracion."'
+                     WHERE Alias='".$alias."' AND COD_LIBRO='".$cod."'");
+        }
+
+        //opcion para agregar un libro al usuario que elijamos
+        if($opcion=="insertarLibro"){
+            echo $opcion;
+            $cod=$_GET['condicion1'];
+            $alias=$_GET['condicion2'];
+            $titulo=$_GET['condicion3'];
+            $autor=$_GET['condicion4'];
+            $pag=$_GET['condicion5'];
+            $portada=$_GET['condicion6'];
+            $leido=$_GET['condicion7'];//si o no
+            $valoracion=$_GET['condicion8'];
+
+            //agregamos el libro
+            $resultado=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
+            VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
+            ."','".$leido."','".$valoracion."')");
+        }//opcion de agregar libro
+
+        //opcion de borrar libro
+        if($opcion=="borrarLibro"){
+            $cod=$_GET['condicion1'];
+            $alias=$_GET['condicion2'];
+
+            //agregamos el libro
+            $resultado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
+
+        }
+
+    }//uso de la bbdd hobbies
 }
 ?>

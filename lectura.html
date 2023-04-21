@@ -98,6 +98,8 @@
                             <span>Sugerencias</span></a></li>
                     <li><a href="./preguntas.html" class="nav-link scrollto"><i class="bx bx-question-mark"></i>
                             <span>Preguntas Frecuentes</span></a></li>
+                    <li id="admin"><a href="./admin.html" class="nav-link scrollto"><i class="bi bi-gear"></i>
+                            <span>Administración</span></a></li>
                 </ul>
             </nav><!-- .nav-menu -->
         </div>
@@ -113,17 +115,17 @@
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="./lectura.html">Lectura</a>
+                <!-- <a class="navbar-brand" href="./lectura.html">Lectura</a> -->
                 <div class="collapse navbar-collapse" id="navbarsArte">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <input type="button" class="nav-link active lbuscador" aria-current="page" id="lbuscar"
-                                value="Buscador">
+                                value="Buscar">
                             <!-- <a class="nav-link active" aria-current="page" href="lectura.html">buscador</a> -->
                         </li>
                         <li class="nav-item">
                             <input type="button" class="nav-link active lbuscador" aria-current="page" id="lleyendo"
-                                value="Leyendo">
+                                value="Pendiente">
                             <!-- <a class="nav-link" href="#">Leyendo</a> -->
                         </li>
                         <li class="nav-item">
@@ -131,25 +133,26 @@
                                 value="Leidos">
                             <!-- <a class="nav-link" href="#">Leidos</a> -->
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#">Sagas</a>
-                        </li> -->
+                        <li class="nav-item">
+                            <input type="button" class="nav-link active lbuscador" aria-current="page" id="lranking"
+                                value="TOP">
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         <div id="divbuscar">
-            <div class="row ">
-                <div class="col-1 col-md-3 col-lg-5">
+            <div class="row">
+                <div class="col-2 col-sm-2 col-md-3 col-lg-5">
 
                 </div>
-                <div class="col-11 col-md-9 col-lg-7 rfondo5">
+                <div class="col-10 col-md-9 col-lg-7 rfondo5">
                     <h1>Buscador</h1>
                     <div class="row">
                         <!-- <div class="col-3" -->
                         <div class="col-12 col-md-6 text-center text-md-end">
-                            <label for="lbtitulo">Dime el titulo: </label>
+                            <label for="lbtitulo" class="ltbISBN">Dime el titulo: </label>
                         </div>
                         <div class="col-12 col-md-6 text-center text-md-start">
                             <input type="text" id="lbtitulo" name="lbtitulo">
@@ -188,7 +191,7 @@
                     <div class="col-0 col-md-10 col-lg-8">
                         <div class="row justify-content-center align-items-center">
                             <div class="col-12 col-md-3 text-center ">
-                                <img src=""  id="lfoto2">
+                                <img src="" id="lfoto2">
                                 <!-- class="lfoto" -->
                             </div>
                             <div class="col-12 col-md-9">
@@ -202,7 +205,7 @@
                                     </div>
                                     <div
                                         class="col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 text-center text-sm-start">
-                                        <input type="text" id="ltitulo2" value="" readonly>
+                                        <label id="ltitulo2" value=""></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -215,7 +218,7 @@
                                     </div>
                                     <div
                                         class="col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 text-center text-sm-start">
-                                        <input type="text" id="lautor2" value="Javier Negrete" readonly>
+                                        <label id="lautor2" value="Javier Negrete"></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -228,10 +231,10 @@
                                     </div>
                                     <div
                                         class="col-12 col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-8 text-center text-sm-start">
-                                        <input type="text" id="lpaginas2" value="1008" readonly>
+                                        <label id="lpaginas2" value="1008"></label>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row" id="lsinopsis3">
                                     <div
                                         class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 text-center">
                                         <label for="lsinopsis2" class="alabel">Sinopsis</label>
@@ -264,16 +267,19 @@
                                       --><label for="radio5">★</label>
                                             </p>
                                         </form>
+                                        <div id="validacion" style="display:none">
+                                            <p>Califica el libro</p>
+                                        </div>
                                     </div>
                                 </div>
 
 
-                                <div class="row">
+                                <div class="row" id="btnlibro">
                                     <center>
-                                        <h2><b>Añadir a:</b></h2>
+                                        <label id="op" class="alabel"><b>Añadir a:</b></label>
                                     </center>
-                                    <div class="col-12 col-xs-12 col-sm-6 text-center">
-                                        <input type="button" id="actual" value="Leyendo" name="leyendo"
+                                    <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
+                                        <input type="button" id="actual" value="Agregar" name="leyendo"
                                             class="ltbISBN btn-sugerencia">
                                     </div>
                                     <div class="col-12 col-xs-12 col-sm-6 text-center">
@@ -286,7 +292,7 @@
                     </div>
                 </div>
             </div>
-            <div id="resultados">
+            <div id="resultados" class="row">
 
             </div>
         </div>
@@ -297,54 +303,42 @@
             </div>
             <div class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-xs-12 col-12 ">
                 <div class="row">
-                    <div class="col col-xl-4 col-lg-4 col-md-10 col-sm-12 col-xs-12 col-12 ">
+                    <div class="col col-xl-4 col-lg-4 col-md-10 col-sm-12 col-xs-12 col-12 text-center align-middle">
                         <img src="./assets/imagenes/lectura/espartano.jpg" class="lfoto">
                         <!--  id="lfoto" -->
                     </div>
                     <div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12 col-12 lfilas">
                         <div class="row">
-                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 ">
+                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 text-center">
                                 <label for="ltitulo" class="alabel">Título</label>
                             </div>
-                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 ">
+                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 text-center">
                                 <input type="text" id="ltitulo" value="El Espatano" readonly>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 ">
+                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 text-center">
                                 <label for="lautor" class="alabel">Autor</label>
                             </div>
-                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 ">
+                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 text-center">
                                 <input type="text" id="lautor" value="Javier Negrete" readonly>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 ">
+                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 text-center">
                                 <label for="lpaginas" class="alabel">Páginas</label>
                             </div>
-                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 ">
+                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 text-center">
                                 <input type="text" id="lpaginas" value="1008" readonly>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 ">
+                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 text-center">
                                 <label for="lsinopsis" class="alabel">Sinopsis</label>
                             </div>
-                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 ">
+                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 text-center">
                                 <textarea type="text" id="lsinopsis" readonly cols="80" rows="6"
                                     class="txt">Año 480 a. C. Antes de morir en las Termópilas el rey Leónidas entrega una carta sellada al oficial Alástor y le ordena que regrese a Esparta y se la dé a su esposa, Gorgo. ¿Por qué decide que el mejor guerrero de la ciudad abandone la batalla? Esta es la historia del hombre que nació y se crio como Perseo, hijo del rey Demarato. Víctima de conjuras palaciegas, perdió el derecho al trono, y debió aprender a sobrevivir como un simple guerrero. Mientras se olvidaba de quién había sido y de quién estaba destinado a ser, soportó mil pruebas que lo convirtieron en otra persona: Alástor, un espartano más…y a la vez un campeón entre campeones. Mientras tanto tuvo que ver cómo Gorgo, la mujer que amaba, se casaba con un miembro de la familia que había hundido su vida.</textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-xl-2 col-lg-2 col-md-2 col-sm-2 col-xs-12 col-12 ">
-                                <label for="lvaloracion" class="alabel">Valoracion</label>
-                            </div>
-                            <div class="col col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-12 col-12 ltortugas">
-                                <img src="./assets/imagenes/recortado.png" id="lvaloracion" class="ltortuga">
-                                <img src="./assets/imagenes/recortado.png" id="lvaloracion" class="ltortuga">
-                                <img src="./assets/imagenes/recortado.png" id="lvaloracion" class="ltortuga">
-                                <img src="./assets/imagenes/recortado.png" id="lvaloracion" class="ltortuga">
-                                <img src="./assets/imagenes/recortado.png" id="lvaloracion" class="ltortuga">
                             </div>
                         </div>
                     </div>
@@ -352,14 +346,12 @@
             </div>
         </div>
 
-        <div id="divleidos">
+        <div id="divleidos" class="row">
 
         </div>
     </section>
 
-
-
-    <footer id="footer2">
+    <footer id="footer2" style="display: none">
         <div class="container">
             <center>
                 <div class="copyright">
@@ -367,7 +359,7 @@
                             class="hb">B</span></strong>
                 </div>
                 <div class="credits">
-                    <span>Diseñada por <a href="https://github.com/JesusMiguel1989">Jesús Jimenez de la
+                    <span>Diseñada por <a href="https://github.com/JesusMiguel1989">Jesús Jiménez de la
                             Casa</a></span><br>
                     <span><a href="politica.html">Poltica de Privacidad</a></span>
                     <span><a href="aviso.html">Aviso Legal</a></span><br>

@@ -457,7 +457,7 @@ a:hover {
 
   .rtitulo {
     text-align: center;
-    margin-top: 275px;
+    margin-top: 300px;
     font-size: 20px;
     z-index: 5;
     size: 20;
@@ -495,7 +495,7 @@ a:hover {
 
   .rfondor {
     width: 95%;
-    height: 820px;
+    /* height: 820px; */
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     margin-left: 5px;
@@ -557,7 +557,7 @@ a:hover {
     font-size: 14px;
     position: relative;
     left: 0;
-    bottom: -30px;
+    bottom: -300px;
     /* -200px */
     width: 100%;
     z-index: 9999;
@@ -599,7 +599,7 @@ a:hover {
     font-size: 14px;
     position: relative;
     left: 0;
-    top: 950px;
+    top: 800px;
     width: 100%;
     z-index: 9999;
     background: #040b14;
@@ -815,6 +815,21 @@ a:hover {
     justify-content: center;
   }
 
+
+  #footer2 {
+    padding: 15px;
+    color: #f4f6fd;
+    margin-top: 15px;
+    font-size: 14px;
+    position: relative;
+    left: 0;
+    /* top: 780px; */
+    width: 100%;
+    z-index: 9999;
+    background: #040b14;
+    justify-content: center;
+  }
+
   #footerp {
     text-align: center;
     padding: 15px;
@@ -857,7 +872,7 @@ a:hover {
   }
 
   #lfoto2 {
-    
+
     width: 100%;
     /* image-rendering: crisp-edges; */
     image-rendering: -moz-crisp-edges;
@@ -866,7 +881,7 @@ a:hover {
 
   .lfoto {
     margin-top: 100px;
-    margin-left: 10%;
+    /* margin-left: 10%; */
     width: 60%;
   }
 
@@ -892,7 +907,9 @@ a:hover {
 }
 
 @media (min-width: 1200px) {
-  #footerp {
+
+  #footerp,
+  #footer2 {
     text-align: center;
     padding: 15px;
     color: #f4f6fd;
@@ -1162,6 +1179,8 @@ a:hover {
 .alabel {
   font-weight: bold;
   font-size: 20px;
+  text-decoration: underline;
+  color: black;
 }
 
 .arow {
@@ -1205,7 +1224,7 @@ a:hover {
 }
 
 .lfilas {
-  margin-top: 100px;
+  /* margin-top: 100px; */
   padding-left: 5%;
 }
 
@@ -1222,12 +1241,16 @@ a:hover {
   font-weight: bold;
 }
 
-#lpaginas,
-#lautor,
-#ltitulo,
-#lsinopsis,
-.ltbISBN {
+#lpaginas, #lautor, #ltitulo, #lsinopsis,
+.ltbISBN,
+#lpaginas2, #lautor2, #ltitulo2, #lsinopsis2{
   margin-top: 5px;
+  color: black;
+}
+
+#lsinopsis {
+  margin-bottom: 100px;
+  width: 90%;
 }
 
 .lbuscador {
@@ -1362,21 +1385,6 @@ a:hover {
 }
 
 /* ************************Estrellitas************************************** */
-/* 1 el color
-label{ color:grey;}
-escondo el radio
-input[type = "radio"]{ display:none;}
-apareceran a la inversa
-.clasificacion{
-  direction: rtl;/* right to left 
-  unicode-bidi: bidi-override;/* bidi de bidireccional 
-}
-hover
-label:hover{color:orange;}
-hover de las precedentes
-label:hover ~ label{color:orange;}
-al seleccionar una las precedentes se ponen a ese color
-input[type = "radio"]:checked ~ label{color:orange;} */
 
 .estrellas {
   width: 250px;
@@ -1412,4 +1420,47 @@ label:hover~label {
 
 input[type="radio"]:checked~label {
   color: orange;
+}
+
+
+/********************************Admin*********************************/
+.administrador {
+  margin-top: 100px;
+  z-index: 5;
+}
+
+.administrador h3 {
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.apartadoadmin {
+  width: 500px;
+  padding-bottom: 15px;
+  background-color: rgb(152, 226, 202);
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+  margin-left: 5px;
+  border-radius: 5%;
+}
+
+.admin{
+  font-weight: bold;
+  color: #040b14;
+  margin-top: 10px;
+}
+
+#acodtienda,#alocalidad,#aprovincia,#anombre,#adireccion,#atelefono,#acodhobie,
+#alvaloracion, #alleido, #alportada, #alpaginas, #alautor, #altitulo, #alalias, #alcodlibro
+{
+  width: 100%;
+  margin-top: 10px;
+}
+
+#aalias,#amotivo{
+  width: 90%;
+}
+
+#admin spam{
+  color: rgb(255, 217, 107);
 }

@@ -94,6 +94,8 @@
               <span>Sugerencias</span></a></li>
           <li><a href="./preguntas.html" class="nav-link scrollto"><i class="bx bx-question-mark"></i>
               <span>Preguntas Frecuentes</span></a></li>
+          <li id="admin"><a href="./admin.html" class="nav-link scrollto"><i class="bi bi-gear"></i>
+              <span>Administración</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
     </div>
@@ -105,7 +107,7 @@
       <!-- data-aos="fade-in" -->
       <img src="./assets/imagenes/recortado.png" class="recortado movil">
       <br>
-      <form method="POST"  id="entrada">
+      <!-- <form method="POST" id="entrada"> -->
         <!-- action="./php/identificarse.php" -->
         <div class="row">
           <div class="col col-5 titulo text-end">
@@ -144,50 +146,51 @@
                 class="botones"></a><br class="br">
           </div>
         </div>
-      </form>
+      <!-- </form> -->
     </div>
   </section>
 
-<!-------------------- Modal ---------------------------->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Recuperacion de Contraseña</b></h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Datos a apedir -->
-            <div class="row">
-              <div class="col-12 col-md-3 text-start text-md-end">
-                <label for="usuario">Alias: </label>
-              </div>
-              <div class="col-12 col-md-6 text-start text-md-start">
-                <input type="text" id="usuario" name="usuario" title="Alias" required>
-                <div id="validacion9" class="invalid-feedback">
-                  <span>El nombre esta vacio.</span>
-              </div>
-              </div>
+  <!-------------------- Modal ---------------------------->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Recuperacion de Contraseña</b></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Datos a apedir -->
+          <div class="row">
+            <div class="col-12 col-md-3 text-start text-md-end">
+              <label for="usuario">Alias: </label>
             </div>
-            <div class="row">
-              <div class="col-12 col-md-3 text-start text-md-end">
-                <label for="mail">Email: </label>
-              </div>
-              <div class="col-12 col-md-6 text-start text-md-start">
-                <input type="text" id="mail" name="mail" title="Email" required>
-                <div id="validacion1" class="invalid-feedback">
-                  <span>Error en el correo.</span>
-              </div>
+            <div class="col-12 col-md-6 text-start text-md-start">
+              <input type="text" id="usuario" name="usuario" title="Alias" required>
+              <div id="validacion9" class="invalid-feedback">
+                <span>El nombre esta vacio.</span>
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="botones" data-bs-dismiss="modal" title="Cerrar" id="cerrar">Cerrar</button>
-            <button type="button" class="botones" title="Pedir contraseña" id="pedir">Pedir contraseña</button><!-- btn btn-primary -->
+          <div class="row">
+            <div class="col-12 col-md-3 text-start text-md-end">
+              <label for="mail">Email: </label>
+            </div>
+            <div class="col-12 col-md-6 text-start text-md-start">
+              <input type="text" id="mail" name="mail" title="Email" required>
+              <div id="validacion1" class="invalid-feedback">
+                <span>Error en el correo.</span>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="botones" data-bs-dismiss="modal" title="Cerrar" id="cerrar">Cerrar</button>
+          <button type="button" class="botones" title="Pedir contraseña" id="pedir">Pedir
+            contraseña</button><!-- btn btn-primary -->
         </div>
       </div>
     </div>
+  </div>
 
   <footer id="footer">
     <div class="container">
@@ -195,7 +198,7 @@
         &copy; Copyright <strong><span class="hb">H</span><span class="o">O</span><span class="hb">B</span></strong>
       </div>
       <div class="credits">
-        <span>Diseñada por <a href="https://github.com/JesusMiguel1989">Jesús Jimenez de la Casa</a></span><br>
+        <span>Diseñada por <a href="https://github.com/JesusMiguel1989">Jesús Jiménez de la Casa</a></span><br>
         <span><a href="politica.html">Poltica de Privacidad</a></span>
         <span><a href="aviso.html">Aviso Legal</a></span><br>
       </div>
