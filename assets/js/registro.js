@@ -1,5 +1,5 @@
 let arrayAlias = [];
-let evento = document.createEvent("submit");
+//let evento = document.createEvent("submit");
 let eventoClick = new Event("click");
 async function alias() {
     let response = await fetch("http://localhost/proyecto/php/comprobacionAlias.php", {
@@ -27,11 +27,44 @@ window.addEventListener("load", () => {
     let condiciones = document.getElementById("condiciones");
     let rRobot = document.getElementById("rRobot");
 
+    let ojo1 = document.getElementById("verclave1");//boton ojo 1
+    let ojo2 = document.getElementById("verclave2");//boton ojo 1
+
     let enviar = document.getElementById("enviar");//submit
     //let registro = document.getElementById("inicio");//form
     let formulario = document.getElementById("inicio");//div con el formulario
     //let seccion = document.getElementById("seccion");//seccion
     let validado = false;
+
+    ojo1.addEventListener("click",()=>{
+        let contiene=ojo1.classList.contains("bi-eye-slash");
+        let doble=ojo2.classList.contains("bi-eye-slash");
+        
+        if(contiene && doble){
+            contraseña.type="text";
+            ojo1.classList.remove("bi-eye-slash");
+            ojo1.classList.add("bi-eye");
+        }else{
+            contraseña.type="password";
+            ojo1.classList.remove("bi-eye");
+            ojo1.classList.add("bi-eye-slash");
+        }
+    });//hacer visible la contraseña 1
+
+    ojo2.addEventListener("click",()=>{
+        let contiene=ojo2.classList.contains("bi-eye-slash");
+        let doble=ojo1.classList.contains("bi-eye-slash");
+        
+        if(contiene && doble){
+            contraseña2.type="text";
+            ojo2.classList.remove("bi-eye-slash");
+            ojo2.classList.add("bi-eye");
+        }else{
+            contraseña2.type="password";
+            ojo2.classList.remove("bi-eye");
+            ojo2.classList.add("bi-eye-slash");
+        }
+    })
 
     enviar.addEventListener("click", (e) => {
         let expresionmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -45,9 +78,9 @@ window.addEventListener("load", () => {
         let validacion3 = document.getElementById("validacion3");
         let validacion4 = document.getElementById("validacion4");
         let validacion34 = document.getElementById("validacion34");
-        
+
         if (!validado) {
-e.preventDefault();
+            e.preventDefault();
 
             let validacion = true;
             //comprobacion email

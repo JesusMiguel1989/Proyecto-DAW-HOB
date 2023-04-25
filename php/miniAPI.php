@@ -323,15 +323,18 @@ if(!$conexion){
             $alias=$_GET['condicion1'];
             $limite=intval($_GET['condicion2']);
 
+            //echo $limite;
             $alias=str_replace("_"," ",$alias);
 
             $resultado=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='NO'
             LIMIT ".$limite.",20");
                         /* LIMIT ".$limite.",20 */
 
+            $resultado2=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='NO'");
+            $registros2=mysqli_num_rows($resultado2);
             while($fila=mysqli_fetch_row($resultado)){
                 //guardo los resultados en un array que depues devolvere como JSON
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$registros2];
                 $aux++;
             }//while que lo recorre 
 
@@ -363,12 +366,20 @@ if(!$conexion){
         //para mostrar ibros leidos de usuario indicado
         if($opcion=="mostrarLeidos"){
             $alias=$_GET['condicion1'];
+            $alias=str_replace("_"," ",$alias);
+            $limite=intval($_GET['condicion2']);
 
-            $resultado=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='SI'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='SI'
+            LIMIT ".$limite.",20");
+
+
+            $resultado2=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='SI'");
+            $registros2=mysqli_num_rows($resultado2);
+
 
             while($fila=mysqli_fetch_row($resultado)){
                 //guardo los resultados en un array que depues devolvere como JSON
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$registros2];
                 $aux++;
             }//while que lo recorre 
 

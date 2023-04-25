@@ -10,8 +10,16 @@ let limite = 20;//variable para indicar la cantidad de elementos por pagina
 let resultadosBusqueda = 0;//variable que tendra el numero de resultados de la busqueda
 let paginasTotales = 0;//variable que guardara las paginas totales
 
+let camino;
 //variabes paginacion de pendientes
 let inicio = 0;//inicio de la pag (LIMIT 0)
+let registros = 0;//numero de registros que tiene el usuario
+let turno = 0;//variable que guardara el num de registros mostrados
+
+//variables paginacion leidos
+let inicio2 = 0;//inicio de la pag (LIMIT 0)
+let registros2 = 0;//numero de registros que tiene el usuario
+let turno2 = 0;//variable que guardara el num de registros mostrados
 
 //agregar
 let btnLeyendo = document.getElementById("actual");
@@ -62,28 +70,23 @@ async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
 async function mostrarLeyendo(opcion, condicion1) {
 
     let encontrados = [];
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
-        + "&condicion2=" + inicio,);
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    /* console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+        + "&condicion2=" + inicio); */
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+        + "&condicion2=" + inicio, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
     response = await response.json();
 
-    console.log(response);
-    /* let response2 = await fetch("https://openlibrary.org/isbn/" + response[0][0] + ".json", {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
-
-    let texto = await response2.json(); */
+    registros = response[0][8];
 
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7]/* ,texto.descripcion.value */];
+        response[i][6], response[i][7]];
         array.push(encontrados);
         mostrar2(i);
     }
@@ -95,30 +98,24 @@ async function mostrarLeyendo(opcion, condicion1) {
 async function mostrarLeidos(opcion, condicion1) {
 
     let encontrados = [];
-
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+        + "&condicion2=" + inicio2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
     response = await response.json();
-
-    /* let response2 = await fetch("https://openlibrary.org/isbn/" + response[0][0] + ".json", {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
-
-    let texto = await response2.json(); */
+    registros2 = response[0][8];
 
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7]/* ,texto.descripcion.value */];
+        response[i][6], response[i][7]];
         array.push(encontrados);
         mostrar2(i);
     }
-
-    return Promise.resolve(response);
+    pagina2();
+    //return Promise.resolve(response);
 }
 
 async function sinopsisLibro(isbn) {
@@ -188,7 +185,6 @@ function mostrar(i) {
         pos = array[i][1].length;
     }
     cadena = array[i][1].substring(0, pos);
-    console.log(cadena);
     tit.textContent = cadena;
     tit.style.fontWeight = "bold";
     tit.style.marginTop = "5px";
@@ -223,8 +219,9 @@ function mostrar(i) {
     libro.appendChild(boton);
     libro.appendChild(tit);
 
-    libro.classList.add("col-12");
-    libro.classList.add("col-sm-3");
+    libro.classList.add("col-6");
+    libro.classList.add("col-sm-4");
+    libro.classList.add("col-md-3");
     libro.classList.add("col-lg-2");
     libro.classList.add("text-center");
     libro.classList.add("mt-4");
@@ -246,7 +243,6 @@ function mostrar(i) {
 
     btn.addEventListener("click", (e) => {
         aux = i;
-        //console.log("libro" + i);
         let portada = document.getElementById("lfoto2");
         let titulo = document.getElementById("ltitulo2");
         let autor = document.getElementById("lautor2");
@@ -364,7 +360,6 @@ function mostrar2(i) {
 
     btn.addEventListener("click", () => {
 
-        console.log("libro" + i);
         let portada = document.getElementById("lfoto2");
         let titulo = document.getElementById("ltitulo2");
         let autor = document.getElementById("lautor2");
@@ -498,7 +493,6 @@ function mostrar3(i) {
 
     btn.addEventListener("click", () => {
 
-        //console.log("libro" + i);
         let portada = document.getElementById("lfoto2");
         let titulo = document.getElementById("ltitulo2");
         let autor = document.getElementById("lautor2");
@@ -579,7 +573,6 @@ async function buscarall(condicion, condicion2, condicion3) {
 
     let texto2 = await response.json();
     let cadena = "texto2.ISBN" + condicion2 + ".thumbnail_url"
-    //console.log(eval(cadena));
 
     response = await fetch("https://openlibrary.org/isbn/" + condicion2 + ".json");
     let texto3 = await response.json();
@@ -663,15 +656,7 @@ async function buscar2(condicion, condicion2) {
         } catch {
             descripcion = "Sinopsis no disponible";
         }
-        /* response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
-        let texto3 = await response.json();
-        if (typeof texto3.description === 'undefined') {
-            descripcion = "Sinopsis no disponible";
-        } else {
-            descripcion += texto3.description.value;
-        } */
 
-        //console.log(texto3.description.value);
         encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
             portada, descripcion];
         array.push(encontrados);
@@ -963,7 +948,6 @@ function buscador() {
             }
         }
     }
-    //console.log(array);
 }
 
 //funcion que crea los btn para la paginacion del buscador
@@ -1034,11 +1018,13 @@ function pagina() {
     });//btn siguiente
 }
 
+//pagina 2 para leyendo y leidos
 function pagina2() {
-    
+
     //creo el div para los botones de la paginacion
     let paginacion = document.createElement("div");
     paginacion.classList.add("row");
+    paginacion.style.margin = "20px";
 
     //creo el div de previo
     let previo = document.createElement("div");
@@ -1057,10 +1043,49 @@ function pagina2() {
     let numPag = document.createElement("div");
     numPag.classList.add("col-4", "col-sm-2", "text-center");
 
-    //creo el h1
-    /* let np = document.createElement("h3");
-    np.textContent = page + " de " + paginasTotales;
-    numPag.appendChild(np); */
+    let np = document.createElement("h4");
+    if (camino == "leyendo") {
+
+        if (registros - limite < 0) {
+            np.textContent = inicio + " al " + registros;
+        } else {
+            if (!registros <= turno + 1) {
+                //comprobar que no puede haber una 2 o 3 hoja
+                if (registros > turno + 20) {
+                    np.textContent = "Del " + turno + " al " + (turno + 20);
+                } else {
+                    np.textContent = "Del " + turno + " al " + registros;
+                }
+            } else {
+                np.textContent = "Del " + turno + " al " + limite;
+            }
+        }
+
+        /* if (registros - limite < 0) {
+            np.textContent = inicio + " al " + registros;
+        } else {
+            np.textContent = "Del " + limite + " al " + registros;
+        } */
+    }//camino leyendo
+
+    if (camino == "leido") {
+        if (registros2 - limite < 0) {
+            np.textContent = inicio2 + " al " + registros2;
+        } else {
+            if (!registros2 <= turno2 + 1) {
+                //comprobar que no puede haber una 2 o 3 hoja
+                if (registros2 > turno2 + 20) {
+                    np.textContent = "Del " + turno2 + " al " + (turno2 + 20);
+                } else {
+                    np.textContent = "Del " + turno2 + " al " + registros2;
+                }
+            } else {
+                np.textContent = "Del " + turno2 + " al " + limite;
+            }
+        }
+    }
+
+    numPag.appendChild(np);
 
     //div para siguientes
     let siguientes = document.createElement("div");
@@ -1084,25 +1109,75 @@ function pagina2() {
     resultados.appendChild(paginacion);
 
     btnprevio.addEventListener("click", (e) => {
-        if (limite > 20) {
-            resultados.innerHTML="";
-            limite -= 20;
-            let nombre = cambio(sessionStorage.getItem("alias"));
+        if (camino == "leyendo") {
+            if (inicio >= 20) {
+                tarjeta.style.display = "none";
+                resultados.innerHTML = "";
+                limite -= 20;
+                inicio -= 20;
+                turno -= 20;
+                let nombre = cambio(sessionStorage.getItem("alias"));
+                array = [];
+                mostrarLeyendo("mostrarLeyendo", nombre);
+            } else {
+                e.preventDefault();
+            }
+        }//camino leyendo
+        if (camino == "leido") {
+            if (inicio2 >= 20) {
+                tarjeta.style.display = "none";
+                resultados.innerHTML = "";
+                /*                 limite2 -= 20; */
+                inicio2 -= 20;
+                turno2 -= 20;
+                let nombre = cambio(sessionStorage.getItem("alias"));
+                array = [];
+                mostrarLeidos("mostrarLeidos", nombre);
+            } else {
+                e.preventDefault();
+            }
+        }//camino leido
 
-            mostrarLeyendo("mostrarLeyendo", nombre);
-        } else {
-            e.preventDefault();
-        }
     });//btn anterior
 
     btnsiguiente.addEventListener("click", (e) => {
-        resultados.innerHTML="";
-        limite+=20;
-        let nombre = cambio(sessionStorage.getItem("alias"));
-        
-        mostrarLeyendo("mostrarLeyendo", nombre);
+        if (camino == "leyendo") {
+            if (inicio < registros && (inicio + 20) < registros) {
+                tarjeta.style.display = "none";
+                resultados.innerHTML = "";
+                inicio += 20;
+                turno += 20;
+                let nombre = cambio(sessionStorage.getItem("alias"));
+                array = [];
+                mostrarLeyendo("mostrarLeyendo", nombre);
+            } else {
+                e.preventDefault();
+            }
+        }//camino leyendo
+
+        if (camino == "leido") {
+            if (inicio2 < registros2 && (inicio2 + 20) < registros2) {
+                tarjeta.style.display = "none";
+                resultados.innerHTML = "";
+                inicio2 += 20;
+                turno2 += 20;
+                let nombre = cambio(sessionStorage.getItem("alias"));
+                array = [];
+                mostrarLeidos("mostrarLeidos", nombre);
+            } else {
+                e.preventDefault();
+            }
+        }//camino leido
 
     });//btn siguiente
+}
+
+//pongo todos los botones dle nav al mismo color
+function navegador() {
+    buscar.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
+    leyendo.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
+    leidos.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
+    ranking.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
 }
 
 //botones
@@ -1120,12 +1195,26 @@ let tarjeta = document.getElementById("tarjeta");
 let footer = document.getElementById("footer2");
 
 window.addEventListener("load", () => {
+    let ubicacion = document.getElementById("ubicacion");
+    let nombre = sessionStorage.getItem("alias")
+    if (nombre != null) {
+        divbuscar.style.display = "block";
+        divleyendo.style.display = "none";
+        divleidos.style.display = "none";
+        tarjeta.style.display = "none";
+    }
     buscar.addEventListener("click", () => {
+        ubicacion.textContent = "Buscador";
+        ubicacion.style.fontWeight = "bold";
         //cojo el div donde se mostraran los resultados
         let resultados = document.getElementById("resultados");//div donde se guardaran todos los reultados
 
         resultados.innerHTML = "";
         array = [];
+
+        navegador();//pongo todos los botones del nav al mismo color
+        buscar.style.backgroundColor = "#7a7a7a";//cambio solo el activo
+
 
         //oculto los div que no han sido seleccionados
         divbuscar.style.display = "block";
@@ -1136,12 +1225,29 @@ window.addEventListener("load", () => {
 
     //btn que inicia la busqueda
     btnBuscardor.addEventListener("click", () => {
+        let op = document.getElementById("op");//titulo botones
+        let actual = document.getElementById("actual");//btn izquierda
+        let anterior = document.getElementById("anterior");//btn derecha
+
+        op.style.display = "inline";
+        actual.style.display = "inline";
+        anterior.style.display = "inline";
         page = 1;
         buscador();
     })
 
     //boton leyendo
     leyendo.addEventListener("click", () => {
+        ubicacion.textContent = "Pendientes";
+        ubicacion.style.fontWeight = "bold";
+
+        navegador();//cambio  el fondo de los botones dle nav
+        leyendo.style.backgroundColor = "#7a7a7a";
+
+        camino = "leyendo";
+        registros2 = 0;
+        turno2 = 0;
+        inicio2 = 0;
 
         resultados.innerHTML = "";
         array = [];
@@ -1169,13 +1275,24 @@ window.addEventListener("load", () => {
 
     //boton leidos
     leidos.addEventListener("click", () => {
+        ubicacion.textContent = "Leidos";
+        ubicacion.style.fontWeight = "bold";
+
+        navegador();//cambio  el fondo de los botones dle nav
+        leidos.style.backgroundColor = "#7a7a7a";
+
+        camino = "leido";
+        registros = 0;
+        turno = 0;
+        inicio = 0;
+
         let op = document.getElementById("op");//titulo botones
         let actual = document.getElementById("actual");//btn izquierda
         let anterior = document.getElementById("anterior");//btn derecha
 
         resultados.innerHTML = "";
         array = [];
-        mostrarLeidos("mostrarLeidos", sessionStorage.getItem("alias"));
+        mostrarLeidos("mostrarLeidos", cambio(sessionStorage.getItem("alias")));
         for (let i = 0; i < array.length; i++) {
             mostrar(i);
         }
@@ -1193,6 +1310,12 @@ window.addEventListener("load", () => {
 
     //boton ranking
     ranking.addEventListener("click", () => {
+        ubicacion.textContent = "Top Libros";
+        ubicacion.style.fontWeight = "bold";
+
+        navegador();//cambio  el fondo de los botones dle nav
+        ranking.style.backgroundColor = "#7a7a7a";
+
         resultados.innerHTML = "";
         array = [];
 
@@ -1207,7 +1330,7 @@ window.addEventListener("load", () => {
     });
 
     //boton de libro actual
-    btnLeyendo.addEventListener("click", () => {
+    btnLeyendo.addEventListener("click", async () => {
         if (btnLeyendo.value == "Terminado") {
             let validacion = document.getElementById("validacion");
             let alias = sessionStorage.getItem("alias");
@@ -1230,6 +1353,13 @@ window.addEventListener("load", () => {
                     validacion.style.display = "none";
                     modificarLibro("modificarLibro", alias, array[aux][0], nota);
                     //////RELOAD
+                    array = [];
+                    resultados.innerHTML = "";
+                    tarjeta.style.display = "none";
+                    await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then (()=>{
+                        //console.log("llega");
+                    });
+                    
                 }
             }
         } else {
@@ -1254,6 +1384,7 @@ window.addEventListener("load", () => {
                 agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota);
             }
         }
+
     })//leyendo
 
     //boton para agregar a tu perfil
@@ -1261,6 +1392,10 @@ window.addEventListener("load", () => {
         if (btnLeido.value == "Abandonado") {
             if (sessionStorage.getItem("alias") != null) {
                 eliminarLibro("eliminarLibro", sessionStorage.getItem("alias"), array[aux][0]);
+                array = [];
+                resultados.innerHTML = "";
+                tarjeta.style.display = "none";
+                mostrarLeyendo("mostrarLeyendo", cambio(nombre));
             }
         } else {
             let validacion = document.getElementById("validacion");

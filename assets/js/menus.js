@@ -1,6 +1,9 @@
 
 window.addEventListener("load", () => {
+    
+
     let menu = document.getElementById("menus");
+    let ancho=window.innerWidth;
     let header = document.getElementById("header");
 
     let perfil = sessionStorage.getItem("alias");
@@ -12,6 +15,12 @@ window.addEventListener("load", () => {
     }
     let visible = false;
 
+    if(ancho>=1200){
+        header.style.left="0px";
+    }else{
+        header.style.left="-300px";
+    }
+
     menu.addEventListener("click", () => {
         if (visible) {
             header.style.left = "-300px";
@@ -20,5 +29,15 @@ window.addEventListener("load", () => {
             header.style.left = "0px";
             visible = true;
         }
-    })
+    })//btn toggle
+
+    window.addEventListener("resize",()=>{
+        let ancho=window.innerWidth;
+
+        if(ancho>=1200){
+            header.style.left="0px";
+        }else{
+            header.style.left="-300px";
+        }
+    })//evento que calcula el ancho de la ventana
 })

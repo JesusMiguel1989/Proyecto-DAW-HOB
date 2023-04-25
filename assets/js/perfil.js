@@ -105,9 +105,7 @@ window.addEventListener("load", () => {
         });
     }
 
-
-
-
+    //btn Cambiar
     botones[0].addEventListener("click", () => {
         //Cambiar
         let fecha1 = new Date();
@@ -183,12 +181,14 @@ window.addEventListener("load", () => {
 
     })
 
+    //btn cambiar foto
     botones[1].addEventListener("click", () => {
         //Cambiar Imagen
         console.log("opcion Cambiar Imagen");
         foto.setAttribute("src", sessionStorage.getItem('foto'));
     })
 
+    //borrar cuenta
     botones[2].addEventListener("click", () => {
         //borrar
         console.log("opcion Borrar");
@@ -216,11 +216,16 @@ window.addEventListener("load", () => {
 
     imagenes.addEventListener("submit", (e) => {
         let archivo = document.getElementById("archivo");
+        let validacion9=document.getElementById("validacion9");
 
         let exp = /.+\.png$|.+\.jpg$|.+\.jpeg$/;
         let resultado = exp.test(archivo.value);
         if (!resultado) {
             e.preventDefault();
+            validacion9.style.display="block";
+            validacion9.style.color="red";
+        }else{
+            validacion9.style="none";
         }
     })
 })
