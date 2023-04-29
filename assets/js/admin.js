@@ -416,10 +416,15 @@ window.addEventListener("load", () => {
         let motivo = document.getElementById("amotivo");
 
         buscarUsuario("buscarusuario", alias.value).then(data => {
-            if (data[0][0] != "No esta registrado") {
-                motivo.textContent = "Correo Electronico\n" + data[0][0];
+            if (data[0][0] == null) {
+                motivo.textContent = "Usuario no registrado";
             } else {
-                motivo.textContent = data[0][0];
+                if (data[0][0].includes("@")) {
+                    motivo.textContent = "Correo Electronico\n" + data[0][0];
+                } else {
+                    motivo.textContent = data[0][0];
+                }
+
             }
         });
 

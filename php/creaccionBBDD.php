@@ -279,9 +279,10 @@
             //BLACKLIST
             $trelacion=mysqli_query($conexion,"CREATE TABLE BLACKLIST (
                 ALIAS varchar(40) not null,
+                CASTIGOS int NOT NULL AUTO_INCREMENT,
                 FEC_TOPE DATE not null,
                 MOTIVO varchar(150) not null,
-                Primary Key (ALIAS)
+                Primary Key (ALIAS, CASTIGOS)
             )");
         }
     }//else

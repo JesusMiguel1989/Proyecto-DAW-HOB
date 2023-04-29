@@ -47,7 +47,8 @@
 
             <!--MENU de la IZQUIERDA-->
             <div class="profile">
-                <img src="assets/imagenes/recortado.png" alt="" class="img-fluid rounded-circle">
+                <a href="index.html"><img src="assets/imagenes/recortado.png" alt=""
+                        class="img-fluid rounded-circle"></a>
                 <h1 class="text-light"><a href="index.html"><span class="hb">H</span><span class="o">O</span><span
                             class="hb">B</span></a></h1>
                 <div class="social-links mt-3 text-center">
@@ -112,87 +113,141 @@
 
     <!-- ======= inicio Section ======= Pantalla inicial de la plantilla, foto derecha -->
     <section id="inicio" class="d-flex flex-column sBuscador">
-        <div class="col-auto text-center inicio-container ">
-            <div class="row">
-                <div class="col col-xl-2 col-lg-1 col-md-0 col-sm-0 col-xs-0 col-0">
+        <div class="row buscadorTiendas">
+            <div class="col-12 col-xm-1 col-md-2 col-xl-3">
 
-                </div>
+            </div>
+            <div class="col-12 col-xm-10 col-md-9 col-lg-9 text-center">
+                <div class="row">
+                    <div class="col col-xl-1 col-lg-1 col-md-0 col-sm-0 col-xs-0 col-0">
 
-                <div class="col col-xl-10 col-lg-11 col-md-12 col-sm-12 col-xs-12 col-12 rfondo2">
-                    <div>
-                        <!-- data-aos="fade-in" -->
-                        <div class="tBuscador">
-                            <form method="get" action="#">
-                                <label for="tHobie" class="tTitulo">Selecciona Hobbie</label>
+                    </div>
+                    <div class="col col-xl-10 col-lg-10 col-md-12 col-sm-12 col-xs-12 col-12 rfondo2 
+                        justify-content-center align-items-center">
+                        <h2><b>Encuentra tu tienda</b></h2>
+                        <div class="row">
+                            <div class="col-12 col-lg-2">
+                                <label for="tHobie" class="tTitulo">Hobbie</label>
+                            </div>
+                            <div class="col-12 col-lg-4">
                                 <select name="hobie" id="tHobie" class="btn btn-secondary dropdown-toggle">
                                     <option value="Retrogaming">Retrogaming</option>
                                     <option value="Arte">Arte</option>
                                     <option value="Lectura">Lectura</option>
-                                    <option value="Lectura">Senderismo</option>
+                                    <option value="Senderismo">Senderismo</option>
                                 </select>
-                                <label for="tLocalidad" class="tTitulo">Selecciona Localidad</label>
+                            </div>
+                            <div class="col-12 col-lg-2">
+                                <label for="tLocalidad" class="tTitulo">Localidad</label>
+                            </div>
+                            <div class="col-12 col-lg-4">
                                 <select name="localidad" id="tLocalidad" class="btn btn-secondary dropdown-toggle">
                                     <optgroup label="Castilla la Mancha">
-                                        <option value="Al">Albacete</option>
-                                        <option value="Cu">Cuenca</option>
-                                        <option value="CR">Ciudad Real</option>
-                                        <option value="Gu">Guadalajara</option>
-                                        <option value="To">Toledo</option>
+                                        <option>Albacete</option>
+                                        <option>Cuenca</option>
+                                        <option>Ciudad Real</option>
+                                        <option>Guadalajara</option>
+                                        <option>Toledo</option>
                                     </optgroup>
                                     <optgroup label="C.Madrid">
-                                        <option value="Ma">Madrid</option>
+                                        <option>Madrid</option>
                                     </optgroup>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mt-3">
 
-                                <!--este boton hara las veces de submit-->
                                 <button type="button" class="btn btn-secondary" id="tbuscar">
-                                    <i class="bi-search"></i>
+                                    <i class="bi-search tTitulo2">&nbsp;Buscar</i>
                                 </button>
+                            </div>
+                        </div>
+                    </div>
 
-                            </form>
+                </div>
+                <br>
+
+                <div id="ficha" class="row">
+                    <div class="col-0 col-lg-1 col-xl-1"></div>
+
+                    <div class="col-12 col-sm-10 col-lg-10 col-xl-10 rfondo2 text-center">
+                        <div class="row align-items-center">
+                            <div class="col col-12 col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
+                                <img src="" id="fotoTienda">
+                            </div>
+                            <div class="col col-12 col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center text-md-end">
+                                        <label for="tnombre" class="alabel">Nombre: </label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 text-center text-md-start">
+                                        <label id="tnombre" class="elabel"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center text-md-end">
+                                        <label for="tlocalidad" class="alabel">Localidad:</label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 text-center text-md-start">
+                                        <label id="tlocalidad" class="elabel"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center text-md-end">
+                                        <label for="tprovincia" class="alabel">Provincia:</label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 text-center text-md-start">
+                                        <label id="tprovincia" class="elabel"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center text-md-end">
+                                        <label for="tdireccion" class="alabel">Dirección:</label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 text-center text-md-start">
+                                        <label id="tdireccion" class="elabel"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center text-md-end">
+                                        <label for="ttelefono" class="alabel">Telefono:</label>
+                                    </div>
+                                    <div
+                                        class="col-12 col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9 text-center text-md-start">
+                                        <label id="ttelefono" class="elabel"></label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
 
-            <div class="row">
-                <div class="col col-xl-2 col-lg-1 col-md-0 col-sm-0 col-xs-0 col-0">
+                <div class="row">
+                    <div class="col-0 col-lg-1 col-xl-2">
 
-                </div>
-                <div class="col col-xl-10 col-lg-11 col-md-12 col-sm-12 col-xs-12 col-12 listadoretro2" id="divtiendas">
+                    </div>
+                    <div class="col-12 col-lg-10">
+                        <div class="row" id="resultadosTiendas">
 
-                    <!--El siguiente div estara oculto hasta que el usuario seleccione hobie y localidad
-                y una vez el servidor lo resuelva, lo mostrara, cambiando a posicion absolute (sera visible)-->
-                    <div id="divTiendas">
-                        <div class="tMostrar">
-                            <a href="#"><img src="" class="fototienda" title="Tienda"></a>
                         </div>
-                        <div class="row tMostrar">
-                            <!-- <tr>
-                                <td><b>Nombre: </b></td>
-                                <td><input type="text" disabled></td>
-                            </tr>
-                            <tr>
-                                <td><b>Dirección: </b></td>
-                                <td><input type="text" disabled></td>
-                            </tr>
-                            <tr>
-                                <td><b>Telefono: </b></td>
-                                <td><input type="text" disabled></td>
-                            </tr>
-                            <tr>
-                                <td><b>Horario: </b></td>
-                                <td><textarea row="3" cols="20" disabled></textarea></td>
-                            </tr> -->
-                        </div>
-                        <!--Con este boton se redirigira a googlemaps con la direccion del comercio como destino-->
-                        <button type="button" class="btn btn-secondary">
-                            <i class="bi-compass">Como llegar</i>
-                        </button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-auto text-center buscadorTiendas ">
+
+
         </div>
     </section>
 

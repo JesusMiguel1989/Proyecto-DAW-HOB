@@ -556,13 +556,17 @@ if(!$conexion){
         if($opcion=="buscarusuario"){
             $alias=$_GET['condicion1'];
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT EMAIL FROM USUARIOS WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"SELECT EMAIL, ESTADO FROM USUARIOS WHERE ALIAS='".$alias."'");
 
-            //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
-            while($fila=mysqli_fetch_row($resultado)){
+            $fila=mysqli_fetch_row($resultado);
+            if($fila[1]=="Banneado"){
+
+                $array[$aux]=[mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM BLACKLIST WHERE ALIAS='".$alias."' 
+                    AND FEC_TOPE !='9999-01-01'"))];
+            }else{
                 $array[$aux]=[$fila[0]];
                 $aux++;
-            }//while que lo recorre
+            }
 
             if(mysqli_num_rows($resultado)==0){
                 $array[$aux]=["No esta registrado"];
@@ -598,7 +602,7 @@ if(!$conexion){
         if($opcion=="perdonarusuario"){
             $alias=$_GET['condicion1'];
             $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$alias."'");
-            $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."' AND FEC_TOPE !='9999-01-01'");
             //$resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$alias."'");
         }//perdonar usuario
 
@@ -678,6 +682,25 @@ if(!$conexion){
 
         }
 
+        ////////////PAG tiendas
+        if($opcion=="buscadorTiendaLocalidad"){
+            $hobbie=$_GET['condicion1'];
+            $localidad=$_GET['condicion2'];
+
+            //saco las tiendas que concuerden con ambos resultados
+            $resultado=mysqli_query($conexion,"SELECT * FROM TIENDAS WHERE PROVINCIA='".$localidad."' 
+                    AND COD_HOBBIE=(SELECT ID_HOBBIE FROM HOBBIE WHERE NOMBRE='".$hobbie."')");
+            
+            while($fila=mysqli_fetch_row($resultado)){
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $aux++;
+            }//while que lo recorre
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }
+
     }//uso de la bbdd hobbies
 }
-?>

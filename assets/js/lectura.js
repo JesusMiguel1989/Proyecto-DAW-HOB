@@ -238,9 +238,6 @@ function mostrar(i) {
     let btn = document.getElementById("libro" + i);
     let tarjeta = document.getElementById("tarjeta");
 
-
-    footer.style.bottom = "-200px";
-
     btn.addEventListener("click", (e) => {
         aux = i;
         let portada = document.getElementById("lfoto2");
@@ -488,8 +485,6 @@ function mostrar3(i) {
 
     let btn = document.getElementById("libro" + i);
     let tarjeta = document.getElementById("tarjeta");
-
-    footer.style.bottom = "-200px";
 
     btn.addEventListener("click", () => {
 
@@ -1234,6 +1229,7 @@ window.addEventListener("load", () => {
         anterior.style.display = "inline";
         page = 1;
         buscador();
+        footer.style.display = "block";
     })
 
     //boton leyendo
@@ -1271,6 +1267,7 @@ window.addEventListener("load", () => {
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
 
+        footer.style.display = "block";
     });
 
     //boton leidos
@@ -1306,6 +1303,7 @@ window.addEventListener("load", () => {
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
 
+        footer.style.display = "block";
     });
 
     //boton ranking
@@ -1356,10 +1354,10 @@ window.addEventListener("load", () => {
                     array = [];
                     resultados.innerHTML = "";
                     tarjeta.style.display = "none";
-                    await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then (()=>{
+                    await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then(() => {
                         //console.log("llega");
                     });
-                    
+
                 }
             }
         } else {
@@ -1384,7 +1382,7 @@ window.addEventListener("load", () => {
                 agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota);
             }
         }
-
+        footer.style.display = "block";
     })//leyendo
 
     //boton para agregar a tu perfil
@@ -1436,5 +1434,6 @@ window.addEventListener("load", () => {
                 }
             }
         }
+        footer.style.display = "block";
     })//leido
 })
