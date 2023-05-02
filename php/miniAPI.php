@@ -558,13 +558,14 @@ if(!$conexion){
             //hago la consulta
             $resultado=mysqli_query($conexion,"SELECT EMAIL, ESTADO FROM USUARIOS WHERE ALIAS='".$alias."'");
 
+            $vecesBaneado=mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM BLACKLIST WHERE ALIAS='".$alias."'"));
+
             $fila=mysqli_fetch_row($resultado);
             if($fila[1]=="Banneado"){
-
                 $array[$aux]=[mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM BLACKLIST WHERE ALIAS='".$alias."' 
-                    AND FEC_TOPE !='9999-01-01'"))];
+                    AND FEC_TOPE !='9999-01-01'")),$vecesBaneado];
             }else{
-                $array[$aux]=[$fila[0]];
+                $array[$aux]=[$fila[0],$vecesBaneado];
                 $aux++;
             }
 
@@ -592,10 +593,31 @@ if(!$conexion){
             $fechaCaducidad=$fecha->format("Y-m-d");
 
             $motivo=str_replace("_"," ",$motivo);
+            $comprobacion=mysqli_fetch_row(mysqli_query($conexion,"SELECT ESTADO FROM USUARIOS WHERE ALIAS='".$alias."'"));
 
-            $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='Banneado' WHERE ALIAS='".$alias."'");
-            $resultado=mysqli_query($conexion,"INSERT INTO BLACKLIST (ALIAS, FEC_TOPE, MOTIVO)
-                    VALUES ('".$alias."','".$fechaCaducidad."','".$motivo."')");
+            if($comprobacion[0]!="Banneado"){
+                $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='Banneado' WHERE ALIAS='".$alias."'");
+                $resultado=mysqli_query($conexion,"INSERT INTO BLACKLIST (ALIAS, FEC_TOPE, MOTIVO)
+                        VALUES ('".$alias."','".$fechaCaducidad."','".$motivo."')");
+                
+                //mail de aviso al usuario
+                $correo=mysqli_fetch_row(mysqli_query($conexion,"SELECT EMAIL FROM USUARIOS WHERE ALIAS='".$alias."'"));
+                $to=$correo[0];
+                $titulo=utf8_decode('Aviso de Banneo en HOB');
+                $mensaje=utf8_decode('Estimado usuario '.$alias.', Su cuenta ha sido bloqueada por un periado de 30 días.
+                El motivo de esta sanción es:
+                '.$motivo.'.');
+                $cabeceras = 'From: jes11989@hotmail.com';
+
+                echo $to;
+                echo "<br>".$titulo;
+                //envio
+                mail($to,$titulo,$mensaje,$cabeceras);
+            }else{
+                echo "no torturemos al usuario";
+            }
+            
+
         }//banear usuario
 
         //perdonar usuario
@@ -610,12 +632,14 @@ if(!$conexion){
         if($opcion=="redencion"){
             $fechaActual=date("Y-m-d");
             //busco los usuarios que han cumplido con su castigo
-            $resultado=mysqli_query($conexion,"SELECT ALIAS FROM BLACKLIST WHERE FEC_TOPE<='".$fechaActual."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM BLACKLIST WHERE FEC_TOPE<='".$fechaActual."'");
+
+            /* print_r(mysqli_fetch_row($resultado)); */
             //recorro la tabla de los usuarios baneados para eliminar los registros
             while($fila=mysqli_fetch_row($resultado)){
                 //se borran
-                $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$alias."'");
-                $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."'");
+                $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$fila[2]."'");
+                $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$fila[2]."'");
                 //mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$fila[0]."'");
             }//while que recorreo los resultaods de la select
         }//opcion redencion
@@ -700,6 +724,26 @@ if(!$conexion){
             header("Content-type: application/json; charset=utf-8");
             //muestro por pantalla
             echo json_encode($array);
+        }
+
+        //envio de sugerencias
+        if($opcion=="sugerencia"){
+            $alias=$_GET['condicion1'];
+            $mail=$_GET['condicion2'];
+            $asunto=utf8_decode(str_replace("_"," ",$_GET['condicion3']));
+            $mensaje=utf8_decode(str_replace("_"," ",$_GET['condicion4']));
+            $to='jes11989@hotmail.com';
+            $cabeceras = 'From: '. $mail;
+
+            $mensaje="El mensaje es de ".$alias." cuyo Correo electronico es: ".$mail.".
+            ".$mensaje;
+            //funcion para enviar el mensaje
+            if(mail($to,$asunto,$mensaje,$cabeceras)){
+                echo "mensaje enviado";
+            }else{
+                echo "mensaje no enviado";
+            }
+            
         }
 
     }//uso de la bbdd hobbies

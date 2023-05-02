@@ -672,14 +672,6 @@ a:hover {
     font-size: 18px;
   }
 
-  #tituloPreguntas {
-    color: black;
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 30px;
-    margin-left: 30%;
-  }
-
   .fotoretro {
     margin-top: 30%;
     width: 140px;
@@ -783,6 +775,16 @@ a:hover {
     width: 950px;
   }
 
+  .rfondo23 {
+    /* ancho de la tarjeta */
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px;
+    margin: 0 auto;
+    border-radius: 5%;
+    width: 750px;
+  }
+
   .rfondo3 {
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
@@ -865,13 +867,6 @@ a:hover {
     font-weight: bold;
   }
 
-  #tituloPreguntas {
-    color: black;
-    font-weight: bold;
-    text-decoration: underline;
-    font-size: 30px;
-    margin-left: 40%;
-  }
 
   .fotoretro {
     float: left;
@@ -1507,7 +1502,8 @@ input[type="radio"]:checked~label {
   margin-top: 10px;
 }
 
-#aalias,#amotivo{
+#aalias,#amotivo,#nveces{
+  margin-top: 10px;
   width: 90%;
 }
 
@@ -1531,4 +1527,17 @@ input[type="radio"]:checked~label {
 /*  validacion del archivo foto  */
 #validacion9{
   display: none;
+}
+
+#tituloPreguntas {
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+@media (max-width: 1500px){
+  #fichatienda{
+    left: 120px;
+    width: 790px;
+  }
 }

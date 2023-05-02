@@ -36,8 +36,6 @@ async function buscar(op, hobie, localidad) {
 //funciones normales
 function mostrar(num) {
 
-    
-
     let divTiendas = document.createElement("div");
     divTiendas.style.height = "300px";
 
@@ -85,7 +83,7 @@ function mostrar(num) {
         let telefono = document.getElementById("ttelefono");
 
         ficha.style.display="inline-flex";
-        ficha.style.width="90%";
+        ficha.style.width="75%";
         foto.setAttribute("src",array[num][7]);//indico la foto
         foto.style.width="75%";
         //centrar imagen
@@ -96,6 +94,7 @@ function mostrar(num) {
         provincia.textContent=array[num][2];//indico la provincia
         direccion.textContent=array[num][4];//indico la direccion
         telefono.textContent=array[num][5];//indico el telefono
+        window.scroll(0, 0);
     })
 }
 

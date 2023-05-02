@@ -5,7 +5,7 @@ let validacion3 = document.getElementById("validacion3");//div con el error 1
 
 
 async function alias(opcion, condicion1, condicion2) {
-    //console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" +
         opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "GET",

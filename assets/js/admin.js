@@ -32,6 +32,8 @@ let btnModificarLibro = document.getElementById("modificarLibro");//btn modifica
 let btnAgregarLibro = document.getElementById("agregarlibro");//btn agregar libro del div libros
 let btnBorrarLibro = document.getElementById("borrarlibro");//btn borrar libro del div libros
 
+let cerrarDiv = document.getElementsByName("cerrarDiv");
+
 //centinela global
 let id = false;//centinela para controlarque existe ese hobbie
 let codinsertado = false;//centinela para control del codigo
@@ -141,8 +143,8 @@ async function buscarUsuario(opcion, condicion1) {
 }
 
 async function banear(opcion, condicion1, condicion2) {
-    /* console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion+"&condicion1="+condicion1 +
-    "&condicion2="+condicion2); */
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+        "&condicion2=" + condicion2);
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2, {
         method: "GET",
@@ -212,9 +214,15 @@ function apiLibros(opcion) {
     }
 }
 
+function cerrar() {
+    restore.style.display = "none";//oculto los div
+    tiendas.style.display = "none";//dejo visible el div
+    usuarios.style.display = "none";//oculto los div
+    seleccion.style.display = "none";//oculto los div
+    libros.style.display = "none";//oculto los div
+}
+
 window.addEventListener("load", () => {
-
-
 
     let perfil = sessionStorage.getItem("alias");
 
@@ -414,6 +422,7 @@ window.addEventListener("load", () => {
     btnBuscarUsu.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
         let motivo = document.getElementById("amotivo");
+        let nveces = document.getElementById("nveces");
 
         buscarUsuario("buscarusuario", alias.value).then(data => {
             if (data[0][0] == null) {
@@ -421,8 +430,10 @@ window.addEventListener("load", () => {
             } else {
                 if (data[0][0].includes("@")) {
                     motivo.textContent = "Correo Electronico\n" + data[0][0];
+                    nveces.textContent = data[0][1] + " veces";
                 } else {
                     motivo.textContent = data[0][0];
+                    nveces.textContent = data[0][1] + " veces";
                 }
 
             }
@@ -540,4 +551,11 @@ window.addEventListener("load", () => {
     btnBorrarLibro.addEventListener("click", () => {
         apiLibros("borrarLibro");
     })
+
+    //los cerrarDiv
+    for (let i = 0; i < cerrarDiv.length; i++) {
+        cerrarDiv[i].addEventListener("click", () => {
+            cerrar();
+        })
+    }
 })
