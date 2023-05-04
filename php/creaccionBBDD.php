@@ -66,7 +66,7 @@
 
             //Sugerencias
             $tsugerencias=mysqli_query($conexion,"CREATE TABLE SUGERENCIAS (
-                COD_Sugerencia varchar(2) Primary key,
+                COD_Sugerencia INT NOT NULL AUTO_INCREMENT Primary key,
                 ALIAS varchar(40) not null,
                 APARTADO varchar(40) not null,
                 TEXTO varchar(200) not null,
@@ -232,6 +232,7 @@
                 PORTADA varchar(100) not null,
                 LEIDO ENUM('SI','NO') not null,
                 VALORACION int(2),
+                Editorial VARCHAR(60) not NULL, 
                 Primary Key (COD_LIBRO,ALIAS)
             )");
 

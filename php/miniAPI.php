@@ -265,6 +265,8 @@ if(!$conexion){
             $portada=$_GET['condicion6'];
             $leido=$_GET['condicion7'];//si o no
             $valoracion=$_GET['condicion8'];
+            $editorial=$_GET['condicion9'];
+            $editorial=str_replace("_"," ",$editorial);
 
             echo $opcion."<br>".$cod."<br>".$alias."<br>".$titulo."<br>".$autor."<br>".
             $pag."<br>".$portada."<br>".$leido."<br>".$valoracion."<br>";
@@ -279,15 +281,11 @@ if(!$conexion){
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
                 
                 if(mysqli_num_rows($comprobarUsuISBN)==0){
-
-                    echo "INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
-                    VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
-                    ."','".$leido."',".$valoracion.")";
                     
                     //si no existe, inserto el libro
-                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
+                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION, EDITORIAL)
                     VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
-                    ."','".$leido."',".$valoracion.")");
+                    ."','".$leido."',".$valoracion.",'".$editorial."')");
                     echo mysqli_error($conexion);
                 }else{
                     echo "llega2";
@@ -304,18 +302,6 @@ if(!$conexion){
             }else{
                 //echo "Lo siento ese usuario no existe";
             }//comprobacion de usuario
-
-            /* $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$condicion2."'");
-            while($fila=mysqli_fetch_row($comprobadorUsuario)){
-                //guardo los resultados en un array que depues devolvere como JSON
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
-                $aux++;
-            }//while que lo recorre 
-
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array); */
         }
 
         //opcion para mostrar libros que no estan terminados
@@ -332,9 +318,10 @@ if(!$conexion){
 
             $resultado2=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='NO'");
             $registros2=mysqli_num_rows($resultado2);
+
             while($fila=mysqli_fetch_row($resultado)){
                 //guardo los resultados en un array que depues devolvere como JSON
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$registros2];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$registros2,$fila[8]];
                 $aux++;
             }//while que lo recorre 
 
@@ -379,7 +366,7 @@ if(!$conexion){
 
             while($fila=mysqli_fetch_row($resultado)){
                 //guardo los resultados en un array que depues devolvere como JSON
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$registros2];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$registros2,$fila[8]];
                 $aux++;
             }//while que lo recorre 
 
@@ -391,14 +378,14 @@ if(!$conexion){
 
         //ranking
         if($opcion=="ranking")  {
-            $resultado=mysqli_query($conexion,"SELECT COD_LIBRO , TITULO, AUTOR, PAGINAS, PORTADA, AVG(VALORACION)
+            $resultado=mysqli_query($conexion,"SELECT COD_LIBRO , TITULO, AUTOR, PAGINAS, PORTADA, EDITORIAL ,AVG(VALORACION) 
                                     FROM libros
                                     WHERE LEIDO='SI'
-                                    GROUP BY COD_LIBRO, TITULO, AUTOR, PAGINAS, PORTADA
+                                    GROUP BY COD_LIBRO, TITULO, AUTOR, PAGINAS, PORTADA, EDITORIAL
                                     ORDER BY AVG(VALORACION) DESC");
 
             while($fila=mysqli_fetch_row($resultado)){
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
                 $aux++;
             }//while que lo recorre 
 
@@ -485,6 +472,7 @@ if(!$conexion){
             $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS NOT IN (SELECT ALIAS FROM USUARIOS)");
         }
 
+        //agregar una tienda a la BBDD
         if($opcion=="agregartienda"){
             $cod=$_GET['condicion1'];
             $nombre=$_GET['condicion2'];
@@ -499,6 +487,7 @@ if(!$conexion){
             header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }
 
+        //saco un listado de los hobbies que estan en la BBDD
         if($opcion=="cod_hobbie"){
             $resultado=mysqli_query($conexion,"SELECT ID_HOBBIE FROM HOBBIE");
 
@@ -604,10 +593,18 @@ if(!$conexion){
                 $correo=mysqli_fetch_row(mysqli_query($conexion,"SELECT EMAIL FROM USUARIOS WHERE ALIAS='".$alias."'"));
                 $to=$correo[0];
                 $titulo=utf8_decode('Aviso de Banneo en HOB');
-                $mensaje=utf8_decode('Estimado usuario '.$alias.', Su cuenta ha sido bloqueada por un periado de 30 días.
-                El motivo de esta sanción es:
-                '.$motivo.'.');
-                $cabeceras = 'From: jes11989@hotmail.com';
+                $texto=utf8_decode('Estimado usuario <b>'.$alias.' </b>, Su cuenta ha sido bloqueada por un periado de 30 días. El motivo de esta sanción es:'.$motivo.'.');
+
+                //creo el mensaje con estilos html y css
+                $mensaje="<html><head><meta charset='UTF-8'><style> .contenedor { background-color: rgb(152, 226, 202); color: black; width: 50%; height: 400px; border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; max-width: 500px; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } .titulo { padding-top: 100px; font-weight: bold; } .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } </style></head><body><div class='contenedor'><center><h1 class='titulo'>HOB</h1></center><hr class='amarillo'><center><p class='parrafo'>".$texto."</p></center></div></body></html>";
+                
+                $unsalto="\r\n";
+                $encabezados = "";
+                
+                $cabeceras = 'From: <jes11989@hotmail.com>'.$unsalto;
+                $cabeceras .= "MIME-Version: 1.0".$unsalto;
+	            $cabeceras .= "Content-Type: text/html;";
+	            $cabeceras .= " boundary=Separador_de_partes";  
 
                 echo $to;
                 echo "<br>".$titulo;
@@ -659,6 +656,7 @@ if(!$conexion){
             echo json_encode($fila);
         }//opcion buscar libro
 
+        //modificador de libro desde Administrador
         if($opcion=="modificarLibro"){
             $cod=$_GET['condicion1'];
             $alias=$_GET['condicion2'];
@@ -692,8 +690,7 @@ if(!$conexion){
 
             //agregamos el libro
             $resultado=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
-            VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
-            ."','".$leido."','".$valoracion."')");
+            VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada."','".$leido."','".$valoracion."')");
         }//opcion de agregar libro
 
         //opcion de borrar libro
@@ -728,21 +725,33 @@ if(!$conexion){
 
         //envio de sugerencias
         if($opcion=="sugerencia"){
-            $alias=$_GET['condicion1'];
+            $alias=(str_replace("_"," ",$_GET['condicion1']));
             $mail=$_GET['condicion2'];
             $asunto=utf8_decode(str_replace("_"," ",$_GET['condicion3']));
             $mensaje=utf8_decode(str_replace("_"," ",$_GET['condicion4']));
-            $to='jes11989@hotmail.com';
-            $cabeceras = 'From: '. $mail;
+            $comprobacion=mysqli_query($conexion,"SELECT ALIAS FROM USUARIOS WHERE ALIAS='".$alias."'");
 
-            $mensaje="El mensaje es de ".$alias." cuyo Correo electronico es: ".$mail.".
-            ".$mensaje;
-            //funcion para enviar el mensaje
-            if(mail($to,$asunto,$mensaje,$cabeceras)){
-                echo "mensaje enviado";
-            }else{
-                echo "mensaje no enviado";
+            //compruebo que el usuario esta en la BBDD
+            if(mysqli_num_rows($comprobacion)==1 && strlen($mensaje)<200){
+
+                //inserto la sugerencia en la BBDD
+                $insercion=mysqli_query($conexion,"INSERT INTO SUGERENCIAS (ALIAS,APARTADO,TEXTO)
+                    VALUES('".$alias."','".$asunto."','".utf8_encode($mensaje)."')");
+
+                echo mysqli_error($conexion);
+                $to='jes11989@hotmail.com';
+                $cabeceras = 'From: '. $mail;
+
+                $mensaje="El mensaje es de ".$alias." cuyo Correo electronico es: ".$mail.".
+                ".$mensaje;
+                //funcion para enviar el mensaje
+                if(mail($to,$asunto,$mensaje,$cabeceras)){
+                    echo "mensaje enviado";
+                }else{
+                    echo "mensaje no enviado";
+                }
             }
+            
             
         }
 

@@ -24,6 +24,7 @@ let turno2 = 0;//variable que guardara el num de registros mostrados
 //agregar
 let btnLeyendo = document.getElementById("actual");
 let btnLeido = document.getElementById("anterior");
+let editorial=document.getElementById("leditorial2");
 
 //variables globales para libros
 let btnBuscardor = document.getElementById("lblanzar");//btn buscar
@@ -34,11 +35,12 @@ let autor = document.getElementById("lbautor");//campo autor
 let tit = "";//variable para recoger el titulo sin espacios
 let aut = "";//variable para recoger el autor sin espacios
 
-async function agregar(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
+async function agregar(opcion, condicion1, condicion2, condicion3, condicion4, 
+        condicion5, condicion6, condicion7, condicion8, condicion9) {
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
-        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
+        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -71,8 +73,6 @@ async function mostrarLeyendo(opcion, condicion1) {
 
     let encontrados = [];
 
-    /* console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
-        + "&condicion2=" + inicio); */
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + inicio, {
         method: "GET",
@@ -86,7 +86,7 @@ async function mostrarLeyendo(opcion, condicion1) {
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7]];
+        response[i][6], response[i][7],response[i][8],response[i][9]];
         array.push(encontrados);
         mostrar2(i);
     }
@@ -110,7 +110,7 @@ async function mostrarLeidos(opcion, condicion1) {
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7]];
+        response[i][6], response[i][7],response[i][8],response[i][9]];
         array.push(encontrados);
         mostrar2(i);
     }
@@ -246,6 +246,7 @@ function mostrar(i) {
         let paginas = document.getElementById("lpaginas2");
         let sinopsis = document.getElementById("lsinopsis2");
         let divBotones = document.getElementById("divBotones");
+        let editorial = document.getElementById("leditorial2");
 
         actual.value = "Pendiente";
         anterior.value = "Leido";
@@ -291,6 +292,8 @@ function mostrar(i) {
             sinopsis.textContent = "Sin especificar";
             sinopsis.setAttribute("cols", 50);
         }
+
+        editorial.textContent = array[i][6];
         sinopsis.textContent = array[i][5];
         sinopsis.setAttribute("cols", 50);
 
@@ -364,6 +367,9 @@ function mostrar2(i) {
         let sinopsis = document.getElementById("lsinopsis2");
         let sinopsis2 = document.getElementById("lsinopsis3");
         let estrellas = document.getElementsByName("estrellas");
+        let editorial = document.getElementById("leditorial2");
+
+        editorial.textContent = array[i][9];
 
         //botones
         let op = document.getElementById("op");//titulo botones
@@ -496,6 +502,9 @@ function mostrar3(i) {
         let sinopsis2 = document.getElementById("lsinopsis3");
         let btnlibro = document.getElementById("btnlibro");
         let estrellas = document.getElementsByName("estrellas");
+        let editorial = document.getElementById("leditorial2");
+
+        editorial.textContent = array[i][5];
 
         //recorro los elementos estrellas para saber cual es la nota que le dio
         for (let j = 0; j < estrellas.length; j++) {
@@ -577,10 +586,11 @@ async function buscarall(condicion, condicion2, condicion3) {
     } else {
         descripcion += texto3.description.value;
     }
+    let editorial = texto3.publishers[0];
 
     for (let i = 0; i < texto.docs.length; i++) {
         encontrados = [texto.docs[i].isbn[0], texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-        eval(cadena), descripcion];
+        eval(cadena), descripcion, editorial];
         array.push(encontrados);
         mostrar(i);
     }
@@ -607,6 +617,7 @@ async function buscar2(condicion, condicion2) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
+        let editorial="";
         descripcion = "";
         portada = "";
         let isbn = 0;
@@ -648,12 +659,14 @@ async function buscar2(condicion, condicion2) {
             } else {
                 descripcion += texto3.description.value;
             }
+
+            editorial = texto3.publishers[0];
         } catch {
             descripcion = "Sinopsis no disponible";
         }
 
         encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion];
+            portada, descripcion, editorial];
         array.push(encontrados);
 
         mostrar(i);
@@ -683,6 +696,7 @@ async function buscar3(condicion) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
+        let editorial="";
         descripcion = "";
         portada = "";
 
@@ -713,14 +727,6 @@ async function buscar3(condicion) {
                 portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
             }
 
-            /* if (typeof prueba2 === 'undefined') {
-                portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            } else {
-
-                //let prueba2=texto2["ISBN"+texto.docs[i].isbn[0]]["thumbnail_url"];
-                portada += prueba2;
-                //portada += eval(cadena);
-            } */
         }
 
         try {
@@ -731,21 +737,17 @@ async function buscar3(condicion) {
             } else {
                 descripcion += texto3.description.value;
             }
+            editorial = texto3.publishers[0];
         } catch {
             descripcion = "Sinopsis no disponible";
         }
 
-
         encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion];
+            portada, descripcion, editorial];
         array.push(encontrados);
 
         mostrar(i);
     }
-    //para mostrar paginacion
-    /* for(i=51;i<100;i++){
-        mostrar(i);
-    } */
 
     footer.style.display = "block";
     response = await response.array;
@@ -770,6 +772,7 @@ async function buscar4(condicion) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
+        let editorial="";
         descripcion = "";
         portada = "";
 
@@ -809,20 +812,13 @@ async function buscar4(condicion) {
             } else {
                 descripcion += texto3.description.value;
             }
+            editorial = texto3.publishers[0];
         } catch {
             descripcion = "Sinopsis no disponible";
         }
 
-        /* response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
-        let texto3 = await response.json();
-        if (typeof texto3.description === 'undefined') {
-            descripcion = "Sinopsis no disponible";
-        } else {
-            descripcion += texto3.description.value;
-        } */
-
         encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion];
+            portada, descripcion, editorial];
         array.push(encontrados);
 
         mostrar(i);
@@ -851,6 +847,7 @@ async function buscar5(condicion) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
+        let editorial="";
         descripcion = "";
         portada = "";
 
@@ -882,19 +879,13 @@ async function buscar5(condicion) {
             } else {
                 descripcion += texto3.description.value;
             }
+            editorial = texto3.publishers[0];
         } catch {
             descripcion = "Sinopsis no disponible";
         }
-        /* response = await fetch("https://openlibrary.org/isbn/" + condicion + ".json");
-        let texto3 = await response.json();
-        if (typeof texto3.description === 'undefined') {
-            descripcion = "Sinopsis no disponible";
-        } else {
-            descripcion += texto3.description.value;
-        } */
 
         encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion];
+            portada, descripcion, editorial];
         array.push(encontrados);
 
         mostrar(i);
@@ -1216,6 +1207,7 @@ window.addEventListener("load", () => {
         divleyendo.style.display = "none";
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
+        footer.style.display="none";
     });
 
     //btn que inicia la busqueda
@@ -1290,9 +1282,6 @@ window.addEventListener("load", () => {
         resultados.innerHTML = "";
         array = [];
         mostrarLeidos("mostrarLeidos", cambio(sessionStorage.getItem("alias")));
-        for (let i = 0; i < array.length; i++) {
-            mostrar(i);
-        }
 
         op.style.display = "none";
         actual.style.display = "none";
@@ -1303,7 +1292,7 @@ window.addEventListener("load", () => {
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
 
-        footer.style.display = "block";
+        //footer.style.display = "flex";
     });
 
     //boton ranking
@@ -1362,10 +1351,12 @@ window.addEventListener("load", () => {
             }
         } else {
             let alias = sessionStorage.getItem("alias");
+            let editorial2= editorial.textContent;
             if (alias != null) {
                 let tit = "";//variable para recoger el titulo sin espacios
                 let aut = "";//variable para recoger el autor sin espacios
                 alias = cambio(alias);
+                editorial2=cambio(editorial2);
                 tit = cambio(array[aux][1]);
                 aut = cambio(array[aux][2]);
                 /* for (let j = 0; j < array[aux][2].length; j++) {
@@ -1379,10 +1370,10 @@ window.addEventListener("load", () => {
                 }
                 let img = array[aux][4].replace("S", "M");
                 nota = 0;
-                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota);
+                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2);
             }
         }
-        footer.style.display = "block";
+        footer.style.display = "flex";
     })//leyendo
 
     //boton para agregar a tu perfil
@@ -1398,11 +1389,10 @@ window.addEventListener("load", () => {
         } else {
             let validacion = document.getElementById("validacion");
             let alias = sessionStorage.getItem("alias");
+            let editorial2= editorial.textContent;
             if (alias != null) {
-                /* let tit = "";//variable para recoger el titulo sin espacios
-            let aut = "";//variable para recoger el autor sin espacios */
                 tit = cambio(array[aux][1]);
-
+                editorial2=cambio(array[aux][6]);
                 aut = cambio(array[aux][2]);
 
 
@@ -1429,11 +1419,11 @@ window.addEventListener("load", () => {
                 } else {
                     validacion.style.display = "none";
                     if (tit == cambio(array[aux][1])) {
-                        agregar("agregarleido", array[aux][0], alias, tit, aut, array[aux][3], img, "SI", nota);
+                        agregar("agregarleido", array[aux][0], alias, tit, aut, array[aux][3], img, "SI", nota, editorial2);
                     }
                 }
             }
         }
-        footer.style.display = "block";
+        footer.style.display = "flex";
     })//leido
 })

@@ -835,15 +835,18 @@ a:hover {
   #footer2 {
     padding: 15px;
     color: #f4f6fd;
-    margin-top: 15px;
+
     font-size: 14px;
     position: relative;
-    left: 0;
+    left: 0px;
+    bottom: -160px;
     /* top: 780px; */
     width: 100%;
     z-index: 9999;
     background: #040b14;
     justify-content: center;
+
+    display: none;
   }
 
   #footerp {
@@ -936,9 +939,9 @@ a:hover {
     background: #040b14;
   }
 
-  #resultados {
+  /* #resultados {
     margin-left: 20%;
-  }
+  } */
 }
 
 .texto-identificarse:hover {
@@ -1282,7 +1285,7 @@ a:hover {
 
 #lpaginas, #lautor, #ltitulo, #lsinopsis,
 .ltbISBN,
-#lpaginas2, #lautor2, #ltitulo2, #lsinopsis2{
+#lpaginas2, #lautor2, #ltitulo2, #lsinopsis2, #leditorial2{
   margin-top: 5px;
   color: black;
   font-weight: bold;
