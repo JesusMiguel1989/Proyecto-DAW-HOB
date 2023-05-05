@@ -41,7 +41,7 @@ if(!$conexion){
                 //compruebo la contraseña que me dio el usuario
                 if(password_verify($condicion2,$fila[4])){
                     //guardo los resultados en un array que depues devolvere como JSON
-                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
+                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
                 }//verificacion de la contraseña
             }//while que lo recorre
 

@@ -160,8 +160,7 @@ window.addEventListener("load", () => {
                         validado = true;
                         console.log("llega");
                         //formulario.dispatchEvent(evento);
-                        formulario.dispatchEvent(evento);
-                        alert("hola");
+                        //formulario.dispatchEvent(evento);
                         //enviar.dispatchEvent(eventoClick);
                     }
                 });
@@ -173,6 +172,7 @@ window.addEventListener("load", () => {
         sessionStorage.setItem('key', contraseña.value);
         sessionStorage.setItem('fecha', fecha_nac.value);
         sessionStorage.setItem('localidad', localidad.value);
+        sessionStorage.setItem('estado', "Pendiente");
 
     });
 

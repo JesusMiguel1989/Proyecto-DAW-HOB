@@ -66,7 +66,7 @@ a:hover {
   bottom: 0;
   width: 300px;
   transition: all ease-in-out 0.5s;
-  z-index: 9997;
+  z-index: 7;
   transition: all 0.5s;
   padding: 0 15px;
   background: #040b14;
@@ -190,7 +190,7 @@ a:hover {
   position: fixed;
   right: 15px;
   top: 15px;
-  z-index: 9998;
+  z-index: 8;
   border: 0;
   font-size: 24px;
   transition: all 0.4s;
@@ -254,8 +254,8 @@ a:hover {
   .listadoretro {
     margin-left: 10%;
   }
-  
-  #header{
+
+  #header {
     left: 0px;
   }
 }
@@ -696,7 +696,7 @@ a:hover {
 /****************Media para mantener el alncho de los input fuera del movil*********/
 @media (min-width: 376px) {
 
-  .rfiel{
+  .rfiel {
     font-style: italic;
     font-weight: bold;
     color: #09628b;
@@ -924,6 +924,7 @@ a:hover {
 }
 
 @media (min-width: 1200px) {
+
   #footerp,
   #footer2 {
     text-align: center;
@@ -1094,13 +1095,13 @@ a:hover {
   font-size: 25px;
 }
 
-.tTitulo2{
+.tTitulo2 {
   color: white;
   font-size: 25px;
 }
 
-#tLocalidad, 
-#tHobie{
+#tLocalidad,
+#tHobie {
   font-size: 15px;
   padding-top: 5px;
   padding-bottom: 10px;
@@ -1135,7 +1136,7 @@ a:hover {
   display: none;
 }
 
-.buscadorTiendas{
+.buscadorTiendas {
   z-index: 3;
 }
 
@@ -1218,7 +1219,7 @@ a:hover {
   color: black;
 }
 
-.elabel{
+.elabel {
   font-weight: bold;
   font-size: 18px;
   color: black;
@@ -1283,21 +1284,28 @@ a:hover {
   font-weight: bold;
 }
 
-#lpaginas, #lautor, #ltitulo, #lsinopsis,
+#lpaginas,
+#lautor,
+#ltitulo,
+#lsinopsis,
 .ltbISBN,
-#lpaginas2, #lautor2, #ltitulo2, #lsinopsis2, #leditorial2{
+#lpaginas2,
+#lautor2,
+#ltitulo2,
+#lsinopsis2,
+#leditorial2 {
   margin-top: 5px;
   color: black;
   font-weight: bold;
   max-width: 90%;
 }
 
-#lsinopsis{
+#lsinopsis {
   margin-bottom: 100px;
   width: 90%;
 }
 
-#sinopsis{
+#sinopsis {
   margin-top: 20px;
 }
 
@@ -1492,30 +1500,45 @@ input[type="radio"]:checked~label {
   border-radius: 5%;
 }
 
-.admin{
+.admin {
   font-weight: bold;
   color: #040b14;
   margin-top: 10px;
 }
 
-#acodtienda,#alocalidad,#aprovincia,#anombre,#adireccion,#atelefono,#acodhobie,
-#alvaloracion, #alleido, #alportada, #alpaginas, #alautor, #altitulo, #alalias, #alcodlibro
-{
+#acodtienda,
+#alocalidad,
+#aprovincia,
+#anombre,
+#adireccion,
+#atelefono,
+#acodhobie,
+#alvaloracion,
+#alleido,
+#alportada,
+#alpaginas,
+#alautor,
+#altitulo,
+#alalias,
+#alcodlibro {
   width: 100%;
   margin-top: 10px;
 }
 
-#aalias,#amotivo,#nveces{
+#aalias,
+#amotivo,
+#nveces {
   margin-top: 10px;
   width: 90%;
 }
 
-#admin spam{
+#admin spam {
   color: rgb(255, 217, 107);
 }
 
 /*registrarse.html*/
-#verclave1, #verclave2{
+#verclave1,
+#verclave2 {
   border: 0px solid black;
   background-color: white;
   border-radius: 25%;
@@ -1523,12 +1546,13 @@ input[type="radio"]:checked~label {
   left: -30px;
 }
 
-#verclave1:hover, #verclave2:hover{
+#verclave1:hover,
+#verclave2:hover {
   cursor: pointer;
 }
 
 /*  validacion del archivo foto  */
-#validacion9{
+#validacion9 {
   display: none;
 }
 
@@ -1538,9 +1562,20 @@ input[type="radio"]:checked~label {
   text-decoration: underline;
 }
 
-@media (max-width: 1500px){
-  #fichatienda{
+@media (max-width: 1500px) {
+  #fichatienda {
     left: 120px;
     width: 790px;
   }
+}
+
+#offcanvasTop {
+  z-index: 14;
+}
+
+#offcanvasTop {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
 }
