@@ -108,45 +108,57 @@
       <img src="./assets/imagenes/recortado.png" class="recortado movil">
       <br>
       <!-- <form method="POST" id="entrada"> -->
-        <!-- action="./php/identificarse.php" -->
-        <div class="row">
-          <div class="col col-5 titulo text-end">
-            <label for="nombre">Nombre:</label>
+      <!-- action="./php/identificarse.php" -->
+      <div class="row">
+        <div class="col col-5 titulo text-end">
+          <label for="nombre">Nombre:</label>
+        </div>
+        <div class="col col-6 text-start">
+          <input type="text" id="nombre" name="nombre" class="texto-identificarse" size="20">
+          <div id="validacion" class="invalid-feedback">
+            <span>Dime tu alias registrado.</span>
           </div>
-          <div class="col col-6 text-start">
-            <input type="text" id="nombre" name="nombre" class="texto-identificarse" size="20">
-            <div id="validacion" class="invalid-feedback">
-              <span>Dime tu alias registrado.</span>
-            </div>
-            <div id="validacion1" class="invalid-feedback">
-              <span>El alias no esta registrado.</span>
-            </div>
+          <div id="validacion1" class="invalid-feedback">
+            <span>El alias no esta registrado.</span>
           </div>
         </div>
-        <div class="row">
-          <div class="col col-5 titulo text-end">
-            <label for="key">Contraseña:</label>
-          </div>
-          <div class="col col-6 text-start">
-            <input type="password" id="key" name="key" class="texto-identificarse" size="20">
-            <div id="validacion2" class="invalid-feedback">
-              <span>Dime la Contraseña.</span>
-            </div><br>
-            <div id="validacion3" class="invalid-feedback">
-              <span>Contraseña incorrecta.</span>
-            </div><br>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col col-5 titulo text-end">
+          <label for="key">Contraseña:</label>
         </div>
-        <div class="row botonesid">
-          <div class="col col-12 ">
-            <input type="submit" id="enviar" value="Entrar" class="botones"><br class="br">
-            <input type="button" id="olvido" value="Olvide la contraseña" class="botones" data-bs-toggle="modal"
-              data-bs-target="#exampleModal"><br class="br">
-            <a href="./registrarse.html"><input type="button" id="registrarse" value="Registrarse"
-                class="botones"></a><br class="br">
-          </div>
+        <div class="col col-6 text-start">
+          <input type="password" id="key" name="key" class="texto-identificarse" size="20">
+          <div id="validacion2" class="invalid-feedback">
+            <span>Dime la Contraseña.</span>
+          </div><br>
+          <div id="validacion3" class="invalid-feedback">
+            <span>Contraseña incorrecta.</span>
+          </div><br>
         </div>
+      </div>
+      <div class="row botonesid">
+        <div class="col col-12 ">
+          <input type="submit" id="enviar" value="Entrar" class="botones"><br class="br">
+          <input type="button" id="olvido" value="Olvide la contraseña" class="botones" data-bs-toggle="modal"
+            data-bs-target="#exampleModal"><br class="br">
+          <a href="./registrarse.html"><input type="button" id="registrarse" value="Registrarse" class="botones"></a><br
+            class="br">
+        </div>
+      </div>
       <!-- </form> -->
+    </div>
+
+    <!-- ofcanvas btn -->
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+      aria-controls="offcanvasTop" id="btndiv"></button>
+
+
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+      <div class="offcanvas-header" style="background-color: rgb(126, 126, 247);">
+        <h5 class="offcanvas-title" id="offcanvasTopLabel1">Bienvenido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
     </div>
   </section>
 

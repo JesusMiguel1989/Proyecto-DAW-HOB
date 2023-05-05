@@ -3,6 +3,10 @@ let validacion1 = document.getElementById("validacion1");//div con el error 1
 let validacion2 = document.getElementById("validacion2");//div con el error 2
 let validacion3 = document.getElementById("validacion3");//div con el error 1
 
+let btndiv = document.getElementById("btndiv");//boton que lanza el div
+
+//evento personalizado
+let clickEvent = new Event('click');
 
 async function alias(opcion, condicion1, condicion2) {
     console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
@@ -88,10 +92,18 @@ window.addEventListener("load", () => {
         console.log(nombre.value + "\n" + key.value);
 
         if (validador) {
+            btndiv.dispatchEvent(clickEvent);
             await alias("usuario", nombre.value, key.value);
+
+
+            //se lanza el evento clik del botondiv
+            
         }
 
     })//click de enviar
+
+    btndiv.addEventListener("click",()=>{
+    });
 
     //olvido de contraseña
     pedir.addEventListener("click", (e) => {
