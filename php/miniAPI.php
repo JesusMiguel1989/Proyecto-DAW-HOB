@@ -772,7 +772,7 @@ if(!$conexion){
             $isbn=$_GET['condicion1'];
             $limite=intval($_GET['condicion2']);
 
-            $resultado=mysqli_query($conexion,"SELECT ALIAS, VALORACION, COMENTARIO FROM LIBROS WHERE COD_LIBRO='".$isbn."' AND COMENTARIO IS NOT NULL 
+            $resultado=mysqli_query($conexion,"SELECT ALIAS, VALORACION, COMENTARIO FROM LIBROS WHERE COD_LIBRO='".$isbn."' AND COMENTARIO IS NOT NULL AND COMENTARIO <>''
             LIMIT ".$limite.",1");
             $registros=mysqli_num_rows($resultado);
 
