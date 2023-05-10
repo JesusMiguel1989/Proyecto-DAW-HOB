@@ -278,6 +278,7 @@ if(!$conexion){
             $valoracion=$_GET['condicion8'];
             $editorial=$_GET['condicion9'];
             $editorial=str_replace("_"," ",$editorial);
+            $comentario=str_replace("_"," ",$_GET['condicion10']);
 
             echo $opcion."<br>".$cod."<br>".$alias."<br>".$titulo."<br>".$autor."<br>".
             $pag."<br>".$portada."<br>".$leido."<br>".$valoracion."<br>";
@@ -294,9 +295,9 @@ if(!$conexion){
                 if(mysqli_num_rows($comprobarUsuISBN)==0){
                     
                     //si no existe, inserto el libro
-                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION, EDITORIAL)
+                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION, EDITORIAL, COMENTARIO)
                     VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
-                    ."','".$leido."',".$valoracion.",'".$editorial."')");
+                    ."','".$leido."',".$valoracion.",'".$editorial."','".$comentario."')");
                     echo mysqli_error($conexion);
                 }else{
                     echo "llega2";
@@ -764,6 +765,29 @@ if(!$conexion){
             }
             
             
+        }
+
+        //Comentarios
+        if($opcion=="comentario"){
+            $isbn=$_GET['condicion1'];
+            $limite=intval($_GET['condicion2']);
+
+            $resultado=mysqli_query($conexion,"SELECT ALIAS, VALORACION, COMENTARIO FROM LIBROS WHERE COD_LIBRO='".$isbn."' AND COMENTARIO IS NOT NULL 
+            LIMIT ".$limite.",1");
+            $registros=mysqli_num_rows($resultado);
+
+            while($fila=mysqli_fetch_row($resultado)){
+                $resultado2=mysqli_query($conexion,"SELECT FOTO FROM USUARIOS WHERE ALIAS='".$fila[0]."'");
+                $foto=mysqli_fetch_row($resultado2);
+                //guardo los resultados en un array que depues devolvere como JSON
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$foto[0],$registros];
+                $aux++;
+            }//while que lo recorre 
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
     }//uso de la bbdd hobbies

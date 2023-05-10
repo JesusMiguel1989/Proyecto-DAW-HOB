@@ -1,4 +1,5 @@
 let array = [];
+let arrayComentarios = []; //array para guardar los datos referentes a los comentarios ( Foto, alias, nota, comentario)
 let nota;
 let cad = "";//variable para recoger la sinopsis o indicar que no esta disponible
 let cadena;//variable para reducir los titulos
@@ -7,8 +8,27 @@ let aux;//variable para saber que libro ha sido seleccionado
 //variables para la paginacion
 let page = 1;//variable para indicar la pagina en la api open library
 let limite = 20;//variable para indicar la cantidad de elementos por pagina
+
 let resultadosBusqueda = 0;//variable que tendra el numero de resultados de la busqueda
 let paginasTotales = 0;//variable que guardara las paginas totales
+
+//variables para comentarios
+let comentario = document.getElementById("comentario");//div de los comentarios dentro de la tarjeta
+let verComentarios = document.getElementById("verComentarios");//btn vercomentarios
+let agregarComentarios = document.getElementById("agregarComentarios");//btn agregarComentarios
+let anteriorComentario = document.getElementById("anteriorComentario");//btn anterior comentario
+let paginacionComentario = document.getElementById("paginacion");//etiqueta de la paginacion
+let siguienteComentario = document.getElementById("siguienteComentario");//btn siguiente comentario
+let fotoComentario = document.getElementById("fotoComentario");//foto del usuario que dejo ese comentario
+let nombreComentario = document.getElementById("nombreComentario");//nombre del usuario que puso el comentario
+let notaComentario = document.getElementById("notaComentario");//campo para la nota que le puso el usuario
+let resultadosComentarios = document.getElementById("resultadosComentarios");//div inferior de comentarios, donde se muestran
+let coment = document.getElementById("coment");//etiqueta que mostrara los comentarios
+let inicioComentarios = 0;//inicio de la pag (LIMIT 0)
+let registrosComentarios = 0;//numero de registros que devuelve la consulta
+let addComentarios = document.getElementById("addComentarios");//div que contiene el textarea para agregar comentarios
+let comentUsuario=document.getElementById("comentUsuario");//textarea donde se escribe el comentario
+let isbnLibros = 0;
 
 let camino;
 //variabes paginacion de pendientes
@@ -24,7 +44,7 @@ let turno2 = 0;//variable que guardara el num de registros mostrados
 //agregar
 let btnLeyendo = document.getElementById("actual");
 let btnLeido = document.getElementById("anterior");
-let editorial=document.getElementById("leditorial2");
+let editorial = document.getElementById("leditorial2");
 
 //variables globales para libros
 let btnBuscardor = document.getElementById("lblanzar");//btn buscar
@@ -35,12 +55,17 @@ let autor = document.getElementById("lbautor");//campo autor
 let tit = "";//variable para recoger el titulo sin espacios
 let aut = "";//variable para recoger el autor sin espacios
 
-async function agregar(opcion, condicion1, condicion2, condicion3, condicion4, 
-        condicion5, condicion6, condicion7, condicion8, condicion9) {
+async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
+    condicion5, condicion6, condicion7, condicion8, condicion9,condicion10) {
+
+        console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
+        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10="+condicion10);
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
-        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
+        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10="+condicion10
+        , {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -86,7 +111,7 @@ async function mostrarLeyendo(opcion, condicion1) {
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7],response[i][8],response[i][9]];
+        response[i][6], response[i][7], response[i][8], response[i][9]];
         array.push(encontrados);
         mostrar2(i);
     }
@@ -95,6 +120,7 @@ async function mostrarLeyendo(opcion, condicion1) {
     //return Promise.resolve(response);
 }
 
+//funcion asincrona para mostrar los libros leidos
 async function mostrarLeidos(opcion, condicion1) {
 
     let encontrados = [];
@@ -110,7 +136,7 @@ async function mostrarLeidos(opcion, condicion1) {
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7],response[i][8],response[i][9]];
+        response[i][6], response[i][7], response[i][8], response[i][9]];
         array.push(encontrados);
         mostrar2(i);
     }
@@ -118,6 +144,7 @@ async function mostrarLeidos(opcion, condicion1) {
     //return Promise.resolve(response);
 }
 
+//funcion asincrona que consigue la sinopsis del libro
 async function sinopsisLibro(isbn) {
 
     let response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json", {
@@ -138,6 +165,7 @@ async function sinopsisLibro(isbn) {
 
 }
 
+//funcion asincrona que devuelve el top 10 de las valoraciones de los usuarios
 async function rankingHOB(opcion) {
     let encontrados = [];
     let tope = 0;
@@ -167,6 +195,36 @@ async function rankingHOB(opcion) {
     return Promise.resolve(response);
 }
 
+async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
+    response = await response.json();
+    
+
+    for (let i = 0; i < response.length; i++) {
+        arrayComentarios.push([response[i][0], response[i][1], response[i][2], response[i][3]]);
+    }
+    if (arrayComentarios.length > 0) {
+        registrosComentarios = response[0][4];
+        nombreComentario.textContent = arrayComentarios[0][0];
+        fotoComentario.setAttribute("src", arrayComentarios[0][3]);
+        fotoComentario.style.marginTop = "15px";
+        fotoComentario.style.borderRadius = "15%";
+        notaComentario.textContent = arrayComentarios[0][1] + " ★";
+        coment.textContent = arrayComentarios[0][2];
+        pagina2();//llamo a la funcion de paginaciçon para que muestre la cantidad de comentarios que se encontro y cuantos muestra
+        resultadosComentarios.style.display = "flex";
+    }else{
+        registrosComentarios=0;
+        nombreComentario.textContent = "";
+        fotoComentario.setAttribute("src","");
+        notaComentario.textContent = "- ★";
+        coment.textContent = "Lo siento no disponemos de comentarios para este libro";
+    }
+}
+
 function cambio(cadena) {
     let cad = cadena;
 
@@ -178,8 +236,11 @@ function cambio(cadena) {
 
 function mostrar(i) {
 
+    //oculto la parte de los comentarios
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
+
     let pos = array[i][1].search(/\(/);
+    resultadosComentarios.style.display = "none";
     //poner por si es negativo
     if (pos < 0) {
         pos = array[i][1].length;
@@ -238,14 +299,16 @@ function mostrar(i) {
     let btn = document.getElementById("libro" + i);
     let tarjeta = document.getElementById("tarjeta");
 
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", () => {
         aux = i;
+        resultadosComentarios.style.display = "none";
+        arrayComentarios = [];
         let portada = document.getElementById("lfoto2");
         let titulo = document.getElementById("ltitulo2");
         let autor = document.getElementById("lautor2");
         let paginas = document.getElementById("lpaginas2");
         let sinopsis = document.getElementById("lsinopsis2");
-        let divBotones = document.getElementById("divBotones");
+        //let divBotones = document.getElementById("divBotones");
         let editorial = document.getElementById("leditorial2");
 
         actual.value = "Pendiente";
@@ -302,15 +365,13 @@ function mostrar(i) {
         //pongo al usuario al principio de la pagina
         window.scroll(0, 0);
 
-        //let btnleido = document.getElementById("btnLeido");
-        //let btnPendiente = document.getElementById("btnPendiente");
-
     })//tarjeta
 }
 
 //funcion mostrar leyendo y leidos
 function mostrar2(i) {
 
+    resultadosComentarios.style.display = "none";
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
     tit.textContent = array[i][2];
     tit.style.fontWeight = "bold";
@@ -359,7 +420,8 @@ function mostrar2(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
-
+        resultadosComentarios.style.display = "none";
+        arrayComentarios = [];
         let portada = document.getElementById("lfoto2");
         let titulo = document.getElementById("ltitulo2");
         let autor = document.getElementById("lautor2");
@@ -427,6 +489,7 @@ function mostrar2(i) {
 //mostrar ranking
 function mostrar3(i) {
 
+    resultadosComentarios.style.display = "none";
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
     tit.textContent = array[i][1];
     tit.style.fontWeight = "bold";
@@ -493,7 +556,8 @@ function mostrar3(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
-
+        resultadosComentarios.style.display = "none";
+        arrayComentarios = [];
         let portada = document.getElementById("lfoto2");
         let titulo = document.getElementById("ltitulo2");
         let autor = document.getElementById("lautor2");
@@ -617,7 +681,7 @@ async function buscar2(condicion, condicion2) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
-        let editorial="";
+        let editorial = "";
         descripcion = "";
         portada = "";
         let isbn = 0;
@@ -696,7 +760,7 @@ async function buscar3(condicion) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
-        let editorial="";
+        let editorial = "";
         descripcion = "";
         portada = "";
 
@@ -772,7 +836,7 @@ async function buscar4(condicion) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
-        let editorial="";
+        let editorial = "";
         descripcion = "";
         portada = "";
 
@@ -847,7 +911,7 @@ async function buscar5(condicion) {
 
     for (let i = 0; i < texto.docs.length; i++) {
         let encontrados = [];
-        let editorial="";
+        let editorial = "";
         descripcion = "";
         portada = "";
 
@@ -1007,155 +1071,187 @@ function pagina() {
 //pagina 2 para leyendo y leidos
 function pagina2() {
 
-    //creo el div para los botones de la paginacion
-    let paginacion = document.createElement("div");
-    paginacion.classList.add("row");
-    paginacion.style.margin = "20px";
+    if (camino == "comentario") {
+        paginacionComentario.textContent = (inicioComentarios + 1) + " de " + (registrosComentarios + 1);
 
-    //creo el div de previo
-    let previo = document.createElement("div");
-    previo.classList.add("col-4", "col-sm-5", "text-center");
-
-    //creo el boton de previo
-    let btnprevio = document.createElement("input");
-    btnprevio.type = "button";
-    btnprevio.id = "btnprevioleyendo";
-    btnprevio.value = "Anterior";
-    btnprevio.classList.add("btn-sugerencia");
-    btnprevio.style.margin = "0 auto";
-    previo.appendChild(btnprevio);
-
-    //div pagina
-    let numPag = document.createElement("div");
-    numPag.classList.add("col-4", "col-sm-2", "text-center");
-
-    let np = document.createElement("h4");
-    if (camino == "leyendo") {
-
-        if (registros - limite < 0) {
-            np.textContent = inicio + " al " + registros;
-        } else {
-            if (!registros <= turno + 1) {
-                //comprobar que no puede haber una 2 o 3 hoja
-                if (registros > turno + 20) {
-                    np.textContent = "Del " + turno + " al " + (turno + 20);
-                } else {
-                    np.textContent = "Del " + turno + " al " + registros;
+        anteriorComentario.addEventListener("click", async (ant) => {
+            if (camino == "comentario") {
+                if (inicioComentarios > 0) {
+                    inicioComentarios--;
+                    arrayComentarios = [];
+                    await comentariosISBN("comentario", isbnLibros);
+                }//comprobacion de si existen comentarios previos
+                else {
+                    ant.preventDefault();
                 }
+            }//camino del comentario
+        });//btnanterior comentario (<=)
+
+        siguienteComentario.addEventListener("click", async (sig) => {
+            if (camino == "comentario") {
+                if (inicioComentarios < registrosComentarios) {
+                    inicioComentarios++;
+                    arrayComentarios = [];
+                    await comentariosISBN("comentario", isbnLibros);
+                }//comprobacion de si existen comentarios previos
+                else {
+                    sig.preventDefault();
+                }
+            }//camino comentario btn siguiente (=>)
+        })
+    }
+    else {
+        //creo el div para los botones de la paginacion
+        let paginacion = document.createElement("div");
+        paginacion.classList.add("row");
+        paginacion.style.margin = "20px";
+
+        //creo el div de previo
+        let previo = document.createElement("div");
+        previo.classList.add("col-4", "col-sm-5", "text-center");
+
+        //creo el boton de previo
+        let btnprevio = document.createElement("input");
+        btnprevio.type = "button";
+        btnprevio.id = "btnprevioleyendo";
+        btnprevio.value = "Anterior";
+        btnprevio.classList.add("btn-sugerencia");
+        btnprevio.style.margin = "0 auto";
+        previo.appendChild(btnprevio);
+
+        //div pagina
+        let numPag = document.createElement("div");
+        numPag.classList.add("col-4", "col-sm-2", "text-center");
+
+        let np = document.createElement("h4");
+        if (camino == "leyendo") {
+
+            if (registros - limite < 0) {
+                np.textContent = inicio + " al " + registros;
             } else {
-                np.textContent = "Del " + turno + " al " + limite;
+                if (!registros <= turno + 1) {
+                    //comprobar que no puede haber una 2 o 3 hoja
+                    if (registros > turno + 20) {
+                        np.textContent = "Del " + turno + " al " + (turno + 20);
+                    } else {
+                        np.textContent = "Del " + turno + " al " + registros;
+                    }
+                } else {
+                    np.textContent = "Del " + turno + " al " + limite;
+                }
+            }
+
+            /* if (registros - limite < 0) {
+                np.textContent = inicio + " al " + registros;
+            } else {
+                np.textContent = "Del " + limite + " al " + registros;
+            } */
+        }//camino leyendo
+
+        if (camino == "leido") {
+            if (registros2 - limite < 0) {
+                np.textContent = inicio2 + " al " + registros2;
+            } else {
+                if (!registros2 <= turno2 + 1) {
+                    //comprobar que no puede haber una 2 o 3 hoja
+                    if (registros2 > turno2 + 20) {
+                        np.textContent = "Del " + turno2 + " al " + (turno2 + 20);
+                    } else {
+                        np.textContent = "Del " + turno2 + " al " + registros2;
+                    }
+                } else {
+                    np.textContent = "Del " + turno2 + " al " + limite;
+                }
             }
         }
 
-        /* if (registros - limite < 0) {
-            np.textContent = inicio + " al " + registros;
-        } else {
-            np.textContent = "Del " + limite + " al " + registros;
-        } */
-    }//camino leyendo
+        numPag.appendChild(np);
 
-    if (camino == "leido") {
-        if (registros2 - limite < 0) {
-            np.textContent = inicio2 + " al " + registros2;
-        } else {
-            if (!registros2 <= turno2 + 1) {
-                //comprobar que no puede haber una 2 o 3 hoja
-                if (registros2 > turno2 + 20) {
-                    np.textContent = "Del " + turno2 + " al " + (turno2 + 20);
+        //div para siguientes
+        let siguientes = document.createElement("div");
+        siguientes.classList.add("col-4", "col-sm-5", "text-center")
+
+        //creo el boton de siguiente
+        let btnsiguiente = document.createElement("input");
+        btnsiguiente.type = "button";
+        btnsiguiente.id = "btnSiguienteLeyendo";
+        btnsiguiente.value = "Siguiente";
+        btnsiguiente.classList.add("btn-sugerencia");
+        btnsiguiente.style.margin = "0 auto";
+        siguientes.appendChild(btnsiguiente);
+
+        //agrego los div con los botones
+        paginacion.appendChild(previo);//btn anteriores
+        paginacion.appendChild(numPag);//numero de la pagina
+        paginacion.appendChild(siguientes);//btn siguientes
+
+        //agrego el div de los botones a resultados
+        resultados.appendChild(paginacion);
+
+
+
+        btnprevio.addEventListener("click", (e) => {
+            if (camino == "leyendo") {
+                if (inicio >= 20) {
+                    tarjeta.style.display = "none";
+                    resultados.innerHTML = "";
+                    limite -= 20;
+                    inicio -= 20;
+                    turno -= 20;
+                    let nombre = cambio(sessionStorage.getItem("alias"));
+                    array = [];
+                    mostrarLeyendo("mostrarLeyendo", nombre);
                 } else {
-                    np.textContent = "Del " + turno2 + " al " + registros2;
+                    e.preventDefault();
                 }
-            } else {
-                np.textContent = "Del " + turno2 + " al " + limite;
-            }
-        }
+            }//camino leyendo
+            if (camino == "leido") {
+                if (inicio2 >= 20) {
+                    tarjeta.style.display = "none";
+                    resultados.innerHTML = "";
+                    /*                 limite2 -= 20; */
+                    inicio2 -= 20;
+                    turno2 -= 20;
+                    let nombre = cambio(sessionStorage.getItem("alias"));
+                    array = [];
+                    mostrarLeidos("mostrarLeidos", nombre);
+                } else {
+                    e.preventDefault();
+                }
+            }//camino leido
+        });//btn anterior
+
+        btnsiguiente.addEventListener("click", (e) => {
+            if (camino == "leyendo") {
+                if (inicio < registros && (inicio + 20) < registros) {
+                    tarjeta.style.display = "none";
+                    resultados.innerHTML = "";
+                    inicio += 20;
+                    turno += 20;
+                    let nombre = cambio(sessionStorage.getItem("alias"));
+                    array = [];
+                    mostrarLeyendo("mostrarLeyendo", nombre);
+                } else {
+                    e.preventDefault();
+                }
+            }//camino leyendo
+
+            if (camino == "leido") {
+                if (inicio2 < registros2 && (inicio2 + 20) < registros2) {
+                    tarjeta.style.display = "none";
+                    resultados.innerHTML = "";
+                    inicio2 += 20;
+                    turno2 += 20;
+                    let nombre = cambio(sessionStorage.getItem("alias"));
+                    array = [];
+                    mostrarLeidos("mostrarLeidos", nombre);
+                } else {
+                    e.preventDefault();
+                }
+            }//camino leido
+        });//btn siguiente
     }
 
-    numPag.appendChild(np);
-
-    //div para siguientes
-    let siguientes = document.createElement("div");
-    siguientes.classList.add("col-4", "col-sm-5", "text-center")
-
-    //creo el boton de siguiente
-    let btnsiguiente = document.createElement("input");
-    btnsiguiente.type = "button";
-    btnsiguiente.id = "btnSiguienteLeyendo";
-    btnsiguiente.value = "Siguiente";
-    btnsiguiente.classList.add("btn-sugerencia");
-    btnsiguiente.style.margin = "0 auto";
-    siguientes.appendChild(btnsiguiente);
-
-    //agrego los div con los botones
-    paginacion.appendChild(previo);//btn anteriores
-    paginacion.appendChild(numPag);//numero de la pagina
-    paginacion.appendChild(siguientes);//btn siguientes
-
-    //agrego el div de los botones a resultados
-    resultados.appendChild(paginacion);
-
-    btnprevio.addEventListener("click", (e) => {
-        if (camino == "leyendo") {
-            if (inicio >= 20) {
-                tarjeta.style.display = "none";
-                resultados.innerHTML = "";
-                limite -= 20;
-                inicio -= 20;
-                turno -= 20;
-                let nombre = cambio(sessionStorage.getItem("alias"));
-                array = [];
-                mostrarLeyendo("mostrarLeyendo", nombre);
-            } else {
-                e.preventDefault();
-            }
-        }//camino leyendo
-        if (camino == "leido") {
-            if (inicio2 >= 20) {
-                tarjeta.style.display = "none";
-                resultados.innerHTML = "";
-                /*                 limite2 -= 20; */
-                inicio2 -= 20;
-                turno2 -= 20;
-                let nombre = cambio(sessionStorage.getItem("alias"));
-                array = [];
-                mostrarLeidos("mostrarLeidos", nombre);
-            } else {
-                e.preventDefault();
-            }
-        }//camino leido
-
-    });//btn anterior
-
-    btnsiguiente.addEventListener("click", (e) => {
-        if (camino == "leyendo") {
-            if (inicio < registros && (inicio + 20) < registros) {
-                tarjeta.style.display = "none";
-                resultados.innerHTML = "";
-                inicio += 20;
-                turno += 20;
-                let nombre = cambio(sessionStorage.getItem("alias"));
-                array = [];
-                mostrarLeyendo("mostrarLeyendo", nombre);
-            } else {
-                e.preventDefault();
-            }
-        }//camino leyendo
-
-        if (camino == "leido") {
-            if (inicio2 < registros2 && (inicio2 + 20) < registros2) {
-                tarjeta.style.display = "none";
-                resultados.innerHTML = "";
-                inicio2 += 20;
-                turno2 += 20;
-                let nombre = cambio(sessionStorage.getItem("alias"));
-                array = [];
-                mostrarLeidos("mostrarLeidos", nombre);
-            } else {
-                e.preventDefault();
-            }
-        }//camino leido
-
-    });//btn siguiente
 }
 
 //pongo todos los botones dle nav al mismo color
@@ -1182,6 +1278,7 @@ let footer = document.getElementById("footer2");
 
 window.addEventListener("load", () => {
     let ubicacion = document.getElementById("ubicacion");
+    addComentarios.style.display = "none";
     let nombre = sessionStorage.getItem("alias")
     if (nombre != null) {
         divbuscar.style.display = "block";
@@ -1207,7 +1304,7 @@ window.addEventListener("load", () => {
         divleyendo.style.display = "none";
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
-        footer.style.display="none";
+        footer.style.display = "none";
     });
 
     //btn que inicia la busqueda
@@ -1351,12 +1448,13 @@ window.addEventListener("load", () => {
             }
         } else {
             let alias = sessionStorage.getItem("alias");
-            let editorial2= editorial.textContent;
+            let editorial2 = editorial.textContent;
+            let textoComentario="";
             if (alias != null) {
                 let tit = "";//variable para recoger el titulo sin espacios
                 let aut = "";//variable para recoger el autor sin espacios
                 alias = cambio(alias);
-                editorial2=cambio(editorial2);
+                editorial2 = cambio(editorial2);
                 tit = cambio(array[aux][1]);
                 aut = cambio(array[aux][2]);
                 /* for (let j = 0; j < array[aux][2].length; j++) {
@@ -1370,7 +1468,12 @@ window.addEventListener("load", () => {
                 }
                 let img = array[aux][4].replace("S", "M");
                 nota = 0;
-                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2);
+                if(comentUsuario.value!= ""){
+                    textoComentario=cambio(comentUsuario.value);
+                }
+                
+                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2,textoComentario);
+                comentUsuario.textContent="";
             }
         }
         footer.style.display = "flex";
@@ -1378,6 +1481,12 @@ window.addEventListener("load", () => {
 
     //boton para agregar a tu perfil
     btnLeido.addEventListener("click", () => {
+        let textoComentario="";
+        if(comentUsuario.value!= ""){
+            textoComentario=cambio(comentUsuario.value);
+        }
+        comentUsuario.textContent="";
+
         if (btnLeido.value == "Abandonado") {
             if (sessionStorage.getItem("alias") != null) {
                 eliminarLibro("eliminarLibro", sessionStorage.getItem("alias"), array[aux][0]);
@@ -1389,11 +1498,11 @@ window.addEventListener("load", () => {
         } else {
             let validacion = document.getElementById("validacion");
             let alias = sessionStorage.getItem("alias");
-            let editorial2= editorial.textContent;
+            let editorial2 = editorial.textContent;
             if (alias != null) {
                 tit = cambio(array[aux][1]);
-                editorial2=cambio(array[aux][6]);
-                aut = cambio(array[aux][2]);
+                editorial2 = cambio(editorial2);
+                aut = cambio(array[aux][2][0]);
 
 
                 //saco la nota que el usuario le da
@@ -1419,11 +1528,42 @@ window.addEventListener("load", () => {
                 } else {
                     validacion.style.display = "none";
                     if (tit == cambio(array[aux][1])) {
-                        agregar("agregarleido", array[aux][0], alias, tit, aut, array[aux][3], img, "SI", nota, editorial2);
+                        agregar("agregarleido", array[aux][0], cambio(alias), tit, aut, array[aux][3], img, "SI", nota, editorial2, textoComentario);
                     }
                 }
             }
         }
         footer.style.display = "flex";
     })//leido
+
+    //btn ver comentarios
+    verComentarios.addEventListener("click", () => {
+        addComentarios.style.display = "none";
+        arrayComentarios = [];
+        nombreComentario.textContent = "";
+        fotoComentario.setAttribute("src", "");
+        fotoComentario.style.marginTop = "15px";
+        fotoComentario.style.borderRadius = "15%";
+        notaComentario.textContent = "";
+        coment.textContent = "";
+        //muestro la parte del div de los comentarios donde aparecen estos
+        resultadosComentarios.style.display = "flex";
+        //aux es el elemento del array donde esta indicado el libro seleccionado
+        //console.log(array[aux]);
+        camino = "comentario";//establezco la var a camino para poder diferenciarlo de lso btn anteriores
+
+        isbnLibros = array[aux][0];
+        //llamo a la funcion asincrona
+        comentariosISBN("comentario", array[aux][0]);
+
+        console.log(arrayComentarios);
+    });// evento click del btn ver comentaios
+
+    //btn agregar comentarios y a leidos
+    agregarComentarios.addEventListener("click", () => {
+        if (sessionStorage.getItem("alias") != null) {
+            addComentarios.style.display = "flex";
+            resultadosComentarios.style.display = "none";
+        }
+    })
 })

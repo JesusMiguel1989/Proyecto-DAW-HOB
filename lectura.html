@@ -313,6 +313,72 @@
                                             class="ltbISBN btn-sugerencia">
                                     </div>
                                 </div>
+
+                                <div class="row" id="comentario">
+                                    <center>
+                                        <label class="alabel">
+                                            Comentarios
+                                        </label>
+                                    </center>
+                                    <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
+                                        <input type="button" id="verComentarios" value="Ver Comentarios"
+                                            name="comentarios" class="ltbISBN btn-sugerencia">
+                                    </div>
+                                    <div class="col-12 col-xs-12 col-sm-6 text-center">
+                                        <input type="button" id="agregarComentarios" value="Agregar Comentarios"
+                                            name="agregarComentarios" class="ltbISBN btn-sugerencia">
+                                    </div>
+
+                                    <div class="row justify-content-center align-items-center" id="resultadosComentarios">
+                                        <div class="col-12 col-xs-12 col-md-3 col-lg-4 text-center">
+                                            <div class="row">
+                                                <!-- foto -->
+                                                <img src="" id="fotoComentario"></img>
+                                            </div>
+                                            <div class="row">
+                                                <!-- nombre / alias -->
+                                                <p id="nombreComentario"></p>
+                                            </div>
+                                            <div class="row">
+                                                <!-- nota dada -->
+                                                <p id="notaComentario"></p>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-xs-12 col-md-9 col-lg-8 text-center">
+                                            <div class="row">
+                                                <h5>Comentario</h5>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Comentarios label o textcontent -->
+                                                <p id="coment">
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3 col-xs-3  text-center align-middle">
+                                                <!-- <=  -->
+                                                <input type="button" id="anteriorComentario" value="&lt;="
+                                                    name="anteriorComentarios" class="ltbISBN btn-sugerencia">
+                                            </div>
+                                            <div class="col-6 col-xs-6 text-center">
+                                                <label id="paginacion">0</label>
+                                            </div>
+                                            <div class="col-3 col-xs-3 text-center align-middle">
+                                                <!-- => -->
+                                                <input type="button" id="siguienteComentario" value="=&gt;"
+                                                    name="siguienteComentarios" class="ltbISBN btn-sugerencia">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- generar otro div para insertar comentario -->
+                                    <div class="row justify-content-center align-items-center" id="addComentarios">
+                                        <div class="col-12">
+                                            <textarea id="comentUsuario" placeholder="Al insertar un cometario, este será visible para todos los usuarios y dicho libro se te asignara como libro 'leído'."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
