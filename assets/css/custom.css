@@ -1580,22 +1580,22 @@ input[type="radio"]:checked~label {
   box-shadow: none;
 }
 
-#comentario{
+#comentario {
   margin-top: 15px;
 }
 
-#paginacion{
+#paginacion {
   padding: 5px;
 }
 
-#comentario{
+#comentario {
   background-color: rgb(114, 171, 144);
   /*  */
   border-radius: 20%;
   padding-bottom: 10px;
 }
 
-#comentUsuario{
+#comentUsuario {
   margin-top: 15px;
   /* display: none; */
   width: 90%;
@@ -1604,8 +1604,18 @@ input[type="radio"]:checked~label {
   padding: 5px;
 }
 
-#comentUsuario::placeholder{
-  color:rgba(128, 128, 128, 0.74);
+#comentUsuario::placeholder {
+  color: rgba(128, 128, 128, 0.74);
   font-style: italic;
   padding: 5px;
-  }
+}
+
+#curiosidadesLibros{
+  z-index: 20;
+  height: 40%;
+  width: 60%;
+}
+
+/* #divleyendo{
+  display: none;
+} */

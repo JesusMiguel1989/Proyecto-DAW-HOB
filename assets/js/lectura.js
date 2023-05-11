@@ -4,10 +4,34 @@ let nota;
 let cad = "";//variable para recoger la sinopsis o indicar que no esta disponible
 let cadena;//variable para reducir los titulos
 
+//array con los datos curiosos
+let curiosidades = [
+    "El libro más largo del mundo es ‘En busca del tiempo perdido’, de Marcel Proust, cuenta con 3.032",
+    "Winnie The Pooh, Mrs Piggle-Wiggle y El Hobbit fueron escritos por sus respectivos autores como cuentos infantiles para sus hijos.",
+    "La novela más vendida del mundo es El Quijote , de Miguel de Cervantes, que ha vendido más de 500 millones de copias. El libro más vendido del mundo es La Biblia.",
+    "El libro más caro del mundo es una copia del Códice Leicester , de Leonardo DaVinci. Se pagó por él 30.8 millones de dólares (Bill Gates)",
+    "Ernest Hemingway odiaba la portada de El Gran Gatsby.",
+    "Sabes el nombre de el monstruo de Frankenstein? No, no es Frankenstein, aunque muchos piensen que lo es. Nunca se le da un nombre dentro de la novela, Mary Shelley (autora) se refirió a él como “Adam”.",
+    "El libro más codiciado de la saga Harry Potter es, curiosamente, Los cuentos de Beedle, el bardo . Se buscan en concreto siete copias que la autora de la saga, J.K. Rowling, escribió a mano, y cuyas portadas tienen joyas incrustadas. Seis de esas copias pertenecen a parte del equipo de Rowling y la séptima fue subastada (4 millones de dólares), destinados íntegramente a un orfanato de Rumanía.",
+    "El libro Farenheit 451 , de Ray Bradbury, debe su título a la temperatura en la que las páginas de un libro arde.",
+    "El personaje que ha sido interpretado por más actores ha sido Sherlock Holmes. Ian McKellen, Buster Keaton, Peter Cushing, Roger Moore, Christopher Plummer, Michael Caine, Charlton Heston, Jeremy Irons, Rupert Everett, Benedict Cumberbatch o Robert Downey Jr... (21 en total)",
+    "La primera novela escrita fue La Historia de Genji , de la japonesa Murasaki Shibiku, en 1008.",
+    "C.S.Lewis y J.R.R. Tolkien eran mejores amigos. Es más, el protagonista de Más Allá del Planeta Silencioso (1938) está inspirado en Tolkien.",
+    "Hasta su fallecimiento en 2014, Gabriel García Márquez siempre se negó a que adaptaran Cien años de soledad al cine, y desautorizó toda adaptación audiovisual de su obra maestra.",
+    "Como matar a un ruiseñor es la primera y única novela de la escritora Harper Lee, que ganó un premio Pulitzer y se pasó 88 semanas en el número uno en las listas de más vendidos. Ve y pon un centinela, su supuesta y esperada secuela publicada tras el fallecimiento de la escritora es en realidad un borrador de la primera.",
+    "La bibliopegia antropodérmica es la tecnica de encuadernar libros con piel humana, en la biblioteca de la Universidad de Havard es posible encontrar un volumen encuadernado con piel humana y se trata del libro titulado “ Des destinées de l’ame” del poeta francés Arsène Houssaye.",
+    "El libro más pequeño del mundo se imprimió en Padua en 1897 con un formato de 15 × 9 mm. ¿Qué contenía? Una carta escrita por Galileo Galilei dirigida a Cristina de Lorena para afirmar que la teoría copernicana no estaba en conflicto con la fe. Hoy este librito se conserva en la biblioteca Malatestiana de Cesena.",
+    "Los lipogramas son auténticos ejercicios literarios en los que el autor disfruta voluntariamente excluyendo una determinada letra del texto. ¿Un ejemplo? El escritor francés Georges Perec logró escribir una novela de 300 páginas llamada La Disparition sin usar nunca la letra «e».",
+    "En el pasado, el registro de la biblioteca más grande del mundo pertenecía a la de Alejandría en Egipto que albergaba alrededor de 490 mil manuscritos que luego se perdieron con la destrucción de los siglos I y VII d.C. Hoy, sin embargo, la biblioteca más grande del mundo es la Biblioteca Británica de Londres, que tiene alrededor de 170 millones de libros.",
+    "Después de 221 años de retraso en 2010, un libro prestado a George Washington en 1789 fue devuelto a la Biblioteca de la Sociedad de Nueva York . A sus herederos se les ha perdonado la multa de 300.000 dólares."
+];
+let divCuriosidades = document.getElementById("curiosidadesLibros");//div que aparecera mientras se cargan los libros
+let pCuriosidades = document.getElementById("pCuriosidades");//parrafo donde se mostraran las curiosidades
+
 let aux;//variable para saber que libro ha sido seleccionado
 //variables para la paginacion
 let page = 1;//variable para indicar la pagina en la api open library
-let limite = 20;//variable para indicar la cantidad de elementos por pagina
+let limite = 10;//variable para indicar la cantidad de elementos por pagina
 
 let resultadosBusqueda = 0;//variable que tendra el numero de resultados de la busqueda
 let paginasTotales = 0;//variable que guardara las paginas totales
@@ -27,7 +51,7 @@ let coment = document.getElementById("coment");//etiqueta que mostrara los comen
 let inicioComentarios = 0;//inicio de la pag (LIMIT 0)
 let registrosComentarios = 0;//numero de registros que devuelve la consulta
 let addComentarios = document.getElementById("addComentarios");//div que contiene el textarea para agregar comentarios
-let comentUsuario=document.getElementById("comentUsuario");//textarea donde se escribe el comentario
+let comentUsuario = document.getElementById("comentUsuario");//textarea donde se escribe el comentario
 let isbnLibros = 0;
 
 let camino;
@@ -56,19 +80,19 @@ let tit = "";//variable para recoger el titulo sin espacios
 let aut = "";//variable para recoger el autor sin espacios
 
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
-    condicion5, condicion6, condicion7, condicion8, condicion9,condicion10) {
+    condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
 
-        console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
-        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10="+condicion10);
+        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10);
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
-        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10="+condicion10
+        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10
         , {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+            method: "GET",
+            headers: { "Content-type": "application/json" }
+        });
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3) {
@@ -201,7 +225,7 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
         headers: { "Content-type": "application/json" }
     });
     response = await response.json();
-    
+
 
     for (let i = 0; i < response.length; i++) {
         arrayComentarios.push([response[i][0], response[i][1], response[i][2], response[i][3]]);
@@ -216,10 +240,10 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
         coment.textContent = arrayComentarios[0][2];
         pagina2();//llamo a la funcion de paginaciçon para que muestre la cantidad de comentarios que se encontro y cuantos muestra
         resultadosComentarios.style.display = "flex";
-    }else{
-        registrosComentarios=0;
+    } else {
+        registrosComentarios = 0;
         nombreComentario.textContent = "";
-        fotoComentario.setAttribute("src","");
+        fotoComentario.setAttribute("src", "");
         notaComentario.textContent = "- ★";
         coment.textContent = "Lo siento no disponemos de comentarios para este libro";
     }
@@ -656,8 +680,9 @@ async function buscarall(condicion, condicion2, condicion3) {
         encontrados = [texto.docs[i].isbn[0], texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
         eval(cadena), descripcion, editorial];
         array.push(encontrados);
-        mostrar(i);
+        //mostrar(i);
     }
+    carga();
 
     footer.style.display = "block";
     response = await response.array;
@@ -733,8 +758,10 @@ async function buscar2(condicion, condicion2) {
             portada, descripcion, editorial];
         array.push(encontrados);
 
-        mostrar(i);
+        //mostrar(i);
     }
+    carga();
+
     footer.style.display = "block";
 
     response = await response.array;
@@ -810,8 +837,9 @@ async function buscar3(condicion) {
             portada, descripcion, editorial];
         array.push(encontrados);
 
-        mostrar(i);
+        //mostrar(i);
     }
+    carga();
 
     footer.style.display = "block";
     response = await response.array;
@@ -885,8 +913,8 @@ async function buscar4(condicion) {
             portada, descripcion, editorial];
         array.push(encontrados);
 
-        mostrar(i);
     }
+    carga();
 
     footer.style.display = "block";
     response = await response.array;
@@ -952,17 +980,29 @@ async function buscar5(condicion) {
             portada, descripcion, editorial];
         array.push(encontrados);
 
-        mostrar(i);
+        //mostrar(i);
     }
+    carga();
 
     footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
 }
 
+function carga() {
+
+    for (let i = 0; i < array.length; i++) {
+        mostrar(i);
+        if (i == (array.length - 1)) {
+            divCuriosidades.style.display = "none";
+            footer.style.display = "block";
+        }
+    }
+
+}
+
 //funcion que comprueba los campos introducidos y envia la peticion a la correspondiente
 function buscador() {
-
     resultados.innerHTML = "";
     array = [];
     tarjeta.style.display = "none";
@@ -1262,6 +1302,13 @@ function navegador() {
     ranking.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
 }
 
+//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
+function curiosidad() {
+    let num = Math.floor(Math.random() * curiosidades.length);
+
+    pCuriosidades.textContent = curiosidades[num];
+}
+
 //botones
 let buscar = document.getElementById("lbuscar");
 let leyendo = document.getElementById("lleyendo");
@@ -1277,6 +1324,7 @@ let tarjeta = document.getElementById("tarjeta");
 let footer = document.getElementById("footer2");
 
 window.addEventListener("load", () => {
+    divCuriosidades.style.display = "none";
     let ubicacion = document.getElementById("ubicacion");
     addComentarios.style.display = "none";
     let nombre = sessionStorage.getItem("alias")
@@ -1309,6 +1357,10 @@ window.addEventListener("load", () => {
 
     //btn que inicia la busqueda
     btnBuscardor.addEventListener("click", () => {
+        divCuriosidades.style.display = "inline-flex";
+        
+        curiosidad();
+
         let op = document.getElementById("op");//titulo botones
         let actual = document.getElementById("actual");//btn izquierda
         let anterior = document.getElementById("anterior");//btn derecha
@@ -1318,7 +1370,6 @@ window.addEventListener("load", () => {
         anterior.style.display = "inline";
         page = 1;
         buscador();
-        footer.style.display = "block";
     })
 
     //boton leyendo
@@ -1449,7 +1500,7 @@ window.addEventListener("load", () => {
         } else {
             let alias = sessionStorage.getItem("alias");
             let editorial2 = editorial.textContent;
-            let textoComentario="";
+            let textoComentario = "";
             if (alias != null) {
                 let tit = "";//variable para recoger el titulo sin espacios
                 let aut = "";//variable para recoger el autor sin espacios
@@ -1468,12 +1519,12 @@ window.addEventListener("load", () => {
                 }
                 let img = array[aux][4].replace("S", "M");
                 nota = 0;
-                if(comentUsuario.value!= ""){
-                    textoComentario=cambio(comentUsuario.value);
+                if (comentUsuario.value != "") {
+                    textoComentario = cambio(comentUsuario.value);
                 }
-                
-                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2,textoComentario);
-                comentUsuario.textContent="";
+
+                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2, textoComentario);
+                comentUsuario.value = "";
             }
         }
         footer.style.display = "flex";
@@ -1481,11 +1532,11 @@ window.addEventListener("load", () => {
 
     //boton para agregar a tu perfil
     btnLeido.addEventListener("click", () => {
-        let textoComentario="";
-        if(comentUsuario.value!= ""){
-            textoComentario=cambio(comentUsuario.value);
+        let textoComentario = "";
+        if (comentUsuario.value != "") {
+            textoComentario = cambio(comentUsuario.value);
         }
-        comentUsuario.textContent="";
+
 
         if (btnLeido.value == "Abandonado") {
             if (sessionStorage.getItem("alias") != null) {
@@ -1502,7 +1553,7 @@ window.addEventListener("load", () => {
             if (alias != null) {
                 tit = cambio(array[aux][1]);
                 editorial2 = cambio(editorial2);
-                aut = cambio(array[aux][2][0]);
+                aut = cambio(array[aux][2]);
 
 
                 //saco la nota que el usuario le da
@@ -1533,6 +1584,7 @@ window.addEventListener("load", () => {
                 }
             }
         }
+        comentUsuario.value = "";
         footer.style.display = "flex";
     })//leido
 
