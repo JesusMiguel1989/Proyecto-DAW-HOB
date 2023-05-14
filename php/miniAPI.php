@@ -488,17 +488,18 @@ if(!$conexion){
         //agregar una tienda a la BBDD
         if($opcion=="agregartienda"){
             $cod=$_GET['condicion1'];
-            $nombre=$_GET['condicion2'];
-            $telefono=$_GET['condicion3'];
-            $direccion=$_GET['condicion4'];
-            $localidad=$_GET['condicion5'];
+            $nombre=str_replace("_"," ",$_GET['condicion2']);
+            $telefono=str_replace("_"," ",$_GET['condicion3']);
+            $direccion=str_replace("_"," ",$_GET['condicion4']);
+            $localidad=str_replace("_"," ",$_GET['condicion5']);
             $provincia=$_GET['condicion6'];
             $cod_hob=$_GET['condicion7'];
             $logo=$_GET['condicion8'];
             $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE,LOGO)
                 VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."','".$logo."')");
             
-            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+            echo mysqli_error($conexion);
+            //header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }
 
         //agregar una tienda a la BBDD

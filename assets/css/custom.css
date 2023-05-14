@@ -1394,14 +1394,8 @@ input[type="radio"]:checked~label {
   margin-top: 10px;
 }
 
-#acodtienda,
-#alocalidad,
-#aprovincia,
-#anombre,
-#adireccion,
-#atelefono,
-#acodhobie,
-#alogo,
+#acodtienda,#alocalidad,#aprovincia,#anombre,#adireccion,#atelefono,#acodhobie,#alogo,
+#acodtienda2,#alocalidad2,#aprovincia2,#anombre2,#adireccion2,#atelefono2,#acodhobie2,#alogo2,
 #alvaloracion,
 #alleido,
 #alportada,
