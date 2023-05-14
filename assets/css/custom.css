@@ -1527,6 +1527,11 @@ input[type="radio"]:checked~label {
   display: none;
 }
 
+#validacion1,#validacion2,#validacion3,#validacion4,#validacion5,#validacion6,#validacion7{
+  color: red;
+  display: none;
+}
+
 /*BOON DEL TOGGLE*/
 #menus{
   margin-right: 40px;

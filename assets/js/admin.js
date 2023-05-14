@@ -313,6 +313,20 @@ function limpieza() {
     telefono.value = "";
     cod_hob.value = "";
     logo.value = "";
+    logo.style.border = "1px solid black";
+    cod_hob.style.border = "1px solid black";
+    telefono.style.border = "1px solid black";
+    direccion.style.border = "1px solid black";
+    nombre.style.border = "1px solid black";
+    provincia.style.border = "1px solid black";
+    localidad.style.border = "1px solid black";
+    validacion1.style.display = "none";
+    validacion2.style.display = "none";
+    validacion3.style.display = "none";
+    validacion4.style.display = "none";
+    validacion5.style.display = "none";
+    validacion6.style.display = "none";
+    validacion7.style.display = "none";
 }
 
 window.addEventListener("load", () => {
@@ -384,7 +398,7 @@ window.addEventListener("load", () => {
         //comprobacion del codigo insertado
         if (!expcod.test(cod2.value)) {
             cod2.style.border = "2px solid red";
-            validacion1.style.display = "flex";
+            validacion1.style.display = "inline";
             centinela = false;
         } else {
             cod2.style.border = "1px solid black";
@@ -394,7 +408,7 @@ window.addEventListener("load", () => {
         //comprobacion del nombre insertado
         if (nombre.value == "") {
             nombre.style.border = "2px solid red";
-            validacion2.style.display = "flex";
+            validacion2.style.display = "inline";
             centinela = false;
         } else {
             nombre.style.border = "1px solid black";
@@ -424,7 +438,7 @@ window.addEventListener("load", () => {
         //comprobacion de la localidad
         if (!explocalidad.test(localidad.value)) {
             localidad.style.border = "2px solid red";
-            validacion6.style.display = "flex";
+            validacion6.style.display = "inline";
             centinela = false;
         } else {
             localidad.style.border = "1px solid black";
@@ -559,37 +573,45 @@ window.addEventListener("load", () => {
         let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
         console.log(expcod.test(cod.value));
         if (cod2.value == "") cod2.value = cod.value;
-        if (cod.value != cod2.value) cod.value = cod2.value;
+        //if (cod.value != cod2.value) cod.value = cod2.value;
         if (!expcod.test(cod.value) || !expcod.test(cod2.value)) {
             cod.style.border = "2px solid red";
             correcto = false;
         } else {
             cod.style.border = "1px solid black";
-            if (cod2.value != "") {
-                await borrartTienda("borrartienda", cod2.value).then(() => {
-                    console.log("Completado");
-                    limpieza();
-                });
-            } else {
-                await borrartTienda("borrartienda", cod.value).then(() => {
-                    console.log("Completado");
-                    limpieza();
-                });
-            }
+
+            await borrartTienda("borrartienda", cod2.value).then(() => {
+                console.log("Completado");
+                arrayTiendas = [];//la reinicializo
+                cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
+                limpieza();
+            });
+
+
 
         }//verificacion codigo
-
-        arrayTiendas = [];//la reinicializo
-        cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
 
     });//btn borrar tienda
 
     //btn buscartienda , parte de que se le introduzca el codigo de la tienda
-    btnBuscarTienda.addEventListener("click", () => {
+    btnBuscarTienda.addEventListener("click", (e) => {
 
         cod.style.display = "flex";
         cod2.style.display = "none";
-        if(cod2.value!="") cod.value=cod2.value;
+
+
+        if (cod2.value != "" && expcod.test(cod2.value)) {
+            cod.value = cod2.value;
+            cod2.style.display = "1px solid black";
+            validacion1.style.display = "none";
+        }
+        if (cod2.value != "" && !expcod.test(cod2.value)) {
+            cod2.style.display = "2px solid red";
+            validacion1.style.display = "inline";
+            e.preventDefault();
+        }
+        limpieza();
+
         buscartienda("buscartienda", cod.value).then(data => {
             //muestro los resultados de la busqueda
             localidad.value = data[0][1];
