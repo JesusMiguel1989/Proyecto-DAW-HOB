@@ -104,6 +104,7 @@ window.addEventListener("load", () => {
         resultadosTiendas.innerHTML="";
         ficha.style.display="none";
         array=[];
-        buscar("buscadorTiendaLocalidad", hobie.value, localidad.value);
+        //cambiar hobie.value por "Lectura" y se eliminaria la opcion de los otros hobbies
+        buscar("buscadorTiendaLocalidad", "Lectura", localidad.value);
     })
 })

@@ -2,6 +2,10 @@ let validacion = document.getElementById("validacion");//div con el error 1
 let validacion1 = document.getElementById("validacion1");//div con el error 1
 let validacion2 = document.getElementById("validacion2");//div con el error 2
 let validacion3 = document.getElementById("validacion3");//div con el error 1
+let validacion9 = document.getElementById("validacion1");//div con el error 1
+
+let nombre = document.getElementById("nombre");//campo nombre
+let key = document.getElementById("key");//campo key
 
 
 async function alias(opcion, condicion1, condicion2) {
@@ -14,12 +18,20 @@ async function alias(opcion, condicion1, condicion2) {
 
     response = await response.json();
 
-    if (response == "") {
-        validacion1.style.display = "block";
-        validacion3.style.display = "block";
+    let resultado=true;
+    if(response.length == 0){
+        resultado=false;
+    }
+    
+    if (response == "" || !resultado) {
+        nombre.style.border = "2px solid red";
+        validacion9.style.display = "block";
+        key.value="";
     } else {
         validacion1.style.display = "none";
         validacion3.style.display = "none";
+        validacion9.style.display = "none";
+
         sessionStorage.setItem('alias', response[0][0]);
         sessionStorage.setItem('fecha', response[0][1]);
         sessionStorage.setItem('localidad', response[0][2]);
@@ -52,9 +64,6 @@ async function olvido(opcion, condicion1, condicion2) {
 }//funcion asincrona que devuelve datos del usuario con el datos y correo indicado
 
 window.addEventListener("load", () => {
-    let nombre = document.getElementById("nombre");//campo nombre
-    let key = document.getElementById("key");//campo key
-    let enviar = document.getElementById("enviar");//boton enviar submit
     let fondo = document.getElementById("rfondoi");//fondo del formulario
     //let olvido = document.getElementById("olvido");//btn olvido
     let entrada = document.getElementById("enviar");//formulario
@@ -62,6 +71,8 @@ window.addEventListener("load", () => {
 
     entrada.addEventListener("click", async (e) => {
         let validador = true;
+
+        validacion9.style.display = "block";
 
         if (nombre.value == "") {
             validador = false;
@@ -105,7 +116,7 @@ window.addEventListener("load", () => {
 
         //validaciones
         let validacion = document.getElementById("validacion9");
-        let validacion1 = document.getElementById("validacion1");
+        let validacion1 = document.getElementById("validacion91");
 
         //boton cerrar
         let cerrar = document.getElementById("cerrar");

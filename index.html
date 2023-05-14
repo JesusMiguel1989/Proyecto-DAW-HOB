@@ -51,27 +51,26 @@
 
       <!--MENU de la IZQUIERDA-->
       <div class="profile">
-        <a href="index.html"><img src="assets/imagenes/recortado.png" alt="" class="img-fluid rounded-circle"></a>
-        <h1 class="text-light"><a href="index.html"><span class="hb">H</span><span class="o">O</span><span
+        <a href="index.html"><img src="assets/imagenes/recortado.png" alt="logo Pagina" title="logo Pagina" class="img-fluid rounded-circle"></a>
+        <h1 class="text-light"><a href="index.html" alt="Título Pagina" title="Título Pagina"><span class="hb">H</span><span class="o">O</span><span
               class="hb">B</span></a></h1>
         <div class="social-links mt-3 text-center">
-          <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
-          <a href="https://www.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="https://www.instagram.com/" class="instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="https://web.telegram.org/z/" class="instagram"><i class="bx bxl-telegram"></i></a>
-          <a href="https://web.whatsapp.com/" class="instagram"><i class="bx bxl-whatsapp"></i></a>
-          <a href="https://www.deviantart.com/" class="instagram"><i class="bx bxl-deviantart"></i></a>
+          <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i class="bx bxl-telegram"></i></a>
+          <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i class="bx bxl-whatsapp"></i></a>
         </div>
       </div>
 
-      <form id="buscador" action="·">
+      <!-- <form id="buscador" action="·">
         <label for="Idbuscar">&nbsp</label>
-        <!-- <label>Buscar: </label> -->
+        
         <input id="Ibuscar" type="text" placeholder="Buscar">
         <button type="button" class="btn btn-secondary Ibuscador">
           <i class="bi-search "></i>
         </button>
-      </form>
+      </form> -->
 
       <nav id="navbar" class="nav-menu navbar">
         <ul>
@@ -79,22 +78,29 @@
               <span>Identificarse</span></a></li>
           <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Perfil</span></a></li>
 
-          <li class="nav-link scrollto">
-            <button class="boton btn btn-toggle d-inline-flex align-items-center rounded" data-bs-toggle="collapse"
-              data-bs-target="#home-collapse" aria-expanded="false">
-              <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
-            <div class="collapse" id="home-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="./retro.html" class="link-light d-inline-flex text-decoration-none rounded">Retro
-                    Gamming</a></li>
-                <li><a href="./arte.html" class="link-light d-inline-flex text-decoration-none rounded">Arte</a></li>
-                <li><a href="./lectura.html" class="link-light d-inline-flex text-decoration-none rounded">Lectura</a>
-                </li>
-                <li><a href="./senderismo.html"
-                    class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a></li>
-              </ul>
-            </div>
-          </li>
+          <li><a href="./lectura.html" class="link-light d-inline-flex text-decoration-none rounded"><i
+                class="bi bi-book"></i>
+              <span>Lectura</span></a></li>
+          <!--<li class="nav-link scrollto">
+            <button class="boton btn btn-toggle d-inline-flex align-items-center rounded"
+                data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
+             <div class="collapse" id="home-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="./retro.html"
+                            class="link-light d-inline-flex text-decoration-none rounded">Retro Gamming</a>
+                    </li>
+                    <li><a href="./arte.html"
+                            class="link-light d-inline-flex text-decoration-none rounded">Arte</a>
+                    </li>
+                    <li><a href="./lectura.html"
+                            class="link-light d-inline-flex text-decoration-none rounded">Lectura</a></li>
+                    <li><a href="./senderismo.html"
+                            class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a>
+                    </li>
+                </ul>
+            </div> 
+        </li>-->
 
           <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
               <span>Tiendas Locales</span></a></li>
@@ -121,30 +127,35 @@
           data-typed-items="Retro Gamming, Lectura, Senderismo, Dibujo, Peliculas, Sellos, Modelismo, Coches"></span>
       </p> -->
 
-      <div id="hobies">
-        <div id="sendero">
-          <a href="./senderismo.html"><img class="senderos" src="./assets/imagenes/senderismo.png"
+      <div id="hobies" class="row text-center">
+        <!-- <div id="sendero">
+          <a href="./senderismo.html"><img class="senderos disabled" src="./assets/imagenes/senderismo.png"
               title="Senderismo"></a>
+            <h5>Senderismo</h5>
+        </div> -->
+        <div id="lectura" class="col-12 text-center">
+          <a href="./lectura.html"><img class="libros" src="./assets/imagenes/libro.png" title="Lectura"></a><br>
+          <p class="alabel">Literatura</p>
         </div>
-        <div id="lectura">
-          <a href="./lectura.html"><img class="libros" src="./assets/imagenes/libro.png" title="Lectura"></a>
-        </div>
-        <div id="retro">
-          <a href="./retro.html"><img class="gaming" src="./assets/imagenes/retrogaming.png" title="Retro Gamming"></a>
+        <!-- <div id="retro">
+          <a href="./retro.html"><img class="gaming disabled" src="./assets/imagenes/retrogaming.png" title="Retro Gamming"></a>
+          <h5>Retro-Gamming</h5>
         </div>
         <div id="arte">
-          <a href="./arte.html"><img class="pintar" src="./assets/imagenes/arte.png" title="Arte"></a>
-        </div>
+          <a href="./arte.html"><img class="pintar disabled" src="./assets/imagenes/arte.png" title="Arte"></a>
+          <h5>Arte</h5>
+        </div> -->
 
       </div>
     </div>
 
     <!-- ofcanvas btn -->
     <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
-      aria-controls="offcanvasTop" id="btndiv" ></button>
+      aria-controls="offcanvasTop" id="btndiv"></button>
 
 
-    <div class="offcanvas offcanvas-top shadow-none" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel" data-bs-scroll="false" data-bs-backdrop="false"><!--  -->
+    <div class="offcanvas offcanvas-top shadow-none" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel"
+      data-bs-scroll="false" data-bs-backdrop="false"><!--  -->
       <div class="offcanvas-header" id="ofcanvas">
         <h5 class="offcanvas-title" id="offcanvasTopLabel1"></h5>
         <button type="button" class="btn-close me-2" data-bs-dismiss="offcanvas" aria-label="Close" id="btnX"></button>

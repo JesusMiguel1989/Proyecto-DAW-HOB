@@ -1,3 +1,5 @@
+let arrayTiendas = [];//array de las tiendas (codigo de tiendas)
+
 //div principales
 let bbdd = document.getElementById("bbdd");//parte de la bases de datos
 let gestion = document.getElementById("gestion");//gestion de tablas
@@ -8,6 +10,7 @@ let tiendas = document.getElementById("tiendas");//peticion de datos para las ti
 let usuarios = document.getElementById("usuarios");//peticion del alias para bannear, perdonar, borrar usuarios
 let seleccion = document.getElementById("seleccion");//div con las opciones de las tablas para insertar registros
 let libros = document.getElementById("agregarlibros");//div con los campos para agregar libros
+let addtiendas = document.getElementById("addTiendas");//div con los campos para agregar tiendas
 
 //botoncitos
 //let btnreiniciar = document.getElementById("reiniciar");//Administracion reiniciar bbdd
@@ -16,9 +19,11 @@ let btnRestaurar = document.getElementById("restaurar");//Administracion restaur
 let btnActualizar = document.getElementById("actualizar");//Administracion actualizar para eliminar datos de usuarios eliminados
 let btnTiendas = document.getElementById("tiendas2");//Gestión remite al div tiendas
 let btnBaneos = document.getElementById("banneos");//Gestión remite al div usuarios
-let btnAñadir = document.getElementById("agregar");//Gestión remite al div seleccion
+let btnAñadir = document.getElementById("agregar");//Gestión remite al div delibros
 let btnEnviar = document.getElementById("aenviarfic");//boton submit del div restore
-let btnAgregarTienda = document.getElementById("agregartienda");//btn agregar del div tienda
+let btnAgregarTienda = document.getElementById("agregarTienda");//boton para mostrar el div de agregar tiendas
+let btnAddTienda =document.getElementById("agregarTienda2");//boton para agregar tienda
+let btnModificarTienda = document.getElementById("modificartienda");//btn modificar del div tienda
 let btnBorrarTienda = document.getElementById("borrartienda");//btn borrar dle div tienda
 let btnBuscarTienda = document.getElementById("buscartienda");//btn buscar tienda del div tiendas
 let btnBanear = document.getElementById("banear");//btn banear del div de usuarios
@@ -48,6 +53,25 @@ let portada = document.getElementById("alportada");
 let leido = document.getElementById("alleido");
 let valoracion = document.getElementById("alvaloracion");
 
+//"capturo" los campos para la insercion o eliminacion de tiendas
+let cod = document.getElementById("acodtienda");
+let localidad = document.getElementById("alocalidad");
+let provincia = document.getElementById("aprovincia");
+let nombre = document.getElementById("anombre");
+let direccion = document.getElementById("adireccion");
+let telefono = document.getElementById("atelefono");
+let cod_hob = document.getElementById("acodhobie");
+let logo = document.getElementById("alogo");
+
+//expresiones para tiendas
+let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
+let explocalidad = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/;//expresionregular para la localidad
+let exptelefono = /^[0-9 ]{9,12}$/i;//expresion regular para el telefono
+let expdireccion = /^[a-zñáéíóúA-ZÑÁÉÍÓÚ \/\\\.]+[\º\ \][0-9]{1,3}/;//expresion regular para la direccion
+let expcodhob = /^[0-9]{1,2}$/;//expresion regular para el hobbie
+let explogo = /\w+.png$|\w+.jpg$|\w+.jpeg$/;//expresion regular para los logos (URL que sean png, jpg o jpeg)
+let correcto = true;//variable centinela agregar
+
 async function copia(opcion) {
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion, {
@@ -68,11 +92,24 @@ async function actualizar(opcion) {
 
 }//funcion asincrona que devuelve datos del usuario con el datos y correo indicado
 
-async function agregarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7) {
+//agregar tienda
+async function agregarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
-        "&condicion6=" + condicion6 + "&condicion7=" + condicion7, {
+        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
+
+}
+
+//modificar tienda indicada
+async function modificarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7,condicion8) {
+
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
+        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -189,6 +226,29 @@ async function modificarLibros(opcion, condicion1, condicion2, condicion3, condi
     });
 }
 
+//funcion para sacar los codigos de las tiendas
+async function cod_tiendas(opcion) {
+    let opciones = "";
+    let cod = document.getElementById("acodtienda");
+
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion, {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
+
+    response = await response.json();
+
+    //arrayTiendas
+    for (let i = 0; i < response.length; i++) {
+        arrayTiendas.push(response[i]);
+        opciones += "<option>" + response[i] + "</option>";
+    }
+    cod.innerHTML = opciones;
+
+    return Promise.resolve(response);
+}
+
+//funcion para agregar libros de forma manual (administrador)
 function apiLibros(opcion) {
     let expcod = /^[0-9]{1,14}$/;
     let centinela = true;//centinela para saber que se cumplen todas las condiciones
@@ -214,12 +274,23 @@ function apiLibros(opcion) {
     }
 }
 
+//funcion para ocultar div
 function cerrar() {
     restore.style.display = "none";//oculto los div
     tiendas.style.display = "none";//dejo visible el div
     usuarios.style.display = "none";//oculto los div
     seleccion.style.display = "none";//oculto los div
     libros.style.display = "none";//oculto los div
+}
+
+//funcion para poder pasar las cadenas a php
+function cambio(cadena) {
+    let cad = cadena;
+
+    while (cad.includes(" ")) {
+        cad = cad.replace(" ", "_");
+    }
+    return cad;
 }
 
 window.addEventListener("load", () => {
@@ -266,58 +337,60 @@ window.addEventListener("load", () => {
 
     //btn que muestra el div de tiendas para agregar registros o borrarlos
     btnTiendas.addEventListener("click", () => {
+
         restore.style.display = "none";//oculto los div
         tiendas.style.display = "flex";//dejo visible el div
+        tiendas.style.marginBottom = "100px";
         usuarios.style.display = "none";//oculto los div
         seleccion.style.display = "none";//oculto los div
         libros.style.display = "none";//oculto los div
+
+        arrayTiendas = [];//la reinicializo
+        cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
     });//btn que muestra el div de tiendas para agregar registros o borrarlos
 
-    //agregar tienda
-    btnAgregarTienda.addEventListener("click", () => {
-        //"capturo" los campos para la insercion o eliminacion
-        let cod = document.getElementById("acodtienda");
-        let localidad = document.getElementById("alocalidad");
-        let provincia = document.getElementById("aprovincia");
-        let nombre = document.getElementById("anombre");
-        let direccion = document.getElementById("adireccion");
-        let telefono = document.getElementById("atelefono");
-        let cod_hob = document.getElementById("acodhobie");
+    //agregar tiendas, cambio de div al de agregar tienda
+    btnAgregarTienda.addEventListener("click",()=>{
+        addtiendas.style.display="flex";
+        addtiendas.style.marginBottom="100px";
+        tiendas.style.display = "none";//dejo visible el div
+    });//cambio de div a agregar tienda
 
-        //variables del evento
-        let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
-        let explocalidad = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/;//expresionregular para la localidad
-        let exptelefono = /^[0-9 ]{9,12}$/i;//expresion regular para el telefono
-        let expdireccion = /^[a-zñáéíóúA-ZÑÁÉÍÓÚ \/\\\.]+[\º\ \][0-9]{1,3}/;//expresion regular para la direccion
-        let expcodhob = /^[0-9]{1,2}$/;//expresion regular para el hobbie
-        let correcto = true;//variable centinela agregar
+    //boton para agregar tiendas
+    btnAddTienda.addEventListener("click",()=>{
+        //compruebo los datos
+        let centinela =true;//centinela para poder comprobar los campos
+        
+        agregarTienda("agregartienda", cod.value, nombre.value, telefono.value, direccion.value, localidad.value, provincia.value, cod_hob.value,logo.value);
+
+        //vuelvo a la pantalla inicial
+    })
+
+
+    //modificar tienda
+    btnModificarTienda.addEventListener("click", () => {
+
+        arrayTiendas = [];//la reinicializo
+        cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
 
         //div con los errores
-        let validacion1 = document.getElementById("validacion1");
+        //let validacion1 = document.getElementById("validacion1");
         let validacion2 = document.getElementById("validacion2");
         let validacion3 = document.getElementById("validacion3");
         let validacion4 = document.getElementById("validacion4");
         let validacion5 = document.getElementById("validacion5");
         let validacion6 = document.getElementById("validacion6");
+        let validacion7 = document.getElementById("validacion7");
 
         comprobarCod("cod", cod.value).then(() => {
-            if (!expcod.test(cod.value) || codinsertado) {
+            /* if (!expcod.test(cod.value) || codinsertado) {
                 cod.style.border = "2px solid red";
                 validacion1.style.display = "inline";
                 correcto = false;
             } else {
                 cod.style.border = "1px solid black";
                 validacion1.style.display = "none";
-            }//verificacion codigo
-
-            if (!explocalidad.test(localidad.value)) {
-                localidad.style.border = "2px solid red";
-                validacion6.style.display = "inline";
-                correcto = false;
-            } else {
-                localidad.style.border = "1px solid black";
-                validacion6.style.display = "none";
-            }//verificacion de localidad
+            }//verificacion codigo */
 
             if (nombre.value == "") {
                 nombre.style.border = "2px solid red";
@@ -346,6 +419,24 @@ window.addEventListener("load", () => {
                 validacion5.style.display = "none";
             }//comprobacion de la direccion
 
+            if (!explocalidad.test(localidad.value)) {
+                localidad.style.border = "2px solid red";
+                validacion6.style.display = "inline";
+                correcto = false;
+            } else {
+                localidad.style.border = "1px solid black";
+                validacion6.style.display = "none";
+            }//verificacion de localidad
+
+            if(!explogo.test(logo.value)){
+                logo.style.border = "2px solid red";
+                validacion7.style.display = "inline";
+                correcto = false;
+            }else{
+                logo.style.border = "1px solid black";
+                validacion7.style.display = "none";
+            }//verificacion del logo
+
             //llamo a la funcion que comprueba la existencia del hobbie
             comprobarId("cod_hobbie", cod_hob.value).then(() => {
                 //comprobacion del codigo del hobbie
@@ -359,7 +450,7 @@ window.addEventListener("load", () => {
                     //si todo esta correcto lo mandamos al servidor para agregarlo
                     if (correcto) {
                         console.log("Felicidades");
-                        agregarTienda("agregartienda", cod.value, nombre.value, telefono.value, direccion.value, localidad.value, provincia.value, cod_hob.value);
+                        modificarTienda("modificartienda", cod.value, nombre.value, cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value);
                     } else {
                         console.log("Lastima, Continuar?");
                     }//si todo esta correcto pasa al servidor
@@ -383,6 +474,9 @@ window.addEventListener("load", () => {
             });
         }//verificacion codigo
 
+        arrayTiendas = [];//la reinicializo
+        cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
+
     });//btn borrar tienda
 
     //btn buscartienda , parte de que se le introduzca el codigo de la tienda
@@ -395,6 +489,7 @@ window.addEventListener("load", () => {
         let direccion = document.getElementById("adireccion");
         let telefono = document.getElementById("atelefono");
         let cod_hob = document.getElementById("acodhobie");
+        let logo = document.getElementById("alogo");
 
         console.log(cod.value)
         buscartienda("buscartienda", cod.value).then(data => {
@@ -404,7 +499,8 @@ window.addEventListener("load", () => {
             nombre.value = data[0][3];//4
             direccion.value = data[0][4];//5
             telefono.value = data[0][5];//6
-            cod_hob.value = data[0][6];
+            cod_hob.value = data[0][6];//7
+            logo.value = data[0][7];//8
         });
     });//btn buscar tienda
 
@@ -472,8 +568,9 @@ window.addEventListener("load", () => {
         restore.style.display = "none";//oculto los div
         tiendas.style.display = "none";//oculto los div
         usuarios.style.display = "none";//oculto los div
-        seleccion.style.display = "flex";//dejo visible el div
-        libros.style.display = "none";//oculto los div
+        seleccion.style.display = "none";//oculto visible el div
+        libros.style.display = "flex";// dejo los div
+        libros.style.marginBottom="100px";
     });//btn que muestra la opcion para agregar registros a las diferentes tablas
 
     //btn que muestra el div para insertar registros en libros (opcion libros del div seleccion)

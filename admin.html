@@ -44,25 +44,30 @@
 
             <!--MENU de la IZQUIERDA-->
             <div class="profile">
-                <a href="index.html"><img src="assets/imagenes/recortado.png" alt="" class="img-fluid rounded-circle"></a>
-                <h1 class="text-light"><a href="index.html"><span class="hb">H</span><span class="o">O</span><span
-                            class="hb">B</span></a></h1>
+                <a href="index.html"><img src="assets/imagenes/recortado.png" alt="logo Pagina" title="logo Pagina"
+                        class="img-fluid rounded-circle"></a>
+                <h1 class="text-light"><a href="index.html" alt="Título Pagina" title="Título Pagina"><span
+                            class="hb">H</span><span class="o">O</span><span class="hb">B</span></a></h1>
                 <div class="social-links mt-3 text-center">
-                    <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
-                    <a href="https://www.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
-                    <a href="https://www.instagram.com/" class="instagram"><i class="bx bxl-instagram"></i></a>
-                    <a href="https://web.telegram.org/z/" class="instagram"><i class="bx bxl-telegram"></i></a>
-                    <a href="https://web.whatsapp.com/" class="instagram"><i class="bx bxl-whatsapp"></i></a>
-                    <a href="https://www.deviantart.com/" class="instagram"><i class="bx bxl-deviantart"></i></a>
+                    <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i
+                            class="bx bxl-twitter"></i></a>
+                    <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i
+                            class="bx bxl-facebook"></i></a>
+                    <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i
+                            class="bx bxl-instagram"></i></a>
+                    <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i
+                            class="bx bxl-telegram"></i></a>
+                    <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i
+                            class="bx bxl-whatsapp"></i></a>
                 </div>
             </div>
 
-            <form id="buscador">
+            <!-- <form id="buscador">
                 <br><input id="Ibuscar" type="text" placeholder="Buscar">
                 <button type="button" class="btn btn-secondary Ibuscador">
                     <i class="bi-search "></i>
                 </button>
-            </form>
+            </form> -->
 
             <nav id="navbar" class="nav-menu navbar">
                 <ul>
@@ -71,26 +76,9 @@
                     <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i>
                             <span>Perfil</span></a></li>
 
-                    <li class="nav-link scrollto">
-                        <button class="boton btn btn-toggle d-inline-flex align-items-center rounded"
-                            data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                            <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
-                        <div class="collapse" id="home-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="./retro.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Retro Gamming</a>
-                                </li>
-                                <li><a href="./arte.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Arte</a>
-                                </li>
-                                <li><a href="./lectura.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Lectura</a></li>
-                                <li><a href="./senderismo.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                    <li><a href="./lectura.html" class="link-light d-inline-flex text-decoration-none rounded"><i
+                                class="bi bi-book"></i>
+                            <span>Lectura</span></a></li>
 
                     <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
                             <span>Tiendas Locales</span></a></li>
@@ -127,7 +115,7 @@
                     <div class="col-12 col-md-6 text-center">
                         <input type="button" value="Restaurar" class="btn-sugerencia" id="restaurar">
                     </div>
-                    <div class="col-12 col-md-6 text-center">
+                    <div class="col-12 col-md-12 text-center">
                         <input type="button" value="Actualizar BBDD" class="btn-sugerencia" id="actualizar">
                     </div>
                 </div>
@@ -140,7 +128,7 @@
             </div>
             <div class="col-10 col-lg-8 col-xl-7 text-center apartadoadmin">
                 <div class="row">
-                    <h3>Gestion de Datos</h3>
+                    <h3>Gestión de Datos</h3>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6 text-center">
@@ -152,8 +140,8 @@
                     <div class="col-12 col-md-6 text-center">
                         <input type="button" value="Banneos Usuarios" class="btn-sugerencia" id="banneos">
                     </div>
-                    <div class="col-12 col-md-6 text-center">
-                        <input type="button" value="Añadir elemento" class="btn-sugerencia" id="agregar">
+                    <div class="col-12 col-md-12 text-center">
+                        <input type="button" value="Añadir libros" class="btn-sugerencia" id="agregar">
                     </div>
                 </div>
             </div>
@@ -209,7 +197,10 @@
                                     <label for="acodtienda" class="admin">Cod_Tienda:</label>
                                 </div>
                                 <div class="col-8 text-start">
-                                    <input type="text" id="acodtienda">
+                                    <select id="acodtienda">
+
+                                    </select>
+                                    <!-- <input type="text" id="acodtienda"> -->
                                 </div>
                                 <div class="col-12 br" id="validacion1">
                                     <p>El Código debe ser 2 mayusculas y 4 numeros. El codigo puede estar en uso ya</p>
@@ -260,6 +251,7 @@
                                     <p>La Dirección es erronea</p>
                                 </div>
                             </div>
+                            <!-- Localidad -->
                             <div class="row">
                                 <div class="col-4 text-end">
                                     <label for="alocalidad" class="admin">Localidad:</label>
@@ -269,6 +261,19 @@
                                 </div>
                                 <div class="col-12 br" id="validacion6">
                                     <p>La localidad no puede tener otra cosa que letras y espacios</p>
+                                </div>
+
+                            </div>
+                            <!-- LOGO -->
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="alogo" class="admin">Logo:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <input type="text" id="alogo">
+                                </div>
+                                <div class="col-12 br" id="validacion7">
+                                    <p>El logo debe ser una direccion web</p>
                                 </div>
 
                             </div>
@@ -291,8 +296,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-sm-6 text-center">
-                                    <input type="button" id="agregartienda" class="btn-sugerencia"
-                                        value="Agregar tienda">
+                                    <input type="button" id="agregarTienda" class="btn-sugerencia" value="Agregar tienda">
+                                </div>
+                                <div class="col-12 col-sm-6 text-center">
+                                    <input type="button" id="modificartienda" class="btn-sugerencia"
+                                        value="Modificar tienda">
                                 </div>
                                 <div class="col-12 col-sm-6 text-center">
                                     <input type="button" id="borrartienda" class="btn-sugerencia" value="Borrar tienda">
@@ -300,10 +308,140 @@
                                 <div class="col-12 col-sm-6 text-center">
                                     <input type="button" id="buscartienda" class="btn-sugerencia" value="Buscar tienda">
                                 </div>
-                                <div class="col-12 col-sm-6 text-center">
+                                <div class="col-12 text-center">
                                     <input type="button" class="btn-sugerencia" name="cerrarDiv" value="Cerrar">
                                 </div>
-                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agregar tienda -->
+        <div class="row text-center administrador br" id="addTiendas">
+            <div class="col-2 col-lg-4 col-xl-5 text-center">
+
+            </div>
+            <div class="col-10 col-lg-8 col-xl-7 text-center apartadoadmin">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>Tiendas</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="acodtienda" class="admin">Cod_Tienda:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <!-- <select id="acodtienda">
+
+                                    </select>-->
+                                    <input type="text" id="acodtienda"> 
+                                </div>
+                                <div class="col-12 br" id="validacion1">
+                                    <p>El Código debe ser 2 mayusculas y 4 numeros. El codigo puede estar en uso ya</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="anombre" class="admin">Nombre:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <input type="text" id="anombre">
+                                </div>
+                                <div class="col-12 br" id="validacion2">
+                                    <p>El Nombre no puede estar vacio</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="acodhobie" class="admin">Cod. Hobbie:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <input type="text" id="acodhobie">
+                                </div>
+                                <div class="col-12 br" id="validacion3">
+                                    <p>El Código del hobbie debe estar en la BBDD y ser numérico</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="atelefono" class="admin">Telefono:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <input type="text" id="atelefono">
+                                </div>
+                                <div class="col-12 br" id="validacion4">
+                                    <p>El Telefono debe ser numérico (000 00 00 00)</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="adireccion" class="admin">Dirección:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <input type="text" id="adireccion">
+                                </div>
+                                <div class="col-12 br" id="validacion5">
+                                    <p>La Dirección es erronea</p>
+                                </div>
+                            </div>
+                            <!-- Localidad -->
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="alocalidad" class="admin">Localidad:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <input type="text" id="alocalidad">
+                                </div>
+                                <div class="col-12 br" id="validacion6">
+                                    <p>La localidad no puede tener otra cosa que letras y espacios</p>
+                                </div>
+
+                            </div>
+                            <!-- LOGO -->
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="alogo" class="admin">Logo:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <input type="text" id="alogo">
+                                </div>
+                                <div class="col-12 br" id="validacion7">
+                                    <p>El logo debe ser una direccion web</p>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-4 text-end">
+                                    <label for="aprovincia" class="admin">Provincia:</label>
+                                </div>
+                                <div class="col-8 text-start">
+                                    <!-- <input type="text" id="aprovincia"> -->
+                                    <select name="localidad" class="btn dropdown-toggle rcombos" title="Localidad"
+                                        id="aprovincia">
+                                        <option class="rop">Cuenca</option>
+                                        <option class="rop">Toledo</option>
+                                        <option class="rop">Albacete</option>
+                                        <option class="rop">C.Real</option>
+                                        <option class="rop">Guadalajara</option>
+                                        <option class="rop">Madrid</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-6 text-center">
+                                    <input type="button" id="agregartienda2" class="btn-sugerencia"
+                                        value="Agregar tienda">
+                                </div>
+                                <div class="col-12 col-sm-6 text-center">
+                                    <input type="button" class="btn-sugerencia" name="cerrarDiv" value="Cerrar" id="cerrartienda">
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -377,17 +515,17 @@
             <div class="col-10 col-lg-8 col-xl-7 text-center apartadoadmin">
                 <div class="row">
                     <div class="col-12">
-                        <h3>Selecciona tabla</h3>
+                        <h3>Selecciona tabla para añadir elementos</h3>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6 text-end">
+                    <!-- <div class="col-6 text-center">
+                        <input type="button" id="añadirTiendas" class="btn-sugerencia" value="Tiendas">
+                    </div> -->
+                    <div class="col-6 text-center">
                         <input type="button" id="libros" class="btn-sugerencia" value="Libros">
                     </div>
-                    <div class="col-6 text-start">
-                        <input type="button" id="juegos" class="btn-sugerencia" value="Juegos">
-                    </div>
-                    <div class="col-12 text-center">
+                    <div class="col-6 text-center">
                         <input type="button" class="btn-sugerencia" name="cerrarDiv" value="Cerrar">
                     </div>
                 </div>
@@ -472,10 +610,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-6 text-center">
-                                    <input type="button" id="buscarlibro" class="btn-sugerencia" value="Busar Libro BBDD">
+                                    <input type="button" id="buscarlibro" class="btn-sugerencia"
+                                        value="Busar Libro BBDD">
                                 </div>
                                 <div class="col-12 col-md-6 text-center">
-                                    <input type="button" id="modificarLibro" class="btn-sugerencia" value="Modificar Libro BBDD">
+                                    <input type="button" id="modificarLibro" class="btn-sugerencia"
+                                        value="Modificar Libro BBDD">
                                 </div>
                                 <div class="col-12 col-md-6 text-center">
                                     <input type="button" id="agregarlibro" class="btn-sugerencia" value="Agregar">
@@ -494,7 +634,7 @@
         </div>
     </section>
 
-    <footer id="footer2" style="display: none">
+    <footer id="footer">
         <div class="container">
             <center>
                 <div class="copyright">

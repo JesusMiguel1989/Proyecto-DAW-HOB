@@ -3,35 +3,46 @@ let arrayComentarios = []; //array para guardar los datos referentes a los comen
 let nota;
 let cad = "";//variable para recoger la sinopsis o indicar que no esta disponible
 let cadena;//variable para reducir los titulos
+let resultados = document.getElementById("resultados");//div donde se guardaran todos los reultados
+
+let validacion99 = document.getElementById("validacion99");//mensaje de error cuando no se meten ningun valor en la busqueda
+let validacion98 = document.getElementById("validacion98");//mensaje de que no se ha encontrado ningun libro con esos datos
 
 //array con los datos curiosos
 let curiosidades = [
-    "El libro más largo del mundo es ‘En busca del tiempo perdido’, de Marcel Proust, cuenta con 3.032",
-    "Winnie The Pooh, Mrs Piggle-Wiggle y El Hobbit fueron escritos por sus respectivos autores como cuentos infantiles para sus hijos.",
-    "La novela más vendida del mundo es El Quijote , de Miguel de Cervantes, que ha vendido más de 500 millones de copias. El libro más vendido del mundo es La Biblia.",
-    "El libro más caro del mundo es una copia del Códice Leicester , de Leonardo DaVinci. Se pagó por él 30.8 millones de dólares (Bill Gates)",
-    "Ernest Hemingway odiaba la portada de El Gran Gatsby.",
-    "Sabes el nombre de el monstruo de Frankenstein? No, no es Frankenstein, aunque muchos piensen que lo es. Nunca se le da un nombre dentro de la novela, Mary Shelley (autora) se refirió a él como “Adam”.",
-    "El libro más codiciado de la saga Harry Potter es, curiosamente, Los cuentos de Beedle, el bardo . Se buscan en concreto siete copias que la autora de la saga, J.K. Rowling, escribió a mano, y cuyas portadas tienen joyas incrustadas. Seis de esas copias pertenecen a parte del equipo de Rowling y la séptima fue subastada (4 millones de dólares), destinados íntegramente a un orfanato de Rumanía.",
-    "El libro Farenheit 451 , de Ray Bradbury, debe su título a la temperatura en la que las páginas de un libro arde.",
-    "El personaje que ha sido interpretado por más actores ha sido Sherlock Holmes. Ian McKellen, Buster Keaton, Peter Cushing, Roger Moore, Christopher Plummer, Michael Caine, Charlton Heston, Jeremy Irons, Rupert Everett, Benedict Cumberbatch o Robert Downey Jr... (21 en total)",
-    "La primera novela escrita fue La Historia de Genji , de la japonesa Murasaki Shibiku, en 1008.",
-    "C.S.Lewis y J.R.R. Tolkien eran mejores amigos. Es más, el protagonista de Más Allá del Planeta Silencioso (1938) está inspirado en Tolkien.",
-    "Hasta su fallecimiento en 2014, Gabriel García Márquez siempre se negó a que adaptaran Cien años de soledad al cine, y desautorizó toda adaptación audiovisual de su obra maestra.",
-    "Como matar a un ruiseñor es la primera y única novela de la escritora Harper Lee, que ganó un premio Pulitzer y se pasó 88 semanas en el número uno en las listas de más vendidos. Ve y pon un centinela, su supuesta y esperada secuela publicada tras el fallecimiento de la escritora es en realidad un borrador de la primera.",
-    "La bibliopegia antropodérmica es la tecnica de encuadernar libros con piel humana, en la biblioteca de la Universidad de Havard es posible encontrar un volumen encuadernado con piel humana y se trata del libro titulado “ Des destinées de l’ame” del poeta francés Arsène Houssaye.",
-    "El libro más pequeño del mundo se imprimió en Padua en 1897 con un formato de 15 × 9 mm. ¿Qué contenía? Una carta escrita por Galileo Galilei dirigida a Cristina de Lorena para afirmar que la teoría copernicana no estaba en conflicto con la fe. Hoy este librito se conserva en la biblioteca Malatestiana de Cesena.",
-    "Los lipogramas son auténticos ejercicios literarios en los que el autor disfruta voluntariamente excluyendo una determinada letra del texto. ¿Un ejemplo? El escritor francés Georges Perec logró escribir una novela de 300 páginas llamada La Disparition sin usar nunca la letra «e».",
-    "En el pasado, el registro de la biblioteca más grande del mundo pertenecía a la de Alejandría en Egipto que albergaba alrededor de 490 mil manuscritos que luego se perdieron con la destrucción de los siglos I y VII d.C. Hoy, sin embargo, la biblioteca más grande del mundo es la Biblioteca Británica de Londres, que tiene alrededor de 170 millones de libros.",
-    "Después de 221 años de retraso en 2010, un libro prestado a George Washington en 1789 fue devuelto a la Biblioteca de la Sociedad de Nueva York . A sus herederos se les ha perdonado la multa de 300.000 dólares."
+    "El libro más largo del mundo es <b>‘En busca del tiempo perdido’</b>, de Marcel Proust, cuenta con <b>3.032</b>",
+    "<u>Winnie The Pooh, Mrs Piggle-Wiggle y El Hobbit</u> fueron escritos por sus respectivos autores como cuentos infantiles para sus hijos.",
+    "La <u>novela</u> más vendida del mundo es <b>El Quijote</b> , de Miguel de Cervantes, que ha vendido más de <b>500 millones</b> de copias.<br>El <u>libro</u> más vendido del mundo es <b>La Biblia</b>.",
+    "El libro más caro del mundo es una copia del <b>Códice Leicester</b> , de Leonardo DaVinci.<br>Se pagó por él 30.8 millones de dólares (Bill Gates)",
+    "Ernest Hemingway odiaba la portada de <b>El Gran Gatsby</b>.",
+    "¿Sabes el nombre de el monstruo de Frankenstein? No, <b>no es Frankenstein</b>, aunque muchos piensen que lo es.<br>Nunca se le da un nombre dentro de la novela, Mary Shelley (autora) se refirió a él como <b>“Adam”</b>.",
+    "El libro más codiciado de la saga <b>Harry Potter</b> es, curiosamente,<br><b>Los cuentos de Beedle</b>, el bardo .<br>Se buscan en concreto siete copias que la autora de la saga, J.K. Rowling, escribió a mano, y cuyas portadas tienen joyas incrustadas.<br>Seis de esas copias pertenecen a parte del equipo de Rowling y la séptima fue subastada (4 millones de dólares), destinados íntegramente a un orfanato de Rumanía.",
+    "El libro <b>Farenheit 451</b>, de Ray Bradbury, debe su título a la temperatura en la que las páginas de un libro arde.",
+    "El personaje que ha sido interpretado por más actores ha sido <b>Sherlock Holmes</b>.<br>Ian McKellen, Buster Keaton, Peter Cushing, Roger Moore, Christopher Plummer,<br>Michael Caine, Charlton Heston, Jeremy Irons, Rupert Everett,<br>Benedict Cumberbatch o Robert Downey Jr... (21 en total)",
+    "La primera novela escrita fue <b>La Historia de Genji</b>, de la japonesa <u>Murasaki Shibiku</u>, en 1008.",
+    "<u>C.S.Lewis</u> y <u>J.R.R. Tolkien</u> eran mejores amigos. Es más, el protagonista de Más Allá del Planeta Silencioso (1938) está inspirado en Tolkien.",
+    "Hasta su fallecimiento en 2014, <b>Gabriel García Márquez</b> siempre se negó a que adaptaran <u>Cien años de soledad</u> al cine,<br>y desautorizó toda adaptación audiovisual de su obra maestra.",
+    "<u>Como matar a un ruiseñor</u> es la primera y única novela de la escritora <b>Harper Lee</b>,<br>que ganó un premio Pulitzer y se pasó 88 semanas en el número uno en las listas de más vendidos.<br>Ve y pon un centinela, su supuesta y esperada secuela publicada tras el fallecimiento de la escritora es en realidad un borrador de la primera.",
+    "La <b>bibliopegia antropodérmica</b> es la tecnica de encuadernar libros con piel humana,<br>en la biblioteca de la Universidad de Havard es posible encontrar un volumen encuadernado con piel humana,<br>se trata del libro titulado <b>“Des destinées de l’ame”</b> del poeta francés Arsène Houssaye.",
+    "El libro más pequeño del mundo se imprimió en Padua en 1897 con un formato de 15 × 9 mm.<br>¿Qué contenía? Una carta escrita por Galileo Galilei dirigida a Cristina de Lorena para afirmar que la teoría copernicana no estaba en conflicto con la fe. Hoy este librito se conserva en la biblioteca Malatestiana de Cesena.",
+    "Los <b>lipogramas</b> son auténticos ejercicios literarios en los que el autor disfruta voluntariamente excluyendo una determinada letra del texto.<br>¿Un ejemplo? El escritor francés Georges Perec logró escribir una novela de 300 páginas llamada La Disparition sin usar nunca la letra «e».",
+    "En el pasado, el registro de la biblioteca más grande del mundo pertenecía a la de <b>Alejandría</b> en Egipto que albergaba alrededor de 490 mil manuscritos que luego se perdieron con la destrucción de los siglos I y VII d.C.<br>Hoy, sin embargo, la biblioteca más grande del mundo es la <b>Biblioteca Británica de Londres</b>, que tiene alrededor de 170 millones de libros.",
+    "Después de 221 años de retraso en 2010, un libro prestado a <b>George Washington</b> en 1789 fue devuelto a la Biblioteca de la Sociedad de Nueva York .<br>A sus herederos se les ha perdonado la multa de 300.000 dólares.",
+    "<b>El autor sólo cobra el 10% del coste del libro</b>. Un euro de cada diez es lo que rescata el autor del coste que se reparte con el distribuidor (50%) y el edito (40%). ",
+    "<b>Louis Braille creó el sistema para leer a través del tacto en 1829.</b><br>Sin embargo, no fue hasta 1837 cuando el Institute for Blind Youth editó y publicó el primer libro en braille: 'A brief History of France'.<br>Actualmente, sólo restan tres copias en el mundo.",
+    "El libro más prohibido del mundo es el <b>Necronomicón</b>, un libro de ocultismo escrito por el autor estadounidense H.P. Lovecraft.<br>El libro ficticio aparece en muchos de los cuentos de Lovecraft y se cree que contiene conocimientos oscuros y peligrosos.",
+    "En 1898 (<b>14 años antes del hundimiento del Titanic</b>), <b>Morgan Robertson </b>publicó un libro llamado “Futilidad o El hundimiento del Titán”,<br>donde narraba el naufragio de un barco enorme que hacía la travesía de Londres a Nueva York y que se chocó con un iceberg a unos 700 kilómetros de Terranova…",
+    "En ninguna de las novelas de Arthur Conan Doyle se pronuncia la frase: <b>“Elemental, querido Watson”</b>.",
+    "Dan Brown mantuvo a los traductores de su obra “Inferno” <b>en un búnker</b> para evitar que se filtraran datos de su nueva novela.<br>Cuando llegó a las librerías nadie sabía nada de la trama."
 ];
 let divCuriosidades = document.getElementById("curiosidadesLibros");//div que aparecera mientras se cargan los libros
 let pCuriosidades = document.getElementById("pCuriosidades");//parrafo donde se mostraran las curiosidades
+let progreso = document.getElementById("progreso");//barra progress de div
 
 let aux;//variable para saber que libro ha sido seleccionado
 //variables para la paginacion
 let page = 1;//variable para indicar la pagina en la api open library
-let limite = 10;//variable para indicar la cantidad de elementos por pagina
+let limite = 20;//variable para indicar la cantidad de elementos por pagina
 
 let resultadosBusqueda = 0;//variable que tendra el numero de resultados de la busqueda
 let paginasTotales = 0;//variable que guardara las paginas totales
@@ -49,7 +60,7 @@ let notaComentario = document.getElementById("notaComentario");//campo para la n
 let resultadosComentarios = document.getElementById("resultadosComentarios");//div inferior de comentarios, donde se muestran
 let coment = document.getElementById("coment");//etiqueta que mostrara los comentarios
 let inicioComentarios = 0;//inicio de la pag (LIMIT 0)
-let registrosComentarios = 0;//numero de registros que devuelve la consulta
+let registrosComentarios;//numero de registros que devuelve la consulta
 let addComentarios = document.getElementById("addComentarios");//div que contiene el textarea para agregar comentarios
 let comentUsuario = document.getElementById("comentUsuario");//textarea donde se escribe el comentario
 let isbnLibros = 0;
@@ -82,10 +93,6 @@ let aut = "";//variable para recoger el autor sin espacios
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
 
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
-        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10);
-
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
         + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10
@@ -95,10 +102,12 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
         });
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
-async function modificarLibro(opcion, condicion1, condicion2, condicion3) {
+async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4) {
 
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4);
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3, {
+        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4, {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
     });
@@ -219,7 +228,20 @@ async function rankingHOB(opcion) {
     return Promise.resolve(response);
 }
 
+async function registro(opcion, condicion1) {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
+    response = await response.json();
+
+    registrosComentarios = response[0];
+    console.log(inicioComentarios);
+}
+
 async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios)
+
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -228,9 +250,9 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
 
 
     for (let i = 0; i < response.length; i++) {
-        arrayComentarios.push([response[i][0], response[i][1], response[i][2], response[i][3]]);
+        arrayComentarios.push([response[i][0], response[i][1], response[i][2], response[i][3]], response[i][4]);
     }
-    if (arrayComentarios.length > 0) {
+    if (arrayComentarios.length > 0 && response[0][4]==1) {
         registrosComentarios = response[0][4];
         nombreComentario.textContent = arrayComentarios[0][0];
         fotoComentario.setAttribute("src", arrayComentarios[0][3]);
@@ -244,7 +266,7 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
         registrosComentarios = 0;
         nombreComentario.textContent = "";
         fotoComentario.setAttribute("src", "");
-        notaComentario.textContent = "- ★";
+        notaComentario.textContent = "-";
         coment.textContent = "Lo siento no disponemos de comentarios para este libro";
     }
 }
@@ -319,6 +341,7 @@ function mostrar(i) {
     resultados.appendChild(libro);
     //resultados.style.display="flex";
     resultados.style = "display: flex ; flex-wrap:wrap";
+    resultados.style.marginBottom = "80px";
 
     let btn = document.getElementById("libro" + i);
     let tarjeta = document.getElementById("tarjeta");
@@ -439,6 +462,7 @@ function mostrar2(i) {
 
     resultados.appendChild(libro);
     resultados.style = "display: flex ; flex-wrap:wrap";
+    resultados.style.marginBottom = "80px";
 
     let btn = document.getElementById("libro" + i);
     let tarjeta = document.getElementById("tarjeta");
@@ -570,6 +594,7 @@ function mostrar3(i) {
 
     //resultados.style = "display: flex ; flex-wrap:wrap; margin-top: 20px";
     resultados.classList.add("mt-4");
+    resultados.style.marginBottom = "80px";
 
     op.textContent = "Estado actual";
     op.style.fontWeight = "bold";
@@ -676,15 +701,23 @@ async function buscarall(condicion, condicion2, condicion3) {
     }
     let editorial = texto3.publishers[0];
 
-    for (let i = 0; i < texto.docs.length; i++) {
-        encontrados = [texto.docs[i].isbn[0], texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-        eval(cadena), descripcion, editorial];
-        array.push(encontrados);
-        //mostrar(i);
+    if (texto.docs.length == 0) {
+        validacion98.style.display = "flex";
+        divCuriosidades.style.display = "none";
+        resultados.style.display = "none";
+    } else {
+        for (let i = 0; i < texto.docs.length; i++) {
+            encontrados = [texto.docs[i].isbn[0], texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+            eval(cadena), descripcion, editorial];
+            array.push(encontrados);
+            //mostrar(i);
+            progreso.value += 5;
+        }
     }
+
     carga();
 
-    footer.style.display = "block";
+    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
 }
@@ -704,65 +737,73 @@ async function buscar2(condicion, condicion2) {
     let descripcion = "";
     let portada = "";
 
-    for (let i = 0; i < texto.docs.length; i++) {
-        let encontrados = [];
-        let editorial = "";
-        descripcion = "";
-        portada = "";
-        let isbn = 0;
-        try {
-            if (typeof texto.docs[i].isbn[0] === "undefined") {
+    if (texto.docs.length == 0) {
+        validacion98.style.display = "flex";
+        divCuriosidades.style.display = "none";
+        resultados.style.display = "none";
+    } else {
+        for (let i = 0; i < texto.docs.length; i++) {
+            let encontrados = [];
+            let editorial = "";
+            descripcion = "";
+            portada = "";
+            let isbn = 0;
+            try {
+                if (typeof texto.docs[i].isbn[0] === "undefined") {
+                    isbn = 0000000000000;
+                } else {
+                    isbn = texto.docs[i].isbn[0]
+                }
+            } catch {
                 isbn = 0000000000000;
-            } else {
-                isbn = texto.docs[i].isbn[0]
             }
-        } catch {
-            isbn = 0000000000000;
-        }
-        response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
+            response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
-        let texto2 = await response.json();
-        //let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
+            let texto2 = await response.json();
+            //let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
 
-        let prueba2 = texto2["ISBN" + isbn];
+            let prueba2 = texto2["ISBN" + isbn];
 
-        try {
-            if (prueba2["thumbnail_url"] == null || typeof prueba2["thumbnail_url"] === 'undefined') {
-                portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            } else {
-                portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
-                //portada += eval(cadena);
-            }
-            if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
+            try {
+                if (prueba2["thumbnail_url"] == null || typeof prueba2["thumbnail_url"] === 'undefined') {
+                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                } else {
+                    portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
+                    //portada += eval(cadena);
+                }
+                if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
+                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                }
+            } catch {
                 portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
             }
-        } catch {
-            portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-        }
 
-        try {
-            response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
-            let texto3 = await response.json();
-            if (typeof texto3.description === 'undefined') {
+            try {
+                response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
+                let texto3 = await response.json();
+                if (typeof texto3.description === 'undefined') {
+                    descripcion = "Sinopsis no disponible";
+                } else {
+                    descripcion += texto3.description.value;
+                }
+
+                editorial = texto3.publishers[0];
+            } catch {
                 descripcion = "Sinopsis no disponible";
-            } else {
-                descripcion += texto3.description.value;
             }
 
-            editorial = texto3.publishers[0];
-        } catch {
-            descripcion = "Sinopsis no disponible";
+            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+                portada, descripcion, editorial];
+            array.push(encontrados);
+
+            //mostrar(i);
+            progreso.value += 5;
         }
-
-        encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion, editorial];
-        array.push(encontrados);
-
-        //mostrar(i);
     }
+
     carga();
 
-    footer.style.display = "block";
+    //footer.style.display = "block";
 
     response = await response.array;
     return Promise.resolve(response);
@@ -784,64 +825,69 @@ async function buscar3(condicion) {
     let portada = "";
     let isbn = "";
 
+    if (texto.docs.length == 0) {
+        validacion98.style.display = "flex";
+        divCuriosidades.style.display = "none";
+        resultados.style.display = "none";
+    } else {
+        for (let i = 0; i < texto.docs.length; i++) {
+            let encontrados = [];
+            let editorial = "";
+            descripcion = "";
+            portada = "";
 
-    for (let i = 0; i < texto.docs.length; i++) {
-        let encontrados = [];
-        let editorial = "";
-        descripcion = "";
-        portada = "";
+            if (typeof texto.docs[i].isbn === 'undefined') {
+                portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                isbn = "9788373196131";
+            } else {
+                isbn = texto.docs[i].isbn[0];
+                response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + texto.docs[i].isbn[0] + "&format=json");
 
-        if (typeof texto.docs[i].isbn === 'undefined') {
-            portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            isbn = "9788373196131";
-        } else {
-            isbn = texto.docs[i].isbn[0];
-            response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + texto.docs[i].isbn[0] + "&format=json");
+                let texto2 = await response.json();
+                let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
+                //le quito los guiones
+                cadena = cadena.replace("-", "");
+                let prueba2 = texto2["ISBN" + texto.docs[i].isbn[0]];
 
-            let texto2 = await response.json();
-            let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
-            //le quito los guiones
-            cadena = cadena.replace("-", "");
-            let prueba2 = texto2["ISBN" + texto.docs[i].isbn[0]];
+                try {
+                    if (prueba2["thumbnail_url"] == null || typeof prueba2["thumbnail_url"] === 'undefined') {
+                        portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                    } else {
+                        portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
+                        //portada += eval(cadena);
+                    }
+                    if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
+                        portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                    }
+                } catch {
+                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                }
+            }
 
             try {
-                if (prueba2["thumbnail_url"] == null || typeof prueba2["thumbnail_url"] === 'undefined') {
-                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
+                let texto3 = await response.json();
+                if (typeof texto3.description === 'undefined') {
+                    descripcion = "Sinopsis no disponible";
                 } else {
-                    portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
-                    //portada += eval(cadena);
+                    descripcion += texto3.description.value;
                 }
-                if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
-                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-                }
+                editorial = texto3.publishers[0];
             } catch {
-                portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            }
-
-        }
-
-        try {
-            response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
-            let texto3 = await response.json();
-            if (typeof texto3.description === 'undefined') {
                 descripcion = "Sinopsis no disponible";
-            } else {
-                descripcion += texto3.description.value;
             }
-            editorial = texto3.publishers[0];
-        } catch {
-            descripcion = "Sinopsis no disponible";
+
+            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+                portada, descripcion, editorial];
+            array.push(encontrados);
+
+            //mostrar(i);
+            progreso.value += 5;
         }
-
-        encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion, editorial];
-        array.push(encontrados);
-
-        //mostrar(i);
     }
     carga();
 
-    footer.style.display = "block";
+    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
 }
@@ -861,62 +907,67 @@ async function buscar4(condicion) {
     let portada = "";
     let isbn = "";
 
+    if (texto.docs.length == 0) {
+        validacion98.style.display = "flex";
+        divCuriosidades.style.display = "none";
+        resultados.style.display = "none";
+    } else {
+        for (let i = 0; i < texto.docs.length; i++) {
+            let encontrados = [];
+            let editorial = "";
+            descripcion = "";
+            portada = "";
 
-    for (let i = 0; i < texto.docs.length; i++) {
-        let encontrados = [];
-        let editorial = "";
-        descripcion = "";
-        portada = "";
+            if (typeof texto.docs[i].isbn === 'undefined') {
+                portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                isbn = "9788373196131";
+            } else {
+                isbn = texto.docs[i].isbn[0];
 
-        if (typeof texto.docs[i].isbn === 'undefined') {
-            portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            isbn = "9788373196131";
-        } else {
-            isbn = texto.docs[i].isbn[0];
+                response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
-            response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
+                let texto2 = await response.json();
+                let cadena = "texto2.ISBN" + isbn + ".thumbnail_url";
+                let prueba2 = texto2["ISBN" + texto.docs[i].isbn[0]];
 
-            let texto2 = await response.json();
-            let cadena = "texto2.ISBN" + isbn + ".thumbnail_url";
-            let prueba2 = texto2["ISBN" + texto.docs[i].isbn[0]];
+                try {
+                    if (prueba2["thumbnail_url"] == null || typeof prueba2["thumbnail_url"] === 'undefined') {
+                        portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                    } else {
+                        portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
+                        //portada += eval(cadena);
+                    }
+                    if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
+                        portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                    }
+                } catch {
+                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                }
+
+            }
 
             try {
-                if (prueba2["thumbnail_url"] == null || typeof prueba2["thumbnail_url"] === 'undefined') {
-                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
+                let texto3 = await response.json();
+                if (typeof texto3.description === 'undefined') {
+                    descripcion = "Sinopsis no disponible";
                 } else {
-                    portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
-                    //portada += eval(cadena);
+                    descripcion += texto3.description.value;
                 }
-                if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
-                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-                }
+                editorial = texto3.publishers[0];
             } catch {
-                portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            }
-
-        }
-
-        try {
-            response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
-            let texto3 = await response.json();
-            if (typeof texto3.description === 'undefined') {
                 descripcion = "Sinopsis no disponible";
-            } else {
-                descripcion += texto3.description.value;
             }
-            editorial = texto3.publishers[0];
-        } catch {
-            descripcion = "Sinopsis no disponible";
+
+            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+                portada, descripcion, editorial];
+            array.push(encontrados);
+            progreso.value += 5;
         }
-
-        encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion, editorial];
-        array.push(encontrados);
-
     }
     carga();
 
-    footer.style.display = "block";
+    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
 }
@@ -936,55 +987,61 @@ async function buscar5(condicion) {
     let portada = "";
     let isbn = "";
 
+    if (texto.docs.length == 0) {
+        validacion98.style.display = "flex";
+        divCuriosidades.style.display = "none";
+        resultados.style.display = "none";
+    } else {
+        for (let i = 0; i < texto.docs.length; i++) {
+            let encontrados = [];
+            let editorial = "";
+            descripcion = "";
+            portada = "";
 
-    for (let i = 0; i < texto.docs.length; i++) {
-        let encontrados = [];
-        let editorial = "";
-        descripcion = "";
-        portada = "";
-
-        if (typeof texto.docs[i].isbn === 'undefined') {
-            portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            isbn = 9788373196131;
-        } else {
-            isbn = texto.docs[i].isbn[0];
-            response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + texto.docs[i].isbn[0] + "&format=json");
-
-            let texto2 = await response.json();
-            let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
-
-            if (typeof eval(cadena) === 'undefined') {
+            if (typeof texto.docs[i].isbn === 'undefined') {
                 portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                isbn = 9788373196131;
             } else {
-                portada += eval(cadena);
-            }
-            if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
-                portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
-            }
-        }
+                isbn = texto.docs[i].isbn[0];
+                response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + texto.docs[i].isbn[0] + "&format=json");
 
-        try {
-            response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
-            let texto3 = await response.json();
-            if (typeof texto3.description === 'undefined') {
+                let texto2 = await response.json();
+                let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
+
+                if (typeof eval(cadena) === 'undefined') {
+                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                } else {
+                    portada += eval(cadena);
+                }
+                if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
+                    portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
+                }
+            }
+
+            try {
+                response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json");
+                let texto3 = await response.json();
+                if (typeof texto3.description === 'undefined') {
+                    descripcion = "Sinopsis no disponible";
+                } else {
+                    descripcion += texto3.description.value;
+                }
+                editorial = texto3.publishers[0];
+            } catch {
                 descripcion = "Sinopsis no disponible";
-            } else {
-                descripcion += texto3.description.value;
             }
-            editorial = texto3.publishers[0];
-        } catch {
-            descripcion = "Sinopsis no disponible";
+
+            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+                portada, descripcion, editorial];
+            array.push(encontrados);
+
+            //mostrar(i);
+            progreso.value += 5;
         }
-
-        encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
-            portada, descripcion, editorial];
-        array.push(encontrados);
-
-        //mostrar(i);
     }
     carga();
 
-    footer.style.display = "block";
+    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
 }
@@ -995,7 +1052,7 @@ function carga() {
         mostrar(i);
         if (i == (array.length - 1)) {
             divCuriosidades.style.display = "none";
-            footer.style.display = "block";
+            //footer.style.display = "block";
         }
     }
 
@@ -1003,40 +1060,51 @@ function carga() {
 
 //funcion que comprueba los campos introducidos y envia la peticion a la correspondiente
 function buscador() {
+    validacion99.style.display = "none";
+    validacion98.style.display = "none";
+
     resultados.innerHTML = "";
     array = [];
     tarjeta.style.display = "none";
     resultados.innerHTML = "";
+
     if (titulo.value != "" && isbn.value != "" && autor.value != "") {
+
         buscarall(titulo.value, isbn.value, autor.value);
     } else {
-        if (titulo.value != "" && autor.value != "" && isbn.value == "") {
-            //titulo y autor
-            buscar2(titulo.value, autor.value).then(() => {
-                pagina();
-            });
+        if (titulo.value == "" && autor.value == "" && isbn.value == "") {
+            validacion99.style.display = "flex";
+            divCuriosidades.style.display = "none";
         } else {
-            if (autor.value != "") {
-                //solo autor
-                buscar3(autor.value).then(() => {
+            if (titulo.value != "" && autor.value != "" && isbn.value == "") {
+                //titulo y autor
+                buscar2(titulo.value, autor.value).then(() => {
                     pagina();
                 });
-
             } else {
-                if (titulo.value != "") {
-                    //solo titulo
-                    buscar4(titulo.value).then(() => {
+                if (autor.value != "") {
+                    //solo autor
+                    buscar3(autor.value).then(() => {
                         pagina();
                     });
+
                 } else {
-                    if (isbn.value != "") {
-                        buscar5(isbn.value).then(() => {
+                    if (titulo.value != "") {
+                        //solo titulo
+                        buscar4(titulo.value).then(() => {
                             pagina();
                         });
+                    } else {
+                        if (isbn.value != "") {
+                            buscar5(isbn.value).then(() => {
+                                pagina();
+                            });
+                        }
                     }
                 }
             }
         }
+
     }
 }
 
@@ -1075,7 +1143,7 @@ function pagina() {
     //creo el boton de siguiente
     let btnsiguiente = document.createElement("input");
     btnsiguiente.type = "button";
-    btnsiguiente.id = "btnprevio";
+    btnsiguiente.id = "btnsiguiente";
     btnsiguiente.value = "Siguiente";
     btnsiguiente.classList.add("btn-sugerencia");
     btnsiguiente.style.margin = "0 auto";
@@ -1090,6 +1158,12 @@ function pagina() {
     resultados.appendChild(paginacion);
 
     btnprevio.addEventListener("click", (e) => {
+        progreso.value = 0;
+        divCuriosidades.style.display = "inline-flex";
+        divCuriosidades.style.marginBottom = "100px";
+        divCuriosidades.style.width = "95%";
+
+        curiosidad();
         if (page > 1) {
             page--;
             buscador()
@@ -1099,6 +1173,12 @@ function pagina() {
     });//btn anterior
 
     btnsiguiente.addEventListener("click", (e) => {
+        progreso.value = 0;
+        divCuriosidades.style.display = "inline-flex";
+        divCuriosidades.style.marginBottom = "100px";
+        divCuriosidades.style.width = "95%";
+
+        curiosidad();
         if (page < paginasTotales) {
             page++;
             buscador()
@@ -1109,36 +1189,41 @@ function pagina() {
 }
 
 //pagina 2 para leyendo y leidos
-function pagina2() {
-
+async function pagina2() {
+    await registro("resultados", isbnLibros);
+    //console.log(inicioComentarios);
+    let punto = inicioComentarios + 1;
     if (camino == "comentario") {
-        paginacionComentario.textContent = (inicioComentarios + 1) + " de " + (registrosComentarios + 1);
+
+        paginacionComentario.textContent = punto + " de " + registrosComentarios;
 
         anteriorComentario.addEventListener("click", async (ant) => {
-            if (camino == "comentario") {
-                if (inicioComentarios > 0) {
-                    inicioComentarios--;
-                    arrayComentarios = [];
-                    await comentariosISBN("comentario", isbnLibros);
-                }//comprobacion de si existen comentarios previos
-                else {
-                    ant.preventDefault();
-                }
-            }//camino del comentario
+            if (inicioComentarios > 0) {
+                comentariosISBN("comentario", isbnLibros).then(()=>{
+
+                });
+                inicioComentarios--;
+                arrayComentarios = [];
+                
+            }//comprobacion de si existen comentarios previos
+            else {
+                ant.preventDefault();
+            }
         });//btnanterior comentario (<=)
 
         siguienteComentario.addEventListener("click", async (sig) => {
-            if (camino == "comentario") {
-                if (inicioComentarios < registrosComentarios) {
-                    inicioComentarios++;
-                    arrayComentarios = [];
-                    await comentariosISBN("comentario", isbnLibros);
-                }//comprobacion de si existen comentarios previos
-                else {
-                    sig.preventDefault();
-                }
-            }//camino comentario btn siguiente (=>)
-        })
+            if (inicioComentarios <= registrosComentarios) {
+                inicioComentarios++;
+                arrayComentarios = [];
+                await comentariosISBN("comentario", isbnLibros).then(() => {
+                    console.log("+1");
+                });
+                
+            } //comprobacion de si existen comentarios previos
+            else {
+                sig.preventDefault();
+            }
+        }); //camino comentario btn siguiente (=>)
     }
     else {
         //creo el div para los botones de la paginacion
@@ -1306,7 +1391,7 @@ function navegador() {
 function curiosidad() {
     let num = Math.floor(Math.random() * curiosidades.length);
 
-    pCuriosidades.textContent = curiosidades[num];
+    pCuriosidades.innerHTML = curiosidades[num];
 }
 
 //botones
@@ -1321,7 +1406,7 @@ let divbuscar = document.getElementById("divbuscar");
 let divleyendo = document.getElementById("divleyendo");
 let divleidos = document.getElementById("divleidos");
 let tarjeta = document.getElementById("tarjeta");
-let footer = document.getElementById("footer2");
+//let footer = document.getElementById("footer2");
 
 window.addEventListener("load", () => {
     divCuriosidades.style.display = "none";
@@ -1338,7 +1423,7 @@ window.addEventListener("load", () => {
         ubicacion.textContent = "Buscador";
         ubicacion.style.fontWeight = "bold";
         //cojo el div donde se mostraran los resultados
-        let resultados = document.getElementById("resultados");//div donde se guardaran todos los reultados
+
 
         resultados.innerHTML = "";
         array = [];
@@ -1352,13 +1437,16 @@ window.addEventListener("load", () => {
         divleyendo.style.display = "none";
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
-        footer.style.display = "none";
+        //footer.style.display = "none";
     });
 
     //btn que inicia la busqueda
     btnBuscardor.addEventListener("click", () => {
+        progreso.value = 0;
         divCuriosidades.style.display = "inline-flex";
-        
+        divCuriosidades.style.marginBottom = "100px";
+        divCuriosidades.style.width = "95%";
+
         curiosidad();
 
         let op = document.getElementById("op");//titulo botones
@@ -1407,7 +1495,7 @@ window.addEventListener("load", () => {
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
 
-        footer.style.display = "block";
+        //footer.style.display = "block";
     });
 
     //boton leidos
@@ -1466,6 +1554,11 @@ window.addEventListener("load", () => {
 
     //boton de libro actual
     btnLeyendo.addEventListener("click", async () => {
+        let textoComentario = "";
+        if (comentUsuario.value != "") {
+            textoComentario = cambio(comentUsuario.value);
+        }
+
         if (btnLeyendo.value == "Terminado") {
             let validacion = document.getElementById("validacion");
             let alias = sessionStorage.getItem("alias");
@@ -1486,7 +1579,8 @@ window.addEventListener("load", () => {
                     validacion.style.fontWeight = "bold";
                 } else {
                     validacion.style.display = "none";
-                    modificarLibro("modificarLibro", alias, array[aux][0], nota);
+                    //falta meter el comentario si existiera
+                    modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario);
                     //////RELOAD
                     array = [];
                     resultados.innerHTML = "";
@@ -1501,13 +1595,25 @@ window.addEventListener("load", () => {
             let alias = sessionStorage.getItem("alias");
             let editorial2 = editorial.textContent;
             let textoComentario = "";
+            let autores = "";
             if (alias != null) {
                 let tit = "";//variable para recoger el titulo sin espacios
                 let aut = "";//variable para recoger el autor sin espacios
                 alias = cambio(alias);
                 editorial2 = cambio(editorial2);
                 tit = cambio(array[aux][1]);
-                aut = cambio(array[aux][2]);
+                autores = array[aux][2]
+                for (let a = 0; a < array[aux][2].length; a++) {
+                    if (a == 0) {
+                        autores = array[aux][2][a];
+                    } else {
+                        autores = autores + ", " + array[aux][2][a];
+                    }
+                }
+                aut = cambio(autores);
+                //aut = cambio(array[aux][2]);
+
+
                 /* for (let j = 0; j < array[aux][2].length; j++) {
                     aut = cambio(array[aux][2][j]);
                 } */
@@ -1527,7 +1633,7 @@ window.addEventListener("load", () => {
                 comentUsuario.value = "";
             }
         }
-        footer.style.display = "flex";
+        //footer.style.display = "flex";
     })//leyendo
 
     //boton para agregar a tu perfil
@@ -1585,7 +1691,7 @@ window.addEventListener("load", () => {
             }
         }
         comentUsuario.value = "";
-        footer.style.display = "flex";
+        //footer.style.display = "flex";
     })//leido
 
     //btn ver comentarios

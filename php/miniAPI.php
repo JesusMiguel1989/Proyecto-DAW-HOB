@@ -345,11 +345,12 @@ if(!$conexion){
 
         //modificacion de libro
         if($opcion=="modificarLibro"){
-            $alias=$_GET['condicion1'];
+            $alias=str_replace("_"," ",$_GET['condicion1']);
             $cod=$_GET['condicion2'];
             $nota=$_GET['condicion3'];
+            $comentario=str_replace("_"," ",$_GET['condicion4']);
 
-            $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET LEIDO='SI', VALORACION='".$nota."'
+            $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET LEIDO='SI', VALORACION='".$nota."', COMENTARIO='".$comentario."'
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'"); 
             
         }
@@ -493,9 +494,34 @@ if(!$conexion){
             $localidad=$_GET['condicion5'];
             $provincia=$_GET['condicion6'];
             $cod_hob=$_GET['condicion7'];
-            $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE)
-                VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."')");
+            $logo=$_GET['condicion8'];
+            $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE,LOGO)
+                VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."','".$logo."')");
             
+            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+        }
+
+        //agregar una tienda a la BBDD
+        if($opcion=="modificartienda"){
+            $cod=$_GET['condicion1'];
+            $nombre=$_GET['condicion2'];
+
+            $telefono=str_replace("_"," ",$_GET['condicion3']);
+            $direccion=str_replace("_"," ",$_GET['condicion4']);
+
+            $localidad=$_GET['condicion5'];
+            $provincia=$_GET['condicion6'];
+            $cod_hob=$_GET['condicion7'];
+            $logo=$_GET['condicion8'];
+
+            $resultado=mysqli_query($conexion,"UPDATE  TIENDAS SET LOCALIDAD='".$localidad."' 
+                    ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
+                    ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."'
+                    WHERE COD_TIENDA='".$cod."'");
+            
+            /* $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE)
+                VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."')"); */
+              
             header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }
 
@@ -543,7 +569,7 @@ if(!$conexion){
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
                 $aux++;
             }//while que lo recorre
 
@@ -783,6 +809,37 @@ if(!$conexion){
                 $array[$aux]=[$fila[0],$fila[1],$fila[2],$foto[0],$registros];
                 $aux++;
             }//while que lo recorre 
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }
+
+        //camino para sacar los comentarios
+        if($opcion=="resultados"){
+            $isbn=$_GET['condicion1'];
+
+            $resultado=mysqli_query($conexion,"SELECT ALIAS, VALORACION, COMENTARIO 
+                        FROM LIBROS 
+                        WHERE COD_LIBRO='".$isbn."' AND COMENTARIO IS NOT NULL AND COMENTARIO <>''");
+            $registros=mysqli_num_rows($resultado);
+            $array=[$registros];
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }
+
+        //sacar los codigos de las tiendas
+        if($opcion=="cod_tiendas"){
+            $aux=0;
+            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA FROM TIENDAS");
+
+            while(($fila=mysqli_fetch_row($resultado))){
+                $array[$aux]=[$fila[0]];
+                $aux++;
+            }//while que recorre los resultados y los mete en el array
 
             //indico que sera un JSON con UTF-8
             header("Content-type: application/json; charset=utf-8");

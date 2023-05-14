@@ -48,26 +48,23 @@
 
             <!--MENU de la IZQUIERDA-->
             <div class="profile">
-                <a href="index.html"><img src="assets/imagenes/recortado.png" alt=""
+                <a href="index.html"><img src="assets/imagenes/recortado.png" alt="logo Pagina" title="logo Pagina"
                         class="img-fluid rounded-circle"></a>
-                <h1 class="text-light"><a href="index.html"><span class="hb">H</span><span class="o">O</span><span
-                            class="hb">B</span></a></h1>
+                <h1 class="text-light"><a href="index.html" alt="Título Pagina" title="Título Pagina"><span
+                            class="hb">H</span><span class="o">O</span><span class="hb">B</span></a></h1>
                 <div class="social-links mt-3 text-center">
-                    <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
-                    <a href="https://www.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
-                    <a href="https://www.instagram.com/" class="instagram"><i class="bx bxl-instagram"></i></a>
-                    <a href="https://web.telegram.org/z/" class="instagram"><i class="bx bxl-telegram"></i></a>
-                    <a href="https://web.whatsapp.com/" class="instagram"><i class="bx bxl-whatsapp"></i></a>
-                    <a href="https://www.deviantart.com/" class="instagram"><i class="bx bxl-deviantart"></i></a>
+                    <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i
+                            class="bx bxl-twitter"></i></a>
+                    <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i
+                            class="bx bxl-facebook"></i></a>
+                    <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i
+                            class="bx bxl-instagram"></i></a>
+                    <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i
+                            class="bx bxl-telegram"></i></a>
+                    <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i
+                            class="bx bxl-whatsapp"></i></a>
                 </div>
             </div>
-
-            <form id="buscador">
-                <br><input id="Ibuscar" type="text" placeholder="Buscar">
-                <button type="button" class="btn btn-secondary Ibuscador">
-                    <i class="bi-search "></i>
-                </button>
-            </form>
 
             <nav id="navbar" class="nav-menu navbar">
                 <ul>
@@ -76,26 +73,9 @@
                     <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i>
                             <span>Perfil</span></a></li>
 
-                    <li class="nav-link scrollto">
-                        <button class="boton btn btn-toggle d-inline-flex align-items-center rounded"
-                            data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                            <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
-                        <div class="collapse" id="home-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="./retro.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Retro
-                                        Gamming</a></li>
-                                <li><a href="./arte.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Arte</a>
-                                </li>
-                                <li><a href="./lectura.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Lectura</a></li>
-                                <li><a href="./senderismo.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                    <li><a href="./lectura.html" class="link-light d-inline-flex text-decoration-none rounded"><i
+                                class="bi bi-book"></i>
+                            <span>Lectura</span></a></li>
 
                     <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
                             <span>Tiendas Locales</span></a></li>
@@ -120,7 +100,7 @@
                 <img src="./assets/imagenes/casco.jpg" class="fotoperfil" id="foto" alt="Foto perfil">
                 <div class="row">
                     <div class="col col-6">
-                        <label class="labelperfil" for="palias">Alias </label>
+                        <label class="labelperfil titulo" for="palias">Alias </label>
                     </div>
                     <div class="col col-6">
                         <input type="text" class="inputperfil" name="alias" value="" id="palias">
@@ -133,7 +113,7 @@
                 <div>
                     <div class="row">
                         <div class="col col-6 labelperfil">
-                            <label class="labelperfil" for="pkey">Contraseña: </label>
+                            <label class="labelperfil titulo" for="pkey">Contraseña: </label>
                         </div>
                         <div class="col col-6">
                             <input type="password" class="inputperfil" name="key" value="" id="pkey">
@@ -147,7 +127,7 @@
                 <div>
                     <div class="row">
                         <div class="col col-6 labelperfil">
-                            <label class="labelperfil" for="pnacimiento">Fecha Nacimiento </label>
+                            <label class="labelperfil titulo" for="pnacimiento">F. Nacimiento </label>
                         </div>
                         <div class="col col-6">
                             <input type="text" class="inputperfil" name="fechaNac" value="" id="pnacimiento">
@@ -161,7 +141,7 @@
                 <div>
                     <div class="row">
                         <div class="col col-6 labelperfil">
-                            <label class="labelperfil" for="pemail">Email </label>
+                            <label class="labelperfil titulo" for="pemail">Email </label>
                         </div>
                         <div class="col col-6">
                             <input type="text" class="inputperfil" name="correo" value="" id="pemail">
@@ -175,7 +155,7 @@
                 <div>
                     <div class="row">
                         <div class="col col-6 labelperfil">
-                            <label class="labelperfil" for="plocalidad">Localidad </label>
+                            <label class="labelperfil titulo" for="plocalidad">Localidad </label>
                         </div>
                         <div class="col col-6">
                             <select name="localidad" class="btn dropdown-toggle rcombos" title="Localidad"
@@ -209,23 +189,28 @@
         <div class="modal-dialog modal-dialog-centered">
             <form method="POST" action="/proyecto/php/miniAPI.php" id="imagenes" enctype="multipart/form-data">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Introduccion de la imagen</b></h1>
+                    <div class="modal-header ventana">
+                        <h1 class="modal-title fs-5 text-center" id="exampleModalLabel"><b>Introduccion de la imagen</b></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Datos a apedir -->
                         <div class="row">
-                            <div class="col-12 col-md-3 text-start text-md-end">
-                                <label for="archivo">Archivo: </label>
+                            <div class="col-12 col-md-2 text-start text-md-end">
+                                <label for="archivo" class="mtitulo">Archivo:</label>
                             </div>
-                            <div class="col-12 col-md-6 text-start text-md-start">
+                            <div class="col-12 col-md-10 text-start text-md-start">
                                 <input type="file" id="archivo" name="archivo" title="Foto perfil"
                                     accept="image/png, .jpg, .jpeg" required>
                                 <div id="validacion9">
                                     <!-- class="invalid-feedback" -->
                                     <span>El archivo solo puede ser: .png, .jpg o .jpeg.</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mt-3 ps-5">
+                                <p class="mtitulo">*Recuerda que tiene que ser (.png, .jpg, .jpeg)</p>
                             </div>
                         </div>
                     </div>

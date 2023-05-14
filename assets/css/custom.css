@@ -324,9 +324,9 @@ a:hover {
 #hobies #lectura .libros,
 #hobies #sendero .senderos,
 #hobies #arte .pintar {
-  width: 100px;
-  height: 100px;
-  float: left;
+  width: 200px;
+  height: 200px;
+  /* loat: left; */
   padding: 15px;
 }
 
@@ -407,6 +407,12 @@ a:hover {
   display: none;
 }
 
+.tituloSugerencia{
+  font-weight: bold;
+  text-decoration: underline ;
+  margin-top: 10px;
+  color: #040b14;
+}
 /*****************************************************MOVIL*********************/
 @media (max-width: 376px) {
   .rnav {
@@ -490,7 +496,7 @@ a:hover {
 
   .rfondo {
     width: 95%;
-    height: 550px;
+    height: 600px;
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     margin-left: 5px;
@@ -583,7 +589,7 @@ a:hover {
     background: #040b14;
   }
 
-  #footer1 {
+  /* #footer1 {
     padding: 15px;
     color: #f4f6fd;
     margin-top: 15px;
@@ -595,7 +601,7 @@ a:hover {
     z-index: 9999;
     background: #040b14;
     justify-content: center;
-  }
+  } */
 
   #footer2 {
     padding: 15px;
@@ -623,7 +629,7 @@ a:hover {
   .texto-identificarse,
   .input-sugerencia {
     font-size: 15px;
-    max-width: 150px;
+    width: 250px;
     margin-top: 10px;
   }
 
@@ -647,7 +653,7 @@ a:hover {
 
   .txt {
     margin-top: 10px;
-    width: 150px;
+    width: 250px;
     background-color: #eaebf0;
     color: #040b14;
     font-weight: bold;
@@ -695,6 +701,14 @@ a:hover {
 
 /****************Media para mantener el alncho de los input fuera del movil*********/
 @media (min-width: 376px) {
+
+  .txt {
+    margin-top: 10px;
+    width: 250px;
+    background-color: #eaebf0;
+    color: #040b14;
+    font-weight: bold;
+  }
 
   .rfiel {
     font-style: italic;
@@ -770,7 +784,6 @@ a:hover {
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     padding: 30px;
-
     border-radius: 5%;
     width: 950px;
   }
@@ -817,7 +830,7 @@ a:hover {
     width: 500px;
   }
 
-  #footer1 {
+  /* #footer1 {
     padding: 15px;
     color: #f4f6fd;
     margin-top: 15px;
@@ -829,7 +842,7 @@ a:hover {
     z-index: 9999;
     background: #040b14;
     justify-content: center;
-  }
+  } */
 
 
   #footer2 {
@@ -896,10 +909,12 @@ a:hover {
   .titulo {
     font-weight: bold;
     font-family: sans-serif;
-    padding-top: 8px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    /* padding-top: 8px;
     padding-bottom: 4px;
     padding-right: 10px;
-    padding-left: 10px;
+    padding-left: 10px; */
     letter-spacing: 1px;
     color: #1d2529e6;
     font-size: 18px;
@@ -1091,13 +1106,13 @@ a:hover {
   padding-right: 10px;
   padding-left: 10px;
   letter-spacing: 1px;
-  /* color: #137aa9e6; */
+  color: black;
   font-size: 25px;
 }
 
 .tTitulo2 {
   color: white;
-  font-size: 25px;
+  font-size: 18px;
 }
 
 #tLocalidad,
@@ -1108,6 +1123,7 @@ a:hover {
   padding-right: 10px;
   padding-left: 10px;
   width: 65%;
+  margin-bottom: 10px;
 }
 
 #btnTienda {
@@ -1140,34 +1156,6 @@ a:hover {
   z-index: 3;
 }
 
-/**********************************************Retrogaming**************/
-.listadoretro2 {
-  display: flex;
-  margin-top: 10px;
-}
-
-.nes,
-.n64,
-.NGC,
-.gameboy,
-.advance {
-  display: flex;
-  float: left;
-}
-
-.tienda {
-  position: relative;
-  vertical-align: bottom;
-  width: 100px;
-  height: 100px;
-  margin-left: 50%;
-}
-
-/************************************************arte****************/
-.arte {
-  position: absolute;
-  justify-content: center;
-}
 
 @media (max-width: 400px) {
   .Anavbar {
@@ -1198,20 +1186,6 @@ a:hover {
   }
 }
 
-.ah1 {
-  margin: 0 auto;
-  width: 100%;
-}
-
-.amargen {
-  margin-left: 5%;
-}
-
-.aFoto {
-  width: 90%;
-  margin-top: 20px;
-}
-
 .alabel {
   font-weight: bold;
   font-size: 20px;
@@ -1224,34 +1198,6 @@ a:hover {
   font-size: 18px;
   color: black;
   margin-top: 2px;
-}
-
-.arow {
-  margin-right: 5%;
-}
-
-
-/**********************************************buscador***********/
-
-#Ibuscar {
-  background-color: white;
-  color: #a8a9b4;
-}
-
-.Ibuscador:hover {
-  color: #37b3ed;
-  background-color: transparent;
-  border: 1px solid transparent;
-}
-
-.Ibuscador {
-  background-color: #040b14;
-  border: 1px solid transparent;
-}
-
-#buscador {
-  justify-items: center;
-  margin-left: 10px;
 }
 
 /************************************************lectura***********/
@@ -1321,13 +1267,6 @@ a:hover {
   margin: 15px;
 }
 
-/***********************************arte_ideas*************/
-.aifoto {
-  width: 400px;
-  height: 650px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
 /************************************registro***************/
 
@@ -1379,41 +1318,6 @@ a:hover {
   font-size: 15px;
 }
 
-/****************************************Senderismo**************/
-.sguia {
-  margin-top: 10px;
-}
-
-.smapa {
-  margin-top: 20px;
-}
-
-.slabel {
-  margin-top: 20px;
-  width: 50%;
-}
-
-.stxt {
-  margin-top: 20px;
-}
-
-.slabels {
-  line-height: 20px;
-  margin-bottom: 27px;
-  font-weight: bold;
-
-}
-
-.smaps {
-  width: 100%;
-  height: 100%;
-}
-
-.scontainer {
-  width: 90%;
-  margin-left: 35px;
-}
-
 .aviso {
   min-width: 50%;
   justify-content: center;
@@ -1423,22 +1327,6 @@ a:hover {
   width: 100%;
 }
 
-.errores {
-  display: flex;
-  float: right;
-  right: 5px;
-  z-index: 99;
-  width: 28%;
-  background-color: rgb(152, 226, 202);
-  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-  /* padding: 30px; */
-  margin-right: 25px;
-  margin-top: 5px;
-  border-radius: 5%;
-  padding-left: 50px;
-  padding-top: 50px;
-  border-radius: 15%;
-}
 
 /* ************************Estrellitas************************************** */
 
@@ -1513,6 +1401,7 @@ input[type="radio"]:checked~label {
 #adireccion,
 #atelefono,
 #acodhobie,
+#alogo,
 #alvaloracion,
 #alleido,
 #alportada,
@@ -1520,7 +1409,8 @@ input[type="radio"]:checked~label {
 #alautor,
 #altitulo,
 #alalias,
-#alcodlibro {
+#alcodlibro
+ {
   width: 100%;
   margin-top: 10px;
 }
@@ -1611,11 +1501,70 @@ input[type="radio"]:checked~label {
 }
 
 #curiosidadesLibros{
-  z-index: 20;
-  height: 40%;
-  width: 60%;
+  /* justify-content: center; */
+  vertical-align: middle;
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 100%;
+  padding: 10px;
+  padding-left: 30px;
+  font-weight: normal;
+}
+
+.pcuriosity{
+  color: black;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.curiosity{
+  font-style: italic;
+  font-weight: bold;
 }
 
 /* #divleyendo{
   display: none;
 } */
+
+#validacion99,
+#validacion98{
+  color: red;
+  font-weight: bold;
+  display: none;
+}
+
+/*BOON DEL TOGGLE*/
+#menus{
+  margin-right: 40px;
+}
+
+/*deshabilitar una etiqueta A*/
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Migas de Pan*/
+.migasPan{
+  font-weight: bold;
+  text-decoration: underline;
+  font-style: italic;
+  color:#040b14;
+  /* #040b145c */
+}
+
+/* Parte superior del modal */
+.ventana{
+  background-color: rgb(152, 226, 202);
+}
+
+.mtitulo{
+  font-weight: bold;
+  color: #040b14b6;
+}
+
+/* modal de olvido de contraseña */
+.mcontraseña{
+  width: 95%;
+  margin-bottom: 5px;
+}

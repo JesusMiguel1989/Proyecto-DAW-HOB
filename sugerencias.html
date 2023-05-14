@@ -48,25 +48,23 @@
 
       <!--MENU de la IZQUIERDA-->
       <div class="profile">
-        <a href="index.html"><img src="assets/imagenes/recortado.png" alt="" class="img-fluid rounded-circle"></a>
-        <h1 class="text-light"><a href="index.html"><span class="hb">H</span><span class="o">O</span><span
-              class="hb">B</span></a></h1>
+        <a href="index.html"><img src="assets/imagenes/recortado.png" alt="logo Pagina" title="logo Pagina"
+            class="img-fluid rounded-circle"></a>
+        <h1 class="text-light"><a href="index.html" alt="Título Pagina" title="Título Pagina"><span
+              class="hb">H</span><span class="o">O</span><span class="hb">B</span></a></h1>
         <div class="social-links mt-3 text-center">
-          <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
-          <a href="https://www.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="https://www.instagram.com/" class="instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="https://web.telegram.org/z/" class="instagram"><i class="bx bxl-telegram"></i></a>
-          <a href="https://web.whatsapp.com/" class="instagram"><i class="bx bxl-whatsapp"></i></a>
-          <a href="https://www.deviantart.com/" class="instagram"><i class="bx bxl-deviantart"></i></a>
+          <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i
+              class="bx bxl-twitter"></i></a>
+          <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i
+              class="bx bxl-facebook"></i></a>
+          <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i
+              class="bx bxl-instagram"></i></a>
+          <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i
+              class="bx bxl-telegram"></i></a>
+          <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i
+              class="bx bxl-whatsapp"></i></a>
         </div>
       </div>
-
-      <form id="buscador">
-        <br><input id="Ibuscar" type="text" placeholder="Buscar">
-        <button type="button" class="btn btn-secondary Ibuscador">
-          <i class="bi-search "></i>
-        </button>
-      </form>
 
       <nav id="navbar" class="nav-menu navbar">
         <ul>
@@ -74,22 +72,9 @@
               <span>Identificarse</span></a></li>
           <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Perfil</span></a></li>
 
-          <li class="nav-link scrollto">
-            <button class="boton btn btn-toggle d-inline-flex align-items-center rounded" data-bs-toggle="collapse"
-              data-bs-target="#home-collapse" aria-expanded="false">
-              <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
-            <div class="collapse" id="home-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                <li><a href="./retro.html" class="link-light d-inline-flex text-decoration-none rounded">Retro
-                    Gamming</a></li>
-                <li><a href="./arte.html" class="link-light d-inline-flex text-decoration-none rounded">Arte</a></li>
-                <li><a href="./lectura.html" class="link-light d-inline-flex text-decoration-none rounded">Lectura</a>
-                </li>
-                <li><a href="./senderismo.html"
-                    class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a></li>
-              </ul>
-            </div>
-          </li>
+          <li><a href="./lectura.html" class="link-light d-inline-flex text-decoration-none rounded"><i
+                class="bi bi-book"></i>
+              <span>Lectura</span></a></li>
 
           <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
               <span>Tiendas Locales</span></a></li>
@@ -106,48 +91,57 @@
 
   <!-- ======= inicio Section ======= Pantalla Sugerencias de la plantilla, foto derecha -->
   <section id="inicio" class="d-flex flex-column  justify-content-center align-items-center m-0 vh-100">
+    
     <div class="col-auto text-center inicio-container rfondo" id="sugerencias">
       <!--  data-aos="fade-in" -->
-      <div>
-        <img src="./assets/imagenes/HOB.png" id="hob">
-        <div class="row">
-          <div class="col col-6 ">
-            <label for="snombre" class="titulo">Nombre</label>
+      <div class="row">
+          <div class="col-12">
+            <h3 class="migasPan">Sugerencias</h3>
           </div>
-          <div class="col col-6">
+        </div>
+      <div>
+        
+        <img src="./assets/imagenes/HOB.png" id="hob">
+
+        <div class="row">
+          <div class="col-12 col-sm-6 text-center">
+            <label for="snombre" class="tituloSugerencia">Nombre</label>
+          </div>
+          <div class="col-12 col-sm-6 text-center">
             <input type="text" name="nombre" class="input-sugerencia" id="snombre" readonly>
           </div>
         </div>
-        <div>
-          <div class="row">
-            <div class="col col-6 ">
-              <label for="semail" class="titulo">Correo Electronico</label>
-            </div>
-            <div class="col col-6">
-              <input type="text" name="correo" class="input-sugerencia" id="semail" readonly>
-            </div>
+
+
+        <div class="row">
+          <div class="col-12 col-sm-6 text-center">
+            <label for="semail" class="tituloSugerencia">Email</label>
+          </div>
+          <div class="col-12 col-sm-6 text-center">
+            <input type="text" name="correo" class="input-sugerencia" id="semail" readonly>
           </div>
         </div>
-        <div>
-          <div class="row">
-            <div class="col col-6 ">
-              <label for="spag" class="titulo">Pág. sugerencia</label>
-            </div>
-            <div class="col col-6">
-              <input type="text" name="apartado" class="input-sugerencia" id="spag">
-            </div>
+
+
+        <div class="row">
+          <div class="col-12 col-sm-6 text-center">
+            <label for="spag" class="tituloSugerencia">Pág. sugerencia</label>
+          </div>
+          <div class="col-12 col-sm-6 text-center">
+            <input type="text" name="apartado" class="input-sugerencia" id="spag">
           </div>
         </div>
-        <div>
-          <div class="row">
-            <div class="col col-6 ">
-              <label for="ssugerencia" class="titulo">Sugerencia</label>
-            </div>
-            <div class="col col-6">
-              <textarea name="txt" cols="21" rows="5" class="txt" id="ssugerencia"></textarea>
-            </div>
+
+
+        <div class="row">
+          <div class="col-12 col-sm-6 text-center">
+            <label for="ssugerencia" class="tituloSugerencia">Sugerencia</label>
+          </div>
+          <div class="col-12 col-sm-6 text-center">
+            <textarea name="txt" cols="21" rows="5" class="txt" id="ssugerencia"></textarea>
           </div>
         </div>
+
 
         <div>
           <div class="col col-12">
@@ -155,6 +149,7 @@
           </div>
         </div>
       </div>
+    </div>
 
     </div>
   </section>
