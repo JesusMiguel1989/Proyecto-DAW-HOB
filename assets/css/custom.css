@@ -1527,8 +1527,17 @@ input[type="radio"]:checked~label {
   display: none;
 }
 
-#validacion1,#validacion2,#validacion3,#validacion4,#validacion5,#validacion6,#validacion7{
+#validacion1,#validacion2,#validacion3,#validacion4,#validacion5,#validacion6,#validacion7
+{
   color: red;
+  display: none;
+}
+
+/* div de realizacion de accion */
+#accion,#accion2{
+  margin-top: 30px;
+  color: rgb(61, 182, 61);
+  font-weight: bold;
   display: none;
 }
 

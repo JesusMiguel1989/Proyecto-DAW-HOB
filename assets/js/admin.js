@@ -11,6 +11,8 @@ let usuarios = document.getElementById("usuarios");//peticion del alias para ban
 let seleccion = document.getElementById("seleccion");//div con las opciones de las tablas para insertar registros
 let libros = document.getElementById("agregarlibros");//div con los campos para agregar libros
 let addtiendas = document.getElementById("addTiendas");//div con los campos para agregar tiendas
+let accion = document.getElementById("accion");//div con el mensaje de accion realizada
+let accion2 = document.getElementById("accion2");//div con la accion de BBDD
 
 //botoncitos
 //let btnreiniciar = document.getElementById("reiniciar");//Administracion reiniciar bbdd
@@ -342,16 +344,26 @@ window.addEventListener("load", () => {
 
     //btn copia de la base de datos
     btnCopia.addEventListener("click", () => {
+        accion2.style.display="none";
+        accion.style.display="none";
         copia("copiaSeguridad");
+        accion2.style.display="inline";
     });//btn copia de la base de datos
 
     //btn opcion restaurar, pone visible el div
     btnRestaurar.addEventListener("click", () => {
+
+        bbdd.style.display = "none";
+        gestion.style.display = "none";
+        accion2.style.display="none";
+        accion.style.display="none";
         restore.style.display = "flex";//dejo visible el div
         tiendas.style.display = "none";//oculto los div
         usuarios.style.display = "none";//oculto los div
         seleccion.style.display = "none";//oculto los div
         libros.style.display = "none";//oculto los div
+
+        restore.style.marginBottom="100px";
     });//btn que muestra el div de la restauracion de la bbdd
 
     //btn que comprueba que se le puso un fichero, sino se bloquea el evento
@@ -360,19 +372,29 @@ window.addEventListener("load", () => {
         if (restaurar.value == "") {
             e.preventDefault();
         }
+        accion2.style.display="inline";
+
+        bbdd.style.display = "inline";
+        gestion.style.display = "inline";
     });//btn que comprueba que se le puso un fichero, sino se bloquea el evento
 
     //btn que actualiza las tablas para eliminar registros de usuarios eliminados
     btnActualizar.addEventListener("click", () => {
+        accion2.style.display="none";
+        accion.style.display="none";
         actualizar("actualizar");
+        accion2.style.display="inline";
     });//btn que actualiza las tablas para eliminar registros de usuarios eliminados
 
-    //GESTION DE DATOS
+    //////////////////////////////GESTION DE DATOS
 
     //TIENDAS
 
     //btn que muestra el div de tiendas para agregar registros o borrarlos
     btnTiendas.addEventListener("click", () => {
+
+        bbdd.style.display = "none";
+        gestion.style.display = "none";
 
         restore.style.display = "none";//oculto los div
         tiendas.style.display = "flex";//dejo visible el div
@@ -380,6 +402,7 @@ window.addEventListener("load", () => {
         usuarios.style.display = "none";//oculto los div
         seleccion.style.display = "none";//oculto los div
         libros.style.display = "none";//oculto los div
+        accion.style.display = "none";
 
         cod2.style.display = "none";//oculto el campo de insercion de cod tienda
 
@@ -389,6 +412,9 @@ window.addEventListener("load", () => {
 
     //agregar tiendas, cambio de div al de agregar tienda
     btnAgregarTienda.addEventListener("click", () => {
+        accion2.style.display="none";
+        accion.style.display="none";
+
         cod.style.display = "none";
         cod2.style.display = "flex";
 
@@ -469,6 +495,7 @@ window.addEventListener("load", () => {
                     console.log("Felicidades");
                     agregarTienda("agregartienda", cod2.value, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), cambio(localidad.value), provincia.value, cod_hob.value, logo.value);
                     limpieza();
+                    accion.style.display = "inline";
                 } else {
                     console.log("Lastima, Continuar?");
                 }//si todo esta correcto pasa al servidor
@@ -479,6 +506,8 @@ window.addEventListener("load", () => {
     //modificar tienda
     btnModificarTienda.addEventListener("click", () => {
 
+        accion2.style.display="none";
+        accion.style.display="none";
         cod.style.display = "flex";
         cod2.style.display = "none";
         let correcto = true;//variable centinela agregar
@@ -554,6 +583,7 @@ window.addEventListener("load", () => {
                     if (correcto) {
                         console.log("Felicidades");
                         modificarTienda("modificartienda", cod.value, nombre.value, cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value);
+                        accion.style.display = "inline";
                         limpieza();
                     } else {
                         console.log("Lastima, Continuar?");
@@ -566,6 +596,8 @@ window.addEventListener("load", () => {
     //btn borrar tienda
     btnBorrarTienda.addEventListener("click", async () => {
 
+        accion2.style.display="none";
+        accion.style.display="none";
         cod.style.display = "flex";
         cod2.style.display = "none";
 
@@ -584,10 +616,9 @@ window.addEventListener("load", () => {
                 console.log("Completado");
                 arrayTiendas = [];//la reinicializo
                 cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
+                accion.style.display = "inline";
                 limpieza();
             });
-
-
 
         }//verificacion codigo
 
@@ -596,6 +627,8 @@ window.addEventListener("load", () => {
     //btn buscartienda , parte de que se le introduzca el codigo de la tienda
     btnBuscarTienda.addEventListener("click", (e) => {
 
+        accion2.style.display="none";
+        accion.style.display="none";
         cod.style.display = "flex";
         cod2.style.display = "none";
 
@@ -621,6 +654,7 @@ window.addEventListener("load", () => {
             telefono.value = data[0][5];//6
             cod_hob.value = data[0][6];//7
             logo.value = data[0][7];//8
+            accion.style.display = "inline";
         });
 
 
@@ -630,6 +664,12 @@ window.addEventListener("load", () => {
 
     //btn que muestra el div de usuarios para banear o borrar usuarios, y recibir la gracia del señor por buena conducta
     btnBaneos.addEventListener("click", () => {
+        bbdd.style.display = "none";
+        gestion.style.display = "none";
+
+        accion2.style.display="none";
+        accion.style.display="none";
+
         restore.style.display = "none";//oculto los div
         tiendas.style.display = "none";//oculto los div
         usuarios.style.display = "flex";//dejo visible el div
@@ -687,6 +727,9 @@ window.addEventListener("load", () => {
 
     //btn que muestra la opcion para agregar registros a las diferentes tablas
     btnAñadir.addEventListener("click", () => {
+
+        bbdd.style.display = "none";
+        gestion.style.display = "none";
         restore.style.display = "none";//oculto los div
         tiendas.style.display = "none";//oculto los div
         usuarios.style.display = "none";//oculto los div
@@ -697,6 +740,10 @@ window.addEventListener("load", () => {
 
     //btn que muestra el div para insertar registros en libros (opcion libros del div seleccion)
     btnLibros.addEventListener("click", () => {
+
+        bbdd.style.display = "none";
+        gestion.style.display = "none";
+
         restore.style.display = "none";//oculto los div
         tiendas.style.display = "none";//oculto los div
         usuarios.style.display = "none";//oculto los div
@@ -775,6 +822,8 @@ window.addEventListener("load", () => {
     for (let i = 0; i < cerrarDiv.length; i++) {
         cerrarDiv[i].addEventListener("click", () => {
             cerrar();
+            bbdd.style.display = "flex";
+            gestion.style.display = "flex";
         })
     }
 })

@@ -252,7 +252,7 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
     for (let i = 0; i < response.length; i++) {
         arrayComentarios.push([response[i][0], response[i][1], response[i][2], response[i][3]], response[i][4]);
     }
-    if (arrayComentarios.length > 0 && response[0][4]==1) {
+    if (arrayComentarios.length > 0 && response[0][4] == 1) {
         registrosComentarios = response[0][4];
         nombreComentario.textContent = arrayComentarios[0][0];
         fotoComentario.setAttribute("src", arrayComentarios[0][3]);
@@ -1196,34 +1196,6 @@ async function pagina2() {
     if (camino == "comentario") {
 
         paginacionComentario.textContent = punto + " de " + registrosComentarios;
-
-        anteriorComentario.addEventListener("click", async (ant) => {
-            if (inicioComentarios > 0) {
-                comentariosISBN("comentario", isbnLibros).then(()=>{
-
-                });
-                inicioComentarios--;
-                arrayComentarios = [];
-                
-            }//comprobacion de si existen comentarios previos
-            else {
-                ant.preventDefault();
-            }
-        });//btnanterior comentario (<=)
-
-        siguienteComentario.addEventListener("click", async (sig) => {
-            if (inicioComentarios <= registrosComentarios) {
-                inicioComentarios++;
-                arrayComentarios = [];
-                await comentariosISBN("comentario", isbnLibros).then(() => {
-                    console.log("+1");
-                });
-                
-            } //comprobacion de si existen comentarios previos
-            else {
-                sig.preventDefault();
-            }
-        }); //camino comentario btn siguiente (=>)
     }
     else {
         //creo el div para los botones de la paginacion
@@ -1412,7 +1384,7 @@ window.addEventListener("load", () => {
     divCuriosidades.style.display = "none";
     let ubicacion = document.getElementById("ubicacion");
     addComentarios.style.display = "none";
-    let nombre = sessionStorage.getItem("alias")
+    let nombre = sessionStorage.getItem("alias");
     if (nombre != null) {
         divbuscar.style.display = "block";
         divleyendo.style.display = "none";
@@ -1724,4 +1696,34 @@ window.addEventListener("load", () => {
             resultadosComentarios.style.display = "none";
         }
     })
+
+    anteriorComentario.addEventListener("click", async (ant) => {
+        if (inicioComentarios > 0) {
+            inicioComentarios--;
+            arrayComentarios = [];
+            comentariosISBN("comentario", isbnLibros).then(()=>{
+                console.log(inicioComentarios);
+            });
+            
+            
+        }//comprobacion de si existen comentarios previos
+        else {
+            ant.preventDefault();
+        }
+    });//btnanterior comentario (<=)
+
+    siguienteComentario.addEventListener("click", async (sig) => {
+        let topeRegistro=registrosComentarios-1;
+        if (inicioComentarios < topeRegistro) {
+            inicioComentarios++;
+            arrayComentarios = [];
+            await comentariosISBN("comentario", isbnLibros).then(() => {
+                console.log(inicioComentarios);
+            });
+            
+        } //comprobacion de si existen comentarios previos
+        else {
+            sig.preventDefault();
+        }
+    }); //camino comentario btn siguiente (=>)
 })
