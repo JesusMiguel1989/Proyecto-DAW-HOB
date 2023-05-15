@@ -264,19 +264,16 @@ if(!$conexion){
         if($opcion=="agregarleido"){
             //guardo los datos
             $cod=$_GET['condicion1'];
-            $alias=$_GET['condicion2'];
-            $alias=str_replace("_"," ",$alias);
-            $titulo=$_GET['condicion3'];
+            $alias=str_replace("_"," ",$_GET['condicion2']);
             //le quito las barras bajas del titulo
-            $titulo=str_replace("_"," ",$titulo);
-            $autor=$_GET['condicion4'];
+            $titulo=str_replace("_"," ",$_GET['condicion3']);
             //le quito los espacios al autor
-            $autor=str_replace("_"," ",$autor);
+            $autor=str_replace("_"," ",$_GET['condicion4']);
             $pag=$_GET['condicion5'];
             $portada=$_GET['condicion6'];
             $leido=$_GET['condicion7'];//si o no
             $valoracion=$_GET['condicion8'];
-            $editorial=$_GET['condicion9'];
+            $editorial=str_replace("_"," ",$_GET['condicion9']);
             $editorial=str_replace("_"," ",$editorial);
             $comentario=str_replace("_"," ",$_GET['condicion10']);
 

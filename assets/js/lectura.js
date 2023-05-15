@@ -3,7 +3,7 @@ let arrayComentarios = []; //array para guardar los datos referentes a los comen
 let nota;
 let cad = "";//variable para recoger la sinopsis o indicar que no esta disponible
 let cadena;//variable para reducir los titulos
-let resultados = document.getElementById("resultados");//div donde se guardaran todos los reultados
+let resultados = document.getElementById("resultados");//div donde se guardaran todos los resultados
 
 let validacion99 = document.getElementById("validacion99");//mensaje de error cuando no se meten ningun valor en la busqueda
 let validacion98 = document.getElementById("validacion98");//mensaje de que no se ha encontrado ningun libro con esos datos
@@ -11,18 +11,18 @@ let validacion98 = document.getElementById("validacion98");//mensaje de que no s
 //array con los datos curiosos
 let curiosidades = [
     "El libro más largo del mundo es <b>‘En busca del tiempo perdido’</b>, de Marcel Proust, cuenta con <b>3.032</b>",
-    "<u>Winnie The Pooh, Mrs Piggle-Wiggle y El Hobbit</u> fueron escritos por sus respectivos autores como cuentos infantiles para sus hijos.",
+    "<b>Winnie The Pooh, Mrs Piggle-Wiggle</b> y <b>El Hobbit</b> fueron escritos por sus respectivos autores como cuentos infantiles para sus hijos.",
     "La <u>novela</u> más vendida del mundo es <b>El Quijote</b> , de Miguel de Cervantes, que ha vendido más de <b>500 millones</b> de copias.<br>El <u>libro</u> más vendido del mundo es <b>La Biblia</b>.",
-    "El libro más caro del mundo es una copia del <b>Códice Leicester</b> , de Leonardo DaVinci.<br>Se pagó por él 30.8 millones de dólares (Bill Gates)",
-    "Ernest Hemingway odiaba la portada de <b>El Gran Gatsby</b>.",
+    "<u>El libro más caro del mundo</u> es una copia del <b>Códice Leicester</b> , de Leonardo DaVinci.<br>Se pagó por él 30.8 millones de dólares (Bill Gates)",
+    "Ernest Hemingway odiaba la portada de <b>El Gran Gatsby</b>, de F.Scott Fitzgerald,<br>y así lo dejó escrito en sus memorias, publicadas en 1964.<br>Para su sorpresa, Fitzgerald le dijo básicamente que<br><i>“no se puede juzgar un libro por su portada”</i>.",
     "¿Sabes el nombre de el monstruo de Frankenstein? No, <b>no es Frankenstein</b>, aunque muchos piensen que lo es.<br>Nunca se le da un nombre dentro de la novela, Mary Shelley (autora) se refirió a él como <b>“Adam”</b>.",
-    "El libro más codiciado de la saga <b>Harry Potter</b> es, curiosamente,<br><b>Los cuentos de Beedle</b>, el bardo .<br>Se buscan en concreto siete copias que la autora de la saga, J.K. Rowling, escribió a mano, y cuyas portadas tienen joyas incrustadas.<br>Seis de esas copias pertenecen a parte del equipo de Rowling y la séptima fue subastada (4 millones de dólares), destinados íntegramente a un orfanato de Rumanía.",
+    "<u>El libro más codiciado de la saga <b>Harry Potter</b></u> es, curiosamente,<br><b>Los cuentos de Beedle</b>, el bardo .<br>Se buscan en concreto siete copias que la autora de la saga, J.K. Rowling, escribió a mano, y cuyas portadas tienen joyas incrustadas.<br>Seis de esas copias pertenecen a parte del equipo de Rowling y la séptima fue subastada (4 millones de dólares), destinados íntegramente a un orfanato de Rumanía.",
     "El libro <b>Farenheit 451</b>, de Ray Bradbury, debe su título a la temperatura en la que las páginas de un libro arde.",
-    "El personaje que ha sido interpretado por más actores ha sido <b>Sherlock Holmes</b>.<br>Ian McKellen, Buster Keaton, Peter Cushing, Roger Moore, Christopher Plummer,<br>Michael Caine, Charlton Heston, Jeremy Irons, Rupert Everett,<br>Benedict Cumberbatch o Robert Downey Jr... (21 en total)",
-    "La primera novela escrita fue <b>La Historia de Genji</b>, de la japonesa <u>Murasaki Shibiku</u>, en 1008.",
-    "<u>C.S.Lewis</u> y <u>J.R.R. Tolkien</u> eran mejores amigos. Es más, el protagonista de Más Allá del Planeta Silencioso (1938) está inspirado en Tolkien.",
+    "<u>El personaje</u> que ha sido interpretado por más actores ha sido <b>Sherlock Holmes</b>.<br>Ian McKellen, Buster Keaton, Peter Cushing, Roger Moore, Christopher Plummer,<br>Michael Caine, Charlton Heston, Jeremy Irons, Rupert Everett,<br>Benedict Cumberbatch o Robert Downey Jr... (21 en total)",
+    "<u>La primera novela escrita</u> fue <b>La Historia de Genji</b>, de la japonesa <u>Murasaki Shibiku</u>, en 1008.",
+    "<b>C.S.Lewis</b> y <b>J.R.R. Tolkien</b> eran mejores amigos. Es más, el protagonista de Más Allá del Planeta Silencioso (1938) está inspirado en Tolkien.",
     "Hasta su fallecimiento en 2014, <b>Gabriel García Márquez</b> siempre se negó a que adaptaran <u>Cien años de soledad</u> al cine,<br>y desautorizó toda adaptación audiovisual de su obra maestra.",
-    "<u>Como matar a un ruiseñor</u> es la primera y única novela de la escritora <b>Harper Lee</b>,<br>que ganó un premio Pulitzer y se pasó 88 semanas en el número uno en las listas de más vendidos.<br>Ve y pon un centinela, su supuesta y esperada secuela publicada tras el fallecimiento de la escritora es en realidad un borrador de la primera.",
+    "<b>Como matar a un ruiseñor</b> es la primera y única novela de la escritora <b>Harper Lee</b>,<br>que ganó un premio Pulitzer y se pasó 88 semanas en el número uno en las listas de más vendidos.<br>Ve y pon un centinela, su supuesta y esperada secuela publicada tras el fallecimiento de la escritora es en realidad un borrador de la primera.",
     "La <b>bibliopegia antropodérmica</b> es la tecnica de encuadernar libros con piel humana,<br>en la biblioteca de la Universidad de Havard es posible encontrar un volumen encuadernado con piel humana,<br>se trata del libro titulado <b>“Des destinées de l’ame”</b> del poeta francés Arsène Houssaye.",
     "El libro más pequeño del mundo se imprimió en Padua en 1897 con un formato de 15 × 9 mm.<br>¿Qué contenía? Una carta escrita por Galileo Galilei dirigida a Cristina de Lorena para afirmar que la teoría copernicana no estaba en conflicto con la fe. Hoy este librito se conserva en la biblioteca Malatestiana de Cesena.",
     "Los <b>lipogramas</b> son auténticos ejercicios literarios en los que el autor disfruta voluntariamente excluyendo una determinada letra del texto.<br>¿Un ejemplo? El escritor francés Georges Perec logró escribir una novela de 300 páginas llamada La Disparition sin usar nunca la letra «e».",
@@ -90,9 +90,30 @@ let autor = document.getElementById("lbautor");//campo autor
 let tit = "";//variable para recoger el titulo sin espacios
 let aut = "";//variable para recoger el autor sin espacios
 
+//variables de la tarjeta
+let portada = document.getElementById("lfoto2");
+let titulo2 = document.getElementById("ltitulo2");
+let autor2 = document.getElementById("lautor2");
+let paginas = document.getElementById("lpaginas2");
+let sinopsis = document.getElementById("lsinopsis2");
+let estrellas = document.getElementsByName("estrellas");
+
+//botones
+let buscar = document.getElementById("lbuscar");
+let leyendo = document.getElementById("lleyendo");
+let leidos = document.getElementById("lleidos");
+let ranking = document.getElementById("lranking");
+
+//div
+let tarjetabuscador = document.getElementById("tarjetabuscador");
+let divbuscar = document.getElementById("divbuscar");
+let divleyendo = document.getElementById("divleyendo");
+let divleidos = document.getElementById("divleidos");
+let tarjeta = document.getElementById("tarjeta");
+
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
-
+        
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
         + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10
@@ -104,33 +125,17 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4) {
 
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4);
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4, {
-        //method: "PATCH",
-        headers: { "Content-type": "application/json" }
-    });
 
-    /* response = await response.json();
-    return Promise.resolve(response); */
 }//funcion asincrona que llama a la API para modificar un libro
 
 async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3, {
-        //method: "PATCH",
-        headers: { "Content-type": "application/json" }
-    });
 
 }//funcion asincrona que llama a la API para eliminar un libro
 
-//funcion asincrona para mostrar os libros que se estan leyendo ahora
 async function mostrarLeyendo(opcion, condicion1) {
 
     let encontrados = [];
-
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + inicio, {
         method: "GET",
@@ -138,11 +143,9 @@ async function mostrarLeyendo(opcion, condicion1) {
     });
 
     response = await response.json();
-
     registros = response[0][8];
 
     for (let i = 0; i < response.length; i++) {
-
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
         response[i][6], response[i][7], response[i][8], response[i][9]];
         array.push(encontrados);
@@ -151,9 +154,8 @@ async function mostrarLeyendo(opcion, condicion1) {
     //funcion que introduce el boton siguiente y anterior
     pagina2();
     //return Promise.resolve(response);
-}
+}//funcion asincrona para mostrar os libros que se estan leyendo ahora
 
-//funcion asincrona para mostrar los libros leidos
 async function mostrarLeidos(opcion, condicion1) {
 
     let encontrados = [];
@@ -167,17 +169,14 @@ async function mostrarLeidos(opcion, condicion1) {
     registros2 = response[0][8];
 
     for (let i = 0; i < response.length; i++) {
-
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
         response[i][6], response[i][7], response[i][8], response[i][9]];
         array.push(encontrados);
         mostrar2(i);
     }
     pagina2();
-    //return Promise.resolve(response);
-}
+}//funcion asincrona para mostrar los libros leidos
 
-//funcion asincrona que consigue la sinopsis del libro
 async function sinopsisLibro(isbn) {
 
     let response = await fetch("https://openlibrary.org/isbn/" + isbn + ".json", {
@@ -196,9 +195,8 @@ async function sinopsisLibro(isbn) {
         cad = "Sinopsis no disponible";
     }
 
-}
+}//funcion asincrona que consigue la sinopsis del libro
 
-//funcion asincrona que devuelve el top 10 de las valoraciones de los usuarios
 async function rankingHOB(opcion) {
     let encontrados = [];
     let tope = 0;
@@ -211,7 +209,6 @@ async function rankingHOB(opcion) {
     response = await response.json();
 
     for (let i = 0; i < response.length; i++) {
-
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5]];
         array.push(encontrados);
         //error al mostrarlos
@@ -226,7 +223,7 @@ async function rankingHOB(opcion) {
     }
 
     return Promise.resolve(response);
-}
+}//funcion asincrona que devuelve el top 10 de las valoraciones de los usuarios
 
 async function registro(opcion, condicion1) {
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
@@ -236,18 +233,15 @@ async function registro(opcion, condicion1) {
     response = await response.json();
 
     registrosComentarios = response[0];
-    console.log(inicioComentarios);
-}
+}//funcion asincrona para saber cuantos registros a dado la consultar (COmentarios)
 
 async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios)
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
     response = await response.json();
-
 
     for (let i = 0; i < response.length; i++) {
         arrayComentarios.push([response[i][0], response[i][1], response[i][2], response[i][3]], response[i][4]);
@@ -269,19 +263,60 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
         notaComentario.textContent = "-";
         coment.textContent = "Lo siento no disponemos de comentarios para este libro";
     }
-}
+}//funcion asincrona que busca los comentarios
 
 function cambio(cadena) {
-    let cad = cadena;
+    if (typeof (cadena) == "string") {
+        let cad = cadena;
 
-    while (cad.includes(" ")) {
-        cad = cad.replace(" ", "_");
+        while (cad.includes(" ")) {
+            cad = cad.replace(" ", "_");
+        }
+        return cad;
     }
-    return cad;
-}
+    if (typeof (cadena) == "object") {
+        let cad = "";
+        for (let i = 0; i < cadena.length; i++) {
+            cad += "," + cadena[i];
+        }//for para recorre el array
+        while (cad.includes(" ")) {
+            cad = cad.replace(" ", "_");
+        }
+        return cad;
+    }
+
+}//funcion normal para cambiar los espacios por _
+
+function iconitos() {
+    //cambio el texto e icono de los botones
+    op.textContent = "Estado actual";
+    op.style.fontWeight = "bold";
+    let icono = document.createElement("i");
+    let p = document.createElement("p");
+    p.textContent = " Pendiente";
+    p.style.display = "inline-flex";
+    p.style.paddingLeft = "5px";
+    icono.classList.add("bi", "bi-book-half");
+    icono.appendChild(p);
+    actual.innerHTML = "";
+    actual.appendChild(icono);
+    actual.style.padding = "10px";
+    actual.style.height = "50px";
+
+    let iconoAbandono = document.createElement("i");
+    let p2 = document.createElement("p");
+    p2.textContent = " Terminado";
+    p2.style.display = "inline-flex";
+    p2.style.paddingLeft = "5px";
+    iconoAbandono.classList.add("bi", "bi-journal-bookmark-fill");
+    iconoAbandono.appendChild(p2);
+    anterior.innerHTML = "";
+    anterior.appendChild(iconoAbandono);
+    anterior.style.padding = "10px";
+    anterior.style.height = "50px";
+}//funcion para cambiar el texto e iconos de los botones de la tarjeta
 
 function mostrar(i) {
-
     //oculto la parte de los comentarios
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
 
@@ -295,7 +330,6 @@ function mostrar(i) {
     tit.textContent = cadena;
     tit.style.fontWeight = "bold";
     tit.style.marginTop = "5px";
-    //tit.style.marginLeft = "50px";//%
     tit.style.margin = "0 auto";
     tit.style.size = "15px";
     tit.style.textAlign = "center";
@@ -321,25 +355,13 @@ function mostrar(i) {
     foto.alt = "Portada";
     foto.title = array[i][1];
 
-    //libro.appendChild(foto);
     boton.appendChild(foto);
     libro.appendChild(boton);
     libro.appendChild(tit);
-
-    libro.classList.add("col-6");
-    libro.classList.add("col-sm-4");
-    libro.classList.add("col-md-3");
-    libro.classList.add("col-lg-2");
-    libro.classList.add("text-center");
-    libro.classList.add("mt-4");
-    libro.classList.add("ms-xs-3");
-    libro.classList.add("ms-lg-4");
-    //libro.style.height = "300px";
-
+    libro.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-2", "text-center", "mt-4", "ms-xs-3", "ms-lg-4");
     libro.style.display = "inline-block";
 
     resultados.appendChild(libro);
-    //resultados.style.display="flex";
     resultados.style = "display: flex ; flex-wrap:wrap";
     resultados.style.marginBottom = "80px";
 
@@ -350,22 +372,8 @@ function mostrar(i) {
         aux = i;
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
-        let portada = document.getElementById("lfoto2");
-        let titulo = document.getElementById("ltitulo2");
-        let autor = document.getElementById("lautor2");
-        let paginas = document.getElementById("lpaginas2");
-        let sinopsis = document.getElementById("lsinopsis2");
-        //let divBotones = document.getElementById("divBotones");
-        let editorial = document.getElementById("leditorial2");
 
-        actual.value = "Pendiente";
-        anterior.value = "Leido";
-
-
-        let padre = portada.parentNode.parentNode;
-        padre.style.backgroundColor = "rgb(152, 226, 202)";
-        padre.style.padding = "10px";
-        padre.style.borderRadius = "10%";
+        iconitos();
 
         //muestro los datos del libro elegido
         let img = array[i][4].replace("S", "M");
@@ -375,15 +383,15 @@ function mostrar(i) {
         portada.style.height = "auto";
 
         cadena = array[i][1];
-        titulo.textContent = cadena;
-        titulo.style.minWidth = "60%";
+        titulo2.textContent = cadena;
+        titulo2.style.minWidth = "60%";
 
         if (typeof array[i][2] !== 'undefined') {
-            autor.textContent = array[i][2];
-            autor.style.minWidth = "60%";
+            autor2.textContent = array[i][2];
+            autor2.style.minWidth = "60%";
         } else {
-            autor.textContent = "Sin especificar";
-            autor.style.minWidth = "60%";
+            autor2.textContent = "Sin especificar";
+            autor2.style.minWidth = "60%";
         }
 
 
@@ -405,17 +413,15 @@ function mostrar(i) {
 
         editorial.textContent = array[i][6];
         sinopsis.textContent = array[i][5];
-        sinopsis.setAttribute("cols", 50);
-
+        sinopsis.style.width = "90%";
 
         tarjeta.style.display = "block";
         //pongo al usuario al principio de la pagina
         window.scroll(0, 0);
 
     })//tarjeta
-}
+}//funcion para mostrar resultados (Busueda)
 
-//funcion mostrar leyendo y leidos
 function mostrar2(i) {
 
     resultadosComentarios.style.display = "none";
@@ -423,7 +429,6 @@ function mostrar2(i) {
     tit.textContent = array[i][2];
     tit.style.fontWeight = "bold";
     tit.style.marginTop = "5px";
-    //tit.style.marginLeft = "50px";
     tit.style.size = "15px";
     tit.style.textAlign = "center";
     tit.style.margin = "0 auto";
@@ -431,12 +436,7 @@ function mostrar2(i) {
 
     let libro = document.createElement("div");
     libro.id = "libro" + i;
-    libro.classList.add("col-12");
-    libro.classList.add("col-sm-4");
-    libro.classList.add("col-lg-3");
-    libro.classList.add("text-center");
-    libro.classList.add("mt-4");
-    //libro.style.height = "300px";
+    libro.classList.add("col-12", "col-sm-4", "col-lg-3", "text-center", "mt-4");
 
     let boton = document.createElement("button");
     boton.type = "button";
@@ -453,7 +453,6 @@ function mostrar2(i) {
     foto.setAttribute("src", img);
     foto.alt = "Portada";
     foto.title = array[i][2];
-    ///
 
     boton.appendChild(foto);
     libro.appendChild(boton);
@@ -470,14 +469,6 @@ function mostrar2(i) {
     btn.addEventListener("click", () => {
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
-        let portada = document.getElementById("lfoto2");
-        let titulo = document.getElementById("ltitulo2");
-        let autor = document.getElementById("lautor2");
-        let paginas = document.getElementById("lpaginas2");
-        let sinopsis = document.getElementById("lsinopsis2");
-        let sinopsis2 = document.getElementById("lsinopsis3");
-        let estrellas = document.getElementsByName("estrellas");
-        let editorial = document.getElementById("leditorial2");
 
         editorial.textContent = array[i][9];
 
@@ -486,12 +477,9 @@ function mostrar2(i) {
         let actual = document.getElementById("actual");//btn izquierda
         let anterior = document.getElementById("anterior");//btn derecha
 
-        let padre = portada.parentNode.parentNode;
-        padre.style.backgroundColor = "rgb(152, 226, 202)";
-        padre.style.padding = "10px";
-        padre.style.borderRadius = "10%";
 
         aux = i;
+        sinopsis.style.width = "90%";
         sinopsisLibro(array[i][0]).then(() => {
             //muestro los datos del libro elegido
             let img = array[i][5].replace("S", "M");
@@ -499,10 +487,10 @@ function mostrar2(i) {
             portada.setAttribute("srcset", img);
             portada.style.width = "75%";
             portada.style.height = "auto";
-            titulo.textContent = array[i][2];
-            titulo.style.minWidth = "60%";
-            autor.textContent = array[i][3];
-            autor.style.minWidth = "60%";
+            titulo2.textContent = array[i][2];
+            titulo2.style.minWidth = "60%";
+            autor2.textContent = array[i][3];
+            autor2.style.minWidth = "60%";
             if (array[i][4] >= 1) {
                 paginas.textContent = array[i][4] + " páginas";
             } else {
@@ -510,15 +498,37 @@ function mostrar2(i) {
             }
 
             paginas.style.minWidth = "60%";
-            //agregar.style.display="none";
+
+            //cambio el texto e icono de los botones
             op.textContent = "Estado actual";
             op.style.fontWeight = "bold";
-            actual.value = "Terminado";
-            anterior.value = "Abandonado";
-            sinopsis.textContent = cad;
+            let icono = document.createElement("i");
+            let p = document.createElement("p");
+            p.textContent = "Terminado";
+            p.style.display = "inline-flex";
+            p.style.paddingLeft = "5px";
+            icono.classList.add("bi", "bi-journal-bookmark-fill");
+            icono.appendChild(p);
 
-            //sinopsis.style.display = "none";
-            //sinopsis2.style.display = "none";
+            actual.innerHTML = "";
+            actual.appendChild(icono);
+            actual.style.padding = "10px";
+            actual.style.height = "50px";
+
+            let iconoAbandono = document.createElement("i");
+            let p2 = document.createElement("p");
+            p2.textContent = "Abandonado";
+            p2.style.display = "inline-flex";
+            p2.style.paddingLeft = "5px";
+            iconoAbandono.classList.add("bi", "bi-x-octagon-fill");
+            iconoAbandono.appendChild(p2);
+
+            anterior.innerHTML = "";
+            anterior.appendChild(iconoAbandono);
+            anterior.style.padding = "10px";
+            anterior.style.height = "50px";
+
+            sinopsis.textContent = cad;
 
             //recorro los elementos estrellas para saber cual es la nota que le dio
             for (let j = 0; j < estrellas.length; j++) {
@@ -532,9 +542,8 @@ function mostrar2(i) {
             window.scroll(0, 0);
         });//sinopsis
     })
-}
+}//funcion mostrar leyendo y leidos
 
-//mostrar ranking
 function mostrar3(i) {
 
     resultadosComentarios.style.display = "none";
@@ -551,11 +560,7 @@ function mostrar3(i) {
     let libro = document.createElement("div");
     libro.id = "libro" + i;
     libro.style.height = "300px";
-    libro.classList.add("col-12");
-    libro.classList.add("col-sm-4");
-    libro.classList.add("col-lg-3");
-    libro.classList.add("text-center");
-    libro.classList.add("mt-4");
+    libro.classList.add("col-12", "col-sm-4", "col-lg-3", "text-center", "mt-4");
 
     let posicion = document.createElement("h1");//elemento para indicar la posicion en el ranking
     posicion.textContent = (i + 1);
@@ -605,17 +610,9 @@ function mostrar3(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
+        iconitos();
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
-        let portada = document.getElementById("lfoto2");
-        let titulo = document.getElementById("ltitulo2");
-        let autor = document.getElementById("lautor2");
-        let paginas = document.getElementById("lpaginas2");
-        let sinopsis = document.getElementById("lsinopsis2");
-        let sinopsis2 = document.getElementById("lsinopsis3");
-        let btnlibro = document.getElementById("btnlibro");
-        let estrellas = document.getElementsByName("estrellas");
-        let editorial = document.getElementById("leditorial2");
 
         editorial.textContent = array[i][5];
 
@@ -626,10 +623,6 @@ function mostrar3(i) {
             }
         }//for que recorre las estrellas
 
-        let padre = portada.parentNode.parentNode;
-        padre.style.backgroundColor = "rgb(152, 226, 202)";
-        padre.style.padding = "10px";
-        padre.style.borderRadius = "10%";
 
         //muestro los datos del libro elegido
         let img = array[i][4].replace("S", "M");
@@ -637,11 +630,11 @@ function mostrar3(i) {
         portada.setAttribute("srcset", img);
         portada.style.width = "90%";
         portada.style.height = "auto";
-        titulo.textContent = array[i][1];
-        titulo.style.minWidth = "60%";
+        titulo2.textContent = array[i][1];
+        titulo2.style.minWidth = "60%";
 
-        autor.textContent = array[i][2];
-        autor.style.minWidth = "60%";
+        autor2.textContent = array[i][2];
+        autor2.style.minWidth = "60%";
 
         if (array[i][3] >= 1) {
             paginas.textContent = array[i][3] + " páginas";
@@ -653,9 +646,8 @@ function mostrar3(i) {
 
         sinopsisLibro(array[i][0]).then(() => {
             sinopsis.textContent = cad;
-            sinopsis.setAttribute("cols", 50);
+            sinopsis.style.width = "90%";
             sinopsis.style.display = "inline";
-            sinopsis2.style.display = "inline";
             btnlibro.style.display = "flex";
             tarjeta.style.display = "block";
             //pongo al usuario al principio de la pagina
@@ -672,12 +664,10 @@ function mostrar3(i) {
             btnLeido.style.display = "inline";
             btnLeido.style.marginBottom = "10px";
         });
-
         aux = i;
     })
-}
+}//mostrar ranking
 
-//funciones asincronas del buscador
 async function buscarall(condicion, condicion2, condicion3) {
     let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&isbn=" + condicion2 + "&author=" + condicion3);
 
@@ -687,7 +677,6 @@ async function buscarall(condicion, condicion2, condicion3) {
     let descripcion = "";
 
     response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + condicion2 + "&format=json");
-
     let texto2 = await response.json();
     let cadena = "texto2.ISBN" + condicion2 + ".thumbnail_url"
 
@@ -717,12 +706,10 @@ async function buscarall(condicion, condicion2, condicion3) {
 
     carga();
 
-    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
-}
+}//funciones asincronas del buscador (TODOS LOS DATOS)
 
-//buscador de titulo y autor
 async function buscar2(condicion, condicion2) {
     let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&author=" + condicion2
         + "&page=" + page + "&limit=" + limite);
@@ -760,8 +747,6 @@ async function buscar2(condicion, condicion2) {
             response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
             let texto2 = await response.json();
-            //let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
-
             let prueba2 = texto2["ISBN" + isbn];
 
             try {
@@ -769,7 +754,6 @@ async function buscar2(condicion, condicion2) {
                     portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
                 } else {
                     portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
-                    //portada += eval(cadena);
                 }
                 if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
                     portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
@@ -796,20 +780,16 @@ async function buscar2(condicion, condicion2) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            //mostrar(i);
             progreso.value += 5;
         }
     }
 
     carga();
 
-    //footer.style.display = "block";
-
     response = await response.array;
     return Promise.resolve(response);
-}
+}//buscador de titulo y autor
 
-//author
 async function buscar3(condicion) {
 
     let response = await fetch("https://openlibrary.org/search.json?author=" + condicion + "&page=" + page + "&limit=" + limite);
@@ -854,7 +834,6 @@ async function buscar3(condicion) {
                         portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
                     } else {
                         portada = texto2["ISBN" + texto.docs[i].isbn[0]]["thumbnail_url"];
-                        //portada += eval(cadena);
                     }
                     if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
                         portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
@@ -881,21 +860,18 @@ async function buscar3(condicion) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            //mostrar(i);
             progreso.value += 5;
         }
     }
     carga();
 
-    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
-}
+}//Buscador con solo el author
 
-//titulo
 async function buscar4(condicion) {
-    let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&page=" + page + "&limit=" + limite);
 
+    let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&page=" + page + "&limit=" + limite);
     let texto = await response.json();
 
     //calculo el numero de paginas
@@ -923,11 +899,9 @@ async function buscar4(condicion) {
                 isbn = "9788373196131";
             } else {
                 isbn = texto.docs[i].isbn[0];
-
                 response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
                 let texto2 = await response.json();
-                let cadena = "texto2.ISBN" + isbn + ".thumbnail_url";
                 let prueba2 = texto2["ISBN" + texto.docs[i].isbn[0]];
 
                 try {
@@ -943,7 +917,6 @@ async function buscar4(condicion) {
                 } catch {
                     portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
                 }
-
             }
 
             try {
@@ -967,15 +940,13 @@ async function buscar4(condicion) {
     }
     carga();
 
-    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
-}
+}//buscador con solo el titulo
 
-//isbn
 async function buscar5(condicion) {
-    let response = await fetch("https://openlibrary.org/search.json?isbn=" + condicion + "&page=" + page + "&limit=" + limite);
 
+    let response = await fetch("https://openlibrary.org/search.json?isbn=" + condicion + "&page=" + page + "&limit=" + limite);
     let texto = await response.json();
 
     //calculo el numero de paginas
@@ -1005,7 +976,6 @@ async function buscar5(condicion) {
                 isbn = texto.docs[i].isbn[0];
                 response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + texto.docs[i].isbn[0] + "&format=json");
 
-                let texto2 = await response.json();
                 let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
 
                 if (typeof eval(cadena) === 'undefined') {
@@ -1035,16 +1005,14 @@ async function buscar5(condicion) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            //mostrar(i);
             progreso.value += 5;
         }
     }
     carga();
 
-    //footer.style.display = "block";
     response = await response.array;
     return Promise.resolve(response);
-}
+}//buscador con solo el isbn
 
 function carga() {
 
@@ -1056,9 +1024,8 @@ function carga() {
         }
     }
 
-}
+}//funcion para ocultar el divCusiosidades al terminar la carga
 
-//funcion que comprueba los campos introducidos y envia la peticion a la correspondiente
 function buscador() {
     validacion99.style.display = "none";
     validacion98.style.display = "none";
@@ -1069,7 +1036,6 @@ function buscador() {
     resultados.innerHTML = "";
 
     if (titulo.value != "" && isbn.value != "" && autor.value != "") {
-
         buscarall(titulo.value, isbn.value, autor.value);
     } else {
         if (titulo.value == "" && autor.value == "" && isbn.value == "") {
@@ -1106,9 +1072,8 @@ function buscador() {
         }
 
     }
-}
+}//funcion que comprueba los campos introducidos y envia la peticion a la correspondiente
 
-//funcion que crea los btn para la paginacion del buscador
 function pagina() {
     //creo el div para los botones de la paginacion
     let paginacion = document.createElement("div");
@@ -1186,15 +1151,13 @@ function pagina() {
             e.preventDefault();
         }
     });//btn siguiente
-}
+}//funcion que crea los btn para la paginacion del buscador
 
-//pagina 2 para leyendo y leidos
 async function pagina2() {
+
     await registro("resultados", isbnLibros);
-    //console.log(inicioComentarios);
     let punto = inicioComentarios + 1;
     if (camino == "comentario") {
-
         paginacionComentario.textContent = punto + " de " + registrosComentarios;
     }
     else {
@@ -1237,12 +1200,6 @@ async function pagina2() {
                     np.textContent = "Del " + turno + " al " + limite;
                 }
             }
-
-            /* if (registros - limite < 0) {
-                np.textContent = inicio + " al " + registros;
-            } else {
-                np.textContent = "Del " + limite + " al " + registros;
-            } */
         }//camino leyendo
 
         if (camino == "leido") {
@@ -1284,8 +1241,6 @@ async function pagina2() {
 
         //agrego el div de los botones a resultados
         resultados.appendChild(paginacion);
-
-
 
         btnprevio.addEventListener("click", (e) => {
             if (camino == "leyendo") {
@@ -1349,42 +1304,31 @@ async function pagina2() {
         });//btn siguiente
     }
 
-}
+}//pagina 2 para leyendo y leidos
 
-//pongo todos los botones dle nav al mismo color
 function navegador() {
     buscar.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
     leyendo.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
     leidos.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
     ranking.style.backgroundColor = " rgba(33, 37, 41, 0.55)";
-}
+}//pongo todos los botones del nav al mismo color
 
-//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
 function curiosidad() {
     let num = Math.floor(Math.random() * curiosidades.length);
-
     pCuriosidades.innerHTML = curiosidades[num];
-}
-
-//botones
-let buscar = document.getElementById("lbuscar");
-let leyendo = document.getElementById("lleyendo");
-let leidos = document.getElementById("lleidos");
-let ranking = document.getElementById("lranking");
-
-//div
-let tarjetabuscador = document.getElementById("tarjetabuscador");
-let divbuscar = document.getElementById("divbuscar");
-let divleyendo = document.getElementById("divleyendo");
-let divleidos = document.getElementById("divleidos");
-let tarjeta = document.getElementById("tarjeta");
-//let footer = document.getElementById("footer2");
+}//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
 
 window.addEventListener("load", () => {
     divCuriosidades.style.display = "none";
     let ubicacion = document.getElementById("ubicacion");
     addComentarios.style.display = "none";
     let nombre = sessionStorage.getItem("alias");
+
+    agregarComentarios.style.padding = "10px";
+    agregarComentarios.style.height = "50px";
+    verComentarios.style.padding = "10px";
+    verComentarios.style.height = "50px";
+
     if (nombre != null) {
         divbuscar.style.display = "block";
         divleyendo.style.display = "none";
@@ -1396,23 +1340,19 @@ window.addEventListener("load", () => {
         ubicacion.style.fontWeight = "bold";
         //cojo el div donde se mostraran los resultados
 
-
         resultados.innerHTML = "";
         array = [];
 
         navegador();//pongo todos los botones del nav al mismo color
         buscar.style.backgroundColor = "#7a7a7a";//cambio solo el activo
 
-
         //oculto los div que no han sido seleccionados
         divbuscar.style.display = "block";
         divleyendo.style.display = "none";
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
-        //footer.style.display = "none";
     });
 
-    //btn que inicia la busqueda
     btnBuscardor.addEventListener("click", () => {
         progreso.value = 0;
         divCuriosidades.style.display = "inline-flex";
@@ -1430,9 +1370,8 @@ window.addEventListener("load", () => {
         anterior.style.display = "inline";
         page = 1;
         buscador();
-    })
+    });//btn que inicia la busqueda
 
-    //boton leyendo
     leyendo.addEventListener("click", () => {
         ubicacion.textContent = "Pendientes";
         ubicacion.style.fontWeight = "bold";
@@ -1468,9 +1407,8 @@ window.addEventListener("load", () => {
         tarjeta.style.display = "none";
 
         //footer.style.display = "block";
-    });
+    });//boton leyendo
 
-    //boton leidos
     leidos.addEventListener("click", () => {
         ubicacion.textContent = "Leidos";
         ubicacion.style.fontWeight = "bold";
@@ -1499,11 +1437,8 @@ window.addEventListener("load", () => {
         divleyendo.style.display = "none";
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
+    });//boton leidos
 
-        //footer.style.display = "flex";
-    });
-
-    //boton ranking
     ranking.addEventListener("click", () => {
         ubicacion.textContent = "Top Libros";
         ubicacion.style.fontWeight = "bold";
@@ -1522,9 +1457,8 @@ window.addEventListener("load", () => {
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
 
-    });
+    });//boton ranking
 
-    //boton de libro actual
     btnLeyendo.addEventListener("click", async () => {
         let textoComentario = "";
         if (comentUsuario.value != "") {
@@ -1553,14 +1487,10 @@ window.addEventListener("load", () => {
                     validacion.style.display = "none";
                     //falta meter el comentario si existiera
                     modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario);
-                    //////RELOAD
                     array = [];
                     resultados.innerHTML = "";
                     tarjeta.style.display = "none";
-                    await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then(() => {
-                        //console.log("llega");
-                    });
-
+                    await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then(() => { });
                 }
             }
         } else {
@@ -1583,12 +1513,7 @@ window.addEventListener("load", () => {
                     }
                 }
                 aut = cambio(autores);
-                //aut = cambio(array[aux][2]);
 
-
-                /* for (let j = 0; j < array[aux][2].length; j++) {
-                    aut = cambio(array[aux][2][j]);
-                } */
                 let pag = 0;
                 if (typeof array[aux][3] === "undefined") {
                     pag = 0;
@@ -1605,16 +1530,13 @@ window.addEventListener("load", () => {
                 comentUsuario.value = "";
             }
         }
-        //footer.style.display = "flex";
-    })//leyendo
+    })//leyendo, boton de libro actual
 
-    //boton para agregar a tu perfil
     btnLeido.addEventListener("click", () => {
         let textoComentario = "";
         if (comentUsuario.value != "") {
             textoComentario = cambio(comentUsuario.value);
         }
-
 
         if (btnLeido.value == "Abandonado") {
             if (sessionStorage.getItem("alias") != null) {
@@ -1632,7 +1554,6 @@ window.addEventListener("load", () => {
                 tit = cambio(array[aux][1]);
                 editorial2 = cambio(editorial2);
                 aut = cambio(array[aux][2]);
-
 
                 //saco la nota que el usuario le da
                 let valoracion = document.getElementsByName("estrellas");
@@ -1663,10 +1584,8 @@ window.addEventListener("load", () => {
             }
         }
         comentUsuario.value = "";
-        //footer.style.display = "flex";
-    })//leido
+    })//leido boton para agregar a tu perfil
 
-    //btn ver comentarios
     verComentarios.addEventListener("click", () => {
         addComentarios.style.display = "none";
         arrayComentarios = [];
@@ -1679,7 +1598,6 @@ window.addEventListener("load", () => {
         //muestro la parte del div de los comentarios donde aparecen estos
         resultadosComentarios.style.display = "flex";
         //aux es el elemento del array donde esta indicado el libro seleccionado
-        //console.log(array[aux]);
         camino = "comentario";//establezco la var a camino para poder diferenciarlo de lso btn anteriores
 
         isbnLibros = array[aux][0];
@@ -1689,23 +1607,20 @@ window.addEventListener("load", () => {
         console.log(arrayComentarios);
     });// evento click del btn ver comentaios
 
-    //btn agregar comentarios y a leidos
     agregarComentarios.addEventListener("click", () => {
         if (sessionStorage.getItem("alias") != null) {
             addComentarios.style.display = "flex";
             resultadosComentarios.style.display = "none";
         }
-    })
+    })//btn agregar comentarios y a leidos
 
     anteriorComentario.addEventListener("click", async (ant) => {
         if (inicioComentarios > 0) {
             inicioComentarios--;
             arrayComentarios = [];
-            comentariosISBN("comentario", isbnLibros).then(()=>{
+            comentariosISBN("comentario", isbnLibros).then(() => {
                 console.log(inicioComentarios);
             });
-            
-            
         }//comprobacion de si existen comentarios previos
         else {
             ant.preventDefault();
@@ -1713,14 +1628,13 @@ window.addEventListener("load", () => {
     });//btnanterior comentario (<=)
 
     siguienteComentario.addEventListener("click", async (sig) => {
-        let topeRegistro=registrosComentarios-1;
+        let topeRegistro = registrosComentarios - 1;
         if (inicioComentarios < topeRegistro) {
             inicioComentarios++;
             arrayComentarios = [];
             await comentariosISBN("comentario", isbnLibros).then(() => {
                 console.log(inicioComentarios);
             });
-            
         } //comprobacion de si existen comentarios previos
         else {
             sig.preventDefault();

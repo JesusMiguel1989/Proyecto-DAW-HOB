@@ -79,26 +79,6 @@
                     <li><a href="./lectura.html" class="link-light d-inline-flex text-decoration-none rounded"><i
                                 class="bi bi-book"></i>
                             <span>Lectura</span></a></li>
-                    <!--<li class="nav-link scrollto">
-                        <button class="boton btn btn-toggle d-inline-flex align-items-center rounded"
-                            data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                            <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
-                         <div class="collapse" id="home-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="./retro.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Retro Gamming</a>
-                                </li>
-                                <li><a href="./arte.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Arte</a>
-                                </li>
-                                <li><a href="./lectura.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded">Lectura</a></li>
-                                <li><a href="./senderismo.html"
-                                        class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a>
-                                </li>
-                            </ul>
-                        </div> 
-                    </li>-->
 
                     <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
                             <span>Tiendas Locales</span></a></li>
@@ -150,8 +130,6 @@
             </div>
         </nav>
 
-
-
         <div id="divbuscar">
             <div>
                 <div class="row" id="ubi">
@@ -197,7 +175,8 @@
                     </div>
                     <div class="row">
                         <div class="col-12 text-center text-md-center">
-                            <input type="button" id="lblanzar" value="Buscar" class="ltbISBN btn-sugerencia">
+                            <button id="lblanzar" type="button" class="ltbISBN btn-sugerencia"><i
+                                    class="bi bi-search"></i> Buscar</button>
                         </div>
                     </div>
                     <div class="row" id="validacion99">
@@ -216,7 +195,7 @@
             <div id="tarjeta">
                 <div class="row">
                     <div class="col-1 col-sm-1 col-lg-2 col-xl-3"></div>
-                    <div class="col-10 col-md-10 col-lg-8 text-center">
+                    <div class="col-10 col-md-10 col-lg-8 text-center tarjetaFondo">
                         <div class="row justify-content-center align-items-center">
                             <div class="col-12 col-md-3 text-center ">
                                 <img src="" id="lfoto2">
@@ -315,89 +294,93 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr">
 
+                            </div>
+                        </div>
+                        <div class="row" id="btnlibro">
+                            <center>
+                                <label id="op" class="alabel"><b>Añadir a:</b></label>
+                            </center>
+                            <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
+                                <button type="button" id="actual" value="" name="leyendo" class="ltbISBN btn-sugerencia"><i
+                                        class="bi bi-book-half"></i> Pendiente</button>
+                            </div>
+                            <div class="col-12 col-xs-12 col-sm-6 text-center">
+                                <button type="button" id="anterior" value="" name="leido" class="ltbISBN btn-sugerencia"><i
+                                        class='bi bi-journal-bookmark-fill'></i> Leido</button>
+                            </div>
+                        </div>
 
-                                <div class="row" id="btnlibro">
-                                    <center>
-                                        <label id="op" class="alabel"><b>Añadir a:</b></label>
-                                    </center>
-                                    <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
-                                        <input type="button" id="actual" value="Agregar" name="leyendo"
-                                            class="ltbISBN btn-sugerencia">
-                                    </div>
-                                    <div class="col-12 col-xs-12 col-sm-6 text-center">
-                                        <input type="button" id="anterior" value="Leido" name="leido"
-                                            class="ltbISBN btn-sugerencia">
-                                    </div>
-                                </div>
+                        <div class="row ms-3" id="comentario">
+                            <center>
+                                <label class="alabel">
+                                    Comentarios
+                                </label>
+                            </center>
+                            <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
+                                <button type="button" id="verComentarios" name="comentarios"
+                                    class="ltbISBN btn-sugerencia"><i class="bi bi-chat-right-text"></i> Ver
+                                    Comentario</button>
+                            </div>
+                            <div class="col-12 col-xs-12 col-sm-6 text-center">
+                                <button type="button" id="agregarComentarios" name="agregarComentarios"
+                                    class="ltbISBN btn-sugerencia"><i class="bi bi-pencil-square"></i> Agregar
+                                    Comentarios</button>
+                            </div>
 
-                                <div class="row" id="comentario">
-                                    <center>
-                                        <label class="alabel">
-                                            Comentarios
-                                        </label>
-                                    </center>
-                                    <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
-                                        <input type="button" id="verComentarios" value="Ver Comentarios"
-                                            name="comentarios" class="ltbISBN btn-sugerencia">
+                            <div class="row justify-content-center align-items-center mt-2 mb-2"
+                                id="resultadosComentarios">
+                                <div class="col-12 col-xs-12 col-md-3 col-lg-4 text-center">
+                                    <div class="row">
+                                        <!-- foto -->
+                                        <img src="" id="fotoComentario"></img>
                                     </div>
-                                    <div class="col-12 col-xs-12 col-sm-6 text-center">
-                                        <input type="button" id="agregarComentarios" value="Agregar Comentarios"
-                                            name="agregarComentarios" class="ltbISBN btn-sugerencia">
+                                    <div class="row">
+                                        <!-- nombre / alias -->
+                                        <p id="nombreComentario"></p>
                                     </div>
-
-                                    <div class="row justify-content-center align-items-center mt-2 mb-2"
-                                        id="resultadosComentarios">
-                                        <div class="col-12 col-xs-12 col-md-3 col-lg-4 text-center">
-                                            <div class="row">
-                                                <!-- foto -->
-                                                <img src="" id="fotoComentario"></img>
-                                            </div>
-                                            <div class="row">
-                                                <!-- nombre / alias -->
-                                                <p id="nombreComentario"></p>
-                                            </div>
-                                            <div class="row">
-                                                <!-- nota dada -->
-                                                <p id="notaComentario"></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-xs-12 col-md-9 col-lg-8 text-center">
-                                            <div class="row">
-                                                <h5>Comentario</h5>
-                                            </div>
-                                            <div class="row">
-                                                <!-- Comentarios label o textcontent -->
-                                                <p id="coment">
-                                                </p>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-3 col-xs-3  text-center align-middle">
-                                                <!-- <=  -->
-                                                <input type="button" id="anteriorComentario" value="&lt;="
-                                                    name="anteriorComentarios" class="ltbISBN btn-sugerencia">
-                                            </div>
-                                            <div class="col-6 col-xs-6 text-center">
-                                                <label id="paginacion">0</label>
-                                            </div>
-                                            <div class="col-3 col-xs-3 text-center align-middle">
-                                                <!-- => -->
-                                                <input type="button" id="siguienteComentario" value="=&gt;"
-                                                    name="siguienteComentarios" class="ltbISBN btn-sugerencia">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- generar otro div para insertar comentario -->
-                                    <div class="row justify-content-center align-items-center" id="addComentarios">
-                                        <div class="col-12">
-                                            <textarea id="comentUsuario"
-                                                placeholder="Al insertar un cometario, este será visible para todos los usuarios y dicho libro se te asignara como libro 'leído'."></textarea>
-                                        </div>
+                                    <div class="row">
+                                        <!-- nota dada -->
+                                        <p id="notaComentario"></p>
                                     </div>
                                 </div>
+                                <div class="col-12 col-xs-12 col-md-9 col-lg-8 text-center">
+                                    <div class="row">
+                                        <h5>Comentario</h5>
+                                    </div>
+                                    <div class="row">
+                                        <!-- Comentarios label o textcontent -->
+                                        <p id="coment">
+                                        </p>
+                                    </div>
 
+                                </div>
+                                <div class="row">
+                                    <div class="col-3 col-xs-3  text-center align-middle">
+                                        <!-- <=  -->
+                                        <input type="button" id="anteriorComentario" value="&lt;="
+                                            name="anteriorComentarios" class="ltbISBN btn-sugerencia">
+                                    </div>
+                                    <div class="col-6 col-xs-6 text-center">
+                                        <label id="paginacion">0</label>
+                                    </div>
+                                    <div class="col-3 col-xs-3 text-center align-middle">
+                                        <!-- => -->
+                                        <input type="button" id="siguienteComentario" value="=&gt;"
+                                            name="siguienteComentarios" class="ltbISBN btn-sugerencia">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- generar otro div para insertar comentario -->
+                            <div class="row justify-content-center align-items-center" id="addComentarios">
+                                <div class="col-12">
+                                    <textarea id="comentUsuario"
+                                        placeholder="Al insertar un cometario, este será visible para todos los usuarios y dicho libro se te asignara como libro 'leído'."></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>

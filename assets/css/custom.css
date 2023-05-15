@@ -407,12 +407,13 @@ a:hover {
   display: none;
 }
 
-.tituloSugerencia{
+.tituloSugerencia {
   font-weight: bold;
-  text-decoration: underline ;
+  text-decoration: underline;
   margin-top: 10px;
   color: #040b14;
 }
+
 /*****************************************************MOVIL*********************/
 @media (max-width: 376px) {
   .rnav {
@@ -1394,8 +1395,22 @@ input[type="radio"]:checked~label {
   margin-top: 10px;
 }
 
-#acodtienda,#alocalidad,#aprovincia,#anombre,#adireccion,#atelefono,#acodhobie,#alogo,
-#acodtienda2,#alocalidad2,#aprovincia2,#anombre2,#adireccion2,#atelefono2,#acodhobie2,#alogo2,
+#acodtienda,
+#alocalidad,
+#aprovincia,
+#anombre,
+#adireccion,
+#atelefono,
+#acodhobie,
+#alogo,
+#acodtienda2,
+#alocalidad2,
+#aprovincia2,
+#anombre2,
+#adireccion2,
+#atelefono2,
+#acodhobie2,
+#alogo2,
 #alvaloracion,
 #alleido,
 #alportada,
@@ -1403,8 +1418,7 @@ input[type="radio"]:checked~label {
 #alautor,
 #altitulo,
 #alalias,
-#alcodlibro
- {
+#alcodlibro {
   width: 100%;
   margin-top: 10px;
 }
@@ -1466,6 +1480,8 @@ input[type="radio"]:checked~label {
 
 #comentario {
   margin-top: 15px;
+  border-radius: 25%;
+  width: 95%;
 }
 
 #paginacion {
@@ -1494,7 +1510,7 @@ input[type="radio"]:checked~label {
   padding: 5px;
 }
 
-#curiosidadesLibros{
+#curiosidadesLibros {
   /* justify-content: center; */
   vertical-align: middle;
   margin-left: 15px;
@@ -1505,13 +1521,13 @@ input[type="radio"]:checked~label {
   font-weight: normal;
 }
 
-.pcuriosity{
+.pcuriosity {
   color: black;
   font-style: italic;
   font-weight: normal;
 }
 
-.curiosity{
+.curiosity {
   font-style: italic;
   font-weight: bold;
 }
@@ -1521,20 +1537,26 @@ input[type="radio"]:checked~label {
 } */
 
 #validacion99,
-#validacion98{
+#validacion98 {
   color: red;
   font-weight: bold;
   display: none;
 }
 
-#validacion1,#validacion2,#validacion3,#validacion4,#validacion5,#validacion6,#validacion7
-{
+#validacion1,
+#validacion2,
+#validacion3,
+#validacion4,
+#validacion5,
+#validacion6,
+#validacion7 {
   color: red;
   display: none;
 }
 
 /* div de realizacion de accion */
-#accion,#accion2{
+#accion,
+#accion2 {
   margin-top: 30px;
   color: rgb(61, 182, 61);
   font-weight: bold;
@@ -1542,7 +1564,7 @@ input[type="radio"]:checked~label {
 }
 
 /*BOON DEL TOGGLE*/
-#menus{
+#menus {
   margin-right: 40px;
 }
 
@@ -1553,26 +1575,51 @@ input[type="radio"]:checked~label {
 }
 
 /* Migas de Pan*/
-.migasPan{
+.migasPan {
   font-weight: bold;
   text-decoration: underline;
   font-style: italic;
-  color:#040b14;
+  color: #040b14;
   /* #040b145c */
 }
 
 /* Parte superior del modal */
-.ventana{
+.ventana {
   background-color: rgb(152, 226, 202);
 }
 
-.mtitulo{
+.mtitulo {
   font-weight: bold;
   color: #040b14b6;
 }
 
 /* modal de olvido de contraseña */
-.mcontraseña{
+.mcontraseña {
   width: 95%;
   margin-bottom: 5px;
 }
+
+/* Color fondo tarjeta */
+.tarjetaFondo {
+  background-color: rgb(152, 226, 202);
+  padding: 10px;
+  border-radius: 10%;
+}
+
+/* hr de la tarjeta */
+.hr {
+  margin-left: 2.5%;
+  margin-bottom: 10px;
+  width: 95%;
+  border: none;
+  height: 1px;
+  /* Set the hr color */
+  color: #333;
+  /* old IE */
+  background-color: #333;
+  /* Modern Browsers */
+}
+
+/* i {
+  margin-right: 5px;
+} */
