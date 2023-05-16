@@ -14,8 +14,6 @@ if(!$conexion){
         $opcion=$_GET['opcion'];
         $op=$_POST['opcion'];
         
-        /* echo $_GET['opcion']."<br>"; */
-        
         //hago limpia de usuarios que no han hecho el ultimo paso del registro (correo)
         $fecha=date("Y-m-d");
 
@@ -30,16 +28,16 @@ if(!$conexion){
         if($opcion=="usuario"){
             
             //recojo las condiciones de busqueda (alias y contraseña)
-            $condicion=$_GET['condicion'];
-            $condicion2=$_GET['condicion2'];
+            $alias=$_GET['condicion'];//alias introducido por el usuario
+            $pass=$_GET['condicion2'];//contraseña introducida por el usuario
             
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."' AND ESTADO='OK'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."' AND ESTADO='OK'");
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
                 //compruebo la contraseña que me dio el usuario
-                if(password_verify($condicion2,$fila[4])){
+                if(password_verify($pass,$fila[4])){
                     //guardo los resultados en un array que depues devolvere como JSON
                     $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
                 }//verificacion de la contraseña
@@ -57,16 +55,16 @@ if(!$conexion){
         if($opcion=="usuario1"){
             
             //recojo las condiciones de busqueda (alias y contraseña)
-            $condicion=$_GET['condicion'];
-            $condicion2=$_GET['condicion2'];
+            $alias=$_GET['condicion'];
+            $pass=$_GET['condicion2'];
             
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."'");
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
                 //compruebo la contraseña que me dio el usuario
-                if($condicion2==$fila[4]){
+                if($pass==$fila[4]){
                     //guardo los resultados en un array que depues devolvere como JSON
                     $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
                 }//verificacion de la contraseña
@@ -81,23 +79,23 @@ if(!$conexion){
         //opcion que modifica los datos del usuario
         if($opcion=="cambiar_usuario"){
             //recojo las condiciones para la modificacion
-            $condicion=$_GET['condicion'];
-            $condicion2=$_GET['condicion2'];
-            $condicion3=$_GET['condicion3'];
-            $condicion4=$_GET['condicion4'];
+            $alias=$_GET['condicion'];
+            $fecha=$_GET['condicion2'];
+            $localidad=$_GET['condicion3'];
+            $email=$_GET['condicion4'];
             $condicion5=$_GET['condicion5'];
-            $condicion6=$_GET['condicion6'];
+            $alias2=$_GET['condicion6'];//viejo alias
             //hasheo la clave dada por el usuario
             $pass=password_hash($condicion5,PASSWORD_DEFAULT);
 
             //realizo el update
             $resultado=mysqli_query($conexion,"UPDATE USUARIOS 
-                SET ALIAS='".$condicion."', F_NACIMIENTO='".$condicion2."', 
-                    LOCALIDAD='".$condicion3."', EMAIL='".$condicion4."', CONTRASEÑA='".$pass."'
-                WHERE ALIAS='".$condicion6."'");
+                SET ALIAS='".$alias."', F_NACIMIENTO='".$fecha."', 
+                    LOCALIDAD='".$localidad."', EMAIL='".$email."', CONTRASEÑA='".$pass."'
+                WHERE ALIAS='".$alias2."'");
 
             //tras la modificacion le pido a la bbdd que me devuelva la situacion de dicho usuario
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."'");
 
             //recorro los resultados
             while($fila=mysqli_fetch_row($resultado)){
@@ -113,25 +111,17 @@ if(!$conexion){
         //opcion de borrado de usuario
         if($opcion=="borrar"){
             //cojo la condicion que sera la clave primaria
-            $condicion=$_GET['condicion'];
-            $condicion2=$_GET['condicion2'];
+            $alias=$_GET['condicion'];
+            $pass=$_GET['condicion2'];
 
             //primero hago la comprobacion de la contraseña
-            $previa=mysqli_query($conexion,"SELECT contraseña FROM USUARIOS WHERE ALIAS='".$condicion."'");
+            $previa=mysqli_query($conexion,"SELECT contraseña FROM USUARIOS WHERE ALIAS='".$alias."'");
             $fila=mysqli_fetch_row($previa);
             //comprobamos la clave dada con la de la BBDD
-            if(password_verify($condicion2,$fila[0])){
+            if(password_verify($pass,$fila[0])){
                 //realizo el borrado en funcion del alias dado
-                $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$condicion."'");
-                $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$condicion."'");
-
-                /* //hago una busqueda para comprobar
-                $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
-
-                //recorro los resultados
-                while($fila=mysqli_fetch_row($resultado)){
-                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
-                }//while que lo recorre */
+                $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$alias."'");
+                $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$alias."'");
             }
 
             //indico en la cabecera que sera un json
@@ -144,15 +134,14 @@ if(!$conexion){
         if($opcion=="correo"){
             
             //recojo las condiciones de busqueda (alias y contraseña)
-            $condicion=$_GET['condicion'];
-            $condicion2=$_GET['condicion2'];
+            $alias=$_GET['condicion'];
+            $email=$_GET['condicion2'];
 
             //variables
             $aux=0;
 
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."' AND EMAIL='".$condicion2."'");
-
+            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."' AND EMAIL='".$email."'");
             
             //1 saco la cantidad de filas de la consulta, si es 1 existe
             if(mysqli_num_rows($resultado)==1){
@@ -173,9 +162,9 @@ if(!$conexion){
 
                 //modifico la tabla
                 $resultado=mysqli_query($conexion,"UPDATE USUARIOS 
-                SET ALIAS='".$condicion."', F_NACIMIENTO='".$array[0][1]."', 
+                SET ALIAS='".$alias."', F_NACIMIENTO='".$array[0][1]."', 
                     LOCALIDAD='".$array[0][2]."', EMAIL='".$array[0][3]."', CONTRASEÑA='".$password."'
-                WHERE ALIAS='".$condicion."'");
+                WHERE ALIAS='".$alias."'");
 
                 //envio del correo
                 /* echo $array[0][5]; */
@@ -425,7 +414,7 @@ if(!$conexion){
                     break;
                 case 2:
                     //error
-                    echo "que nooooo";
+                    echo "sigue siendo no";
                     break;
                 default:
                     break;
@@ -499,7 +488,7 @@ if(!$conexion){
             //header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }
 
-        //agregar una tienda a la BBDD
+        //modificar una tienda a la BBDD
         if($opcion=="modificartienda"){
             $cod=$_GET['condicion1'];
             $nombre=$_GET['condicion2'];
@@ -516,9 +505,6 @@ if(!$conexion){
                     ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
                     ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."'
                     WHERE COD_TIENDA='".$cod."'");
-            
-            /* $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE)
-                VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."')"); */
               
             header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }
@@ -642,8 +628,6 @@ if(!$conexion){
 	            $cabeceras .= "Content-Type: text/html;";
 	            $cabeceras .= " boundary=Separador_de_partes";  
 
-                /* echo $to;
-                echo "<br>".$titulo; */
                 //envio
                 mail($to,$titulo,$mensaje,$cabeceras);
             }else{
@@ -658,7 +642,6 @@ if(!$conexion){
             $alias=$_GET['condicion1'];
             $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$alias."'");
             $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."' AND FEC_TOPE !='9999-01-01'");
-            //$resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$alias."'");
         }//perdonar usuario
 
         //actualizacion de los usuarios baneados
@@ -667,13 +650,11 @@ if(!$conexion){
             //busco los usuarios que han cumplido con su castigo
             $resultado=mysqli_query($conexion,"SELECT * FROM BLACKLIST WHERE FEC_TOPE<='".$fechaActual."'");
 
-            /* print_r(mysqli_fetch_row($resultado)); */
             //recorro la tabla de los usuarios baneados para eliminar los registros
             while($fila=mysqli_fetch_row($resultado)){
                 //se borran
                 $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$fila[2]."'");
                 $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$fila[2]."'");
-                //mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$fila[0]."'");
             }//while que recorreo los resultaods de la select
         }//opcion redencion
 
@@ -736,7 +717,6 @@ if(!$conexion){
 
             //agregamos el libro
             $resultado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
-
         }
 
         ////////////PAG tiendas

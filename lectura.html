@@ -62,13 +62,6 @@
                 </div>
             </div>
 
-            <!-- <form id="buscador">
-                <br><input id="Ibuscar" type="text" placeholder="Buscar">
-                <button type="button" class="btn btn-secondary Ibuscador">
-                    <i class="bi-search "></i>
-                </button>
-            </form> -->
-
             <nav id="navbar" class="nav-menu navbar">
                 <ul>
                     <li><a href="./identificarse.html" class="nav-link scrollto"><i class="bx bx-user"></i>
@@ -133,19 +126,19 @@
         <div id="divbuscar">
             <div>
                 <div class="row" id="ubi">
-                    <div class="col-0 col-xm-2 col-md-2 col-xl-5">
+                    <div class="col-1 col-xs-1 col-sm-1 col-md-1 col-lg-2 col-xl-4">
 
                     </div>
-                    <div class="col-12 col-xm-9 col-md-8 col-xl-4 text-center">
+                    <div class="col-10 col-xs-10 col-sm-10 col-md-9 col-lg-8 col-xl-7 text-center">
                         <h2 id="ubicacion"><b>Buscador</b></h2>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-1 col-xs-2 col-sm-2 col-md-3 col-lg-3 col-xl-5">
+                <div class="col-1 col-xs-1 col-sm-1 col-md-2 col-lg-3 col-xl-5">
 
                 </div>
-                <div class="col-10 col-xs-9 col-sm-9 col-md-8 col-lg-8 col-xl-7 rfondo5">
+                <div class="col-10 col-xs-10 col-sm-10 col-md-11 col-lg-8 col-xl-7 rfondo5">
                     <h1>Buscador</h1>
                     <div class="row">
                         <!-- <div class="col-3" -->
@@ -194,8 +187,8 @@
 
             <div id="tarjeta">
                 <div class="row">
-                    <div class="col-1 col-sm-1 col-lg-2 col-xl-3"></div>
-                    <div class="col-10 col-md-10 col-lg-8 text-center tarjetaFondo">
+                    <div class="col-1 col-sm-1 col-lg-2 col-xl-4"></div>
+                    <div class="col-10 col-md-10 col-lg-8 col-xl-7 text-center tarjetaFondo">
                         <div class="row justify-content-center align-items-center">
                             <div class="col-12 col-md-3 text-center ">
                                 <img src="" id="lfoto2">
@@ -306,12 +299,13 @@
                                 <label id="op" class="alabel"><b>Añadir a:</b></label>
                             </center>
                             <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
-                                <button type="button" id="actual" value="" name="leyendo" class="ltbISBN btn-sugerencia"><i
-                                        class="bi bi-book-half"></i> Pendiente</button>
+                                <button type="button" id="actual" value="" name="leyendo"
+                                    class="ltbISBN btn-sugerencia"><i class="bi bi-book-half"></i> Pendiente</button>
                             </div>
                             <div class="col-12 col-xs-12 col-sm-6 text-center">
-                                <button type="button" id="anterior" value="" name="leido" class="ltbISBN btn-sugerencia"><i
-                                        class='bi bi-journal-bookmark-fill'></i> Leido</button>
+                                <button type="button" id="anterior" value="" name="leido"
+                                    class="ltbISBN btn-sugerencia"><i class='bi bi-journal-bookmark-fill'></i>
+                                    Leido</button>
                             </div>
                         </div>
 
@@ -324,12 +318,12 @@
                             <div class="col-12 col-xs-12 col-sm-6 text-center" id="agregar">
                                 <button type="button" id="verComentarios" name="comentarios"
                                     class="ltbISBN btn-sugerencia"><i class="bi bi-chat-right-text"></i> Ver
-                                    Comentario</button>
+                                    Comentarios</button>
                             </div>
                             <div class="col-12 col-xs-12 col-sm-6 text-center">
                                 <button type="button" id="agregarComentarios" name="agregarComentarios"
-                                    class="ltbISBN btn-sugerencia"><i class="bi bi-pencil-square"></i> Agregar
-                                    Comentarios</button>
+                                    class="ltbISBN btn-sugerencia"><i class="bi bi-pencil-square"></i> Editar <u>tú</u>
+                                    Comentario</button>
                             </div>
 
                             <div class="row justify-content-center align-items-center mt-2 mb-2"
@@ -379,7 +373,15 @@
                             <div class="row justify-content-center align-items-center" id="addComentarios">
                                 <div class="col-12">
                                     <textarea id="comentUsuario"
-                                        placeholder="Al insertar un cometario, este será visible para todos los usuarios y dicho libro se te asignara como libro 'leído'."></textarea>
+                                        placeholder="Al insertar un cometario, este será visible para todos los usuarios y dicho libro se te asignara como libro 'leído'. NO se puede comentar libros NO leidos."></textarea>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center" id="btnDivComentario">
+                                    <button type="button" id="btnAddComentario" class="ltbISBN btn-sugerencia"><i
+                                            class="bi bi-pencil-square"></i>
+                                        Agregar o Modificar Comentario</button>
                                 </div>
                             </div>
                         </div>
@@ -398,15 +400,15 @@
             </div>
 
             <div id="curiosidadesLibros" class="row ">
-                <div class="col-1 col-md-2 col-lg-3"></div>
-                <div class="col-10 col-md-8 col-lg-7  text-center rfondo2 me-3">
+                <div class="col-1 col-sm-1 col-md-1 col-lg-2 col-xl-4"></div>
+                <div class="col-10 xol-sm-10 col-md-10 col-lg-8 col-xl-7 text-center rfondo2 me-3">
                     <h3 class="curiosity">Momento de una curiosidad sobre libros</h3>
-                    <p id="pCuriosidades">curiosidad 1</p><br><br>
+                    <p id="pCuriosidades"></p><br><br>
                     <label for="progreso" class="pcuriosity">Buscando tu próxima aventura:</label><br>
 
-                    <progress id="progreso" max="100" value="0"> 70% </progress>
+                    <progress id="progreso" max="100" value="0"></progress>
                 </div>
-                <div class="col-1 col-md-1 col-lg-1"></div>
+                <!-- <div class="col-1 col-md-1 col-lg-1 col-xl-1"></div> -->
             </div>
 
         </div>

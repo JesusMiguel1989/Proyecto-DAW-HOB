@@ -28,7 +28,7 @@ let curiosidades = [
     "Los <b>lipogramas</b> son auténticos ejercicios literarios en los que el autor disfruta voluntariamente excluyendo una determinada letra del texto.<br>¿Un ejemplo? El escritor francés Georges Perec logró escribir una novela de 300 páginas llamada La Disparition sin usar nunca la letra «e».",
     "En el pasado, el registro de la biblioteca más grande del mundo pertenecía a la de <b>Alejandría</b> en Egipto que albergaba alrededor de 490 mil manuscritos que luego se perdieron con la destrucción de los siglos I y VII d.C.<br>Hoy, sin embargo, la biblioteca más grande del mundo es la <b>Biblioteca Británica de Londres</b>, que tiene alrededor de 170 millones de libros.",
     "Después de 221 años de retraso en 2010, un libro prestado a <b>George Washington</b> en 1789 fue devuelto a la Biblioteca de la Sociedad de Nueva York .<br>A sus herederos se les ha perdonado la multa de 300.000 dólares.",
-    "<b>El autor sólo cobra el 10% del coste del libro</b>. Un euro de cada diez es lo que rescata el autor del coste que se reparte con el distribuidor (50%) y el edito (40%). ",
+    "<b>El autor sólo cobra el 10% del coste del libro</b>. Un euro de cada diez es lo que rescata el autor del coste que se reparte con el distribuidor (50%) y el editor (40%). ",
     "<b>Louis Braille creó el sistema para leer a través del tacto en 1829.</b><br>Sin embargo, no fue hasta 1837 cuando el Institute for Blind Youth editó y publicó el primer libro en braille: 'A brief History of France'.<br>Actualmente, sólo restan tres copias en el mundo.",
     "El libro más prohibido del mundo es el <b>Necronomicón</b>, un libro de ocultismo escrito por el autor estadounidense H.P. Lovecraft.<br>El libro ficticio aparece en muchos de los cuentos de Lovecraft y se cree que contiene conocimientos oscuros y peligrosos.",
     "En 1898 (<b>14 años antes del hundimiento del Titanic</b>), <b>Morgan Robertson </b>publicó un libro llamado “Futilidad o El hundimiento del Titán”,<br>donde narraba el naufragio de un barco enorme que hacía la travesía de Londres a Nueva York y que se chocó con un iceberg a unos 700 kilómetros de Terranova…",
@@ -64,6 +64,9 @@ let registrosComentarios;//numero de registros que devuelve la consulta
 let addComentarios = document.getElementById("addComentarios");//div que contiene el textarea para agregar comentarios
 let comentUsuario = document.getElementById("comentUsuario");//textarea donde se escribe el comentario
 let isbnLibros = 0;
+let btnAddComentario = document.getElementById("btnAddComentario");//boton extra para agregar comentarios
+
+let clickEvent = new Event("click");//evento
 
 let camino;
 //variabes paginacion de pendientes
@@ -110,10 +113,11 @@ let divbuscar = document.getElementById("divbuscar");
 let divleyendo = document.getElementById("divleyendo");
 let divleidos = document.getElementById("divleidos");
 let tarjeta = document.getElementById("tarjeta");
+let btnDivComentario = document.getElementById("btnDivComentario");//div donde esta el boton de agregar comentario extra
 
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
-        
+
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
         + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10
@@ -124,13 +128,20 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4) {
-
-
+    console.log()
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4, {
+        //method: "PATCH",
+        headers: { "Content-type": "application/json" }
+    });
 }//funcion asincrona que llama a la API para modificar un libro
 
 async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
-
-
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+        + "&condicion3=" + condicion3, {
+        //method: "PATCH",
+        headers: { "Content-type": "application/json" }
+    });
 }//funcion asincrona que llama a la API para eliminar un libro
 
 async function mostrarLeyendo(opcion, condicion1) {
@@ -266,6 +277,8 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
 }//funcion asincrona que busca los comentarios
 
 function cambio(cadena) {
+    if (cadena === 'undefined') return "Sin Especificar";
+
     if (typeof (cadena) == "string") {
         let cad = cadena;
 
@@ -314,6 +327,9 @@ function iconitos() {
     anterior.appendChild(iconoAbandono);
     anterior.style.padding = "10px";
     anterior.style.height = "50px";
+
+    btnAddComentario.style.padding = "10px";
+    btnAddComentario.style.height = "50px";
 }//funcion para cambiar el texto e iconos de los botones de la tarjeta
 
 function mostrar(i) {
@@ -326,6 +342,8 @@ function mostrar(i) {
     if (pos < 0) {
         pos = array[i][1].length;
     }
+    tit.classList.add("pe-3", "ps-2");
+
     cadena = array[i][1].substring(0, pos);
     tit.textContent = cadena;
     tit.style.fontWeight = "bold";
@@ -358,7 +376,7 @@ function mostrar(i) {
     boton.appendChild(foto);
     libro.appendChild(boton);
     libro.appendChild(tit);
-    libro.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-2", "text-center", "mt-4", "ms-xs-3", "ms-lg-4");
+    libro.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-2", "text-center", "mt-4");
     libro.style.display = "inline-block";
 
     resultados.appendChild(libro);
@@ -511,6 +529,7 @@ function mostrar2(i) {
             icono.appendChild(p);
 
             actual.innerHTML = "";
+            actual.value = "Terminado";
             actual.appendChild(icono);
             actual.style.padding = "10px";
             actual.style.height = "50px";
@@ -525,6 +544,7 @@ function mostrar2(i) {
 
             anterior.innerHTML = "";
             anterior.appendChild(iconoAbandono);
+            anterior.value = "Abandonado";
             anterior.style.padding = "10px";
             anterior.style.height = "50px";
 
@@ -1319,6 +1339,7 @@ function curiosidad() {
 }//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
 
 window.addEventListener("load", () => {
+    iconitos();
     divCuriosidades.style.display = "none";
     let ubicacion = document.getElementById("ubicacion");
     addComentarios.style.display = "none";
@@ -1335,7 +1356,9 @@ window.addEventListener("load", () => {
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
     }
+
     buscar.addEventListener("click", () => {
+        btnDivComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Buscador";
         ubicacion.style.fontWeight = "bold";
         //cojo el div donde se mostraran los resultados
@@ -1373,6 +1396,7 @@ window.addEventListener("load", () => {
     });//btn que inicia la busqueda
 
     leyendo.addEventListener("click", () => {
+        btnDivComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Pendientes";
         ubicacion.style.fontWeight = "bold";
 
@@ -1406,10 +1430,11 @@ window.addEventListener("load", () => {
         divleidos.style.display = "none";
         tarjeta.style.display = "none";
 
-        //footer.style.display = "block";
     });//boton leyendo
 
     leidos.addEventListener("click", () => {
+        btnDivComentario.style.display = "none";//pongo visible el boton de agregado extra
+
         ubicacion.textContent = "Leidos";
         ubicacion.style.fontWeight = "bold";
 
@@ -1440,6 +1465,7 @@ window.addEventListener("load", () => {
     });//boton leidos
 
     ranking.addEventListener("click", () => {
+        btnDivComentario.style.display = "none";//pongo visible el boton de agregado extra (comentario)
         ubicacion.textContent = "Top Libros";
         ubicacion.style.fontWeight = "bold";
 
@@ -1487,6 +1513,7 @@ window.addEventListener("load", () => {
                     validacion.style.display = "none";
                     //falta meter el comentario si existiera
                     modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario);
+                    comentUsuario.value = "";
                     array = [];
                     resultados.innerHTML = "";
                     tarjeta.style.display = "none";
@@ -1505,13 +1532,6 @@ window.addEventListener("load", () => {
                 editorial2 = cambio(editorial2);
                 tit = cambio(array[aux][1]);
                 autores = array[aux][2]
-                for (let a = 0; a < array[aux][2].length; a++) {
-                    if (a == 0) {
-                        autores = array[aux][2][a];
-                    } else {
-                        autores = autores + ", " + array[aux][2][a];
-                    }
-                }
                 aut = cambio(autores);
 
                 let pag = 0;
@@ -1578,13 +1598,44 @@ window.addEventListener("load", () => {
                 } else {
                     validacion.style.display = "none";
                     if (tit == cambio(array[aux][1])) {
-                        agregar("agregarleido", array[aux][0], cambio(alias), tit, aut, array[aux][3], img, "SI", nota, editorial2, textoComentario);
+                        agregar("agregarleido", array[aux][0], cambio(alias), tit, aut, pag, img, "SI", nota, editorial2, textoComentario);
                     }
                 }
             }
         }
         comentUsuario.value = "";
     })//leido boton para agregar a tu perfil
+
+    btnAddComentario.addEventListener("click", () => {
+        btnLeido.value = "Terminado";
+        let textoComentario = "";
+        if (comentUsuario.value != "") {
+            textoComentario = cambio(comentUsuario.value);
+        }
+
+        let validacion = document.getElementById("validacion");
+        let alias = sessionStorage.getItem("alias");
+        if (alias != null) {
+
+            //saco la nota que el usuario le da
+            let valoracion = document.getElementsByName("estrellas");
+            nota = 0;
+            for (let i = 0; i < valoracion.length; i++) {
+                if (valoracion[i].checked == true) {
+                    nota = valoracion[i].value;
+                }
+            }
+
+            if (nota == 0) {
+                validacion.style.display = "block";
+                validacion.style.color = "red";
+                validacion.style.fontWeight = "bold";
+            } else {
+                validacion.style.display = "none";
+                modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario);
+            }
+        }
+    })//si seleccionas este camino hace lo mismo que en el camino del btnLeido
 
     verComentarios.addEventListener("click", () => {
         addComentarios.style.display = "none";
@@ -1609,6 +1660,7 @@ window.addEventListener("load", () => {
 
     agregarComentarios.addEventListener("click", () => {
         if (sessionStorage.getItem("alias") != null) {
+            btnDivComentario.style.display = "inline";
             addComentarios.style.display = "flex";
             resultadosComentarios.style.display = "none";
         }
