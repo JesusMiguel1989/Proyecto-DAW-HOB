@@ -18,7 +18,7 @@ let curiosidades = [
     "¿Sabes el nombre de el monstruo de Frankenstein? No, <b>no es Frankenstein</b>, aunque muchos piensen que lo es.<br>Nunca se le da un nombre dentro de la novela, Mary Shelley (autora) se refirió a él como <b>“Adam”</b>.",
     "<u>El libro más codiciado de la saga <b>Harry Potter</b></u> es, curiosamente,<br><b>Los cuentos de Beedle</b>, el bardo .<br>Se buscan en concreto siete copias que la autora de la saga, J.K. Rowling, escribió a mano, y cuyas portadas tienen joyas incrustadas.<br>Seis de esas copias pertenecen a parte del equipo de Rowling y la séptima fue subastada (4 millones de dólares), destinados íntegramente a un orfanato de Rumanía.",
     "El libro <b>Farenheit 451</b>, de Ray Bradbury, debe su título a la temperatura en la que las páginas de un libro arde.",
-    "<u>El personaje</u> que ha sido interpretado por más actores ha sido <b>Sherlock Holmes</b>.<br>Ian McKellen, Buster Keaton, Peter Cushing, Roger Moore, Christopher Plummer,<br>Michael Caine, Charlton Heston, Jeremy Irons, Rupert Everett,<br>Benedict Cumberbatch o Robert Downey Jr... (21 en total)",
+    "<u>El personaje</u> que ha sido interpretado por más actores ha sido <b>Sherlock Holmes</b>.<br>Ian McKellen, Buster Keaton, Peter Cushing, Roger Moore,<br>Christopher Plummer, Michael Caine, Charlton Heston, Jeremy Irons, Rupert Everett,<br>Benedict Cumberbatch o Robert Downey Jr... (21 en total)",
     "<u>La primera novela escrita</u> fue <b>La Historia de Genji</b>, de la japonesa <u>Murasaki Shibiku</u>, en 1008.",
     "<b>C.S.Lewis</b> y <b>J.R.R. Tolkien</b> eran mejores amigos. Es más, el protagonista de Más Allá del Planeta Silencioso (1938) está inspirado en Tolkien.",
     "Hasta su fallecimiento en 2014, <b>Gabriel García Márquez</b> siempre se negó a que adaptaran <u>Cien años de soledad</u> al cine,<br>y desautorizó toda adaptación audiovisual de su obra maestra.",
@@ -42,7 +42,7 @@ let progreso = document.getElementById("progreso");//barra progress de div
 let aux;//variable para saber que libro ha sido seleccionado
 //variables para la paginacion
 let page = 1;//variable para indicar la pagina en la api open library
-let limite = 20;//variable para indicar la cantidad de elementos por pagina
+let limite = 24;//variable para indicar la cantidad de elementos por pagina
 
 let resultadosBusqueda = 0;//variable que tendra el numero de resultados de la busqueda
 let paginasTotales = 0;//variable que guardara las paginas totales
@@ -227,7 +227,7 @@ async function rankingHOB(opcion) {
 
         //comprobador de que solo muestre los 10 primeros
         tope++;
-        if (tope >= 10) {
+        if (tope >= 20) {
             //si van 10 sale del for
             break;
         }
@@ -333,6 +333,7 @@ function iconitos() {
 }//funcion para cambiar el texto e iconos de los botones de la tarjeta
 
 function mostrar(i) {
+    comentUsuario.style.display="none";//oculto l textarea para insertar comentarios
     //oculto la parte de los comentarios
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
 
@@ -441,7 +442,7 @@ function mostrar(i) {
 }//funcion para mostrar resultados (Busueda)
 
 function mostrar2(i) {
-
+    comentUsuario.style.display="none";//oculto l textarea para insertar comentarios
     resultadosComentarios.style.display = "none";
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
     tit.textContent = array[i][2];
@@ -566,34 +567,35 @@ function mostrar2(i) {
 
 function mostrar3(i) {
 
+    comentUsuario.style.display="none";//oculto l textarea para insertar comentarios
     resultadosComentarios.style.display = "none";
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
     tit.textContent = array[i][1];
     tit.style.fontWeight = "bold";
-    tit.style.marginTop = "5px";
+    //tit.style.marginTop = "5px";
     //tit.style.marginLeft = "45px";
     tit.style.margin = "0 auto";
     tit.style.size = "15px";
     tit.style.textAlign = "center";
-    tit.style.width = "150px";
+    tit.style.width = "120px";
 
     let libro = document.createElement("div");
     libro.id = "libro" + i;
     libro.style.height = "300px";
-    libro.classList.add("col-12", "col-sm-4", "col-lg-3", "text-center", "mt-4");
+    libro.classList.add("col-6","col-sm-4", "col-md-3", "col-lg-3", "text-center", "mt-4");
+    /* , "px-4" */
 
     let posicion = document.createElement("h1");//elemento para indicar la posicion en el ranking
     posicion.textContent = (i + 1);
     posicion.style.fontWeight = "bold";
     posicion.style.display = "fixed";
-    //posicion.style.left = "15px";
+    posicion.style.left = "17px";
     posicion.style.top = "35px";
-    //posicion.style.marginTop = "30px";
 
     let boton = document.createElement("button");
     boton.type = "button";
     boton.style.backgroundColor = "rgb(152, 226, 202)";
-    boton.style.height = "180px";
+    boton.style.height = "160px";
     //boton.style.marginTop = "20px";
     //boton.style.marginLeft = "28px";
     boton.style.margin = "0 auto";
@@ -720,7 +722,7 @@ async function buscarall(condicion, condicion2, condicion3) {
             eval(cadena), descripcion, editorial];
             array.push(encontrados);
             //mostrar(i);
-            progreso.value += 5;
+            progreso.value += 4.16;
         }
     }
 
@@ -800,7 +802,7 @@ async function buscar2(condicion, condicion2) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            progreso.value += 5;
+            progreso.value += 4.16;
         }
     }
 
@@ -880,7 +882,7 @@ async function buscar3(condicion) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            progreso.value += 5;
+            progreso.value += 4.16;
         }
     }
     carga();
@@ -955,7 +957,7 @@ async function buscar4(condicion) {
             encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
                 portada, descripcion, editorial];
             array.push(encontrados);
-            progreso.value += 5;
+            progreso.value += 4.16;
         }
     }
     carga();
@@ -1025,7 +1027,7 @@ async function buscar5(condicion) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            progreso.value += 5;
+            progreso.value += 4.16;
         }
     }
     carga();
@@ -1101,7 +1103,7 @@ function pagina() {
 
     //creo el div de previo
     let previo = document.createElement("div");
-    previo.classList.add("col-4", "col-sm-5", "text-center");
+    previo.classList.add("col-4", "text-center");
 
     //creo el boton de previo
     let btnprevio = document.createElement("input");
@@ -1114,7 +1116,7 @@ function pagina() {
 
     //div pagina
     let numPag = document.createElement("div");
-    numPag.classList.add("col-4", "col-sm-2", "text-center");
+    numPag.classList.add("col-4", "text-center");
 
     //creo el h1
     let np = document.createElement("h3");
@@ -1123,7 +1125,7 @@ function pagina() {
 
     //div para siguientes
     let siguientes = document.createElement("div");
-    siguientes.classList.add("col-4", "col-sm-5", "text-center")
+    siguientes.classList.add("col-4", "text-center")
 
     //creo el boton de siguiente
     let btnsiguiente = document.createElement("input");
@@ -1188,7 +1190,7 @@ async function pagina2() {
 
         //creo el div de previo
         let previo = document.createElement("div");
-        previo.classList.add("col-4", "col-sm-5", "text-center");
+        previo.classList.add("col-4", "text-center");
 
         //creo el boton de previo
         let btnprevio = document.createElement("input");
@@ -1201,7 +1203,7 @@ async function pagina2() {
 
         //div pagina
         let numPag = document.createElement("div");
-        numPag.classList.add("col-4", "col-sm-2", "text-center");
+        numPag.classList.add("col-4", "text-center");
 
         let np = document.createElement("h4");
         if (camino == "leyendo") {
@@ -1243,7 +1245,7 @@ async function pagina2() {
 
         //div para siguientes
         let siguientes = document.createElement("div");
-        siguientes.classList.add("col-4", "col-sm-5", "text-center")
+        siguientes.classList.add("col-4", "text-center")
 
         //creo el boton de siguiente
         let btnsiguiente = document.createElement("input");
@@ -1358,7 +1360,7 @@ window.addEventListener("load", () => {
     }
 
     buscar.addEventListener("click", () => {
-        btnDivComentario.style.display = "none";//oculto el boton extra de agregar comentario
+        btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Buscador";
         ubicacion.style.fontWeight = "bold";
         //cojo el div donde se mostraran los resultados
@@ -1396,7 +1398,7 @@ window.addEventListener("load", () => {
     });//btn que inicia la busqueda
 
     leyendo.addEventListener("click", () => {
-        btnDivComentario.style.display = "none";//oculto el boton extra de agregar comentario
+        btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Pendientes";
         ubicacion.style.fontWeight = "bold";
 
@@ -1433,7 +1435,7 @@ window.addEventListener("load", () => {
     });//boton leyendo
 
     leidos.addEventListener("click", () => {
-        btnDivComentario.style.display = "none";//pongo visible el boton de agregado extra
+        btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
 
         ubicacion.textContent = "Leidos";
         ubicacion.style.fontWeight = "bold";
@@ -1465,7 +1467,7 @@ window.addEventListener("load", () => {
     });//boton leidos
 
     ranking.addEventListener("click", () => {
-        btnDivComentario.style.display = "none";//pongo visible el boton de agregado extra (comentario)
+        btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Top Libros";
         ubicacion.style.fontWeight = "bold";
 
@@ -1660,7 +1662,13 @@ window.addEventListener("load", () => {
 
     agregarComentarios.addEventListener("click", () => {
         if (sessionStorage.getItem("alias") != null) {
-            btnDivComentario.style.display = "inline";
+            if(ubicacion.textContent=="Leidos"){
+                //comentUsuario.style.display="inline";//hago visible el textarea para insertar comentarios
+                btnAddComentario.style.display = "inline";//hago visible el boton extra de agregar comentario
+            } else{
+                btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
+            }
+            comentUsuario.style.display="inline";//hago visible el textarea para insertar comentarios
             addComentarios.style.display = "flex";
             resultadosComentarios.style.display = "none";
         }
