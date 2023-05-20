@@ -142,7 +142,8 @@
                 DIRECCION varchar(80) not null,
                 TELEFONO varchar(14),
                 COD_HOBBIE VARCHAR(2) not null,
-                LOGO VARCHAR(250) not null
+                LOGO VARCHAR(250) not null,
+                WEB VARCHAR(100) null
             )");
 
             //comprobaciones

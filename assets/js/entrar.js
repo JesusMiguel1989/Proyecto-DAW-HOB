@@ -72,7 +72,7 @@ window.addEventListener("load", () => {
     entrada.addEventListener("click", async (e) => {
         let validador = true;
 
-        validacion9.style.display = "block";
+        //validacion9.style.display = "block";
 
         if (nombre.value == "") {
             validador = false;
@@ -97,7 +97,7 @@ window.addEventListener("load", () => {
             key.style.border = "1px solid black";
             validacion2.style.display = "none";
         }
-        console.log(nombre.value + "\n" + key.value);
+        //console.log(nombre.value + "\n" + key.value);
 
         if (validador) {
             await alias("usuario", nombre.value, key.value);

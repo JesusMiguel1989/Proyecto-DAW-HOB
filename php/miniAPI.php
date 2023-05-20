@@ -36,10 +36,11 @@ if(!$conexion){
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
+                $fecha = date("d/m/Y", strtotime($fila[1]));
                 //compruebo la contraseña que me dio el usuario
                 if(password_verify($pass,$fila[4])){
                     //guardo los resultados en un array que depues devolvere como JSON
-                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
+                    $array[$aux]=[$fila[0],$fecha,$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
                 }//verificacion de la contraseña
             }//while que lo recorre
 
@@ -65,8 +66,9 @@ if(!$conexion){
             while($fila=mysqli_fetch_row($resultado)){
                 //compruebo la contraseña que me dio el usuario
                 if($pass==$fila[4]){
+                    $fecha_convertida = date("d/m/Y", strtotime($fila[1]));
                     //guardo los resultados en un array que depues devolvere como JSON
-                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
+                    $array[$aux]=[$fila[0],$fecha_convertida,$fila[2],$fila[3],$fila[4],$fila[5]];
                 }//verificacion de la contraseña
             }//while que lo recorre
 
@@ -79,16 +81,27 @@ if(!$conexion){
         //opcion que modifica los datos del usuario
         if($opcion=="cambiar_usuario"){
             //recojo las condiciones para la modificacion
-            $alias=$_GET['condicion'];
+            $alias=str_replace("_"," ",$_GET['condicion']);
             $fecha=$_GET['condicion2'];
+            $fecha = date("Y/d/m", strtotime($fecha));
+
             $localidad=$_GET['condicion3'];
             $email=$_GET['condicion4'];
             $condicion5=$_GET['condicion5'];
-            $alias2=$_GET['condicion6'];//viejo alias
+            $alias2=str_replace("_"," ",$_GET['condicion6']);//viejo alias
             //hasheo la clave dada por el usuario
             $pass=password_hash($condicion5,PASSWORD_DEFAULT);
 
-            //realizo el update
+            //realizo el cambio en blacklist
+            $resultado=mysqli_query($conexion,"UPDATE Blacklist 
+                SET ALIAS='".$alias."'
+                WHERE ALIAS='".$alias2."'");
+            //realizo la update en Libros
+            $resultado=mysqli_query($conexion,"UPDATE Libros 
+                SET ALIAS='".$alias."'
+                WHERE ALIAS='".$alias2."'");
+
+            //realizo el update en usuarios
             $resultado=mysqli_query($conexion,"UPDATE USUARIOS 
                 SET ALIAS='".$alias."', F_NACIMIENTO='".$fecha."', 
                     LOCALIDAD='".$localidad."', EMAIL='".$email."', CONTRASEÑA='".$pass."'
@@ -99,7 +112,8 @@ if(!$conexion){
 
             //recorro los resultados
             while($fila=mysqli_fetch_row($resultado)){
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
+                $fecha_convertida = date("d/m/Y", strtotime($fila[1]));
+                $array[$aux]=[$fila[0],$fecha_convertida,$fila[2],$fila[3],$fila[4],$fila[5]];
             }//while que lo recorre
 
             //indico en la cabecera que sera un json
@@ -217,6 +231,7 @@ if(!$conexion){
             }
 
             echo "C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion2.".".$ext."<br>";
+
             //borrado de la foto si estuviera
             if(unlink("C:/Apache24/htdocs/proyecto/fotoPerfiles/".$condicion2.".".$ext)){
                 echo "correcto";
@@ -335,10 +350,28 @@ if(!$conexion){
             $cod=$_GET['condicion2'];
             $nota=$_GET['condicion3'];
             $comentario=str_replace("_"," ",$_GET['condicion4']);
+            $titulo=str_replace("_"," ",$_GET['condicion5']);
+            $autor=str_replace("_"," ",$_GET['condicion6']);
+            $editorial=str_replace("_"," ",$_GET['condicion7']);
+            $portada=$_GET['condicion8'];
+            $pag=$_GET['condicion9'];
 
-            $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET LEIDO='SI', VALORACION='".$nota."', COMENTARIO='".$comentario."'
+            $resultados=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
+            $resultado=mysqli_num_rows($resultados);
+
+            if($resultado>0){
+                $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET LEIDO='SI', VALORACION='".$nota."', COMENTARIO='".$comentario."'
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'"); 
-            
+            }else{
+                echo "insercion";
+                echo "INSERT INTO LIBROS (COD_LIBRO,ALIAS,TITULO,AUTOR,PAGINAS,PORTADA,LEIDO,VALORACION,EDITORIAL,COMENTARIO) 
+                VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada."','SI','".$nota."','".$editorial."','".$comentario."')";
+
+                $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO,ALIAS,TITULO,AUTOR,PAGINAS,PORTADA,LEIDO,VALORACION,EDITORIAL,COMENTARIO) 
+                        VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada."','SI','".$nota."','".$editorial."','".$comentario."')");
+            }
+
+            mysqli_error($conexion);
         }
 
         //eliminacion del libro por abandono
@@ -469,6 +502,30 @@ if(!$conexion){
         if($opcion=="actualizar"){
             $resultado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS NOT IN (SELECT ALIAS FROM USUARIOS)");
             $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS NOT IN (SELECT ALIAS FROM USUARIOS)");
+
+            $resultados=mysqli_query($conexion,"SELECT ALIAS FROM USUARIOS");
+            while($fila=mysqli_fetch_row($resultados)){
+                $array[$aux]=[$fila[0]];
+                $aux++;
+            }//while que lo recorre 
+
+            $archivos=scandir("C:\Apache24\htdocs\proyecto\\fotoPerfiles");
+            array_shift($archivos);
+            array_shift($archivos);
+
+            foreach($archivos as $value){
+                $nombre=substr($value,0,strpos($value,"."));
+                
+                $centinela=false;
+                for($i=0;$i<$aux;$i++){
+                    if($array[$i][0]==$nombre){
+                        $centinela=true;
+                    }
+                }
+                if(!$centinela){
+                    unlink("../fotoPerfiles/".$value);
+                }
+            }
         }
 
         //agregar una tienda a la BBDD
@@ -481,8 +538,9 @@ if(!$conexion){
             $provincia=$_GET['condicion6'];
             $cod_hob=$_GET['condicion7'];
             $logo=$_GET['condicion8'];
-            $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE,LOGO)
-                VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."','".$logo."')");
+            $web=$_GET['condicion9'];
+            $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE,LOGO,WEB)
+                VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."','".$logo."','".$web."')");
             
             echo mysqli_error($conexion);
             //header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
@@ -500,10 +558,11 @@ if(!$conexion){
             $provincia=$_GET['condicion6'];
             $cod_hob=$_GET['condicion7'];
             $logo=$_GET['condicion8'];
+            $web=$_GET['condicion9'];
 
             $resultado=mysqli_query($conexion,"UPDATE  TIENDAS SET LOCALIDAD='".$localidad."' 
                     ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
-                    ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."'
+                    ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
                     WHERE COD_TIENDA='".$cod."'");
               
             header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
@@ -553,7 +612,7 @@ if(!$conexion){
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$fila[8]];
                 $aux++;
             }//while que lo recorre
 
@@ -573,10 +632,13 @@ if(!$conexion){
 
             $fila=mysqli_fetch_row($resultado);
             if($fila[1]=="Banneado"){
-                $array[$aux]=[mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM BLACKLIST WHERE ALIAS='".$alias."' 
-                    AND FEC_TOPE !='9999-01-01'")),$vecesBaneado];
+                $array[$aux]=[$fila[0],$fila[1],$vecesBaneado,mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM BLACKLIST WHERE ALIAS='".$alias."' 
+                AND FEC_TOPE !='9999-01-01'"))];
+                /* $array[$aux]=[mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM BLACKLIST WHERE ALIAS='".$alias."' 
+                    AND FEC_TOPE !='9999-01-01'")),$vecesBaneado]; */
             }else{
-                $array[$aux]=[$fila[0],$vecesBaneado];
+                $array[$aux]=[$fila[0],$fila[1],$vecesBaneado,""];
+                //$array[$aux]=[$fila[0],$vecesBaneado];
                 $aux++;
             }
 
@@ -729,7 +791,7 @@ if(!$conexion){
                     AND COD_HOBBIE=(SELECT ID_HOBBIE FROM HOBBIE WHERE NOMBRE='".$hobbie."')");
             
             while($fila=mysqli_fetch_row($resultado)){
-                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7]];
+                $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$fila[7],$fila[8]];
                 $aux++;
             }//while que lo recorre
 
@@ -812,10 +874,10 @@ if(!$conexion){
         //sacar los codigos de las tiendas
         if($opcion=="cod_tiendas"){
             $aux=0;
-            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA FROM TIENDAS");
+            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA, NOMBRE FROM TIENDAS");
 
             while(($fila=mysqli_fetch_row($resultado))){
-                $array[$aux]=[$fila[0]];
+                $array[$aux]=[$fila[0],$fila[1]];
                 $aux++;
             }//while que recorre los resultados y los mete en el array
 

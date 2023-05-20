@@ -127,10 +127,11 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
         });
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
-async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4) {
-    console.log()
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4, {
+async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 
+    + "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4
+    + "&condicion5=" + condicion5 + "&condicion6=" + condicion6 + "&condicion7=" + condicion7
+    + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
     });
@@ -1360,7 +1361,8 @@ window.addEventListener("load", () => {
     }
 
     buscar.addEventListener("click", () => {
-        btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
+/////////////////////////////////////////////////////////////////////////
+        btnAddComentario.style.display = "inline";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Buscador";
         ubicacion.style.fontWeight = "bold";
         //cojo el div donde se mostraran los resultados
@@ -1514,7 +1516,7 @@ window.addEventListener("load", () => {
                 } else {
                     validacion.style.display = "none";
                     //falta meter el comentario si existiera
-                    modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario);
+                    modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario,cambio(array[aux][2]),cambio(array[aux][3]),cambio(array[aux][9]),array[aux][5],array[aux][4]);
                     comentUsuario.value = "";
                     array = [];
                     resultados.innerHTML = "";
@@ -1609,6 +1611,7 @@ window.addEventListener("load", () => {
     })//leido boton para agregar a tu perfil
 
     btnAddComentario.addEventListener("click", () => {
+
         btnLeido.value = "Terminado";
         let textoComentario = "";
         if (comentUsuario.value != "") {
@@ -1634,7 +1637,7 @@ window.addEventListener("load", () => {
                 validacion.style.fontWeight = "bold";
             } else {
                 validacion.style.display = "none";
-                modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario);
+                modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario,cambio(array[aux][1]),cambio(array[aux][2]),cambio(array[aux][6]),array[aux][4],array[aux][3]);
             }
         }
     })//si seleccionas este camino hace lo mismo que en el camino del btnLeido
@@ -1661,13 +1664,14 @@ window.addEventListener("load", () => {
     });// evento click del btn ver comentaios
 
     agregarComentarios.addEventListener("click", () => {
+        btnAddComentario.style.display = "inline";//hago visible el boton extra de agregar comentario
         if (sessionStorage.getItem("alias") != null) {
-            if(ubicacion.textContent=="Leidos"){
+            /*if(ubicacion.textContent=="Leidos"){
                 //comentUsuario.style.display="inline";//hago visible el textarea para insertar comentarios
                 btnAddComentario.style.display = "inline";//hago visible el boton extra de agregar comentario
-            } else{
+            }  else{
                 btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
-            }
+            } */
             comentUsuario.style.display="inline";//hago visible el textarea para insertar comentarios
             addComentarios.style.display = "flex";
             resultadosComentarios.style.display = "none";

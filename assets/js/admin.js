@@ -56,16 +56,18 @@ let leido = document.getElementById("alleido");
 let valoracion = document.getElementById("alvaloracion");
 
 //"capturo" los campos para la insercion o eliminacion de tiendas
-let cod = document.getElementById("acodtienda");
-let localidad = document.getElementById("alocalidad");
-let provincia = document.getElementById("aprovincia");
-let nombre = document.getElementById("anombre");
-let direccion = document.getElementById("adireccion");
-let telefono = document.getElementById("atelefono");
-let cod_hob = document.getElementById("acodhobie");
-let logo = document.getElementById("alogo");
+let cod = document.getElementById("acodtienda");//input codigo tienda
+let localidad = document.getElementById("alocalidad");//input localidad
+let provincia = document.getElementById("aprovincia");//provincia
+let nombre = document.getElementById("anombre");//input nombre
+let direccion = document.getElementById("adireccion");//direccion
+let telefono = document.getElementById("atelefono");//input teléfono
+let cod_hob = document.getElementById("acodhobie");//input cod_Hobbie
+let logo = document.getElementById("alogo");//input logo
+let web = document.getElementById("aWeb");//input web
+let cod2 = document.getElementById("acodtienda2");//campo donde puedes escribir el codigo
 
-let cod2 = document.getElementById("acodtienda2");
+
 
 //expresiones para tiendas
 let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
@@ -74,16 +76,20 @@ let exptelefono = /^[0-9 ]{9,12}$/i;//expresion regular para el telefono
 let expdireccion = /^[a-zñáéíóúA-ZÑÁÉÍÓÚ \/\\\.]+[\º\ \][0-9]{1,3}/;//expresion regular para la direccion
 let expcodhob = /^[0-9]{1,2}$/;//expresion regular para el hobbie
 let explogo = /\w+.png$|\w+.jpg$|\w+.jpeg$/;//expresion regular para los logos (URL que sean png, jpg o jpeg)
+let expWeb = /^www\.\w*\.[a-z]{2,3}$/;
 
 //div con los errores
-let validacion1 = document.getElementById("validacion1");
-let validacion2 = document.getElementById("validacion2");
-let validacion3 = document.getElementById("validacion3");
-let validacion4 = document.getElementById("validacion4");
-let validacion5 = document.getElementById("validacion5");
-let validacion6 = document.getElementById("validacion6");
-let validacion7 = document.getElementById("validacion7");
+let validacion1 = document.getElementById("validacion1");//validacion codigo tienda
+let validacion2 = document.getElementById("validacion2");//validacion nombre
+let validacion3 = document.getElementById("validacion3");//validacion codigo hobbie
+let validacion4 = document.getElementById("validacion4");//validacion telefono
+let validacion5 = document.getElementById("validacion5");//validacion direccion
+let validacion6 = document.getElementById("validacion6");//validacion Localidad
+let validacion7 = document.getElementById("validacion7");//validacion logo
+let validacion8 = document.getElementById("validacion8");//validacion web
 
+//evento propio
+let eventoChange = new Event("click");
 
 async function copia(opcion) {
 
@@ -98,6 +104,7 @@ async function copia(opcion) {
 
 async function actualizar(opcion) {
 
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion);
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -106,11 +113,12 @@ async function actualizar(opcion) {
 }//funcion asincrona que devuelve datos del usuario con el datos y correo indicado
 
 //agregar tienda
-async function agregarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
+async function agregarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6,
+    condicion7, condicion8, condicion9) {
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
-        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
+        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -118,11 +126,12 @@ async function agregarTienda(opcion, condicion1, condicion2, condicion3, condici
 }
 
 //modificar tienda indicada
-async function modificarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
+async function modificarTienda(opcion, condicion1, condicion2, condicion3, condicion4,
+    condicion5, condicion6, condicion7, condicion8, condicion9) {
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
-        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
+        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -190,7 +199,7 @@ async function buscarUsuario(opcion, condicion1) {
 
     response = await response.json();
     return Promise.resolve(response);
-}
+}//funcion para buscar el usuario indicado
 
 async function banear(opcion, condicion1, condicion2) {
     console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
@@ -250,11 +259,12 @@ async function cod_tiendas(opcion) {
     });
 
     response = await response.json();
-
+    let union = "";
     //arrayTiendas
     for (let i = 0; i < response.length; i++) {
         arrayTiendas.push(response[i]);
-        opciones += "<option>" + response[i] + "</option>";
+        union = response[i][0] + " - " + response[i][1];
+        opciones += "<option value='" + response[i][0] + "'>" + union + "</option>";
     }
     cod.innerHTML = opciones;
 
@@ -315,6 +325,7 @@ function limpieza() {
     telefono.value = "";
     cod_hob.value = "";
     logo.value = "";
+    web.value = "";
     logo.style.border = "1px solid black";
     cod_hob.style.border = "1px solid black";
     telefono.style.border = "1px solid black";
@@ -344,10 +355,10 @@ window.addEventListener("load", () => {
 
     //btn copia de la base de datos
     btnCopia.addEventListener("click", () => {
-        accion2.style.display="none";
-        accion.style.display="none";
+        accion2.style.display = "none";
+        accion.style.display = "none";
         copia("copiaSeguridad");
-        accion2.style.display="inline";
+        accion2.style.display = "inline";
     });//btn copia de la base de datos
 
     //btn opcion restaurar, pone visible el div
@@ -355,15 +366,15 @@ window.addEventListener("load", () => {
 
         bbdd.style.display = "none";
         gestion.style.display = "none";
-        accion2.style.display="none";
-        accion.style.display="none";
+        accion2.style.display = "none";
+        accion.style.display = "none";
         restore.style.display = "flex";//dejo visible el div
         tiendas.style.display = "none";//oculto los div
         usuarios.style.display = "none";//oculto los div
         seleccion.style.display = "none";//oculto los div
         libros.style.display = "none";//oculto los div
 
-        restore.style.marginBottom="100px";
+        restore.style.marginBottom = "100px";
     });//btn que muestra el div de la restauracion de la bbdd
 
     //btn que comprueba que se le puso un fichero, sino se bloquea el evento
@@ -372,7 +383,7 @@ window.addEventListener("load", () => {
         if (restaurar.value == "") {
             e.preventDefault();
         }
-        accion2.style.display="inline";
+        accion2.style.display = "inline";
 
         bbdd.style.display = "inline";
         gestion.style.display = "inline";
@@ -380,10 +391,10 @@ window.addEventListener("load", () => {
 
     //btn que actualiza las tablas para eliminar registros de usuarios eliminados
     btnActualizar.addEventListener("click", () => {
-        accion2.style.display="none";
-        accion.style.display="none";
+        accion2.style.display = "none";
+        accion.style.display = "none";
         actualizar("actualizar");
-        accion2.style.display="inline";
+        accion2.style.display = "inline";
     });//btn que actualiza las tablas para eliminar registros de usuarios eliminados
 
     //////////////////////////////GESTION DE DATOS
@@ -412,8 +423,9 @@ window.addEventListener("load", () => {
 
     //agregar tiendas, cambio de div al de agregar tienda
     btnAgregarTienda.addEventListener("click", () => {
-        accion2.style.display="none";
-        accion.style.display="none";
+        //limpieza();
+        accion2.style.display = "none";
+        accion.style.display = "none";
 
         cod.style.display = "none";
         cod2.style.display = "flex";
@@ -480,6 +492,28 @@ window.addEventListener("load", () => {
             validacion7.style.display = "none";
         }//verificacion del logo
 
+        if (!expWeb.test(web.value)) {
+            web.style.border = "2px solid red";
+            validacion8.style.display = "inline";
+            centinela = false;
+        } else {
+            web.style.border = "1px solid black";
+            validacion8.style.display = "none";
+        }//verificacion del web
+
+        //recorro el arrayTiendas buscando el codigo nuevo, si esta el centinela cambia a false
+        for (let j = 0; j < arrayTiendas.length; j++) {
+            if (cod2.value == arrayTiendas[j][0]) {
+                cod2.style.border = "2px solid RED";
+                validacion1.style.display = "inline";
+                centinela = false;
+                break;
+            } else {
+                cod2.style.border = "1px solid black";
+                validacion1.style.display = "none";
+            }
+        }
+
         //llamo a la funcion que comprueba la existencia del hobbie
         comprobarId("cod_hobbie", cod_hob.value).then(() => {
             //comprobacion del codigo del hobbie
@@ -493,8 +527,9 @@ window.addEventListener("load", () => {
                 //si todo esta correcto lo mandamos al servidor para agregarlo
                 if (centinela) {
                     console.log("Felicidades");
-                    agregarTienda("agregartienda", cod2.value, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), cambio(localidad.value), provincia.value, cod_hob.value, logo.value);
+                    agregarTienda("agregartienda", cod2.value, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), cambio(localidad.value), provincia.value, cod_hob.value, logo.value, web.value);
                     limpieza();
+                    cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
                     accion.style.display = "inline";
                 } else {
                     console.log("Lastima, Continuar?");
@@ -506,8 +541,8 @@ window.addEventListener("load", () => {
     //modificar tienda
     btnModificarTienda.addEventListener("click", () => {
 
-        accion2.style.display="none";
-        accion.style.display="none";
+        accion2.style.display = "none";
+        accion.style.display = "none";
         cod.style.display = "flex";
         cod2.style.display = "none";
         let correcto = true;//variable centinela agregar
@@ -569,6 +604,15 @@ window.addEventListener("load", () => {
                 validacion7.style.display = "none";
             }//verificacion del logo
 
+            if (!expWeb.test(web.value)) {
+                web.style.border = "2px solid red";
+                validacion8.style.display = "inline";
+                correcto = false;
+            } else {
+                web.style.border = "1px solid black";
+                validacion8.style.display = "none";
+            }//verificacion del web
+
             //llamo a la funcion que comprueba la existencia del hobbie
             comprobarId("cod_hobbie", cod_hob.value).then(() => {
                 //comprobacion del codigo del hobbie
@@ -582,7 +626,7 @@ window.addEventListener("load", () => {
                     //si todo esta correcto lo mandamos al servidor para agregarlo
                     if (correcto) {
                         console.log("Felicidades");
-                        modificarTienda("modificartienda", cod.value, nombre.value, cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value);
+                        modificarTienda("modificartienda", cod.value, nombre.value, cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value, web.value);
                         accion.style.display = "inline";
                         limpieza();
                     } else {
@@ -596,8 +640,8 @@ window.addEventListener("load", () => {
     //btn borrar tienda
     btnBorrarTienda.addEventListener("click", async () => {
 
-        accion2.style.display="none";
-        accion.style.display="none";
+        accion2.style.display = "none";
+        accion.style.display = "none";
         cod.style.display = "flex";
         cod2.style.display = "none";
 
@@ -627,8 +671,8 @@ window.addEventListener("load", () => {
     //btn buscartienda , parte de que se le introduzca el codigo de la tienda
     btnBuscarTienda.addEventListener("click", (e) => {
 
-        accion2.style.display="none";
-        accion.style.display="none";
+        accion2.style.display = "none";
+        accion.style.display = "none";
         cod.style.display = "flex";
         cod2.style.display = "none";
 
@@ -654,6 +698,7 @@ window.addEventListener("load", () => {
             telefono.value = data[0][5];//6
             cod_hob.value = data[0][6];//7
             logo.value = data[0][7];//8
+            web.value = data[0][8];//9
             accion.style.display = "inline";
         });
 
@@ -667,8 +712,8 @@ window.addEventListener("load", () => {
         bbdd.style.display = "none";
         gestion.style.display = "none";
 
-        accion2.style.display="none";
-        accion.style.display="none";
+        accion2.style.display = "none";
+        accion.style.display = "none";
 
         restore.style.display = "none";//oculto los div
         tiendas.style.display = "none";//oculto los div
@@ -679,6 +724,8 @@ window.addEventListener("load", () => {
 
     btnBuscarUsu.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
+        let email = document.getElementById("amail");
+        let estado = document.getElementById("aestado");
         let motivo = document.getElementById("amotivo");
         let nveces = document.getElementById("nveces");
 
@@ -686,13 +733,22 @@ window.addEventListener("load", () => {
             if (data[0][0] == null) {
                 motivo.textContent = "Usuario no registrado";
             } else {
-                if (data[0][0].includes("@")) {
+                email.textContent = data[0][0];
+                estado.textContent = data[0][1];
+                nveces.textContent = data[0][2] + " veces";
+                if(data[0][3]==""){
+                    motivo.placeholder="No tiene castigo, !!TODAVIA¡¡";
+                }else{
+                    motivo.placeholder= data[0][3];
+                }
+                
+                /* if (data[0][0].includes("@")) {
                     motivo.textContent = "Correo Electronico\n" + data[0][0];
                     nveces.textContent = data[0][1] + " veces";
                 } else {
                     motivo.textContent = data[0][0];
                     nveces.textContent = data[0][1] + " veces";
-                }
+                } */
 
             }
         });
@@ -709,6 +765,7 @@ window.addEventListener("load", () => {
             motivos = motivos.replace(" ", "_");
         }
         banear("banearusuario", alias.value, motivos);
+        motivo.value="";
     });//bannearusuarios
 
     //btn perdonar usuarios
@@ -826,4 +883,8 @@ window.addEventListener("load", () => {
             gestion.style.display = "flex";
         })
     }
+
+    cod.addEventListener("change", () => {
+        btnBuscarTienda.dispatchEvent(eventoChange);
+    });//evento change que efectua lo mismo que el boton de buscar
 })

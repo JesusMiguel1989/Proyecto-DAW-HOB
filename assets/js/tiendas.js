@@ -25,7 +25,7 @@ async function buscar(op, hobie, localidad) {
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7]/* ,texto.descripcion.value */];
+        response[i][6], response[i][7], response[i][8]/* ,texto.descripcion.value */];
         array.push(encontrados);
         mostrar(i);
     }
@@ -59,13 +59,17 @@ function mostrar(num) {
 
     let tienda = document.createElement("h3");
     tienda.textContent = array[num][3];
+    tienda.style.margin = "0 auto";
+    tienda.style.size = "15px";
+    tienda.style.textAlign = "center";
+    tienda.style.width = "120px";
 
     boton.appendChild(foto2);
     divTiendas.appendChild(boton);
     divTiendas.appendChild(tienda);
     //divTiendas.style.display = "inline-block";
 
-    divTiendas.classList.add("col-6","col-sm-4","col-md-4", "col-lg-3");
+    divTiendas.classList.add("col-6", "col-sm-4", "col-md-4", "col-lg-3");
     divTiendas.classList.add("text-center");
     divTiendas.classList.add("mt-4", "mb-sm-5", "mb-2");
     divTiendas.classList.add("ms-xs-3", "ms-lg-4");
@@ -81,19 +85,42 @@ function mostrar(num) {
         let provincia = document.getElementById("tprovincia");
         let direccion = document.getElementById("tdireccion");
         let telefono = document.getElementById("ttelefono");
+        let web = document.getElementById("tWeb");
 
-        ficha.style.display="inline-flex";
-        ficha.style.width="75%";
-        foto.setAttribute("src",array[num][7]);//indico la foto
-        foto.style.width="75%";
+        ficha.style.display = "inline-flex";
+        ficha.style.width = "75%";
+        foto.setAttribute("src", array[num][7]);//indico la foto
+        foto.style.width = "75%";
         //centrar imagen
-        foto.style.margin="0 auto";
+        foto.style.margin = "0 auto";
 
-        nombre.textContent=array[num][3];//indico el nombre de la tienda
-        localidad.textContent=array[num][1];//indico la localidad
-        provincia.textContent=array[num][2];//indico la provincia
-        direccion.textContent=array[num][4];//indico la direccion
-        telefono.textContent=array[num][5];//indico el telefono
+        /////COGER DIRECCION dividirla y crear cadena como la de abajo
+        /* https://www.google.es/maps/place/C.+de+Col%C3%B3n,+32+16002+Cuenca */
+
+        let dir = array[num][4].split(" ");
+        let google = "https://www.google.es/maps/place/";
+        for (let d = 0; d < dir.length; d++) {
+            if(d==(dir.length-1)){
+                google += dir[d]
+            }else{
+                google += dir[d] + "_";
+            }
+        }
+        while (google.includes("_")) {
+            google = google.replace("_", "+");
+        }
+
+        nombre.textContent = array[num][3];//indico el nombre de la tienda
+        localidad.textContent = array[num][1];//indico la localidad
+        provincia.textContent = array[num][2];//indico la provincia
+        direccion.innerHTML = array[num][4] + "  <a href='"+google+"' target='_blank'><i class='bi bi-geo-alt-fill'></i></a>";
+        ;//indico la direccion
+        telefono.textContent = array[num][5];//indico el telefono
+        if (array[num][8] != "") {
+            web.innerHTML = "<a href='https://" + array[num][8] + "' alt='Web de" + array[num][3] + "' title='" + array[num][3] + "' target='_blank'>Acceder</a>";//indico la Web
+        } else {
+            web.textContent = "Web no disponible";//indico la Web
+        }
         window.scroll(0, 0);
     })
 }
@@ -101,9 +128,9 @@ function mostrar(num) {
 //eventos
 window.addEventListener("load", () => {
     buscador.addEventListener("click", () => {
-        resultadosTiendas.innerHTML="";
-        ficha.style.display="none";
-        array=[];
+        resultadosTiendas.innerHTML = "";
+        ficha.style.display = "none";
+        array = [];
         //cambiar hobie.value por "Lectura" y se eliminaria la opcion de los otros hobbies
         buscar("buscadorTiendaLocalidad", "Lectura", localidad.value);
     })

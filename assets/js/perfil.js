@@ -18,9 +18,12 @@ async function nombre() {
 
 //funcion asincrona para la modificacion de datos
 async function modificacion(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6) {
+    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+    "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6);
 
     let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6, {
+        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
+        , {
         method: "PUT",
         headers: { "Content-type": "application/json" }
     });
@@ -53,6 +56,29 @@ async function alias1(opcion, condicion1, condicion2) {
     return Promise.resolve(response);
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
+function cambio(cadena) {
+    if (cadena === 'undefined') return "Sin Especificar";
+
+    if (typeof (cadena) == "string") {
+        let cad = cadena;
+
+        while (cad.includes(" ")) {
+            cad = cad.replace(" ", "_");
+        }
+        return cad;
+    }
+    if (typeof (cadena) == "object") {
+        let cad = "";
+        for (let i = 0; i < cadena.length; i++) {
+            cad += "," + cadena[i];
+        }//for para recorre el array
+        while (cad.includes(" ")) {
+            cad = cad.replace(" ", "_");
+        }
+        return cad;
+    }
+
+}//funcion normal para cambiar los espacios por _
 
 //campos
 let alias = document.getElementById("palias");//campo alias
@@ -82,7 +108,6 @@ window.addEventListener("load", () => {
 
     let imagenes = document.getElementById("imagenes");
 
-    console.log(sessionStorage.getItem('foto'));
     if (sessionStorage.getItem('alias') != "") {
         alias1("usuario1", sessionStorage.getItem('alias'), sessionStorage.getItem('key')).then(data => {
             console.log(data);
@@ -135,7 +160,7 @@ window.addEventListener("load", () => {
 
                 if (expresion_key.test(key.value) && expresionmail.test(mail.value) && expresion_nom.test(alias.value) && mili > milisegundos) {
 
-                    modificacion("cambiar_usuario", alias.value, fecha.value, localidad.value, mail.value, key.value, antiguo).then(data => {
+                    modificacion("cambiar_usuario", cambio(alias.value), fecha.value, localidad.value, mail.value, key.value, cambio(antiguo)).then(data => {
                         console.log(data);
 
                         sessionStorage.setItem('alias', data[0][0]);
