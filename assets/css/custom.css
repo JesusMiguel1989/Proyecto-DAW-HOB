@@ -469,11 +469,14 @@ a:hover {
 
   .rtitulo {
     text-align: center;
-    margin-top: 300px;
+    margin-top: 500px;
     font-size: 20px;
-    z-index: 5;
-    size: 20;
+    z-index: 20;
+    size: 20px;
     position: relative;
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 30px;
   }
 
   .rfiel,
@@ -497,23 +500,24 @@ a:hover {
 
   .rfondo {
     width: 95%;
-    height: 600px;
+    /* height: 600px; */
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     margin-left: 5px;
     border-radius: 5%;
-    padding: 10px 7px 10px 7px;
+    padding: 15px 9px 15px 9px;
   }
 
   .rfondor {
-    width: 95%;
-    /* height: 820px; */
+    /*width: 95%;
+     height: 820px; */
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     margin-left: 5px;
     border-radius: 5%;
-    padding: 5px;
-    margin-bottom: 40px;
+    /* margin-top: 80px; */
+    margin-bottom: 60px;
+    z-index: 20;
   }
 
   .rfondo2 {
@@ -566,7 +570,7 @@ a:hover {
   #footer {
     padding: 15px;
     color: #f4f6fd;
-    margin-top: 15px;
+    margin-top: 80px;
     font-size: 14px;
     position: relative;
     left: 0;
@@ -766,6 +770,8 @@ a:hover {
     border-radius: 5%;
     /* padding-left: 50px; */
     padding-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 80px;
   }
 
   .rfondo2 {
@@ -914,6 +920,8 @@ a:hover {
     z-index: 99;
     font-weight: bold;
     position: relative;
+    /* margin-top: 80px; */
+    margin-bottom: 40px;
   }
 
   /* #resultados {
@@ -1558,7 +1566,7 @@ input[type="radio"]:checked~label {
 
 /*BOON DEL TOGGLE*/
 #menus {
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 /*deshabilitar una etiqueta A*/

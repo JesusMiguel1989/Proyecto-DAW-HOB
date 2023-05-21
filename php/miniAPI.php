@@ -887,5 +887,28 @@ if(!$conexion){
             echo json_encode($array);
         }
 
+        if($opcion=="comentarioPrevio"){
+            $isbn=$_GET['condicion1'];//isbn del libro que en mi tabla es COD_LIBRO
+            $alias=str_replace("_"," ",$_GET['condicion2']);//Usuario que lo pide
+
+            //busqueda del comentario con los parametros indicados
+            $resultado=mysqli_query($conexion,"SELECT COMENTARIO FROM LIBROS
+                    WHERE ALIAS='".$alias."' AND COD_LIBRO='".$isbn."'");
+
+            $fila=mysqli_fetch_row($resultado);//lo meto todo en la variable
+
+            //compruebo que tenga algo el comentario
+            if($fila[0]==null || $fila[0]==""){
+                $array[0]="No tienes comentario previo";
+            }else{
+                $array[0]=$fila[0];
+            }
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }
+
     }//uso de la bbdd hobbies
 }

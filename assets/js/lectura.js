@@ -63,10 +63,11 @@ let inicioComentarios = 0;//inicio de la pag (LIMIT 0)
 let registrosComentarios;//numero de registros que devuelve la consulta
 let addComentarios = document.getElementById("addComentarios");//div que contiene el textarea para agregar comentarios
 let comentUsuario = document.getElementById("comentUsuario");//textarea donde se escribe el comentario
+let criticaPrevia = "";//var donde se guardara el comentario previo
 let isbnLibros = 0;
 let btnAddComentario = document.getElementById("btnAddComentario");//boton extra para agregar comentarios
 
-let clickEvent = new Event("click");//evento
+let clickEvent = new Event('click');//evento
 
 let camino;
 //variabes paginacion de pendientes
@@ -128,10 +129,10 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 
-    + "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4
-    + "&condicion5=" + condicion5 + "&condicion6=" + condicion6 + "&condicion7=" + condicion7
-    + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+        + "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4
+        + "&condicion5=" + condicion5 + "&condicion6=" + condicion6 + "&condicion7=" + condicion7
+        + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
     });
@@ -334,7 +335,7 @@ function iconitos() {
 }//funcion para cambiar el texto e iconos de los botones de la tarjeta
 
 function mostrar(i) {
-    comentUsuario.style.display="none";//oculto l textarea para insertar comentarios
+    comentUsuario.style.display = "none";//oculto l textarea para insertar comentarios
     //oculto la parte de los comentarios
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
 
@@ -389,6 +390,7 @@ function mostrar(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
+        addComentarios.style.display = "none";//oculto los comentarios
         aux = i;
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
@@ -443,7 +445,7 @@ function mostrar(i) {
 }//funcion para mostrar resultados (Busueda)
 
 function mostrar2(i) {
-    comentUsuario.style.display="none";//oculto l textarea para insertar comentarios
+    comentUsuario.style.display = "none";//oculto l textarea para insertar comentarios
     resultadosComentarios.style.display = "none";
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
     tit.textContent = array[i][2];
@@ -487,6 +489,7 @@ function mostrar2(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
+        addComentarios.style.display = "none";//oculto los comentarios
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
 
@@ -568,7 +571,7 @@ function mostrar2(i) {
 
 function mostrar3(i) {
 
-    comentUsuario.style.display="none";//oculto l textarea para insertar comentarios
+    comentUsuario.style.display = "none";//oculto l textarea para insertar comentarios
     resultadosComentarios.style.display = "none";
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
     tit.textContent = array[i][1];
@@ -583,7 +586,7 @@ function mostrar3(i) {
     let libro = document.createElement("div");
     libro.id = "libro" + i;
     libro.style.height = "300px";
-    libro.classList.add("col-6","col-sm-4", "col-md-3", "col-lg-3", "text-center", "mt-4");
+    libro.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-3", "text-center", "mt-4");
     /* , "px-4" */
 
     let posicion = document.createElement("h1");//elemento para indicar la posicion en el ranking
@@ -633,6 +636,7 @@ function mostrar3(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
+        addComentarios.style.display = "none";//oculto los comentarios
         iconitos();
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
@@ -1341,12 +1345,23 @@ function curiosidad() {
     pCuriosidades.innerHTML = curiosidades[num];
 }//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
 
+async function comentarioPrevio(opcion, condicion1, condicion2) {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+        , {
+            method: "GET",
+            headers: { "Content-type": "application/json" }
+        });
+    response = await response.json();
+    criticaPrevia = response[0];
+}//funcion que busca si ese usuario y libro tiene un comentario anterior
+
 window.addEventListener("load", () => {
+    let ubicacion = document.getElementById("ubicacion");
+    let nombre = sessionStorage.getItem("alias");
+
     iconitos();
     divCuriosidades.style.display = "none";
-    let ubicacion = document.getElementById("ubicacion");
     addComentarios.style.display = "none";
-    let nombre = sessionStorage.getItem("alias");
 
     agregarComentarios.style.padding = "10px";
     agregarComentarios.style.height = "50px";
@@ -1361,7 +1376,7 @@ window.addEventListener("load", () => {
     }
 
     buscar.addEventListener("click", () => {
-/////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////
         btnAddComentario.style.display = "inline";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Buscador";
         ubicacion.style.fontWeight = "bold";
@@ -1516,7 +1531,7 @@ window.addEventListener("load", () => {
                 } else {
                     validacion.style.display = "none";
                     //falta meter el comentario si existiera
-                    modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario,cambio(array[aux][2]),cambio(array[aux][3]),cambio(array[aux][9]),array[aux][5],array[aux][4]);
+                    modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario, cambio(array[aux][2]), cambio(array[aux][3]), cambio(array[aux][9]), array[aux][5], array[aux][4]);
                     comentUsuario.value = "";
                     array = [];
                     resultados.innerHTML = "";
@@ -1637,7 +1652,7 @@ window.addEventListener("load", () => {
                 validacion.style.fontWeight = "bold";
             } else {
                 validacion.style.display = "none";
-                modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario,cambio(array[aux][1]),cambio(array[aux][2]),cambio(array[aux][6]),array[aux][4],array[aux][3]);
+                modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario, cambio(array[aux][1]), cambio(array[aux][2]), cambio(array[aux][6]), array[aux][4], array[aux][3]);
             }
         }
     })//si seleccionas este camino hace lo mismo que en el camino del btnLeido
@@ -1666,15 +1681,18 @@ window.addEventListener("load", () => {
     agregarComentarios.addEventListener("click", () => {
         btnAddComentario.style.display = "inline";//hago visible el boton extra de agregar comentario
         if (sessionStorage.getItem("alias") != null) {
-            /*if(ubicacion.textContent=="Leidos"){
-                //comentUsuario.style.display="inline";//hago visible el textarea para insertar comentarios
-                btnAddComentario.style.display = "inline";//hago visible el boton extra de agregar comentario
-            }  else{
-                btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
-            } */
-            comentUsuario.style.display="inline";//hago visible el textarea para insertar comentarios
-            addComentarios.style.display = "flex";
-            resultadosComentarios.style.display = "none";
+            comentarioPrevio("comentarioPrevio", array[aux][0], cambio(sessionStorage.getItem("alias"))).then(() => {
+                if(criticaPrevia=="No tienes comentario previo"){
+                    comentUsuario.placeholder = criticaPrevia;
+                }else{
+                    comentUsuario.placeholder = "Tú comentario anterior fue: "+criticaPrevia;
+                }
+                
+                comentUsuario.style.display = "inline";//hago visible el textarea para insertar comentarios
+                addComentarios.style.display = "flex";
+                resultadosComentarios.style.display = "none";
+            });
+
         }
     })//btn agregar comentarios y a leidos
 
@@ -1704,4 +1722,8 @@ window.addEventListener("load", () => {
             sig.preventDefault();
         }
     }); //camino comentario btn siguiente (=>)
+
+    if (ubicacion.textContent == "Buscador") {
+        buscar.dispatchEvent(clickEvent);
+    }
 })
