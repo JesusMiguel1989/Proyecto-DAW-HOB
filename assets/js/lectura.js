@@ -119,7 +119,7 @@ let btnDivComentario = document.getElementById("btnDivComentario");//div donde e
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
         + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10
         , {
@@ -129,7 +129,7 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4
         + "&condicion5=" + condicion5 + "&condicion6=" + condicion6 + "&condicion7=" + condicion7
         + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
@@ -139,7 +139,7 @@ async function modificarLibro(opcion, condicion1, condicion2, condicion3, condic
 }//funcion asincrona que llama a la API para modificar un libro
 
 async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3, {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
@@ -149,7 +149,7 @@ async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
 async function mostrarLeyendo(opcion, condicion1) {
 
     let encontrados = [];
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + inicio, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -172,7 +172,7 @@ async function mostrarLeyendo(opcion, condicion1) {
 async function mostrarLeidos(opcion, condicion1) {
 
     let encontrados = [];
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + inicio2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -214,7 +214,7 @@ async function rankingHOB(opcion) {
     let encontrados = [];
     let tope = 0;
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -239,7 +239,7 @@ async function rankingHOB(opcion) {
 }//funcion asincrona que devuelve el top 10 de las valoraciones de los usuarios
 
 async function registro(opcion, condicion1) {
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -250,7 +250,7 @@ async function registro(opcion, condicion1) {
 
 async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -265,6 +265,8 @@ async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
         fotoComentario.setAttribute("src", arrayComentarios[0][3]);
         fotoComentario.style.marginTop = "15px";
         fotoComentario.style.borderRadius = "15%";
+        fotoComentario.style.width = "50%";
+        fotoComentario.style.margin = "0 auto";
         notaComentario.textContent = arrayComentarios[0][1] + " ★";
         coment.textContent = arrayComentarios[0][2];
         pagina2();//llamo a la funcion de paginaciçon para que muestre la cantidad de comentarios que se encontro y cuantos muestra
@@ -403,6 +405,7 @@ function mostrar(i) {
         portada.setAttribute("srcset", img);
         portada.style.width = "75%";
         portada.style.height = "auto";
+        portada.style.borderRadius = "15%";
 
         cadena = array[i][1];
         titulo2.textContent = cadena;
@@ -437,7 +440,7 @@ function mostrar(i) {
         sinopsis.textContent = array[i][5];
         sinopsis.style.width = "90%";
 
-        tarjeta.style.display = "block";
+        tarjeta.style.display = "block";//hago visible la tarjeta del libro
         //pongo al usuario al principio de la pagina
         window.scroll(0, 0);
 
@@ -510,6 +513,7 @@ function mostrar2(i) {
             portada.setAttribute("srcset", img);
             portada.style.width = "75%";
             portada.style.height = "auto";
+            portada.style.borderRadius = "15%";
             titulo2.textContent = array[i][2];
             titulo2.style.minWidth = "60%";
             autor2.textContent = array[i][3];
@@ -600,8 +604,6 @@ function mostrar3(i) {
     boton.type = "button";
     boton.style.backgroundColor = "rgb(152, 226, 202)";
     boton.style.height = "160px";
-    //boton.style.marginTop = "20px";
-    //boton.style.marginLeft = "28px";
     boton.style.margin = "0 auto";
     boton.id = "libro" + i;
 
@@ -609,8 +611,12 @@ function mostrar3(i) {
     foto.style.width = "80px";
     foto.style.margin = "15px";
     let img = array[i][4].replace("S", "M");
+
+    if (img != "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg") { //cuando no sea la portada
+        foto.style.height = "122px";
+    }//en algunos libros la portada es mas "alta" y asi me aseguro que se ajuste mejor al boton
+
     foto.setAttribute("src", img);
-    //foto.setAttribute("src", img);
     foto.alt = "Portada";
     foto.title = array[i][1];
 
@@ -657,6 +663,7 @@ function mostrar3(i) {
         portada.setAttribute("srcset", img);
         portada.style.width = "90%";
         portada.style.height = "auto";
+        portada.style.borderRadius = "15%";
         titulo2.textContent = array[i][1];
         titulo2.style.minWidth = "60%";
 
@@ -695,6 +702,23 @@ function mostrar3(i) {
     })
 }//mostrar ranking
 
+function acortarTitulo(titulo) {
+    let tituloAcortado = "";
+    if (titulo.indexOf("[") > 0) {
+        tituloAcortado = titulo.slice(0, titulo.indexOf("["));
+    } else {
+        if (titulo.indexOf("(") > 0) {
+            tituloAcortado = titulo.slice(0, titulo.indexOf("("));
+        } else {
+            tituloAcortado = titulo;
+        }
+    }
+    if (tituloAcortado.length > 50) {
+        tituloAcortado = tituloAcortado.slice(0, 50) + "...";
+    }
+    return tituloAcortado;
+}//funcion para reducir los titulos (busco [,( y sino lo dejo a 50 caracteres)
+
 async function buscarall(condicion, condicion2, condicion3) {
     let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&isbn=" + condicion2 + "&author=" + condicion3);
 
@@ -705,7 +729,7 @@ async function buscarall(condicion, condicion2, condicion3) {
 
     response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + condicion2 + "&format=json");
     let texto2 = await response.json();
-    let cadena = "texto2.ISBN" + condicion2 + ".thumbnail_url"
+    let cadena = "texto2.ISBN" + condicion2 + ".thumbnail_url";
 
     response = await fetch("https://openlibrary.org/isbn/" + condicion2 + ".json");
     let texto3 = await response.json();
@@ -723,7 +747,8 @@ async function buscarall(condicion, condicion2, condicion3) {
         resultados.style.display = "none";
     } else {
         for (let i = 0; i < texto.docs.length; i++) {
-            encontrados = [texto.docs[i].isbn[0], texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+            let tituloAcortado = acortarTitulo(texto.docs[i].title);
+            encontrados = [texto.docs[i].isbn[0], tituloAcortado, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
             eval(cadena), descripcion, editorial];
             array.push(encontrados);
             //mostrar(i);
@@ -803,7 +828,9 @@ async function buscar2(condicion, condicion2) {
                 descripcion = "Sinopsis no disponible";
             }
 
-            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+            let tituloAcortado = acortarTitulo(texto.docs[i].title);
+
+            encontrados = [isbn, tituloAcortado, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
                 portada, descripcion, editorial];
             array.push(encontrados);
 
@@ -883,7 +910,9 @@ async function buscar3(condicion) {
                 descripcion = "Sinopsis no disponible";
             }
 
-            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+            let tituloAcortado = acortarTitulo(texto.docs[i].title);
+
+            encontrados = [isbn, tituloAcortado, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
                 portada, descripcion, editorial];
             array.push(encontrados);
 
@@ -959,7 +988,9 @@ async function buscar4(condicion) {
                 descripcion = "Sinopsis no disponible";
             }
 
-            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+            let tituloAcortado = acortarTitulo(texto.docs[i].title);
+
+            encontrados = [isbn, tituloAcortado, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
                 portada, descripcion, editorial];
             array.push(encontrados);
             progreso.value += 4.16;
@@ -1028,7 +1059,8 @@ async function buscar5(condicion) {
                 descripcion = "Sinopsis no disponible";
             }
 
-            encontrados = [isbn, texto.docs[i].title, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
+            let tituloAcortado = acortarTitulo(texto.docs[i].title);
+            encontrados = [isbn, tituloAcortado, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
                 portada, descripcion, editorial];
             array.push(encontrados);
 
@@ -1346,7 +1378,7 @@ function curiosidad() {
 }//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
 
 async function comentarioPrevio(opcion, condicion1, condicion2) {
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         , {
             method: "GET",
             headers: { "Content-type": "application/json" }
@@ -1375,11 +1407,14 @@ window.addEventListener("load", () => {
         tarjeta.style.display = "none";
     }
 
+    console.log(root);
+
     buscar.addEventListener("click", () => {
         /////////////////////////////////////////////////////////////////////////
         btnAddComentario.style.display = "inline";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Buscador";
         ubicacion.style.fontWeight = "bold";
+
         //cojo el div donde se mostraran los resultados
 
         resultados.innerHTML = "";
@@ -1438,7 +1473,6 @@ window.addEventListener("load", () => {
         }
 
         op.style.display = "block";
-        actual.style.display = "block";
         anterior.style.display = "block";
         actual.style.display = "inline";
         anterior.style.display = "inline";
@@ -1537,6 +1571,7 @@ window.addEventListener("load", () => {
                     resultados.innerHTML = "";
                     tarjeta.style.display = "none";
                     await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then(() => { });
+                    tarjeta.style.display = "none";//una vez registrado el libro oculto la tarjeta
                 }
             }
         } else {
@@ -1566,8 +1601,10 @@ window.addEventListener("load", () => {
                 }
 
                 agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2, textoComentario);
+                tarjeta.style.display = "none";//una vez registro el cambio oculto la tarjeta
                 comentUsuario.value = "";
             }
+            
         }
     })//leyendo, boton de libro actual
 
@@ -1584,6 +1621,7 @@ window.addEventListener("load", () => {
                 resultados.innerHTML = "";
                 tarjeta.style.display = "none";
                 mostrarLeyendo("mostrarLeyendo", cambio(nombre));
+                tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
             }
         } else {
             let validacion = document.getElementById("validacion");
@@ -1618,6 +1656,7 @@ window.addEventListener("load", () => {
                     validacion.style.display = "none";
                     if (tit == cambio(array[aux][1])) {
                         agregar("agregarleido", array[aux][0], cambio(alias), tit, aut, pag, img, "SI", nota, editorial2, textoComentario);
+                        tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
                     }
                 }
             }
@@ -1655,6 +1694,7 @@ window.addEventListener("load", () => {
                 modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario, cambio(array[aux][1]), cambio(array[aux][2]), cambio(array[aux][6]), array[aux][4], array[aux][3]);
             }
         }
+        tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
     })//si seleccionas este camino hace lo mismo que en el camino del btnLeido
 
     verComentarios.addEventListener("click", () => {
@@ -1664,6 +1704,8 @@ window.addEventListener("load", () => {
         fotoComentario.setAttribute("src", "");
         fotoComentario.style.marginTop = "15px";
         fotoComentario.style.borderRadius = "15%";
+        fotoComentario.style.width = "50%";
+        fotoComentario.style.margin = "0 auto";
         notaComentario.textContent = "";
         coment.textContent = "";
         //muestro la parte del div de los comentarios donde aparecen estos
@@ -1682,12 +1724,12 @@ window.addEventListener("load", () => {
         btnAddComentario.style.display = "inline";//hago visible el boton extra de agregar comentario
         if (sessionStorage.getItem("alias") != null) {
             comentarioPrevio("comentarioPrevio", array[aux][0], cambio(sessionStorage.getItem("alias"))).then(() => {
-                if(criticaPrevia=="No tienes comentario previo"){
+                if (criticaPrevia == "No tienes comentario previo") {
                     comentUsuario.placeholder = criticaPrevia;
-                }else{
-                    comentUsuario.placeholder = "Tú comentario anterior fue: "+criticaPrevia;
+                } else {
+                    comentUsuario.placeholder = "Tú comentario anterior fue: " + criticaPrevia;
                 }
-                
+
                 comentUsuario.style.display = "inline";//hago visible el textarea para insertar comentarios
                 addComentarios.style.display = "flex";
                 resultadosComentarios.style.display = "none";

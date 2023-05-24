@@ -32,17 +32,11 @@
             mysqli_query($conexion,"Drop table USUARIOS");
             mysqli_query($conexion,"Drop table SUGERENCIAS");
             mysqli_query($conexion,"Drop table HOBBIE");
-            mysqli_query($conexion,"Drop table PRACTICA");
-            mysqli_query($conexion,"Drop table PAGINAS_WEB");
             mysqli_query($conexion,"Drop table RELACION");
             mysqli_query($conexion,"Drop table TIENDAS");
-            mysqli_query($conexion,"Drop table RELACIONADAS");
-            mysqli_query($conexion,"Drop table RUTAS");
-            mysqli_query($conexion,"Drop table PROYECTOS");
-            mysqli_query($conexion,"Drop table ESTADOS");
             mysqli_query($conexion,"Drop table LIBROS");
-            mysqli_query($conexion,"Drop table CONSOLAS");
-            mysqli_query($conexion,"Drop table JUEGOS");
+            mysqli_query($conexion,"Drop table TIENE");
+            mysqli_query($conexion,"Drop table PRACTICA");
 
             //creaccion tablas
             //USUARIOS
@@ -93,46 +87,6 @@
                 echo mysqli_error($conexion);
             }
 
-            //Practica
-            $tpractica=mysqli_query($conexion,"CREATE TABLE PRACTICA(
-                ALIAS varchar(40) not null,
-                ID_HOBBIE varchar(3) not null
-            )");
-
-            //comprobaciones
-            if($tpractica){
-                echo "tabla Practica creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
-            //Paginas web
-            $tpaginas=mysqli_query($conexion,"CREATE TABLE PAGINAS_WEB(
-                ID_PAGINA varchar(6) not null,
-                URL varchar(200) not null,
-                Nombre varchar(40) not null
-            )");
-
-            //comprobaciones
-            if($tpaginas){
-                echo "tabla Paginas web creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
-            //relacion
-            $trelacion=mysqli_query($conexion,"CREATE TABLE RELACION(
-                ID_PAGINA varchar(6) not null,
-                ID_HOBBIE varchar(3) not null
-            )");
-
-            //comprobaciones
-            if(($trelacion)){
-                echo "tabla RELACION creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
             //Tiendas
             $trelacion=mysqli_query($conexion,"CREATE TABLE TIENDAS (
                 COD_TIENDA varchar(6) Primary Key,
@@ -149,76 +103,6 @@
             //comprobaciones
             if(($trelacion)){
                 echo "tabla TIENDAS creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
-            //relacionadas
-            $trelacion=mysqli_query($conexion,"CREATE TABLE RELACIONADAS (
-                ID_HOBBIE varchar(3) not null,
-                COD_TIENDA varchar(4) not null
-            )");
-
-            //comprobaciones
-            if(($trelacion)){
-                echo "tabla RELACIONADAS creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
-            $trelacion=mysqli_query($conexion,"CREATE TABLE RUTAS (
-                ID_RUTA varchar(3) not null,
-                ALIAS varchar(40) not null,
-                NOMBRE varchar(60) not null,
-                Duracion varchar(10) not null,
-                DIFICULTAD varchar(10) not null,
-                VALORACION varchar(2) ,
-                PROVINCIA varchar(30) not null,
-                LOCALIDAD varchar(30) not null,
-                REALIZADA ENUM('SI','NO') not null,
-                Primary Key (ID_RUTA, ALIAS)
-            )");
-
-            //comprobacion
-            if(($trelacion)){
-                echo "tabla RUTAS creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
-            //PROYECTOS
-            $trelacion=mysqli_query($conexion,"CREATE TABLE PROYECTOS (
-                COD_PROYECTO varchar(4) not null,
-                ALIAS varchar(40) not null,
-                ORIGINAL ENUM('Si','NO') not null,
-                FOTO varchar(40),
-                F_INICIO date not null,
-                F_FIN date not null,
-                BOCETO varchar(40),
-                Primary KEY (COD_PROYECTO,ALIAS)
-            )");
-
-            //comprobacion
-            if(($trelacion)){
-                echo "tabla PROyECTOS creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
-            //ESTADOS
-            $trelacion=mysqli_query($conexion,"CREATE TABLE ESTADOS (
-                COD_PROYECTO varchar(4) not null,
-                VERSION varchar(2) not null,
-                DESCRIPCION varchar(200) not null,
-                FECHA date not null,
-                PARTE_REALIZADA varchar(40) not null,
-                ESTADO varchar(15) not null,
-                Primary Key (COD_PROYECTO, VERSION)
-            )");
-
-            //comprobacion
-            if(($trelacion)){
-                echo "tabla ESTADOS creada<br>";
             }else{
                 echo mysqli_error($conexion);
             }
@@ -244,40 +128,6 @@
                 echo mysqli_error($conexion);
             }
 
-            //CONSOLAS
-            $trelacion=mysqli_query($conexion,"CREATE TABLE CONSOLAS (
-                ID_CONSOLA varchar(2) not null,
-                ALIAS varchar(40) not null,
-                NOMBRE varchar(20) not null,
-                Primary Key (ID_CONSOLA, ALIAS)
-            )");
-
-            //comprobacion
-            if(($trelacion)){
-                echo "tabla CONSOLAS creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
-            //JUEGOS
-            $trelacion=mysqli_query($conexion,"CREATE TABLE JUEGOS (
-                ID_JUEGO varchar(6) not null,
-                ID_CONSOLA varchar(2) not null,
-                NOMBRE varchar(30) not null,
-                PUBLICACION date not null,
-                ESTADO varchar(8),
-                ORIGINAL ENUM('SI','NO'),
-                VALORACION varchar(2),
-                Primary Key (ID_JUEGO, ID_CONSOLA)
-            )");
-
-            //comprobacion
-            if(($trelacion)){
-                echo "tabla JUEGOS creada<br>";
-            }else{
-                echo mysqli_error($conexion);
-            }
-
             //BLACKLIST
             $trelacion=mysqli_query($conexion,"CREATE TABLE BLACKLIST (
                 ALIAS varchar(40) not null,
@@ -286,6 +136,22 @@
                 MOTIVO varchar(150) not null,
                 Primary Key (ALIAS, CASTIGOS)
             )");
+
+            //PRACTICA
+            $trelacion=mysqli_query($conexion,"CREATE TABLE PRACTICA (
+                ALIAS VARCHAR(40) NOT NULL ,
+                ID_HOBBIE VARCHAR(3) NOT NULL,
+                PRIMARY KEY (ALIAS,ID_HOBBIE),
+                CONSTRAINT FK_Usuario FOREIGN KEY (ALIAS) REFERENCES USUARIOS(ALIAS),
+                CONSTRAINT FK_hobbie FOREIGN KEY (ID_HOBBIE) REFERENCES HOBBIE(ID_HOBBIE))");
+
+            //TIENE
+            $trelacion=mysqli_query($conexion,"CREATE TABLE TIENE (
+                COD_TIENDA VARCHAR(6) NOT NULL ,
+                ID_HOBBIE VARCHAR(3) NOT NULL,
+                PRIMARY KEY (COD_TIENDA,ID_HOBBIE),
+                CONSTRAINT FK_Tienda FOREIGN KEY (COD_TIENDA) REFERENCES TIENDAS(COD_TIENDA),
+                CONSTRAINT FK_hobbieTienda FOREIGN KEY (ID_HOBBIE) REFERENCES HOBBIE(ID_HOBBIE))");
         }
     }//else
 ?>

@@ -5,7 +5,7 @@ let nuevoSubmit = new Event("submit");
 //let evento = document.createEvent("submit");
 let eventoClick = new Event("click");
 async function alias() {
-    let response = await fetch("http://localhost/proyecto/php/comprobacionAlias.php", {
+    let response = await fetch("http://"+root+"/proyecto/php/comprobacionAlias.php", {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });

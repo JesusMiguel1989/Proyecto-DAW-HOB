@@ -12,9 +12,9 @@ let array = [];
 //funciones asincronas
 async function buscar(op, hobie, localidad) {
     let encontrados = [];
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie + "&condicion2=" + localidad);
+    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie + "&condicion2=" + localidad); */
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie
         + "&condicion2=" + localidad, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -131,7 +131,11 @@ window.addEventListener("load", () => {
         resultadosTiendas.innerHTML = "";
         ficha.style.display = "none";
         array = [];
+        let localidadFinal=localidad.value;
         //cambiar hobie.value por "Lectura" y se eliminaria la opcion de los otros hobbies
-        buscar("buscadorTiendaLocalidad", "Lectura", localidad.value);
+        if(localidadFinal=="Ciudad Real"){
+            localidadFinal="C.Real";
+        }
+        buscar("buscadorTiendaLocalidad", "Lectura", localidadFinal);
     })
 })

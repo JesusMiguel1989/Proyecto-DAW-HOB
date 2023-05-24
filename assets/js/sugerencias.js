@@ -16,10 +16,10 @@ function cambio(texto){
 
 //funcion asincrona para hacer la llamada a la miniAPI
 async function enviar(opcion, condicion1, condicion2, condicion3, condicion4) {
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + 
+    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + 
     opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-    + "&condicion3=" + condicion3 + "&condicion4=" + condicion4);
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + 
+    + "&condicion3=" + condicion3 + "&condicion4=" + condicion4); */
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + 
         opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4, {
         method: "GET",

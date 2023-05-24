@@ -1,7 +1,7 @@
 let arrayAlias = [];
 //comprobador de nombres
 async function nombre() {
-    let response = await fetch("http://localhost/proyecto/php/comprobacionAlias.php", {
+    let response = await fetch("http://"+root+"/proyecto/php/comprobacionAlias.php", {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -18,10 +18,10 @@ async function nombre() {
 
 //funcion asincrona para la modificacion de datos
 async function modificacion(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6) {
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
-    "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6);
+    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+    "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6); */
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
         , {
         method: "PUT",
@@ -35,7 +35,7 @@ async function modificacion(opcion, condicion1, condicion2, condicion3, condicio
 //funcion asincrona para la eliminacion de datos
 async function borrar(opcion, condicion1, condicion2) {
 
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
         "&condicion2=" + condicion2, {
         method: "DELETE",
         headers: { "Content-type": "application/json" }
@@ -46,8 +46,8 @@ async function borrar(opcion, condicion1, condicion2) {
 }
 
 async function alias1(opcion, condicion1, condicion2) {
-    console.log("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2);
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
+    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -224,7 +224,7 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('foto');
-        location.replace("http://localhost/proyecto/index.html");
+        location.replace("http://"+root+"/proyecto/index.html");
     });//boton borrar perfil
 
     botones[3].addEventListener("click", () => {
@@ -236,7 +236,7 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('foto');
-        location.replace("http://localhost/proyecto/index.html");
+        location.replace("http://"+root+"/proyecto/index.html");
     });//boton cerrar sesion
 
     imagenes.addEventListener("submit", (e) => {

@@ -1,4 +1,4 @@
-
+var root="localhost";
 window.addEventListener("load", () => {
 
 
