@@ -1,6 +1,6 @@
 <?
     session_start();
-    include "./LoginMySql.php";
+    include "./greenhob.php";
 
     //creo la conexion
     $conexion=new mysqli($host,$usuario,$password);
