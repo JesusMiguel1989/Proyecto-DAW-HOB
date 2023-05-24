@@ -280,8 +280,7 @@ if(!$conexion){
             $editorial=str_replace("_"," ",$_GET['condicion9']);
             $comentario=str_replace("_"," ",$_GET['condicion10']);
 
-/*             echo $opcion."<br>".$cod."<br>".$alias."<br>".$titulo."<br>".$autor."<br>".
-            $pag."<br>".$portada."<br>".$leido."<br>".$valoracion."<br>"; */
+
 
             //1 compruebo que el usuario este en la base de datos
             $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."'");

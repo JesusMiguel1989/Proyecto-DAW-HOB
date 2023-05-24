@@ -1,7 +1,7 @@
 <?php
     //uso de forma temporal el acceso que teniamos previo
-    include "./LoginMySql.php";
-//la siguien"te intruccion "bloquea" los avisos de warning, notice y deprecated,
+    include "./greenhob.php";
+    //la siguiente intruccion "bloquea" los avisos de warning, notice y deprecated,
     ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
 
     $verificador=false;
