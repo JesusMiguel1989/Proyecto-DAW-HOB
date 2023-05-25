@@ -1,7 +1,7 @@
 let arrayAlias = [];
 //comprobador de nombres
 async function nombre() {
-    let response = await fetch("http://"+root+"/proyecto/php/comprobacionAlias.php", {
+    let response = await fetch("http://" + root + "/proyecto/php/comprobacionAlias.php", {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -21,12 +21,12 @@ async function modificacion(opcion, condicion1, condicion2, condicion3, condicio
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
     "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6); */
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
         , {
-        method: "PUT",
-        headers: { "Content-type": "application/json" }
-    });
+            method: "PUT",
+            headers: { "Content-type": "application/json" }
+        });
 
     response = await response.json();
     return Promise.resolve(response);
@@ -35,7 +35,7 @@ async function modificacion(opcion, condicion1, condicion2, condicion3, condicio
 //funcion asincrona para la eliminacion de datos
 async function borrar(opcion, condicion1, condicion2) {
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
         "&condicion2=" + condicion2, {
         method: "DELETE",
         headers: { "Content-type": "application/json" }
@@ -47,7 +47,7 @@ async function borrar(opcion, condicion1, condicion2) {
 
 async function alias1(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -110,23 +110,25 @@ window.addEventListener("load", () => {
 
     if (sessionStorage.getItem('alias') != "") {
         alias1("usuario1", sessionStorage.getItem('alias'), sessionStorage.getItem('key')).then(data => {
-            console.log(data);
-            sessionStorage.setItem('alias', data[0][0]);
-            sessionStorage.setItem('fecha', data[0][1]);
-            sessionStorage.setItem('localidad', data[0][2]);
-            sessionStorage.setItem('mail', data[0][3]);
-            sessionStorage.setItem('key', data[0][4]);
-            sessionStorage.setItem('foto', data[0][5]);
+            if (data.length>0) {
+                sessionStorage.setItem('alias', data[0][0]);
+                sessionStorage.setItem('fecha', data[0][1]);
+                sessionStorage.setItem('localidad', data[0][2]);
+                sessionStorage.setItem('mail', data[0][3]);
+                sessionStorage.setItem('key', data[0][4]);
+                sessionStorage.setItem('foto', data[0][5]);
 
-            if (sessionStorage.getItem('foto')) {
-                if (sessionStorage.getItem('foto') != "null") {
-                    foto.setAttribute("src", sessionStorage.getItem('foto'));
+                if (sessionStorage.getItem('foto')) {
+                    if (sessionStorage.getItem('foto') != "null") {
+                        foto.setAttribute("src", sessionStorage.getItem('foto'));
+                    } else {
+                        foto.setAttribute("src", "./assets/imagenes/casco.jpg");
+                    }
                 } else {
                     foto.setAttribute("src", "./assets/imagenes/casco.jpg");
                 }
-            } else {
-                foto.setAttribute("src", "./assets/imagenes/casco.jpg");
             }
+
         });
     }
 
@@ -224,7 +226,7 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('foto');
-        location.replace("http://"+root+"/proyecto/index.html");
+        location.replace("http://" + root + "/proyecto/index.html");
     });//boton borrar perfil
 
     botones[3].addEventListener("click", () => {
@@ -236,21 +238,21 @@ window.addEventListener("load", () => {
         sessionStorage.removeItem('localidad');
         sessionStorage.removeItem('key');
         sessionStorage.removeItem('foto');
-        location.replace("http://"+root+"/proyecto/index.html");
+        location.replace("http://" + root + "/proyecto/index.html");
     });//boton cerrar sesion
 
     imagenes.addEventListener("submit", (e) => {
         let archivo = document.getElementById("archivo");
-        let validacion9=document.getElementById("validacion9");
+        let validacion9 = document.getElementById("validacion9");
 
         let exp = /.+\.png$|.+\.jpg$|.+\.jpeg$/;
         let resultado = exp.test(archivo.value);
         if (!resultado) {
             e.preventDefault();
-            validacion9.style.display="block";
-            validacion9.style.color="red";
-        }else{
-            validacion9.style="none";
+            validacion9.style.display = "block";
+            validacion9.style.color = "red";
+        } else {
+            validacion9.style = "none";
         }
     })
 })

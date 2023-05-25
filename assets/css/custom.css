@@ -274,13 +274,13 @@ a:hover {
 
 @media (min-width: 1200px) {
   #inicio .inicio-container {
-    width: 90%;
+    /* width: 90%; */
     position: relative;
     z-index: 2;
     top: 5%;
     left: 12%;
-    margin-top: 10%;
-    margin-left: 22%;
+    /* margin-top: 10%;
+    margin-left: 22%; */
   }
 }
 
@@ -725,7 +725,7 @@ a:hover {
   }
 
   .rcombos {
-    min-width: 270px;
+    width: 80%;
     margin-top: 3px;
     background-color: white;
   }
@@ -744,9 +744,11 @@ a:hover {
   }
 
   .inputperfil {
-    margin: 1px;
+    margin-top: 2px;
+    margin-top: 2px;
     font-size: 20px;
     font-weight: bold;
+    width: 80%;
   }
 
   .rfondoi {
@@ -765,7 +767,7 @@ a:hover {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     padding: 30px;
     border-radius: 5%;
-    width: 650px;
+    /* width: 650px; */
   }
 
   .rfondor {
@@ -1643,3 +1645,5 @@ footer a:hover{
 .libro{
   width: 33%;
 }
+
+/* conexion plus 642 642 642 */
