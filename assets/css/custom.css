@@ -241,25 +241,6 @@ a:hover {
 
 }
 
-@media (max-width: 1200px) {
-  #inicio .inicio-container {
-    position: relative;
-    z-index: 2;
-    /* min-width: 400px; */
-    justify-content: center;
-  }
-
-
-
-  .listadoretro {
-    margin-left: 10%;
-  }
-
-  #header {
-    left: 0px;
-  }
-}
-
 #inicio h1 {
   font-family: "Cookie", sans-serif;
   font-weight: bold;
@@ -293,11 +274,33 @@ a:hover {
 
 @media (min-width: 1200px) {
   #inicio .inicio-container {
+    width: 90%;
     position: relative;
     z-index: 2;
     top: 5%;
     left: 12%;
-    margin: -25px 0 0 -25px;
+    margin-top: 10%;
+    margin-left: 22%;
+  }
+}
+
+@media (max-width: 1200px) {
+  #inicio .inicio-container {
+    width: 90%;
+    position: relative;
+    z-index: 2;
+    /* min-width: 400px; */
+    justify-content: center;
+  }
+
+
+
+  .listadoretro {
+    margin-left: 10%;
+  }
+
+  #header {
+    left: 0px;
   }
 }
 
@@ -470,7 +473,7 @@ a:hover {
 
   .rtitulo {
     text-align: center;
-    margin-top: 500px;
+    margin-top: 10px;
     font-size: 20px;
     z-index: 20;
     size: 20px;
@@ -516,15 +519,16 @@ a:hover {
      height: 820px; */
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-    margin-left: 5px;
+    /* margin-left: 5px; */
+    margin-top: 20px;
     border-radius: 5%;
     /* margin-top: 80px; */
-    margin-bottom: 100px;
+    margin-bottom: 110px;
     z-index: 20;
   }
 
   .rfondo2 {
-    width: 95%;
+    width: 90%;
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     margin-left: 15px;
@@ -575,9 +579,9 @@ a:hover {
     color: #f4f6fd;
     /* margin-top: 80px; */
     font-size: 14px;
-    position: relative;
-    /* left: 0;
-    bottom: -300px; */
+    position: fixed;
+    left: 0;
+    bottom: 0px;
     /* -200px */
     width: 100%;
     z-index: 9999;
@@ -590,15 +594,15 @@ a:hover {
     color: #f4f6fd;
     margin-top: 15px;
     font-size: 14px;
-    position: relative;
+    position: fixed;
     left: 0;
-    bottom: -25px;
+    bottom: -0px;
     width: 100%;
     z-index: 9999;
     background: #040b14;
   }
 
-  #footer2 {
+  /* #footer2 {
     padding: 15px;
     color: #f4f6fd;
     margin-top: 15px;
@@ -610,7 +614,7 @@ a:hover {
     z-index: 9999;
     background: #040b14;
     justify-content: center;
-  }
+  } */
 
   .movil {
     width: 80px;
@@ -765,8 +769,8 @@ a:hover {
   }
 
   .rfondor {
-    width: 575px;
-    height: 730px;
+    /* width: 80%;
+    height: 730px; */
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     /* padding: 30px; */
@@ -775,8 +779,8 @@ a:hover {
     /* padding-left: 50px; */
     padding-top: 12px;
     padding-bottom: 12px;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 50px;
+    margin-bottom: 120px;
   }
 
   .rfondo2 {
@@ -1225,6 +1229,7 @@ a:hover {
   z-index: 6;
   display: none;
   font-weight: bold;
+  width: 90%;
 }
 
 #lpaginas,
