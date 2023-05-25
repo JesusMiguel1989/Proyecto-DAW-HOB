@@ -69,7 +69,7 @@ let logo = document.getElementById("alogo");//input logo
 let web = document.getElementById("aWeb");//input web
 let cod2 = document.getElementById("acodtienda2");//campo donde puedes escribir el codigo
 
-
+let clickEvent = new Event('click');//evento
 
 //expresiones para tiendas
 let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
@@ -287,9 +287,9 @@ async function backupRespore(opcion) {
     /* return Promise.resolve(response); */
 }//funcion para saber que copias de seguridad estan en el servidor
 
-async function lanzarRestore(opcion,condicion1){
+async function lanzarRestore(opcion, condicion1) {
     console.log("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
-    "&condicion1=" + condicion1);
+        "&condicion1=" + condicion1);
     let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
         "&condicion1=" + condicion1, {
         method: "GET",
@@ -370,6 +370,20 @@ function limpieza() {
 
 window.addEventListener("load", () => {
 
+    accion2.style.display = "none";
+    bbdd.style.display = "flex";//dejo visible el div
+    gestion.style.display = "flex";//dejo visible el div
+
+    restore.style.display = "none";//oculto los div
+    tiendas.style.display = "none";//oculto div
+    usuarios.style.display = "none";//oculto los div
+    seleccion.style.display = "none";//oculto los div
+    libros.style.display = "none";//oculto los div
+    accion.style.display = "none";//oculto los div
+
+    cod.style.display = "inline";//oculto los div
+    cod2.style.display = "none";//oculto el campo de insercion de cod tienda
+
     let perfil = sessionStorage.getItem("alias");
 
     //verificador de que SOLO pueda entrar en admin el Administrador
@@ -389,6 +403,7 @@ window.addEventListener("load", () => {
 
     //btn opcion restaurar, pone visible el div
     btnRestaurar.addEventListener("click", () => {
+        accion2.style.display = "none";
         let restauracion = document.getElementById("Backup");
         let opciones = "<div class='row'>";
         bbdd.style.display = "none";
@@ -413,20 +428,20 @@ window.addEventListener("load", () => {
             for (let i = 0; i < btnrestauracion.length; i++) {
                 btnrestauracion[i].addEventListener("click", () => {
                     console.log(btnrestauracion[i].value);
-                    lanzarRestore("restore",btnrestauracion[i].value);
+                    lanzarRestore("restore", btnrestauracion[i].value);
+                    cerrarRestore.dispatchEvent(clickEvent);
+                    accion2.style.display = "inline";
                 })
             }
         });
 
-
-
         restore.style.marginBottom = "100px";
     });//btn que muestra el div de la restauracion de la bbdd
 
-    cerrarRestore.addEventListener("click",()=>{
+    cerrarRestore.addEventListener("click", () => {
         let restauracion = document.getElementById("Backup");
-        restauracion.innerHTML="";
-        arrayrestore=[];
+        restauracion.innerHTML = "";
+        arrayrestore = [];
         bbdd.style.display = "flex";
         gestion.style.display = "flex";
         accion2.style.display = "none";
@@ -436,18 +451,7 @@ window.addEventListener("load", () => {
         usuarios.style.display = "none";//oculto los div
         seleccion.style.display = "none";//oculto los div
         libros.style.display = "none";//oculto los div
-    })
-    //btn que comprueba que se le puso un fichero, sino se bloquea el evento
-    /* btnEnviar.addEventListener("click", (e) => {
-        let restaurar = document.getElementById("restaurar2");
-        if (restaurar.value == "") {
-            e.preventDefault();
-        }
-        accion2.style.display = "inline";
-
-        bbdd.style.display = "inline";
-        gestion.style.display = "inline";
-    });//btn que comprueba que se le puso un fichero, sino se bloquea el evento */
+    })//btn para cerrar el div con los restores
 
     //btn que actualiza las tablas para eliminar registros de usuarios eliminados
     btnActualizar.addEventListener("click", () => {
@@ -463,7 +467,7 @@ window.addEventListener("load", () => {
 
     //btn que muestra el div de tiendas para agregar registros o borrarlos
     btnTiendas.addEventListener("click", () => {
-
+        accion2.style.display = "none";
         bbdd.style.display = "none";
         gestion.style.display = "none";
 
@@ -835,7 +839,7 @@ window.addEventListener("load", () => {
 
     //btn que muestra la opcion para agregar registros a las diferentes tablas
     btnAñadir.addEventListener("click", () => {
-
+        accion2.style.display = "none";
         bbdd.style.display = "none";
         gestion.style.display = "none";
         restore.style.display = "none";//oculto los div

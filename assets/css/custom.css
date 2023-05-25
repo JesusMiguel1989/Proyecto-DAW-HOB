@@ -403,7 +403,8 @@ a:hover {
   margin-left: 10px;
 }
 
-.br {
+.br,
+#ficha {
   display: none;
 }
 
@@ -572,11 +573,11 @@ a:hover {
   #footer {
     padding: 15px;
     color: #f4f6fd;
-    margin-top: 80px;
+    /* margin-top: 80px; */
     font-size: 14px;
     position: relative;
-    left: 0;
-    bottom: -300px;
+    /* left: 0;
+    bottom: -300px; */
     /* -200px */
     width: 100%;
     z-index: 9999;
@@ -685,6 +686,7 @@ a:hover {
     min-width: 210px;
     max-width: 90%;
   }
+
 }
 
 .botones:hover {
@@ -1029,12 +1031,6 @@ a:hover {
   margin-bottom: 10px;
 }
 
-/* inputperfilRS {
-  margin: 1px;
-  font-size: 20px;
-  font-weight: bold;
-} */
-
 .red {
   font-size: 20px;
   font-weight: bold;
@@ -1300,16 +1296,6 @@ a:hover {
   color: #656b86;
 }
 
-
-/* .rfiel {
-  font-style: italic;
-  font-weight: bold;
-  color: #09628b;
-  font-size: 20px;
-  margin-bottom: 5px;
-
-} */
-
 .repite {
   margin-bottom: 20px;
   ;
@@ -1381,7 +1367,7 @@ input[type="radio"]:checked~label {
 }
 
 .apartadoadmin {
-  width: 500px;
+  width: 90%;
   padding-bottom: 15px;
   background-color: rgb(152, 226, 202);
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
@@ -1395,40 +1381,14 @@ input[type="radio"]:checked~label {
   margin-top: 10px;
 }
 
-#acodtienda,
-#alocalidad,
-#aprovincia,
-#anombre,
-#adireccion,
-#atelefono,
-#acodhobie,
-#alogo,
-#aWeb,
-#acodtienda2,
-#alocalidad2,
-#aprovincia2,
-#anombre2,
-#adireccion2,
-#atelefono2,
-#acodhobie2,
-#alogo2,
-#alvaloracion,
-#alleido,
-#alportada,
-#alpaginas,
-#alautor,
-#altitulo,
-#alalias,
-#alcodlibro {
+#acodtienda, #alocalidad, #aprovincia, #anombre, #adireccion, #atelefono, #acodhobie, #alogo, #aWeb,
+#acodtienda2, #alocalidad2, #aprovincia2, #anombre2, #adireccion2, #atelefono2, #acodhobie2, #alogo2,
+#alvaloracion, #alleido, #alportada, #alpaginas, #alautor, #altitulo, #alalias, #alcodlibro {
   width: 100%;
   margin-top: 10px;
 }
 
-#aalias,
-#amotivo,
-#nveces,
-#amail,
-#aestado {
+#aalias, #amotivo, #nveces, #amail, #aestado {
   margin-top: 10px;
   width: 90%;
   font-weight: bold;
@@ -1537,10 +1497,6 @@ input[type="radio"]:checked~label {
   font-weight: bold;
 }
 
-/* #divleyendo{
-  display: none;
-} */
-
 #validacion99,
 #validacion98 {
   color: red;
@@ -1548,12 +1504,8 @@ input[type="radio"]:checked~label {
   display: none;
 }
 
-#validacion1,
-#validacion2,
-#validacion3,
-#validacion4,
-#validacion5,
-#validacion6,
+#validacion1, #validacion2, #validacion3,
+#validacion4, #validacion5, #validacion6,
 #validacion7 {
   color: red;
   display: none;
@@ -1585,7 +1537,6 @@ input[type="radio"]:checked~label {
   text-decoration: underline;
   font-style: italic;
   color: #040b14;
-  /* #040b145c */
 }
 
 /* Parte superior del modal */
