@@ -415,7 +415,7 @@ a:hover {
 }
 
 /*****************************************************MOVIL*********************/
-@media (max-width: 376px) {
+@media (max-width: 412px) {
   .rnav {
     width: 480px;
   }
@@ -476,14 +476,15 @@ a:hover {
     position: relative;
     font-weight: bold;
     font-size: 30px;
-    margin-left: 30px;
+    text-decoration: underline;
+    color: #040b14;
   }
 
   .rfiel,
   #inicio h1 {
     font-style: italic;
     font-weight: bold;
-    color: #09628b;
+    color: #0979ad;
     font-size: 25px;
     margin-bottom: 5px;
   }
@@ -506,6 +507,7 @@ a:hover {
     margin-left: 5px;
     border-radius: 5%;
     padding: 15px 9px 15px 9px;
+    margin-bottom: 80px;
   }
 
   .rfondor {
@@ -516,7 +518,7 @@ a:hover {
     margin-left: 5px;
     border-radius: 5%;
     /* margin-top: 80px; */
-    margin-bottom: 60px;
+    margin-bottom: 100px;
     z-index: 20;
   }
 
@@ -667,7 +669,7 @@ a:hover {
     padding-right: 10px;
     /* display: flex; */
     color: #1d2529e6;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .fotoretro {
@@ -692,7 +694,7 @@ a:hover {
 }
 
 /****************Media para mantener el alncho de los input fuera del movil*********/
-@media (min-width: 376px) {
+@media (min-width: 413px) {
 
   .txt {
     margin-top: 10px;
@@ -705,7 +707,7 @@ a:hover {
   .rfiel {
     font-style: italic;
     font-weight: bold;
-    color: #09628b;
+    color: #0979ad;
     font-size: 35px;
     margin-bottom: 5px;
   }
@@ -769,8 +771,9 @@ a:hover {
     margin-left: 5px;
     border-radius: 5%;
     /* padding-left: 50px; */
-    padding-top: 50px;
-    margin-top: 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 80px;
     margin-bottom: 80px;
   }
 
@@ -920,8 +923,9 @@ a:hover {
     z-index: 99;
     font-weight: bold;
     position: relative;
-    /* margin-top: 80px; */
-    margin-bottom: 40px;
+    text-decoration: underline;
+    /* margin-top: 80px; 
+    margin-bottom: 40px;*/
   }
 
   /* #resultados {
@@ -1641,4 +1645,45 @@ input[type="radio"]:checked~label {
     max-height: 40px;
     font-size: 15px;
   }
+}
+
+/* Color enlaces del footer */
+footer a{
+  color:rgb(152, 226, 202);
+}
+
+footer a:hover{
+  color:rgb(255, 217, 107);
+}
+
+.restauracion{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 80%;
+  border-radius: 10%;
+  height: 60px;
+  font-weight: bold;
+}
+
+.restauracion:hover {
+  background-color:rgb(255, 217, 107); 
+  color: black;
+  font-weight: bold;
+}
+.restore{
+  min-height: 200px;
+}
+
+/* usuariio sin libros en la seccion */
+#libros{
+  display: none;
+  margin-bottom:  100px;
+} 
+
+#libros h3{
+  font-weight: bold;
+}
+
+.libro{
+  width: 33%;
 }

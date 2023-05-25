@@ -459,21 +459,20 @@ if(!$conexion){
                 default:
                     break;
             }
-
-            header("Refresh:5 ; url=http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html");
+            echo "url=".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html";
+            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }//copia de seguridad
 
-        if($op=="restore"){
-            //recojo la ubicacion y la extension para saber si es una copia de seguridad o no
-            $fichero=$_FILES['fichero']['tmp_name'];
-            $tipo=$_FILES['fichero']['type'];
-            if($tipo=="application/octet-stream"){
-                //creo una variable que almacenara la ruta donde se guardara
-                $destino=$_SERVER['DOCUMENT_ROOT']."/proyecto/restore/backup.sql";
-                //copio el fichero dado por el administrador en la carpeta indicada
-                if(move_uploaded_file($fichero,$destino)){
+        if($opcion=="restore"){
+            //recojo el nombre del fichero elegido
+            $fichero=$_GET['condicion1'];
+            $extension=substr($fichero,strrpos($fichero, ".")+1);
+
+
+            if($extension=="sql"){
+                echo 'C:/Apache24/htdocs/proyecto/restore/'.$fichero."<br>";
                     ////////////////////////////////////////////CUIDADO RUTA
-                    $resultado=exec('C:\ServidorLocal\mysql\bin\mysql -h localhost -u root --password="1234" hobbies < C:/Apache24/htdocs/proyecto/restore/backup.sql');
+                    $resultado=exec('C:\ServidorLocal\mysql\bin\mysql -h localhost -u root --password="1234" hobbies < C:/Apache24/htdocs/proyecto/restore/'.$fichero);
                     switch($resultado){
                         case 0:
                             echo 'La base de datos <b>BibliotecaJimenezJM</b> se ha restaurado correctamente ';
@@ -488,11 +487,11 @@ if(!$conexion){
                             echo "Nose como has llegado hasta aqui, pero te felicito";
                             break;
                     }
-                }
             }else{
                 echo "se siente";
-            } 
-            header("Refresh:0 ; url=http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html");
+            }
+            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+
         }//opcion restore
 
         //eliminacion de usuarios por castigo
@@ -943,6 +942,21 @@ if(!$conexion){
             header("Content-type: application/json; charset=utf-8");
             //muestro por pantalla
             echo json_encode($array);
+        }
+
+        if($opcion=="restauracion"){
+            $restores=scandir("../restore/");
+            $retorno=[];
+            $aux=0;
+            for($i=2;$i<count($restores);$i++){
+                $retorno[$aux]=$restores[$i];
+                $aux++;
+            }
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($retorno);
         }
 
     }//uso de la bbdd hobbies

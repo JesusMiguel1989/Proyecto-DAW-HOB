@@ -89,142 +89,92 @@
 
     <!-- ======= inicio Section ======= Pantalla inicial de la plantilla, foto derecha -->
     <section id="seccion" class="d-flex flex-column justify-content-center align-items-center m-0 vh-100">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-0 col-sm-0 col-md-0 col-lg-0 col-xl-4"></div>
             <div class="col-10 col-sm-10 col-md-9 col-lg-9 col-xl-7 text-center">
                 <h1 class="rtitulo" title="Registro"> Registro </h1>
-                <span style="display: none;">instagram</span>
+                <span style="display: none;">registro</span>
             </div>
-        </div>
-        <form id="inicio" action="php/Registro.php" method="POST"
-            class="row needs-validation" novalidate>
+        </div> -->
+        <form id="inicio" action="php/Registro.php" method="POST" class="row needs-validation" novalidate>
 
-            
-                <div class="col-1 col-sm-1 col-md-1 col-lg-2 col-xl-4"></div>
-                <div class="col-10 col-sm-10 col-md-10 col-lg-9 col-xl-8 text-left inicio-container rfondor">
-                    <fieldset>
-                        <center>
-                            <h1 class="rfiel">Datos Web </h1>
-                        </center>
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
-                                <label for="remail" class="titulo">Email*:</label>
-                            </div>
-                            <div class="col-12 col-sm-8 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
-                                <input type="mail" id="remail" name="mail" class="texto-identificarse" title="Email"
-                                    required><br>
-                                <div id="validacion1" class="invalid-feedback">
-                                    <span>Error en el correo.</span>
-                                </div>
-                                <span class="rlabel">Ej.: ejemplo@ejemplo.com</span>
-                            </div>
+            <div class="col-1 col-sm-1 col-md-1 col-lg-2 col-xl-4"></div>
+            <div class="col-10 col-sm-10 col-md-10 col-lg-9 col-xl-8 text-left inicio-container rfondor">
+                <h1 class="rtitulo" title="Registro"> Registro </h1>
+                <fieldset>
+                    <center>
+                        <h1 class="rfiel">Datos Web </h1>
+                    </center>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
+                            <label for="remail" class="titulo">Email*:</label>
                         </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-sm-0 text-end">
-
+                        <div class="col-12 col-sm-8 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
+                            <input type="mail" id="remail" name="mail" class="texto-identificarse" title="Email"
+                                required><br>
+                            <div id="validacion1" class="invalid-feedback">
+                                <span>Error en el correo.</span>
                             </div>
-                            <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
-                                <label for="key" class="titulo">Contraseña*:</label>
-                            </div>
-                            <div class="col-12 col-sm-8 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
-                                <input type="password" name="key" id="key" class="texto-identificarse"
-                                    title="contraseña" required>
-                                <i class="bi bi-eye-slash w-100" id="verclave1"></i>
-                                <br>
-                                <div id="validacion2" class="invalid-feedback">
-                                    <span>Contraseña invalida.</span>
-                                </div>
-                                <span class="rlabel">8 caracteres alfanumericos</span>
-                            </div>
+                            <span class="rlabel">Ej.: ejemplo@ejemplo.com</span>
                         </div>
+                    </div>
 
-                        <div class="row justify-content-center">
-                            <!-- <div class="col-7 col-sm-0  text-end">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-0 text-end">
+
+                        </div>
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
+                            <label for="key" class="titulo">Contraseña*:</label>
+                        </div>
+                        <div class="col-12 col-sm-8 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
+                            <input type="password" name="key" id="key" class="texto-identificarse" title="contraseña"
+                                required>
+                            <i class="bi bi-eye-slash w-100" id="verclave1"></i>
+                            <br>
+                            <div id="validacion2" class="invalid-feedback">
+                                <span>Contraseña invalida.</span>
+                            </div>
+                            <span class="rlabel">8 caracteres alfanumericos</span>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <!-- <div class="col-7 col-sm-0  text-end">
                     
                             </div> -->
-                            <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
-                                <label for="key2" class="titulo">Repitela*:</label><br>
-                            </div>
-                            <div class="col-12 col-sm-8 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
-                                <input type="password" name="key2" id="key2" class="texto-identificarse repite"
-                                    title="contraseña" required>
-                                <i class="bi bi-eye-slash w-100" id="verclave2"></i>
-                                <br>
-                                <div id="validacion3" class="invalid-feedback">
-                                    <span>No es la misma contraseña.</span>
-                                </div>
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
+                            <label for="key2" class="titulo">Repitela*:</label><br>
+                        </div>
+                        <div class="col-12 col-sm-8 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
+                            <input type="password" name="key2" id="key2" class="texto-identificarse repite"
+                                title="contraseña" required>
+                            <i class="bi bi-eye-slash w-100" id="verclave2"></i>
+                            <br>
+                            <div id="validacion3" class="invalid-feedback">
+                                <span>No es la misma contraseña.</span>
                             </div>
                         </div>
-                    </fieldset>
+                    </div>
+                </fieldset>
 
-                    <fieldset>
-                        <center>
-                            <h1 class="rfiel">Datos personales</h1>
-                        </center>
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-sm-0  text-end">
-
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
-                                <label for="rnombre" class="titulo">Alias*:</label><br>
-                            </div>
-                            <div class="col-12 col-sm-4 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
-                                <input type="text" name="nombre" id="rnombre" class="texto-identificarse"
-                                    title="Nombre"><br>
-                                <div id="validacion34" class="invalid-feedback">
-                                    <span>El nombre existe o esta vacio.</span>
-                                </div>
-                                <span class="rlabel">Ej.: tu nombre o apodo</span>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-sm-0  text-end">
-
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
-                                <label for="rfecha" class="titulo">F. Nacimiento*:</label><br>
-                            </div>
-                            <div class="col-12 col-sm-4 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
-                                <input type="date" name="fecha" id="rfecha" class="texto-identificarse"
-                                    title="F.Nacimiento"><br>
-                                <div id="validacion4" class="invalid-feedback">
-                                    <span>Fecha erronea o eres menor.</span>
-                                </div>
-                                <span class="rlabel">Ej.: Tu fecha nacimiento</span>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-12 col-sm-0  text-end">
-
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
-                                <label for="rlocalidad" class="titulo">Localidad:</label><br>
-                            </div>
-                            <div class="col-12 col-sm-4 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
-                                <select name="localidad" id="rlocalidad" class="btn dropdown-toggle rcombo"
-                                    title="Localidad">
-                                    <option class="rop">Cuenca</option>
-                                    <option class="rop">Toledo</option>
-                                    <option class="rop">Albacete</option>
-                                    <option class="rop">C.Real</option>
-                                    <option class="rop">Guadalajara</option>
-                                    <option class="rop">Madrid</option>
-                                </select>
-                            </div>
-                        </div>
-                    </fieldset>
+                <fieldset>
+                    <center>
+                        <h1 class="rfiel">Datos personales</h1>
+                    </center>
                     <div class="row justify-content-center">
-                        <div class="col-12 col-sm-1  text-end">
+                        <div class="col-12 col-sm-0  text-end">
 
                         </div>
-                        <div class="col-12 col-sm-11 col-md-11 col-xl-11 text-center text-sm-start titulo">
-                            <input type="checkbox" id="condiciones" class="repite" title="Condiciones">
-                            <label for="condiciones"><b>Aceptas</b> los terminos y condiciones*.<br></label>
-                            <div id="validacion5" class="invalid-feedback">
-                                <span>Acepta condiciones de uso.</span>
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
+                            <label for="rnombre" class="titulo">Alias*:</label><br>
+                        </div>
+                        <div class="col-12 col-sm-4 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
+                            <input type="text" name="nombre" id="rnombre" class="texto-identificarse"
+                                title="Nombre"><br>
+                            <div id="validacion34" class="invalid-feedback">
+                                <span>El nombre existe o esta vacio.</span>
                             </div>
+                            <span class="rlabel">Ej.: tu nombre o apodo</span>
                         </div>
                     </div>
 
@@ -232,30 +182,79 @@
                         <div class="col-12 col-sm-0  text-end">
 
                         </div>
-                        <div class="col-8 col-sm-8 col-md-8 col-xl-8 text-end text-sm-center titulo">
-                            <input type="checkbox" id="rRobot" class="repite" title="F.Nacimiento">
-                            <label for="rRobot">No soy un robot</label><br>
-                            <div id="validacion6" class="invalid-feedback">
-                                <span>Eres un robot.</span>
-                            </div>
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
+                            <label for="rfecha" class="titulo">F. Nacimiento*:</label><br>
                         </div>
-                        <div class="col-4 col-sm-4 text-start">
-                            <img src="./assets/capcha2.png" id="avatar" alt="capcha registro" title="Capcha">
+                        <div class="col-12 col-sm-4 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
+                            <input type="date" name="fecha" id="rfecha" class="texto-identificarse"
+                                title="F.Nacimiento"><br>
+                            <div id="validacion4" class="invalid-feedback">
+                                <span>Fecha erronea o eres menor.</span>
+                            </div>
+                            <span class="rlabel">Ej.: Tu fecha nacimiento</span>
                         </div>
                     </div>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-0  text-end">
 
-                    <center>
-                        <div class="row botonesid">
-                            <div class="col col-12 ">
-                                <input type="submit" id="enviar" name="registro" value="Registrar" class="botones"
-                                    title="Registrarse" alt="Boton registro">
-                            </div>
                         </div>
-                    </center>
-                    
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4 text-center text-sm-end titulo">
+                            <label for="rlocalidad" class="titulo">Localidad:</label><br>
+                        </div>
+                        <div class="col-12 col-sm-4 col-sm-8 col-xl-8  has-validation text-center text-sm-start">
+                            <select name="localidad" id="rlocalidad" class="btn dropdown-toggle rcombo"
+                                title="Localidad">
+                                <option class="rop">Cuenca</option>
+                                <option class="rop">Toledo</option>
+                                <option class="rop">Albacete</option>
+                                <option class="rop">C.Real</option>
+                                <option class="rop">Guadalajara</option>
+                                <option class="rop">Madrid</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-1  text-end">
+
+                    </div>
+                    <div class="col-12 col-sm-11 col-md-11 col-xl-11 text-center text-sm-start titulo">
+                        <input type="checkbox" id="condiciones" class="repite" title="Condiciones">
+                        <label for="condiciones"><b>Aceptas</b> terminos y condiciones*<br></label>
+                        <div id="validacion5" class="invalid-feedback">
+                            <span>Acepta condiciones de uso.</span>
+                        </div>
+                    </div>
                 </div>
 
-            
+                <div class="row justify-content-center">
+                    <div class="col-12 col-sm-0  text-end">
+
+                    </div>
+                    <div class="col-8 col-sm-8 col-md-8 col-xl-8 text-end text-sm-center titulo">
+                        <input type="checkbox" id="rRobot" class="repite" title="F.Nacimiento">
+                        <label for="rRobot">No soy un robot</label><br>
+                        <div id="validacion6" class="invalid-feedback">
+                            <span>Eres un robot.</span>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 text-start">
+                        <img src="./assets/capcha2.png" id="avatar" alt="capcha registro" title="Capcha">
+                    </div>
+                </div>
+
+                <center>
+                    <div class="row botonesid">
+                        <div class="col col-12 ">
+                            <input type="submit" id="enviar" name="registro" value="Registrar" class="botones"
+                                title="Registrarse" alt="Boton registro">
+                        </div>
+                    </div>
+                </center>
+
+            </div>
+
+
         </form>
 
     </section>

@@ -150,29 +150,23 @@
             <div class="col-2 col-lg-4 col-xl-5 text-center">
 
             </div>
-            <div class="col-10 col-lg-8 col-xl-7 text-center apartadoadmin">
+            <div class="col-10 col-lg-8 col-xl-7 text-center apartadoadmin ">
                 <div class="row">
                     <div class="col-12">
-                        <dic class="row">
+                        <div class="row">
                             <div class="col-12">
                                 <h3>Restaurar Copia</h3>
                             </div>
-                            <form method="post" action="./php/miniAPI.php" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <label for="restaurar" class="admin">Fichero:</label>
-                                    </div>
-                                    <div class="col-9">
-                                        <input type="file" name="fichero" id="restaurar2">
-                                    </div>
+                            <div id="Backup" class="overflow-auto restore">
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <button type="button" id="cerrarRestore" class="btn-sugerencia">Volver</button>
                                 </div>
-                                <div class="col-12">
-                                    <input type="submit" name="submit" class="btn-sugerencia" id="aenviarfic">
-                                    <input type="button" class="btn-sugerencia" name="cerrarDiv" value="Cerrar">
-                                    <input type="hidden" name="opcion" value="restore">
-                                </div>
-                            </form>
-                        </dic>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

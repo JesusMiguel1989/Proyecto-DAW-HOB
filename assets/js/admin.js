@@ -1,4 +1,5 @@
 let arrayTiendas = [];//array de las tiendas (codigo de tiendas)
+let arrayrestore = [];//array para guardar los diferentes restores
 
 //div principales
 let bbdd = document.getElementById("bbdd");//parte de la bases de datos
@@ -18,6 +19,7 @@ let accion2 = document.getElementById("accion2");//div con la accion de BBDD
 //let btnreiniciar = document.getElementById("reiniciar");//Administracion reiniciar bbdd
 let btnCopia = document.getElementById("copiar");//Administracion copia de seguridad BBDD
 let btnRestaurar = document.getElementById("restaurar");//Administracion restaurar bbdd desde fichero
+let cerrarRestore = document.getElementById("cerrarRestore");//btn para ocultar div
 let btnActualizar = document.getElementById("actualizar");//Administracion actualizar para eliminar datos de usuarios eliminados
 let btnTiendas = document.getElementById("tiendas2");//Gestión remite al div tiendas
 let btnBaneos = document.getElementById("banneos");//Gestión remite al div usuarios
@@ -93,7 +95,7 @@ let eventoChange = new Event("click");
 
 async function copia(opcion) {
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -105,7 +107,7 @@ async function copia(opcion) {
 async function actualizar(opcion) {
 
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -116,7 +118,7 @@ async function actualizar(opcion) {
 async function agregarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6,
     condicion7, condicion8, condicion9) {
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
         "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
         method: "GET",
@@ -129,7 +131,7 @@ async function agregarTienda(opcion, condicion1, condicion2, condicion3, condici
 async function modificarTienda(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9) {
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
         "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
         method: "GET",
@@ -141,7 +143,7 @@ async function modificarTienda(opcion, condicion1, condicion2, condicion3, condi
 async function comprobarId(opcion, insertado) {
     id = false;//pongo el centinela a false siempre al inicio
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -159,7 +161,7 @@ async function comprobarId(opcion, insertado) {
 async function comprobarCod(opcion, insertado) {
     codinsertado = false;
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -175,14 +177,14 @@ async function comprobarCod(opcion, insertado) {
 
 async function borrartTienda(opcion, condicion1) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 }//borrar tienda
 
 async function buscartienda(opcion, condicion1) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -192,7 +194,7 @@ async function buscartienda(opcion, condicion1) {
 }//mostrar tienda
 
 async function buscarUsuario(opcion, condicion1) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -204,7 +206,7 @@ async function buscarUsuario(opcion, condicion1) {
 async function banear(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -213,7 +215,7 @@ async function banear(opcion, condicion1, condicion2) {
 
 async function perdon(opcion, condicion1) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -221,7 +223,7 @@ async function perdon(opcion, condicion1) {
 
 //eliminacion del usuario y posterior actualizacion de la BBDD
 async function castigoFinal(opcion, condicion1) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -230,7 +232,7 @@ async function castigoFinal(opcion, condicion1) {
 //buscar un libro que ya este en la base de datos
 async function buscarLibro(opcion, condicion1) {
     //console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1);
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -240,7 +242,7 @@ async function buscarLibro(opcion, condicion1) {
 }//buscar un libro
 
 async function modificarLibros(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5
         + "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
         method: "GET",
@@ -253,7 +255,7 @@ async function cod_tiendas(opcion) {
     let opciones = "";
     let cod = document.getElementById("acodtienda");
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -269,6 +271,30 @@ async function cod_tiendas(opcion) {
     cod.innerHTML = opciones;
 
     return Promise.resolve(response);
+}
+
+async function backupRespore(opcion) {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion, {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
+
+    response = await response.json();
+    //meto la informacion dentro del arrayRestore
+    for (let i = 0; i < response.length; i++) {
+        arrayrestore.push(response[i]);
+    }
+    /* return Promise.resolve(response); */
+}//funcion para saber que copias de seguridad estan en el servidor
+
+async function lanzarRestore(opcion,condicion1){
+    console.log("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
+    "&condicion1=" + condicion1);
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
+        "&condicion1=" + condicion1, {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
 }
 
 //funcion para agregar libros de forma manual (administrador)
@@ -348,7 +374,7 @@ window.addEventListener("load", () => {
 
     //verificador de que SOLO pueda entrar en admin el Administrador
     if (perfil != "Administrador") {
-        window.location.replace("http://"+root+"/proyecto/index.html");
+        window.location.replace("http://" + root + "/proyecto/index.html");
     }
 
     //ADMINISTRACION BBDD
@@ -363,7 +389,8 @@ window.addEventListener("load", () => {
 
     //btn opcion restaurar, pone visible el div
     btnRestaurar.addEventListener("click", () => {
-
+        let restauracion = document.getElementById("Backup");
+        let opciones = "<div class='row'>";
         bbdd.style.display = "none";
         gestion.style.display = "none";
         accion2.style.display = "none";
@@ -374,11 +401,44 @@ window.addEventListener("load", () => {
         seleccion.style.display = "none";//oculto los div
         libros.style.display = "none";//oculto los div
 
+        backupRespore("restauracion").then(() => {
+            for (let i = 0; i < arrayrestore.length; i++) {
+                opciones += "<div class='col-5 text-end'><button type='button' id='restore" + i + "' value='" + arrayrestore[i] + "' class='restauracion'>" + arrayrestore[i] + "</button></div>";
+            }
+            opciones += "</div>";
+            restauracion.innerHTML += opciones;
+
+            let btnrestauracion = document.getElementsByClassName("restauracion");
+
+            for (let i = 0; i < btnrestauracion.length; i++) {
+                btnrestauracion[i].addEventListener("click", () => {
+                    console.log(btnrestauracion[i].value);
+                    lanzarRestore("restore",btnrestauracion[i].value);
+                })
+            }
+        });
+
+
+
         restore.style.marginBottom = "100px";
     });//btn que muestra el div de la restauracion de la bbdd
 
+    cerrarRestore.addEventListener("click",()=>{
+        let restauracion = document.getElementById("Backup");
+        restauracion.innerHTML="";
+        arrayrestore=[];
+        bbdd.style.display = "flex";
+        gestion.style.display = "flex";
+        accion2.style.display = "none";
+        accion.style.display = "none";
+        restore.style.display = "none";//dejo visible el div
+        tiendas.style.display = "none";//oculto los div
+        usuarios.style.display = "none";//oculto los div
+        seleccion.style.display = "none";//oculto los div
+        libros.style.display = "none";//oculto los div
+    })
     //btn que comprueba que se le puso un fichero, sino se bloquea el evento
-    btnEnviar.addEventListener("click", (e) => {
+    /* btnEnviar.addEventListener("click", (e) => {
         let restaurar = document.getElementById("restaurar2");
         if (restaurar.value == "") {
             e.preventDefault();
@@ -387,7 +447,7 @@ window.addEventListener("load", () => {
 
         bbdd.style.display = "inline";
         gestion.style.display = "inline";
-    });//btn que comprueba que se le puso un fichero, sino se bloquea el evento
+    });//btn que comprueba que se le puso un fichero, sino se bloquea el evento */
 
     //btn que actualiza las tablas para eliminar registros de usuarios eliminados
     btnActualizar.addEventListener("click", () => {
@@ -727,12 +787,12 @@ window.addEventListener("load", () => {
                 email.textContent = data[0][0];
                 estado.textContent = data[0][1];
                 nveces.textContent = data[0][2] + " veces";
-                if(data[0][3]==""){
-                    motivo.placeholder="No tiene castigo, !!TODAVIA¡¡";
-                }else{
-                    motivo.placeholder= data[0][3];
+                if (data[0][3] == "") {
+                    motivo.placeholder = "No tiene castigo, !!TODAVIA¡¡";
+                } else {
+                    motivo.placeholder = data[0][3];
                 }
-                
+
                 /* if (data[0][0].includes("@")) {
                     motivo.textContent = "Correo Electronico\n" + data[0][0];
                     nveces.textContent = data[0][1] + " veces";
@@ -756,7 +816,7 @@ window.addEventListener("load", () => {
             motivos = motivos.replace(" ", "_");
         }
         banear("banearusuario", alias.value, motivos);
-        motivo.value="";
+        motivo.value = "";
     });//bannearusuarios
 
     //btn perdonar usuarios

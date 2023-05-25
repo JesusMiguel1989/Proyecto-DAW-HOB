@@ -115,11 +115,12 @@ let divleyendo = document.getElementById("divleyendo");
 let divleidos = document.getElementById("divleidos");
 let tarjeta = document.getElementById("tarjeta");
 let btnDivComentario = document.getElementById("btnDivComentario");//div donde esta el boton de agregar comentario extra
+let libros=document.getElementById("libros");//div que indica que no tienes libros asignados a esa seccion
 
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
         + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10
         , {
@@ -129,7 +130,7 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4
         + "&condicion5=" + condicion5 + "&condicion6=" + condicion6 + "&condicion7=" + condicion7
         + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
@@ -139,7 +140,7 @@ async function modificarLibro(opcion, condicion1, condicion2, condicion3, condic
 }//funcion asincrona que llama a la API para modificar un libro
 
 async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3, {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
@@ -149,45 +150,57 @@ async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
 async function mostrarLeyendo(opcion, condicion1) {
 
     let encontrados = [];
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + inicio, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
     response = await response.json();
+    if (response.length>0) {
+        libros.style.display="none";//oculto el div
+        for (let i = 0; i < response.length; i++) {
+            encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
+            response[i][6], response[i][7], response[i][8], response[i][9]];
+            array.push(encontrados);
+            mostrar2(i);
+        }
+        //funcion que introduce el boton siguiente y anterior
+        pagina2();
+        //return Promise.resolve(response);
+    }else{
+        libros.style.display="flex";//muestro el div
+    }
     registros = response[0][8];
 
-    for (let i = 0; i < response.length; i++) {
-        encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7], response[i][8], response[i][9]];
-        array.push(encontrados);
-        mostrar2(i);
-    }
-    //funcion que introduce el boton siguiente y anterior
-    pagina2();
-    //return Promise.resolve(response);
+
 }//funcion asincrona para mostrar os libros que se estan leyendo ahora
 
 async function mostrarLeidos(opcion, condicion1) {
 
     let encontrados = [];
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
         + "&condicion2=" + inicio2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
     response = await response.json();
-    registros2 = response[0][8];
+    if (response.length>0) {
+        libros.style.display="none";//oculto el div
+        registros2 = response[0][8];
 
-    for (let i = 0; i < response.length; i++) {
-        encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7], response[i][8], response[i][9]];
-        array.push(encontrados);
-        mostrar2(i);
+        for (let i = 0; i < response.length; i++) {
+            encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
+            response[i][6], response[i][7], response[i][8], response[i][9]];
+            array.push(encontrados);
+            mostrar2(i);
+        }
+        pagina2();
+    }else{
+        libros.style.display="flex";//muestro el div
     }
-    pagina2();
+
 }//funcion asincrona para mostrar los libros leidos
 
 async function sinopsisLibro(isbn) {
@@ -214,7 +227,7 @@ async function rankingHOB(opcion) {
     let encontrados = [];
     let tope = 0;
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -239,7 +252,7 @@ async function rankingHOB(opcion) {
 }//funcion asincrona que devuelve el top 10 de las valoraciones de los usuarios
 
 async function registro(opcion, condicion1) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -250,7 +263,7 @@ async function registro(opcion, condicion1) {
 
 async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
 
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -1378,7 +1391,7 @@ function curiosidad() {
 }//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
 
 async function comentarioPrevio(opcion, condicion1, condicion2) {
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         , {
             method: "GET",
             headers: { "Content-type": "application/json" }
@@ -1410,6 +1423,7 @@ window.addEventListener("load", () => {
     console.log(root);
 
     buscar.addEventListener("click", () => {
+        libros.style.display="none";//oculto el div
         /////////////////////////////////////////////////////////////////////////
         btnAddComentario.style.display = "inline";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Buscador";
@@ -1431,6 +1445,7 @@ window.addEventListener("load", () => {
     });
 
     btnBuscardor.addEventListener("click", () => {
+        libros.style.display="none";//oculto el div
         progreso.value = 0;
         divCuriosidades.style.display = "inline-flex";
         divCuriosidades.style.marginBottom = "100px";
@@ -1604,7 +1619,7 @@ window.addEventListener("load", () => {
                 tarjeta.style.display = "none";//una vez registro el cambio oculto la tarjeta
                 comentUsuario.value = "";
             }
-            
+
         }
     })//leyendo, boton de libro actual
 
