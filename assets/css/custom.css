@@ -273,15 +273,44 @@ a:hover {
 ------------------------*/
 
 @media (min-width: 1200px) {
-  #inicio .inicio-container {
-    /* width: 90%; */
+  .rfondor {
+    width: 600px;
+    position: relative;
+    z-index: 2;
+    top: 5%;
+    /* margin-top: 10%;*/
+    margin-left: 22%; 
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    border-radius: 5%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 50px;
+  }
+
+  .rfondoi {
+    width: 50%;
     position: relative;
     z-index: 2;
     top: 5%;
     left: 12%;
-    /* margin-top: 10%;
-    margin-left: 22%; */
+    /* margin-top: 10%;*/
+    margin-left: 33%; 
   }
+
+  .rfondo {
+    width: 95%;
+    /* height: 600px; */
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    margin-left: 5px;
+    border-radius: 5%;
+    padding: 15px 9px 15px 9px;
+    margin-bottom: 80px;
+    z-index: 20;
+    margin-left: 20%;
+  }
+  
 }
 
 @media (max-width: 1200px) {
@@ -700,6 +729,23 @@ a:hover {
 }
 
 /****************Media para mantener el alncho de los input fuera del movil*********/
+
+@media (min-width: 413px )  and (max-width: 1200px) {
+  .rfondor {
+    /* width: 80%;
+    height: 730px; */
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    /* padding: 30px; */
+    margin-left: 5px;
+    border-radius: 5%;
+    /* padding-left: 50px; */
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 50px;
+    margin-bottom: 120px;
+  }
+}
 @media (min-width: 413px) {
 
   .txt {
@@ -767,23 +813,10 @@ a:hover {
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
     padding: 30px;
     border-radius: 5%;
-    /* width: 650px; */
+    width: 50%;
   }
 
-  .rfondor {
-    /* width: 80%;
-    height: 730px; */
-    background-color: rgb(152, 226, 202);
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-    /* padding: 30px; */
-    margin-left: 5px;
-    border-radius: 5%;
-    /* padding-left: 50px; */
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin-top: 50px;
-    margin-bottom: 120px;
-  }
+  
 
   .rfondo2 {
     background-color: rgb(152, 226, 202);
@@ -1374,7 +1407,7 @@ input[type="radio"]:checked~label {
 }
 
 .apartadoadmin {
-  width: 90%;
+  /* width: 90%; */
   padding-bottom: 15px;
   background-color: rgb(152, 226, 202);
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);

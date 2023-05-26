@@ -128,20 +128,23 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion']);
             $pass=$_GET['condicion2'];
 
-            //primero hago la comprobacion de la contraseña
-            $previa=mysqli_query($conexion,"SELECT contraseña FROM USUARIOS WHERE ALIAS='".$alias."'");
-            $fila=mysqli_fetch_row($previa);
-            //comprobamos la clave dada con la de la BBDD
-            if(password_verify($pass,$fila[0])){
-                //realizo el borrado en funcion del alias dado
-                $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$alias."'");
-                $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$alias."'");
-            }
+            if($alias!="Administrador"){
+                //primero hago la comprobacion de la contraseña
+                $previa=mysqli_query($conexion,"SELECT contraseña FROM USUARIOS WHERE ALIAS='".$alias."'");
+                $fila=mysqli_fetch_row($previa);
+                //comprobamos la clave dada con la de la BBDD
+                if(password_verify($pass,$fila[0])){
+                    //realizo el borrado en funcion del alias dado
+                    $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$alias."'");
+                    $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$alias."'");
+                }
 
-            //indico en la cabecera que sera un json
-            header("Content-type: application/json; charset=utf-8");
-            //muestro el JSON por pantalla
-            echo json_encode($array);
+                //indico en la cabecera que sera un json
+                header("Content-type: application/json; charset=utf-8");
+                //muestro el JSON por pantalla
+                echo json_encode($array);
+            }
+            
         }//borrado
 
         //opcion para regenerar la contraseña
@@ -255,11 +258,8 @@ if(!$conexion){
                 $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$fila[5]];
             }//while que lo recorre
 
-            /* //indico en la cabecera que sera un json
-            header("Content-type: application/json; charset=utf-8");
-            //muestro el JSON por pantalla
-            echo json_encode($array); */
-            header("Refresh:0; url=http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/perfil.html");
+            //"http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/perfil.html";
+            header("Refresh:0; url=http://localhost/proyecto/perfil.html");
         }//if cambio foto
 
         ///////////////////////////Libros/////////////////////////////////////
@@ -554,7 +554,7 @@ if(!$conexion){
             $resultado=mysqli_query($conexion,"INSERT INTO TIENE (COD_TIENDA,ID_HOBBIE) VALUES ('".$cod."','".$cod_hob."')");
             
             echo mysqli_error($conexion);
-            header("Refresh:0 ; url=http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html");
+            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }
 
         //modificar una tienda a la BBDD
@@ -575,7 +575,7 @@ if(!$conexion){
                     ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
                     ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
                     WHERE COD_TIENDA='".$cod."'");
-            header("Refresh:0 ; url=http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html");
+            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
         }
 
         //saco un listado de los hobbies que estan en la BBDD

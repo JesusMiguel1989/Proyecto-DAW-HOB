@@ -43,9 +43,9 @@ async function alias(opcion, condicion1, condicion2) {
         //redireccionamiento del usuario segun rol
         let perfil = sessionStorage.getItem("alias");
         if (perfil == "Administrador") {
-            window.location.replace("http://"+root+"/proyecto/admin.html");
+            window.location.replace("http://localhost/proyecto/admin.html");
         } else {
-            location.replace('http://"+root+"/proyecto/index.html');
+            location.replace('http://localhost/proyecto/index.html');
         }
     }
 
@@ -54,7 +54,7 @@ async function alias(opcion, condicion1, condicion2) {
 
 async function olvido(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "PUT",
         headers: { "Content-type": "application/json" }
     });

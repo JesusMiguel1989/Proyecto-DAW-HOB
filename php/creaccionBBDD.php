@@ -63,7 +63,7 @@
                 COD_Sugerencia INT NOT NULL AUTO_INCREMENT Primary key,
                 ALIAS varchar(40) not null,
                 APARTADO varchar(40) not null,
-                TEXTO varchar(200) not null,
+                TEXTO text not null,
                 FOREIGN KEY (ALIAS) references USUARIOS(ALIAS) on delete cascade
             )");
 
