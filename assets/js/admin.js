@@ -130,7 +130,6 @@ async function agregarTienda(opcion, condicion1, condicion2, condicion3, condici
 //modificar tienda indicada
 async function modificarTienda(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9) {
-
     let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
         "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
@@ -288,8 +287,8 @@ async function backupRespore(opcion) {
 }//funcion para saber que copias de seguridad estan en el servidor
 
 async function lanzarRestore(opcion, condicion1) {
-    console.log("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
-        "&condicion1=" + condicion1);
+    /* console.log("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
+        "&condicion1=" + condicion1); */
     let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
         "&condicion1=" + condicion1, {
         method: "GET",
@@ -427,7 +426,6 @@ window.addEventListener("load", () => {
 
             for (let i = 0; i < btnrestauracion.length; i++) {
                 btnrestauracion[i].addEventListener("click", () => {
-                    console.log(btnrestauracion[i].value);
                     lanzarRestore("restore", btnrestauracion[i].value);
                     cerrarRestore.dispatchEvent(clickEvent);
                     accion2.style.display = "inline";
@@ -595,7 +593,7 @@ window.addEventListener("load", () => {
 
     //modificar tienda
     btnModificarTienda.addEventListener("click", () => {
-
+        let id_tienda;
         accion2.style.display = "none";
         accion.style.display = "none";
         cod.style.display = "flex";
@@ -604,16 +602,8 @@ window.addEventListener("load", () => {
         arrayTiendas = [];//la reinicializo
         cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
 
+        id_tienda=cod.value;//guardo el codigo de la tienda par ala modificacion posterior
         comprobarCod("cod", cod.value).then(() => {
-            /* if (!expcod.test(cod.value) || codinsertado) {
-                cod.style.border = "2px solid red";
-                validacion1.style.display = "inline";
-                correcto = false;
-            } else {
-                cod.style.border = "1px solid black";
-                validacion1.style.display = "none";
-            }//verificacion codigo */
-
             if (nombre.value == "") {
                 nombre.style.border = "2px solid red";
                 validacion2.style.display = "inline";
@@ -659,7 +649,7 @@ window.addEventListener("load", () => {
                 validacion7.style.display = "none";
             }//verificacion del logo
 
-            if (!expWeb.test(web.value)) {
+            if (!expWeb.test(web.value) && web.value != "") {
                 web.style.border = "2px solid red";
                 validacion8.style.display = "inline";
                 correcto = false;
@@ -681,7 +671,7 @@ window.addEventListener("load", () => {
                     //si todo esta correcto lo mandamos al servidor para agregarlo
                     if (correcto) {
                         console.log("Felicidades");
-                        modificarTienda("modificartienda", cod.value, nombre.value, cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value, web.value);
+                        modificarTienda("modificartienda", id_tienda, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value, web.value);
                         accion.style.display = "inline";
                         limpieza();
                     } else {
@@ -689,6 +679,8 @@ window.addEventListener("load", () => {
                     }//si todo esta correcto pasa al servidor
                 }
             });
+            arrayTiendas = [];//la reinicializo
+            cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
         })
     });//agregar tienda
 
@@ -700,9 +692,7 @@ window.addEventListener("load", () => {
         cod.style.display = "flex";
         cod2.style.display = "none";
 
-        console.log("pasa");
         let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
-        console.log(expcod.test(cod.value));
         if (cod2.value == "") cod2.value = cod.value;
         //if (cod.value != cod2.value) cod.value = cod2.value;
         if (!expcod.test(cod.value) || !expcod.test(cod2.value)) {
@@ -717,6 +707,8 @@ window.addEventListener("load", () => {
                 cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
                 accion.style.display = "inline";
                 limpieza();
+                arrayTiendas = [];//la reinicializo
+                cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
             });
 
         }//verificacion codigo

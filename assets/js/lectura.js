@@ -42,7 +42,7 @@ let progreso = document.getElementById("progreso");//barra progress de div
 let aux;//variable para saber que libro ha sido seleccionado
 //variables para la paginacion
 let page = 1;//variable para indicar la pagina en la api open library
-let limite = 24;//variable para indicar la cantidad de elementos por pagina
+let limite = 20;//variable para indicar la cantidad de elementos por pagina
 
 let resultadosBusqueda = 0;//variable que tendra el numero de resultados de la busqueda
 let paginasTotales = 0;//variable que guardara las paginas totales
@@ -1259,12 +1259,17 @@ async function pagina2() {
         if (camino == "leyendo") {
 
             if (registros - limite < 0) {
-                np.textContent = inicio + " al " + registros;
+                np.textContent = "1 al " + registros;
             } else {
                 if (!registros <= turno + 1) {
                     //comprobar que no puede haber una 2 o 3 hoja
                     if (registros > turno + 20) {
-                        np.textContent = "Del " + turno + " al " + (turno + 20);
+                        if(turno==0){
+                            np.textContent = "Del 1 al " + (turno + 20);
+                        }else{
+                            np.textContent = "Del " + turno + " al " + (turno + 20);
+                        }
+                        
                     } else {
                         np.textContent = "Del " + turno + " al " + registros;
                     }
@@ -1281,7 +1286,11 @@ async function pagina2() {
                 if (!registros2 <= turno2 + 1) {
                     //comprobar que no puede haber una 2 o 3 hoja
                     if (registros2 > turno2 + 20) {
-                        np.textContent = "Del " + turno2 + " al " + (turno2 + 20);
+                        if(turno2==0){
+                            np.textContent = "Del 1 al " + (turno + 20);
+                        }else{
+                            np.textContent = "Del " + turno2 + " al " + (turno + 20);
+                        }
                     } else {
                         np.textContent = "Del " + turno2 + " al " + registros2;
                     }
@@ -1420,7 +1429,7 @@ window.addEventListener("load", () => {
         tarjeta.style.display = "none";
     }
 
-    console.log(root);
+    /* console.log(root); */
 
     buscar.addEventListener("click", () => {
         libros.style.display="none";//oculto el div
@@ -1468,6 +1477,7 @@ window.addEventListener("load", () => {
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Pendientes";
         ubicacion.style.fontWeight = "bold";
+        libros.style.display="none";//oculto el div
 
         navegador();//cambio  el fondo de los botones dle nav
         leyendo.style.backgroundColor = "#7a7a7a";
@@ -1501,6 +1511,7 @@ window.addEventListener("load", () => {
     });//boton leyendo
 
     leidos.addEventListener("click", () => {
+        libros.style.display="none";//oculto el div de no tienes libros en esta seccion
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
 
         ubicacion.textContent = "Leidos";
@@ -1533,6 +1544,7 @@ window.addEventListener("load", () => {
     });//boton leidos
 
     ranking.addEventListener("click", () => {
+        libros.style.display="none";//oculto el div de no tienes libros en eesta sección
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Top Libros";
         ubicacion.style.fontWeight = "bold";
@@ -1671,6 +1683,7 @@ window.addEventListener("load", () => {
                     validacion.style.display = "none";
                     if (tit == cambio(array[aux][1])) {
                         agregar("agregarleido", array[aux][0], cambio(alias), tit, aut, pag, img, "SI", nota, editorial2, textoComentario);
+                        mostrarLeyendo("mostrarLeyendo", cambio(nombre));
                         tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
                     }
                 }

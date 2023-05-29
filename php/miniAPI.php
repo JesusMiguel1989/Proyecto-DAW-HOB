@@ -4,6 +4,7 @@ include "./greenhob.php";
 $array=[];
 $aux=0;
 $conexion=new mysqli($host,$usuario,$password);
+$root="localhost";
 
 if(!$conexion){
     echo "No se ha podido establecer la conexion";
@@ -259,7 +260,7 @@ if(!$conexion){
             }//while que lo recorre
 
             //"http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/perfil.html";
-            header("Refresh:0; url=http://localhost/proyecto/perfil.html");
+            header("Refresh:0; url=http://".$root."/proyecto/perfil.html");
         }//if cambio foto
 
         ///////////////////////////Libros/////////////////////////////////////
@@ -315,9 +316,9 @@ if(!$conexion){
             }//comprobacion de usuario
 
             //compruebo que tengo registrado que el usuario practica este hobbie, y si no lo agrego a la tabla de "practica"
-            $resultado=mysqli_query($conexion,"SELECT * FROM PRACTICA WHERE ALIAS='".$alias."' AND ID_HOBBIE='1'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM PRACTICA WHERE ALIAS='".$alias."' AND COD_HOBBIE='1'");
             if(mysqli_num_rows($resultado)==0){
-                $resultado=mysqli_query($conexion,"INSERT INTO PRACTICA (ALIAS,ID_HOBBIE) VALUES('".$alias."','1')");
+                $resultado=mysqli_query($conexion,"INSERT INTO PRACTICA (ALIAS,COD_HOBBIE) VALUES('".$alias."','1')");
             }
         }
 
@@ -460,7 +461,7 @@ if(!$conexion){
                     break;
             }
             echo "url=".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html";
-            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+            header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
         }//copia de seguridad
 
         if($opcion=="restore"){
@@ -490,7 +491,7 @@ if(!$conexion){
             }else{
                 echo "se siente";
             }
-            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+            header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
 
         }//opcion restore
 
@@ -551,36 +552,39 @@ if(!$conexion){
             $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE,LOGO,WEB)
                 VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."','".$logo."','".$web."')");
             //agrego la tienda a la tabla de la relacion muchos a muchos    
-            $resultado=mysqli_query($conexion,"INSERT INTO TIENE (COD_TIENDA,ID_HOBBIE) VALUES ('".$cod."','".$cod_hob."')");
+            $resultado=mysqli_query($conexion,"INSERT INTO TIENE (COD_TIENDA,COD_HOBBIE) VALUES ('".$cod."','".$cod_hob."')");
             
             echo mysqli_error($conexion);
-            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+            header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
         }
 
         //modificar una tienda a la BBDD
         if($opcion=="modificartienda"){
             $cod=$_GET['condicion1'];
             $nombre=str_replace("_"," ",$_GET['condicion2']);
-
             $telefono=str_replace("_"," ",$_GET['condicion3']);
             $direccion=str_replace("_"," ",$_GET['condicion4']);
-
             $localidad=$_GET['condicion5'];
             $provincia=$_GET['condicion6'];
             $cod_hob=$_GET['condicion7'];
             $logo=$_GET['condicion8'];
             $web=$_GET['condicion9'];
 
+            echo "UPDATE  TIENDAS SET LOCALIDAD='".$localidad."' 
+            ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
+            ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
+            WHERE COD_TIENDA='".$cod."'";
+
             $resultado=mysqli_query($conexion,"UPDATE  TIENDAS SET LOCALIDAD='".$localidad."' 
                     ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
                     ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
                     WHERE COD_TIENDA='".$cod."'");
-            header("Refresh:0 ; url=http://localhost/proyecto/admin.html");
+            //header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
         }
 
         //saco un listado de los hobbies que estan en la BBDD
         if($opcion=="cod_hobbie"){
-            $resultado=mysqli_query($conexion,"SELECT ID_HOBBIE FROM HOBBIE");
+            $resultado=mysqli_query($conexion,"SELECT COD_HOBBIE FROM HOBBIE");
 
             while($fila=mysqli_fetch_row($resultado)){
                 $array[$aux]=[$fila[0]];
@@ -798,9 +802,9 @@ if(!$conexion){
             
             //saco las tiendas que concuerden con ambos resultados
             $resultado=mysqli_query($conexion,"SELECT * FROM TIENDAS WHERE PROVINCIA='".$localidad."' 
-                    AND COD_HOBBIE=(SELECT ID_HOBBIE FROM HOBBIE WHERE COD_TIENDA IN (
-                                SELECT COD_TIENDA FROM TIENE WHERE ID_HOBBIE = (
-                                        SELECT ID_HOBBIE FROM HOBBIE WHERE NOMBRE='".$hobbie."')
+                    AND COD_HOBBIE=(SELECT COD_HOBBIE FROM HOBBIE WHERE COD_TIENDA IN (
+                                SELECT COD_TIENDA FROM TIENE WHERE COD_HOBBIE = (
+                                        SELECT COD_HOBBIE FROM HOBBIE WHERE NOMBRE='".$hobbie."')
                                         ))");
             
             while($fila=mysqli_fetch_row($resultado)){
