@@ -38,7 +38,7 @@ CREATE TABLE `blacklist` (
   `MOTIVO` varchar(150) NOT NULL,
   PRIMARY KEY (`ALIAS`,`CASTIGOS`) USING BTREE,
   KEY `CASTIGOS` (`CASTIGOS`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `hobbie` (
   `ID_HOBBIE` varchar(3) NOT NULL,
   `NOMBRE` varchar(50) NOT NULL,
   PRIMARY KEY (`ID_HOBBIE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,16 +85,16 @@ DROP TABLE IF EXISTS `libros`;
 CREATE TABLE `libros` (
   `COD_LIBRO` varchar(16) NOT NULL,
   `ALIAS` varchar(40) NOT NULL,
-  `TITULO` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `AUTOR` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `TITULO` varchar(100) NOT NULL,
+  `AUTOR` varchar(200) NOT NULL,
   `PAGINAS` varchar(4) NOT NULL,
-  `PORTADA` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `PORTADA` varchar(100) NOT NULL,
   `LEIDO` enum('SI','NO') NOT NULL,
   `VALORACION` int DEFAULT NULL,
-  `EDITORIAL` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `COMENTARIO` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `EDITORIAL` varchar(60) NOT NULL,
+  `COMENTARIO` varchar(400),
   PRIMARY KEY (`COD_LIBRO`,`ALIAS`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,9 +119,9 @@ CREATE TABLE `practica` (
   `ID_HOBBIE` varchar(3) NOT NULL,
   PRIMARY KEY (`ALIAS`,`ID_HOBBIE`),
   KEY `FK_hobbie` (`ID_HOBBIE`),
-  CONSTRAINT `FK_hobbie` FOREIGN KEY (`ID_HOBBIE`) REFERENCES `hobbie` (`ID_HOBBIE`),
-  CONSTRAINT `FK_Usuario` FOREIGN KEY (`ALIAS`) REFERENCES `usuarios` (`ALIAS`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_hobbie` FOREIGN KEY (`ID_HOBBIE`) REFERENCES `hobbie` (`ID_HOBBIE`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Usuario` FOREIGN KEY (`ALIAS`) REFERENCES `usuarios` (`ALIAS`) ON DELETE CASCADE
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +149,7 @@ CREATE TABLE `sugerencias` (
   PRIMARY KEY (`COD_Sugerencia`),
   KEY `ALIAS` (`ALIAS`),
   CONSTRAINT `sugerencias_ibfk_1` FOREIGN KEY (`ALIAS`) REFERENCES `usuarios` (`ALIAS`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,17 +170,17 @@ DROP TABLE IF EXISTS `tiendas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tiendas` (
-  `COD_TIENDA` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `COD_TIENDA` varchar(6) NOT NULL,
   `LOCALIDAD` varchar(30) NOT NULL,
   `PROVINCIA` varchar(30) NOT NULL,
   `NOMBRE` varchar(40) NOT NULL,
   `DIRECCION` varchar(80) NOT NULL,
   `TELEFONO` varchar(14) DEFAULT NULL,
   `COD_HOBBIE` varchar(2) NOT NULL,
-  `logo` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `logo` varchar(300) NOT NULL,
   `WEB` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`COD_TIENDA`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,9 +205,9 @@ CREATE TABLE `tiene` (
   `ID_HOBBIE` varchar(3) NOT NULL,
   PRIMARY KEY (`COD_TIENDA`,`ID_HOBBIE`),
   KEY `FK_hobbieTienda` (`ID_HOBBIE`),
-  CONSTRAINT `FK_hobbieTienda` FOREIGN KEY (`ID_HOBBIE`) REFERENCES `hobbie` (`ID_HOBBIE`),
-  CONSTRAINT `FK_Tienda` FOREIGN KEY (`COD_TIENDA`) REFERENCES `tiendas` (`COD_TIENDA`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `FK_hobbieTienda` FOREIGN KEY (`COD_HOBBIE`) REFERENCES `hobbie` (`COD_HOBBIE`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Tienda` FOREIGN KEY (`COD_TIENDA`) REFERENCES `tiendas` (`COD_TIENDA`) ON DELETE CASCADE
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,14 +230,14 @@ DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `ALIAS` varchar(40) NOT NULL,
   `F_NACIMIENTO` date NOT NULL,
-  `LOCALIDAD` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `LOCALIDAD` varchar(30),
   `EMAIL` varchar(40) NOT NULL,
   `CONTRASEÑA` varchar(100) NOT NULL,
   `FOTO` varchar(100) DEFAULT NULL,
-  `ESTADO` enum('OK','Pendiente','Banneado') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'Pendiente',
+  `ESTADO` enum('OK','Pendiente','Banneado'),
   `F_REGISTRO` date DEFAULT NULL,
   PRIMARY KEY (`ALIAS`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

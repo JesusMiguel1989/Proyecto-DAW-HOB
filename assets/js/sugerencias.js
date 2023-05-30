@@ -19,7 +19,7 @@ async function enviar(opcion, condicion1, condicion2, condicion3, condicion4) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + 
     opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
     + "&condicion3=" + condicion3 + "&condicion4=" + condicion4); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + 
+    let response = await fetch(root+"/php/miniAPI.php?opcion=" + 
         opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
         + "&condicion3=" + condicion3 + "&condicion4=" + condicion4, {
         method: "GET",

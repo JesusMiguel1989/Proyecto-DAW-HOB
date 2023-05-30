@@ -3,7 +3,7 @@
     include "./greenhob.php";
 
     //creo la conexion
-    $conexion=new mysqli($host,$usuario,$password);
+    $conexion=new mysqli($host,$usuario,$password,$bbdd);
     //recojo los datos de la url
     $nombre=$_POST['nombre'];
     $key=$_POST['contraseña'];
@@ -11,7 +11,7 @@
     if(!$conexion){
         echo "No se ha podido establecer la conexion";
     }else{
-        if(mysqli_query($conexion,"use HOBBIES")){
+        if(mysqli_query($conexion,"use ".$bbdd)){
             //busco por nombre
             $resultado=mysqli_query($conexion,"SELECT CONTRASEÑA FROM USUARIOS WHERE ALIAS='".$nombre."'");
 

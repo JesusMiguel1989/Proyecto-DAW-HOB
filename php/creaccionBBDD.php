@@ -7,7 +7,7 @@
     $verificador=false;
 
     //intento establecer la conexion
-    $conexion=new mysqli($host,$usuario,$password);
+    $conexion=new mysqli($host,$usuario,$password,$bbdd);
     
     if(!$conexion){
         echo "No se ha podido establecer la conexion";
@@ -27,7 +27,7 @@
             }//if creaccion BBDD
         }//verificador false
 
-        if(mysqli_query($conexion,"use HOBBIES")){
+        if(mysqli_query($conexion,"use ".$bbdd)){
             //borrado preliminar
             mysqli_query($conexion,"Drop table USUARIOS");
             mysqli_query($conexion,"Drop table SUGERENCIAS");
@@ -142,8 +142,8 @@
                 ALIAS VARCHAR(40) NOT NULL ,
                 ID_HOBBIE VARCHAR(3) NOT NULL,
                 PRIMARY KEY (ALIAS,ID_HOBBIE),
-                CONSTRAINT FK_Usuario FOREIGN KEY (ALIAS) REFERENCES USUARIOS(ALIAS),
-                CONSTRAINT FK_hobbie FOREIGN KEY (ID_HOBBIE) REFERENCES HOBBIE(ID_HOBBIE))");
+                CONSTRAINT FK_Usuario FOREIGN KEY (ALIAS) REFERENCES USUARIOS(ALIAS) ON DELETE CASCADE,
+                CONSTRAINT FK_hobbie FOREIGN KEY (ID_HOBBIE) REFERENCES HOBBIE(ID_HOBBIE) ON DELETE CASCADE)");
 
             //TIENE
             $trelacion=mysqli_query($conexion,"CREATE TABLE TIENE (

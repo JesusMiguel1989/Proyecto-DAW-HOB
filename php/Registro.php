@@ -1,7 +1,9 @@
 <?php
     include "./greenhob.php";
-    
-    $conexion=new mysqli($host,$usuario,$password);
+    $root="http://localhost/proyecto";
+    $from="jes11989@hotmail.com";
+
+    $conexion=new mysqli($host,$usuario,$password,$bbdd);
 
     if(!$conexion){
         echo "No se ha podido establecer la conexion";
@@ -14,7 +16,7 @@
         
         //echo $key;
         //echo $mail."<br>".$key."<br>".$nombre."<br>".$fecha."<br>".$localidad."<br>";
-        if(mysqli_query($conexion,"use HOBBIES")){
+        if(mysqli_query($conexion,"use ".$bbdd)){
 
             $correo=$_GET['correo'];
             if(isset($correo)){
@@ -54,14 +56,15 @@
                 $to=$mail;
                 $titulo='Registro de HOB';
                 $texto="Para terminar con el registro, debes acceder al siguiente enlace:<br>
-                <a  href='http://localhost/proyecto/php/Registro.php?correo=true&nombre=".$nombre."&mail=".$mail."'>pincha aqui</a>";
-
+                <a  href='".$root."/php/Registro.php?correo=true&nombre=".$nombre."&mail=".$mail."'>pincha aqui</a>";
+                
+                /* <a  href='http://localhost/proyecto/php/Registro.php?correo=true&nombre=".$nombre."&mail=".$mail."'> */
                 $mensaje="<html><head><meta charset='UTF-8'><style> .contenedor { background-color: rgb(152, 226, 202); color: black;  border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; max-width: 500px; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } .hb{ padding-top: 100px; font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } .o{ padding-top: 100px; font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} .titulo { padding-top: 100px; font-weight: bold; } .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } </style></head><body><div class='contenedor'><span class='hb'>H</span><span class='o'>O</span><span class='hb '>B</span><hr class='amarillo'><center><p class='parrafo'>".$texto."</p></center></div></body></html>";
                  
                 $unsalto="\r\n";
                 $encabezados = "";
                 
-                $cabeceras = 'From: <jes11989@hotmail.com>'.$unsalto;
+                $cabeceras = 'From: <'.$from.'>'.$unsalto;
                 $cabeceras .= "MIME-Version: 1.0".$unsalto;
 	            $cabeceras .= "Content-Type: text/html;";
 	            $cabeceras .= " boundary=Separador_de_partes";

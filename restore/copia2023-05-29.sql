@@ -110,8 +110,8 @@ CREATE TABLE `practica` (
   `ID_HOBBIE` varchar(3) NOT NULL,
   PRIMARY KEY (`ALIAS`,`ID_HOBBIE`),
   KEY `FK_hobbie` (`ID_HOBBIE`),
-  CONSTRAINT `FK_hobbie` FOREIGN KEY (`ID_HOBBIE`) REFERENCES `hobbie` (`COD_HOBBIE`),
-  CONSTRAINT `FK_Usuario` FOREIGN KEY (`ALIAS`) REFERENCES `usuarios` (`ALIAS`)
+  CONSTRAINT `FK_hobbie` FOREIGN KEY (`ID_HOBBIE`) REFERENCES `hobbie` (`COD_HOBBIE`) ON DELETE CASCADE,
+  CONSTRAINT `FK_Usuario` FOREIGN KEY (`ALIAS`) REFERENCES `usuarios` (`ALIAS`) ON DELETE CASCADE
 );
 /*!40101 SET character_set_client = @saved_cs_client */;
 

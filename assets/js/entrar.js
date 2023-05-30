@@ -10,7 +10,7 @@ let key = document.getElementById("key");//campo key
 
 async function alias(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch("http://"+root+"/proyecto/php/miniAPI.php?opcion=" +
+    let response = await fetch(root+"/php/miniAPI.php?opcion=" +
         opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -43,9 +43,9 @@ async function alias(opcion, condicion1, condicion2) {
         //redireccionamiento del usuario segun rol
         let perfil = sessionStorage.getItem("alias");
         if (perfil == "Administrador") {
-            window.location.replace("http://localhost/proyecto/admin.html");
+            window.location.replace(root+"/admin.html");
         } else {
-            location.replace('http://localhost/proyecto/index.html');
+            location.replace(root+'/index.html');
         }
     }
 
@@ -54,7 +54,7 @@ async function alias(opcion, condicion1, condicion2) {
 
 async function olvido(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch("http://localhost/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    let response = await fetch(root+"/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
         method: "PUT",
         headers: { "Content-type": "application/json" }
     });

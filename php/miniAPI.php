@@ -3,15 +3,19 @@ include "./greenhob.php";
 
 $array=[];
 $aux=0;
-$conexion=new mysqli($host,$usuario,$password);
-$root="localhost";
+$conexion=new mysqli($host,$usuario,$password,$bbdd);
+$root="https://www.hoby.es";
+//$root="http://localhost/proyecto";
+$from="adminHOB@hoby.es";
+//$from="jes11989@hotmail.com";
+
 
 if(!$conexion){
     echo "No se ha podido establecer la conexion";
     
 }else{
     
-    if(mysqli_query($conexion,"use HOBBIES")){
+    if(mysqli_query($conexion,"use ".$bbdd)){
         $opcion=$_GET['opcion'];
         $op=$_POST['opcion'];
         
@@ -189,7 +193,6 @@ if(!$conexion){
                 $to=$email;
                 $titulo=utf8_decode('Recuperación de la contraseña HOB');
                 $texto='Hola, he modificado tu clave como me pedistes. Tu clave temporal es <b>'.$array[0][5].'</b>';
-                $cabeceras = 'From: jes11989@hotmail.com';
 
                 //creo el mensaje con estilos html y css
                 $mensaje="<html><head><meta charset='UTF-8'><style> .contenedor { background-color: rgb(152, 226, 202); color: black;  border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; max-width: 500px; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } .hb{ padding-top: 100px; font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } .o{ padding-top: 100px; font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} .titulo { padding-top: 100px; font-weight: bold; } .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } </style></head><body><div class='contenedor'><span class='hb'>H</span><span class='o'>O</span><span class='hb '>B</span><hr class='amarillo'><center><p class='parrafo'>".$texto."</p></center></div></body></html>";
@@ -197,7 +200,7 @@ if(!$conexion){
                 $unsalto="\r\n";
                 $encabezados = "";
                 
-                $cabeceras = 'From: <jes11989@hotmail.com>'.$unsalto;
+                $cabeceras = 'From: <'.$from.'>'.$unsalto;
                 $cabeceras .= "MIME-Version: 1.0".$unsalto;
 	            $cabeceras .= "Content-Type: text/html;";
 	            $cabeceras .= " boundary=Separador_de_partes"; 
@@ -260,7 +263,7 @@ if(!$conexion){
             }//while que lo recorre
 
             //"http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/perfil.html";
-            header("Refresh:0; url=http://".$root."/proyecto/perfil.html");
+            header("Refresh:0; url=".$root."/perfil.html");
         }//if cambio foto
 
         ///////////////////////////Libros/////////////////////////////////////
@@ -461,7 +464,7 @@ if(!$conexion){
                     break;
             }
             echo "url=".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html";
-            header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
+            header("Refresh:0 ; url=".$root."/admin.html");
         }//copia de seguridad
 
         if($opcion=="restore"){
@@ -491,7 +494,7 @@ if(!$conexion){
             }else{
                 echo "se siente";
             }
-            header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
+            header("Refresh:0 ; url=".$root."/admin.html");
 
         }//opcion restore
 
@@ -555,7 +558,7 @@ if(!$conexion){
             $resultado=mysqli_query($conexion,"INSERT INTO TIENE (COD_TIENDA,COD_HOBBIE) VALUES ('".$cod."','".$cod_hob."')");
             
             echo mysqli_error($conexion);
-            header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
+            header("Refresh:0 ; url=".$root."/admin.html");
         }
 
         //modificar una tienda a la BBDD
@@ -699,7 +702,7 @@ if(!$conexion){
                 $unsalto="\r\n";
                 $encabezados = "";
                 
-                $cabeceras = 'From: <jes11989@hotmail.com>'.$unsalto;
+                $cabeceras = 'From: <'.$from.'>'.$unsalto;
                 $cabeceras .= "MIME-Version: 1.0".$unsalto;
 	            $cabeceras .= "Content-Type: text/html;";
 	            $cabeceras .= " boundary=Separador_de_partes";  
@@ -852,7 +855,7 @@ if(!$conexion){
                 $unsalto="\r\n";
                 $encabezados = "";
                 
-                $cabeceras = 'From: <jes11989@hotmail.com>'.$unsalto;
+                $cabeceras = 'From: <'.$from.'>'.$unsalto;
                 $cabeceras .= "MIME-Version: 1.0".$unsalto;
 	            $cabeceras .= "Content-Type: text/html;";
 	            $cabeceras .= " boundary=Separador_de_partes";
