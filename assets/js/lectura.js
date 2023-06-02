@@ -120,9 +120,9 @@ let libros=document.getElementById("libros");//div que indica que no tienes libr
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
-        + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9 + "&condicion10=" + condicion10
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)
+        + "&condicion3=" + encodeURIComponent(condicion3)+ "&condicion4=" + encodeURIComponent(condicion4)+ "&condicion5=" + encodeURIComponent(condicion5)+ "&condicion6=" + condicion6
+        + "&condicion7=" + encodeURIComponent(condicion7)+ "&condicion8=" + encodeURIComponent(condicion8)+ "&condicion9=" + encodeURIComponent(condicion9) + "&condicion10=" + encodeURIComponent(condicion10)
         , {
             method: "GET",
             headers: { "Content-type": "application/json" }
@@ -130,18 +130,18 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
 }//funcion asincrona que devuelve los datos del usuario si es correcto
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
-        + "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4
-        + "&condicion5=" + condicion5 + "&condicion6=" + condicion6 + "&condicion7=" + condicion7
-        + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1)
+        + "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3)+ "&condicion4=" + encodeURIComponent(condicion4)
+        + "&condicion5=" + encodeURIComponent(condicion5)+ "&condicion6=" + encodeURIComponent(condicion6)+ "&condicion7=" + encodeURIComponent(condicion7)
+        + "&condicion8=" + encodeURIComponent(condicion8)+ "&condicion9=" + encodeURIComponent(condicion9), {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
     });
 }//funcion asincrona que llama a la API para modificar un libro
 
 async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
-        + "&condicion3=" + condicion3, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)
+        + "&condicion3=" + encodeURIComponent(condicion3), {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
     });
@@ -150,7 +150,7 @@ async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
 async function mostrarLeyendo(opcion, condicion1) {
 
     let encontrados = [];
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1)
         + "&condicion2=" + inicio, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -179,7 +179,7 @@ async function mostrarLeyendo(opcion, condicion1) {
 async function mostrarLeidos(opcion, condicion1) {
 
     let encontrados = [];
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1)
         + "&condicion2=" + inicio2, {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -227,7 +227,7 @@ async function rankingHOB(opcion) {
     let encontrados = [];
     let tope = 0;
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -252,7 +252,7 @@ async function rankingHOB(opcion) {
 }//funcion asincrona que devuelve el top 10 de las valoraciones de los usuarios
 
 async function registro(opcion, condicion1) {
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -263,7 +263,7 @@ async function registro(opcion, condicion1) {
 
 async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
 
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + inicioComentarios, {
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + inicioComentarios, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -394,7 +394,7 @@ function mostrar(i) {
     boton.appendChild(foto);
     libro.appendChild(boton);
     libro.appendChild(tit);
-    libro.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-2", "text-center", "mt-4");
+    libro.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-3", "text-center", "mt-4");
     libro.style.display = "inline-block";
 
     resultados.appendChild(libro);
@@ -505,6 +505,12 @@ function mostrar2(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
+
+        //recorro los elementos estrellas para saber cual es la nota que le dio
+        for (let j = 0; j < estrellas.length; j++) {
+                estrellas[j].checked = false;
+        }//for que recorre las estrellas
+
         addComentarios.style.display = "none";//oculto los comentarios
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
@@ -733,18 +739,18 @@ function acortarTitulo(titulo) {
 }//funcion para reducir los titulos (busco [,( y sino lo dejo a 50 caracteres)
 
 async function buscarall(condicion, condicion2, condicion3) {
-    let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&isbn=" + condicion2 + "&author=" + condicion3);
+    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion)+ "&isbn=" + encodeURIComponent(condicion2) + "&author=" + encodeURIComponent(condicion3));
 
     let texto = await response.json();
     array = [];
     let encontrados = [];
     let descripcion = "";
 
-    response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + condicion2 + "&format=json");
+    response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + encodeURIComponent(condicion2) + "&format=json");
     let texto2 = await response.json();
     let cadena = "texto2.ISBN" + condicion2 + ".thumbnail_url";
 
-    response = await fetch("https://openlibrary.org/isbn/" + condicion2 + ".json");
+    response = await fetch("https://openlibrary.org/isbn/" + encodeURIComponent(condicion2) + ".json");
     let texto3 = await response.json();
     descripcion = "";
     if (typeof texto3.description === 'undefined') {
@@ -765,7 +771,7 @@ async function buscarall(condicion, condicion2, condicion3) {
             eval(cadena), descripcion, editorial];
             array.push(encontrados);
             //mostrar(i);
-            progreso.value += 4.16;
+            progreso.value += 5;
         }
     }
 
@@ -776,7 +782,7 @@ async function buscarall(condicion, condicion2, condicion3) {
 }//funciones asincronas del buscador (TODOS LOS DATOS)
 
 async function buscar2(condicion, condicion2) {
-    let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&author=" + condicion2
+    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion)+ "&author=" + encodeURIComponent(condicion2)
         + "&page=" + page + "&limit=" + limite);
 
     let texto = await response.json();
@@ -847,7 +853,7 @@ async function buscar2(condicion, condicion2) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            progreso.value += 4.16;
+            progreso.value += 5;
         }
     }
 
@@ -859,7 +865,7 @@ async function buscar2(condicion, condicion2) {
 
 async function buscar3(condicion) {
 
-    let response = await fetch("https://openlibrary.org/search.json?author=" + condicion + "&page=" + page + "&limit=" + limite);
+    let response = await fetch("https://openlibrary.org/search.json?author=" + encodeURIComponent(condicion)+ "&page=" + page + "&limit=" + limite);
 
     let texto = await response.json();
 
@@ -929,7 +935,7 @@ async function buscar3(condicion) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            progreso.value += 4.16;
+            progreso.value += 5;
         }
     }
     carga();
@@ -940,7 +946,7 @@ async function buscar3(condicion) {
 
 async function buscar4(condicion) {
 
-    let response = await fetch("https://openlibrary.org/search.json?title=" + condicion + "&page=" + page + "&limit=" + limite);
+    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion)+ "&page=" + page + "&limit=" + limite);
     let texto = await response.json();
 
     //calculo el numero de paginas
@@ -1006,7 +1012,7 @@ async function buscar4(condicion) {
             encontrados = [isbn, tituloAcortado, texto.docs[i].author_name, texto.docs[i].number_of_pages_median,
                 portada, descripcion, editorial];
             array.push(encontrados);
-            progreso.value += 4.16;
+            progreso.value += 5;
         }
     }
     carga();
@@ -1017,7 +1023,7 @@ async function buscar4(condicion) {
 
 async function buscar5(condicion) {
 
-    let response = await fetch("https://openlibrary.org/search.json?isbn=" + condicion + "&page=" + page + "&limit=" + limite);
+    let response = await fetch("https://openlibrary.org/search.json?isbn=" + encodeURIComponent(condicion)+ "&page=" + page + "&limit=" + limite);
     let texto = await response.json();
 
     //calculo el numero de paginas
@@ -1400,7 +1406,7 @@ function curiosidad() {
 }//funcion para sacar una curiosidad de forma aleatoria y sacarlo por pantalla
 
 async function comentarioPrevio(opcion, condicion1, condicion2) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 + "&condicion2=" + condicion2
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)
         , {
             method: "GET",
             headers: { "Content-type": "application/json" }

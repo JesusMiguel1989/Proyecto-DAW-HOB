@@ -458,6 +458,16 @@ a:hover {
     width: 480px;
   }
 
+  .rfondo23 {
+    /* ancho de la tarjeta */
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px;
+    margin: 0 auto;
+    border-radius: 5%;
+    /*width: 750px;*/
+  }
+
   #lfoto {
     margin-top: 25px;
     /* margin-left: 25%; */

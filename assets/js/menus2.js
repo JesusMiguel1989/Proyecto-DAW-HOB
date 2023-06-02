@@ -4,8 +4,22 @@ let btndiv = document.getElementById("btndiv");//boton que lanza el div
 let clickEvent = new Event('click');
 
 window.addEventListener("load", () => {
+    
+    let datos=new URLSearchParams(window.location.search);
+    datos=decodeURIComponent(datos);
+    let cadena=datos.slice(datos.search("=")+1);
+    let array=cadena.split(",");
+    sessionStorage.setItem('alias', array[0].replace("+"," "));
+    sessionStorage.setItem('fecha', array[1]);
+    sessionStorage.setItem('localidad', array[2]);
+    sessionStorage.setItem('mail', array[3]);
+    sessionStorage.setItem('key', array[4]);
+    sessionStorage.setItem('foto', array[5]);
+    sessionStorage.setItem('estado', array[6]);
+    
     let perfil = sessionStorage.getItem("alias");
     let estado = sessionStorage.getItem("estado");
+
     if (perfil != "") {
         btndiv.dispatchEvent(clickEvent);
         let alias = sessionStorage.getItem("alias");

@@ -95,7 +95,7 @@ let eventoChange = new Event("click");
 
 async function copia(opcion) {
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -107,7 +107,7 @@ async function copia(opcion) {
 async function actualizar(opcion) {
 
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -118,9 +118,9 @@ async function actualizar(opcion) {
 async function agregarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6,
     condicion7, condicion8, condicion9) {
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
-        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) +
+        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -130,9 +130,9 @@ async function agregarTienda(opcion, condicion1, condicion2, condicion3, condici
 //modificar tienda indicada
 async function modificarTienda(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
-        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) +
+        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -142,7 +142,7 @@ async function modificarTienda(opcion, condicion1, condicion2, condicion3, condi
 async function comprobarId(opcion, insertado) {
     id = false;//pongo el centinela a false siempre al inicio
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -160,7 +160,7 @@ async function comprobarId(opcion, insertado) {
 async function comprobarCod(opcion, insertado) {
     codinsertado = false;
 
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -176,14 +176,14 @@ async function comprobarCod(opcion, insertado) {
 
 async function borrartTienda(opcion, condicion1) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 }//borrar tienda
 
 async function buscartienda(opcion, condicion1) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -193,7 +193,7 @@ async function buscartienda(opcion, condicion1) {
 }//mostrar tienda
 
 async function buscarUsuario(opcion, condicion1) {
-    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -205,8 +205,8 @@ async function buscarUsuario(opcion, condicion1) {
 async function banear(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -214,7 +214,7 @@ async function banear(opcion, condicion1, condicion2) {
 
 async function perdon(opcion, condicion1) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -222,7 +222,7 @@ async function perdon(opcion, condicion1) {
 
 //eliminacion del usuario y posterior actualizacion de la BBDD
 async function castigoFinal(opcion, condicion1) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -231,7 +231,7 @@ async function castigoFinal(opcion, condicion1) {
 //buscar un libro que ya este en la base de datos
 async function buscarLibro(opcion, condicion1) {
     //console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1);
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -241,9 +241,9 @@ async function buscarLibro(opcion, condicion1) {
 }//buscar un libro
 
 async function modificarLibros(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5
-        + "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5)
+        + "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -254,7 +254,7 @@ async function cod_tiendas(opcion) {
     let opciones = "";
     let cod = document.getElementById("acodtienda");
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -273,7 +273,7 @@ async function cod_tiendas(opcion) {
 }
 
 async function backupRespore(opcion) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -289,8 +289,8 @@ async function backupRespore(opcion) {
 async function lanzarRestore(opcion, condicion1) {
     /* console.log("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
         "&condicion1=" + condicion1); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion +
-        "&condicion1=" + condicion1, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) +
+        "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -383,6 +383,18 @@ window.addEventListener("load", () => {
     cod.style.display = "inline";//oculto los div
     cod2.style.display = "none";//oculto el campo de insercion de cod tienda
 
+    let datos=new URLSearchParams(window.location.search);
+    datos=decodeURIComponent(datos);
+    let cadena=datos.slice(datos.search("=")+1);
+    let array=cadena.split(",");
+    sessionStorage.setItem('alias', array[0].replace("+"," "));
+    sessionStorage.setItem('fecha', array[1]);
+    sessionStorage.setItem('localidad', array[2]);
+    sessionStorage.setItem('mail', array[3]);
+    sessionStorage.setItem('key', array[4]);
+    sessionStorage.setItem('foto', array[5]);
+    sessionStorage.setItem('estado', array[6]);
+    
     let perfil = sessionStorage.getItem("alias");
 
     //verificador de que SOLO pueda entrar en admin el Administrador

@@ -1,4 +1,5 @@
-var root="https://www.hoby.es";
+//var root="https://www.hoby.es";
+var root="http://localhost/proyecto";
 window.addEventListener("load", () => {
 
 

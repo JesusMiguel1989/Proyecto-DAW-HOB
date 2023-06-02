@@ -14,8 +14,8 @@ async function buscar(op, hobie, localidad) {
     let encontrados = [];
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie + "&condicion2=" + localidad); */
 
-    let response = await fetch(root+"/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie
-        + "&condicion2=" + localidad, {
+    let response = await fetch(root+"/php/miniAPI.php?opcion=" + encodeURIComponent(op) + "&condicion1=" + encodeURIComponent(hobie)
+        + "&condicion2=" + encodeURIComponent(localidad), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });

@@ -4,10 +4,10 @@ include "./greenhob.php";
 $array=[];
 $aux=0;
 $conexion=new mysqli($host,$usuario,$password,$bbdd);
-$root="https://www.hoby.es";
-//$root="http://localhost/proyecto";
-$from="adminHOB@hoby.es";
-//$from="jes11989@hotmail.com";
+//$root="https://www.hoby.es";
+$root="http://localhost/proyecto";
+//$from="adminHOB@hoby.es";
+$from="jes11989@hotmail.com";
 
 
 if(!$conexion){

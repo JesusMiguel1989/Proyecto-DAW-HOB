@@ -21,8 +21,8 @@ async function modificacion(opcion, condicion1, condicion2, condicion3, condicio
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
     "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6); */
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) + "&condicion6=" + encodeURIComponent(condicion6)
         , {
             method: "PUT",
             headers: { "Content-type": "application/json" }
@@ -35,8 +35,8 @@ async function modificacion(opcion, condicion1, condicion2, condicion3, condicio
 //funcion asincrona para la eliminacion de datos
 async function borrar(opcion, condicion1, condicion2) {
 
-    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
-        "&condicion2=" + condicion2, {
+    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2), {
         method: "DELETE",
         headers: { "Content-type": "application/json" }
     });
@@ -47,7 +47,7 @@ async function borrar(opcion, condicion1, condicion2) {
 
 async function alias1(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });

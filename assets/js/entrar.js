@@ -10,23 +10,23 @@ let key = document.getElementById("key");//campo key
 
 async function alias(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch(root+"/php/miniAPI.php?opcion=" +
-        opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" +
+        encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
     response = await response.json();
 
-    let resultado=true;
-    if(response.length == 0){
-        resultado=false;
+    let resultado = true;
+    if (response.length == 0) {
+        resultado = false;
     }
-    
+
     if (response == "" || !resultado) {
         nombre.style.border = "2px solid red";
         validacion9.style.display = "block";
-        key.value="";
+        key.value = "";
     } else {
         validacion1.style.display = "none";
         validacion3.style.display = "none";
@@ -43,9 +43,9 @@ async function alias(opcion, condicion1, condicion2) {
         //redireccionamiento del usuario segun rol
         let perfil = sessionStorage.getItem("alias");
         if (perfil == "Administrador") {
-            window.location.replace(root+"/admin.html");
+            window.location.replace(root + "/admin.html");
         } else {
-            location.replace(root+'/index.html');
+            location.replace(root + '/index.html');
         }
     }
 
@@ -54,7 +54,7 @@ async function alias(opcion, condicion1, condicion2) {
 
 async function olvido(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch(root+"/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2), {
         method: "PUT",
         headers: { "Content-type": "application/json" }
     });
