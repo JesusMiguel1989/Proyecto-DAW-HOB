@@ -165,6 +165,7 @@ async function mostrarLeyendo(opcion, condicion1) {
             array.push(encontrados);
             mostrar2(i);
         }
+        registros = response[0][8];
         //funcion que introduce el boton siguiente y anterior
         pagina2();
         //return Promise.resolve(response);
@@ -1306,6 +1307,14 @@ async function pagina2() {
             }
         }
 
+        //agrego un nuevo div para que muestre cuantos libros tiene en total
+        let npTotal = document.createElement("h4");
+        if(registros2==0){
+            npTotal.textContent="Tienes un total de "+registros+" de Libros";
+        }else{
+            npTotal.textContent="Tienes un total de "+registros2+" de Libros";
+        }
+
         numPag.appendChild(np);
 
         //div para siguientes
@@ -1321,6 +1330,17 @@ async function pagina2() {
         btnsiguiente.style.margin = "0 auto";
         siguientes.appendChild(btnsiguiente);
 
+        let paginacion2 = document.createElement("div");
+        paginacion2.classList.add("row");
+        paginacion2.style.marginBottom="20px";
+        paginacion2.style.marginTop="10px";
+        paginacion2.style.height = "auto";
+        let totales = document.createElement("div");
+        totales.classList.add("col-12", "text-center");
+        totales.appendChild(npTotal);
+        
+        paginacion2.appendChild(totales);
+
         //agrego los div con los botones
         paginacion.appendChild(previo);//btn anteriores
         paginacion.appendChild(numPag);//numero de la pagina
@@ -1328,6 +1348,7 @@ async function pagina2() {
 
         //agrego el div de los botones a resultados
         resultados.appendChild(paginacion);
+        resultados.appendChild(paginacion2);
 
         btnprevio.addEventListener("click", (e) => {
             if (camino == "leyendo") {
