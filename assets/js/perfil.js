@@ -35,7 +35,10 @@ async function modificacion(opcion, condicion1, condicion2, condicion3, condicio
 //funcion asincrona para la eliminacion de datos
 async function borrar(opcion, condicion1, condicion2) {
 
-    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) +
+console.log(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2));
+        
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) +
         "&condicion2=" + encodeURIComponent(condicion2), {
         method: "DELETE",
         headers: { "Content-type": "application/json" }

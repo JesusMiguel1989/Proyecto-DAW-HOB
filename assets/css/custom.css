@@ -457,7 +457,7 @@ a:hover {
   .rnav {
     width: 480px;
   }
-
+  
   .rfondo23 {
     /* ancho de la tarjeta */
     background-color: rgb(152, 226, 202);
@@ -734,6 +734,12 @@ a:hover {
     min-width: 210px;
     max-width: 90%;
   }
+  
+  #btnAddComentario,
+  #agregarComentarios,
+  #verComentarios{
+      font-size: 12px;
+  }
 
 }
 
@@ -847,7 +853,7 @@ a:hover {
     padding: 30px;
     margin: 0 auto;
     border-radius: 5%;
-    width: 750px;
+    /*width: 750px;*/
   }
 
   .rfondo3 {
@@ -1053,6 +1059,8 @@ a:hover {
   margin-top: 15px;
   border-radius: 20%;
   font-weight: bold;
+  font-size:14px;
+  padding:5px;
 }
 
 .btn-sugerencia:hover {
