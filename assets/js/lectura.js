@@ -109,7 +109,7 @@ let leidos = document.getElementById("lleidos");
 let ranking = document.getElementById("lranking");
 
 //div
-let tarjetabuscador = document.getElementById("tarjetabuscador");
+let tarjetaBuscador = document.getElementById("tarjetaBuscador");
 let divbuscar = document.getElementById("divbuscar");
 let divleyendo = document.getElementById("divleyendo");
 let divleidos = document.getElementById("divleidos");
@@ -120,11 +120,10 @@ let libros=document.getElementById("libros");//div que indica que no tienes libr
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)
-        + "&condicion3=" + encodeURIComponent(condicion3)+ "&condicion4=" + encodeURIComponent(condicion4)+ "&condicion5=" + encodeURIComponent(condicion5)+ "&condicion6=" + condicion6
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2) +"&condicion3="+ encodeURIComponent(condicion3)+ "&condicion4=" + encodeURIComponent(condicion4)+ "&condicion5=" + encodeURIComponent(condicion5)+ "&condicion6=" + encodeURIComponent(condicion6)
         + "&condicion7=" + encodeURIComponent(condicion7)+ "&condicion8=" + encodeURIComponent(condicion8)+ "&condicion9=" + encodeURIComponent(condicion9) + "&condicion10=" + encodeURIComponent(condicion10)
         , {
-            method: "GET",
+            //method: "POST",
             headers: { "Content-type": "application/json" }
         });
 }//funcion asincrona que devuelve los datos del usuario si es correcto
@@ -165,15 +164,17 @@ async function mostrarLeyendo(opcion, condicion1) {
             array.push(encontrados);
             mostrar2(i);
         }
-        registros = response[0][8];
+        if(response.length<=0){
+            registros=0;
+        }else{
+            registros = response[0][8];
+        }
         //funcion que introduce el boton siguiente y anterior
         pagina2();
         //return Promise.resolve(response);
     }else{
         libros.style.display="flex";//muestro el div
     }
-    registros = response[0][8];
-
 
 }//funcion asincrona para mostrar os libros que se estan leyendo ahora
 
@@ -260,7 +261,7 @@ async function registro(opcion, condicion1) {
     response = await response.json();
 
     registrosComentarios = response[0];
-}//funcion asincrona para saber cuantos registros a dado la consultar (COmentarios)
+}//funcion asincrona para saber cuantos registros a dado la consultar (Comentarios)
 
 async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
 
@@ -475,7 +476,7 @@ function mostrar2(i) {
 
     let libro = document.createElement("div");
     libro.id = "libro" + i;
-    libro.classList.add("col-12", "col-sm-4", "col-lg-3", "text-center", "mt-4");
+    libro.classList.add("col-6", "col-sm-4", "col-lg-3", "text-center", "mt-4");
 
     let boton = document.createElement("button");
     boton.type = "button";
@@ -506,12 +507,14 @@ function mostrar2(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
-
-        //recorro los elementos estrellas para saber cual es la nota que le dio
-        for (let j = 0; j < estrellas.length; j++) {
-                estrellas[j].checked = false;
-        }//for que recorre las estrellas
-
+        //recorro los elementos estrellas para ponerlas en gris
+            for (let j = 0; j < estrellas.length; j++) {
+                if (estrellas[j].value == array[i][7]) {
+                    estrellas[j].checked = true;
+                }
+            }//for que recorre las estrellas
+            
+            
         addComentarios.style.display = "none";//oculto los comentarios
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
@@ -1084,7 +1087,7 @@ async function buscar5(condicion) {
                 portada, descripcion, editorial];
             array.push(encontrados);
 
-            progreso.value += 4.16;
+            progreso.value += 5;
         }
     }
     carga();
@@ -1306,14 +1309,16 @@ async function pagina2() {
                 }
             }
         }
-
+        
         //agrego un nuevo div para que muestre cuantos libros tiene en total
         let npTotal = document.createElement("h4");
+        npTotal.style.fontWeight="bold";
         if(registros2==0){
             npTotal.textContent="Tienes un total de "+registros+" de Libros";
         }else{
             npTotal.textContent="Tienes un total de "+registros2+" de Libros";
         }
+        
 
         numPag.appendChild(np);
 
@@ -1329,7 +1334,7 @@ async function pagina2() {
         btnsiguiente.classList.add("btn-sugerencia");
         btnsiguiente.style.margin = "0 auto";
         siguientes.appendChild(btnsiguiente);
-
+        
         let paginacion2 = document.createElement("div");
         paginacion2.classList.add("row");
         paginacion2.style.marginBottom="20px";
@@ -1444,7 +1449,7 @@ window.addEventListener("load", () => {
     divCuriosidades.style.display = "none";
     addComentarios.style.display = "none";
 
-    agregarComentarios.style.padding = "10px";
+    //agregarComentarios.style.padding = "10px";
     agregarComentarios.style.height = "50px";
     verComentarios.style.padding = "10px";
     verComentarios.style.height = "50px";
@@ -1456,9 +1461,18 @@ window.addEventListener("load", () => {
         tarjeta.style.display = "none";
     }
 
+    //////enter
+    //clickEvent parra agilizar las busquedas (al apretar enter iniciara la busqueda)
+    document.addEventListener("keydown",(e)=>{
+        if(e.key=="Enter"){
+            btnBuscardor.dispatchEvent(clickEvent);
+        }
+    })
+
     /* console.log(root); */
 
     buscar.addEventListener("click", () => {
+        tarjetaBuscador.style.display="inline";//muestro el div del buscador
         libros.style.display="none";//oculto el div
         /////////////////////////////////////////////////////////////////////////
         btnAddComentario.style.display = "inline";//oculto el boton extra de agregar comentario
@@ -1481,6 +1495,7 @@ window.addEventListener("load", () => {
     });
 
     btnBuscardor.addEventListener("click", () => {
+        tarjetaBuscador.style.display="inline";//muestro el div
         libros.style.display="none";//oculto el div
         progreso.value = 0;
         divCuriosidades.style.display = "inline-flex";
@@ -1501,6 +1516,7 @@ window.addEventListener("load", () => {
     });//btn que inicia la busqueda
 
     leyendo.addEventListener("click", () => {
+        tarjetaBuscador.style.display="none";//oculto el div del buscador
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Pendientes";
         ubicacion.style.fontWeight = "bold";
@@ -1538,6 +1554,7 @@ window.addEventListener("load", () => {
     });//boton leyendo
 
     leidos.addEventListener("click", () => {
+        tarjetaBuscador.style.display="none";//oculto el div del buscador
         libros.style.display="none";//oculto el div de no tienes libros en esta seccion
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
 
@@ -1571,6 +1588,7 @@ window.addEventListener("load", () => {
     });//boton leidos
 
     ranking.addEventListener("click", () => {
+        tarjetaBuscador.style.display="none";//oculto el div del buscador
         libros.style.display="none";//oculto el div de no tienes libros en eesta sección
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Top Libros";
@@ -1654,7 +1672,7 @@ window.addEventListener("load", () => {
                     textoComentario = cambio(comentUsuario.value);
                 }
 
-                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2, textoComentario);
+                agregar("agregarleido", array[aux][0], alias, tit, aut, pag, img, "NO", nota, editorial2);
                 tarjeta.style.display = "none";//una vez registro el cambio oculto la tarjeta
                 comentUsuario.value = "";
             }
@@ -1710,7 +1728,7 @@ window.addEventListener("load", () => {
                     validacion.style.display = "none";
                     if (tit == cambio(array[aux][1])) {
                         agregar("agregarleido", array[aux][0], cambio(alias), tit, aut, pag, img, "SI", nota, editorial2, textoComentario);
-                        mostrarLeyendo("mostrarLeyendo", cambio(nombre));
+                        //mostrarLeyendo("mostrarLeyendo", cambio(nombre));
                         tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
                     }
                 }

@@ -106,7 +106,7 @@ async function copia(opcion) {
 
 async function actualizar(opcion) {
 
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion); */
     let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -141,7 +141,7 @@ async function modificarTienda(opcion, condicion1, condicion2, condicion3, condi
 
 async function comprobarId(opcion, insertado) {
     id = false;//pongo el centinela a false siempre al inicio
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion); */
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -175,7 +175,7 @@ async function comprobarCod(opcion, insertado) {
 }//comprobacion delcodigo
 
 async function borrartTienda(opcion, condicion1) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
     let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -193,7 +193,7 @@ async function buscartienda(opcion, condicion1) {
 }//mostrar tienda
 
 async function buscarUsuario(opcion, condicion1) {
-    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -203,7 +203,7 @@ async function buscarUsuario(opcion, condicion1) {
 }//funcion para buscar el usuario indicado
 
 async function banear(opcion, condicion1, condicion2) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2); */
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
         "&condicion2=" + encodeURIComponent(condicion2), {
@@ -213,7 +213,7 @@ async function banear(opcion, condicion1, condicion2) {
 }//banear usuarios
 
 async function perdon(opcion, condicion1) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
     let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -230,7 +230,7 @@ async function castigoFinal(opcion, condicion1) {
 
 //buscar un libro que ya este en la base de datos
 async function buscarLibro(opcion, condicion1) {
-    //console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1);
+    //console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1);
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
@@ -287,7 +287,7 @@ async function backupRespore(opcion) {
 }//funcion para saber que copias de seguridad estan en el servidor
 
 async function lanzarRestore(opcion, condicion1) {
-    /* console.log("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
+    /* console.log("http://" + root + "/php/miniAPI.php?opcion=" + opcion +
         "&condicion1=" + condicion1); */
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) +
         "&condicion1=" + encodeURIComponent(condicion1), {
@@ -318,6 +318,8 @@ function apiLibros(opcion) {
     if (centinela) {
         modificarLibros(opcion, cod_libro.value, alias.value, titulo.value, autor.value, pag.value, portada.value, leido.value, valoracion.value).then(() => {
             libros.style.display = "none";//oculto los div
+            bbdd.style.display="flex";
+            gestion.style.display="flex";
         });
     }
 }
@@ -387,7 +389,7 @@ window.addEventListener("load", () => {
     datos=decodeURIComponent(datos);
     let cadena=datos.slice(datos.search("=")+1);
     let array=cadena.split(",");
-    sessionStorage.setItem('alias', array[0].replace("+"," "));
+    sessionStorage.setItem('alias', array[0]);
     sessionStorage.setItem('fecha', array[1]);
     sessionStorage.setItem('localidad', array[2]);
     sessionStorage.setItem('mail', array[3]);
@@ -830,13 +832,17 @@ window.addEventListener("load", () => {
     //btn perdonar usuarios
     btnPerdonar.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
+        let motivo = document.getElementById("amotivo");
         perdon("perdonarusuario", alias.value);
+        motivo.placeholder="Este usuario a recibido tus bendiciones";
     })//btn del perdon
 
     btnBorrarUsu.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
+        let motivo = document.getElementById("amotivo");
         //ahora borramos y actualizamos tablas
         castigoFinal("eliminacion", alias.value);//eliminacion del usuario
+        motivo.placeholder="Este usuario a recibido ha sido eliminado";
     })
 
     //añadir regstros en tablas

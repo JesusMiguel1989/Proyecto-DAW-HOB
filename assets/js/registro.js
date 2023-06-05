@@ -1,9 +1,14 @@
 let arrayAlias = [];
+let verificadorFinal=true;
 
 let nuevoClick = new Event("click");
 let nuevoSubmit = new Event("submit");
-//let evento = document.createEvent("submit");
-let eventoClick = new Event("click");
+let evento = new Event("submit" ,{
+    bubbles: true,
+    cancelable: true
+});
+
+
 async function alias() {
     let response = await fetch(root+"/php/comprobacionAlias.php", {
         method: "GET",
@@ -11,16 +16,18 @@ async function alias() {
     });
 
     response = await response.json();
-    return Promise.resolve(response);
+    
     //let texto = await response.json();
 
     //arrayAlias=texto;
-    /* for (i = 0; i < texto.length; i++) {
-        arrayAlias[i]=texto[i];
-    } */
+    for (i = 0; i < response.length; i++) {
+        arrayAlias[i]=response[i];
+    }
+    return Promise.resolve(response);
 }
 
 window.addEventListener("load", () => {
+    alias();
     let remail = document.getElementById("remail");
     let contraseña = document.getElementById("key");
     let contraseña2 = document.getElementById("key2");
@@ -69,7 +76,8 @@ window.addEventListener("load", () => {
         }
     })
 
-    enviar.addEventListener("click", (e) => {
+    //enviar.addEventListener("click", (e) => {
+    function verificar(){
         let expresionmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         let expresion_key = /^\w{8,}$/;
         let expresion_nom = /[a-zA-ZñÑáéíóú0-9]{2,}$/;
@@ -82,10 +90,12 @@ window.addEventListener("load", () => {
         let validacion4 = document.getElementById("validacion4");
         let validacion34 = document.getElementById("validacion34");
 
+        let validacion=false;
+        verificadorFinal=false;
         if (!validado) {
             //e.preventDefault();
 
-            let validacion = true;
+            validacion = true;
             //comprobacion email
             if (!expresionmail.test(remail.value)) {
                 validacion = false;
@@ -150,36 +160,35 @@ window.addEventListener("load", () => {
                 validacion = false;
                 validacion34.style.display = "block";
             } else {
-                alias().then(data => {
-                    console.log(data);
-                    if (data.includes(nombre.value)) {
-                        console.log(nombre.value);
-                        validacion = false;
-                        validacion34.style.display = "block";
-                    }
+                if (arrayAlias.includes(nombre.value)) {
+                    console.log(nombre.value);
+                    validacion = false;
+                    validacion34.style.display = "block";
+                }
 
-                    //comprobacion de si esta todo correcto
-                    if (validacion) {
-                        validado = true;
-                        console.log("llega");
-                        enviar.dispatchEvent(nuevoClick);
-                    }
-                });
+                //comprobacion de si esta todo correcto
+                if (validacion) {
+                    validado = true;
+                    console.log("llega");
+                    verificadorFinal=validacion;
+                    //formulario.dispatchEvent(evento);
+                }
             }
-        } else {
-            formulario.dispatchEvent(nuevoSubmit);
+        }
+    };
+
+    formulario.addEventListener("submit", (e) => {
+        //verificadorFinal=false;
+        verificar();
+        if(verificadorFinal==false){
+            e.preventDefault();
+        }else{
             sessionStorage.setItem('alias', nombre.value);
             sessionStorage.setItem('mail', remail.value);
             sessionStorage.setItem('key', contraseña.value);
             sessionStorage.setItem('fecha', fecha_nac.value);
             sessionStorage.setItem('localidad', localidad.value);
-            sessionStorage.setItem('estado', "Pendiente");
+            sessionStorage.setItem('estado', "Pendiente"); 
         }
-
-
-    });
-
-    formulario.addEventListener("submit", () => {
-        console.log("Se nabda");
     })
 })

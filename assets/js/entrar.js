@@ -7,26 +7,31 @@ let validacion9 = document.getElementById("validacion1");//div con el error 1
 let nombre = document.getElementById("nombre");//campo nombre
 let key = document.getElementById("key");//campo key
 
+let refUsuario=document.getElementById("refUsuario");//enlace al index
+let refAdmin=document.getElementById("refAdmin");//enlace al Admin
+
+let clickEvent = new Event('click');//evento
+
 
 async function alias(opcion, condicion1, condicion2) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" +
-        encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2), {
+    console.log(root+"/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)); 
+    let response = await fetch(root+"/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
     response = await response.json();
 
-    let resultado = true;
-    if (response.length == 0) {
-        resultado = false;
+    let resultado=true;
+    let perfil = sessionStorage.getItem("alias");
+    if(response.length == 0){
+        resultado=false;
     }
-
+    
     if (response == "" || !resultado) {
         nombre.style.border = "2px solid red";
         validacion9.style.display = "block";
-        key.value = "";
+        key.value="";
     } else {
         validacion1.style.display = "none";
         validacion3.style.display = "none";
@@ -39,14 +44,18 @@ async function alias(opcion, condicion1, condicion2) {
         sessionStorage.setItem('key', response[0][4]);
         sessionStorage.setItem('foto', response[0][5]);
         sessionStorage.setItem('estado', response[0][6]);
-
+        
+        let perfil=sessionStorage.getItem('alias');
+        
         //redireccionamiento del usuario segun rol
-        let perfil = sessionStorage.getItem("alias");
         if (perfil == "Administrador") {
-            window.location.replace(root + "/admin.html");
+            //refAdmin.dispatchEvent(clickEvent);
+            location.href=root+"/admin.html?array="+encodeURIComponent(response[0]);
         } else {
-            location.replace(root + '/index.html');
+            //refUsuario.dispatchEvent(clickEvent);
+            location.href=root+"/index.html?array="+encodeURIComponent(response[0]);
         }
+
     }
 
     return Promise.resolve(response);
@@ -54,7 +63,7 @@ async function alias(opcion, condicion1, condicion2) {
 
 async function olvido(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 + "&condicion2=" + condicion2); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2), {
+    let response = await fetch(root+"/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2), {
         method: "PUT",
         headers: { "Content-type": "application/json" }
     });
@@ -72,14 +81,11 @@ window.addEventListener("load", () => {
     entrada.addEventListener("click", async (e) => {
         let validador = true;
 
-        //validacion9.style.display = "block";
-
         if (nombre.value == "") {
             validador = false;
             nombre.style.border = "2px solid red";
             validacion.style.display = "block";
             validacion.style.fontWeight = "bold";
-            e.preventDefault();
         } else {
             nombre.style.border = "1px solid black";
             validacion.style.display = "none";
@@ -91,7 +97,6 @@ window.addEventListener("load", () => {
             fondo.style.height = "500px";
             validacion2.style.display = "block";
             validacion2.style.fontWeight = "bold";
-            e.preventDefault();
         } else {
             fondo.style.height = "425px";
             key.style.border = "1px solid black";
@@ -100,7 +105,9 @@ window.addEventListener("load", () => {
         //console.log(nombre.value + "\n" + key.value);
 
         if (validador) {
-            await alias("usuario", nombre.value, key.value);
+            await alias("usuario", nombre.value, key.value)
+        }else{
+            e.preventDefault();
         }
 
     })//click de enviar

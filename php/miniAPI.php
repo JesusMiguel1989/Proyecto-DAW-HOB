@@ -1,43 +1,53 @@
-<?
+<?php
 include "./greenhob.php";
+    $root="https://www.hoby.es";
+    $from="adminHOB@hoby.es";
+    
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    header("Access-Control-Allow-Credentials: true");
+    header('Content-Type: application/json');
+    $method = $_SERVER['REQUEST_METHOD'];
+    if ($method == "OPTIONS") {
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+        header("HTTP/1.1 200 OK");
+        die();
+    }
+
+    $conexion=new mysqli($host,$usuario,$password,$bbdd);
 
 $array=[];
 $aux=0;
 $conexion=new mysqli($host,$usuario,$password,$bbdd);
-//$root="https://www.hoby.es";
-$root="http://localhost/proyecto";
-//$from="adminHOB@hoby.es";
-$from="jes11989@hotmail.com";
-
 
 if(!$conexion){
     echo "No se ha podido establecer la conexion";
-    
 }else{
-    
-    if(mysqli_query($conexion,"use ".$bbdd)){
+    if(true){
+        //mysqli_query($conexion,"use ".$bbdd)
         $opcion=$_GET['opcion'];
         $op=$_POST['opcion'];
         
         //hago limpia de usuarios que no han hecho el ultimo paso del registro (correo)
         $fecha=date("Y-m-d");
 
-        $resultado=mysqli_query($conexion,"SELECT ALIAS FROM USUARIOS WHERE F_REGISTRO<'".$fecha."'");
-
+        $resultado=mysqli_query($conexion,"SELECT ALIAS FROM usuarios WHERE F_REGISTRO<'".$fecha."'");
+        
         $aux=0;
         while($fila=mysqli_fetch_row($resultado)){
-            $eliminacion=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$fila[0]."'");
+            $eliminacion=mysqli_query($conexion,"DELETE FROM usuarios WHERE ALIAS='".$fila[0]."'");
         }
 
         //opcion que devuelve los datos del usuario que le indiquemos
         if($opcion=="usuario"){
-            
             //recojo las condiciones de busqueda (alias y contraseña)
             $alias=str_replace("_"," ",$_GET['condicion']);//alias introducido por el usuario
             $pass=$_GET['condicion2'];//contraseña introducida por el usuario
             
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."' AND ESTADO='OK'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM usuarios WHERE ALIAS='".$alias."' AND ESTADO='OK'");
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
@@ -65,7 +75,7 @@ if(!$conexion){
             $pass=$_GET['condicion2'];
             
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM usuarios WHERE ALIAS='".$alias."'");
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
@@ -107,13 +117,13 @@ if(!$conexion){
                 WHERE ALIAS='".$alias2."'");
 
             //realizo el update en usuarios
-            $resultado=mysqli_query($conexion,"UPDATE USUARIOS 
+            $resultado=mysqli_query($conexion,"UPDATE usuarios 
                 SET ALIAS='".$alias."', F_NACIMIENTO='".$fecha."', 
                     LOCALIDAD='".$localidad."', EMAIL='".$email."', CONTRASEÑA='".$pass."'
                 WHERE ALIAS='".$alias2."'");
 
             //tras la modificacion le pido a la bbdd que me devuelva la situacion de dicho usuario
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM usuarios WHERE ALIAS='".$alias."'");
 
             //recorro los resultados
             while($fila=mysqli_fetch_row($resultado)){
@@ -135,13 +145,13 @@ if(!$conexion){
 
             if($alias!="Administrador"){
                 //primero hago la comprobacion de la contraseña
-                $previa=mysqli_query($conexion,"SELECT contraseña FROM USUARIOS WHERE ALIAS='".$alias."'");
+                $previa=mysqli_query($conexion,"SELECT CONTRASEÑA FROM usuarios WHERE ALIAS='".$alias."'");
                 $fila=mysqli_fetch_row($previa);
                 //comprobamos la clave dada con la de la BBDD
                 if(password_verify($pass,$fila[0])){
                     //realizo el borrado en funcion del alias dado
-                    $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$alias."'");
-                    $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$alias."'");
+                    $resultado=mysqli_query($conexion,"DELETE FROM blacklist WHERE ALIAS='".$alias."'");
+                    $resultado=mysqli_query($conexion,"DELETE FROM usuarios WHERE ALIAS='".$alias."'");
                 }
 
                 //indico en la cabecera que sera un json
@@ -149,6 +159,11 @@ if(!$conexion){
                 //muestro el JSON por pantalla
                 echo json_encode($array);
             }
+            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
             
         }//borrado
 
@@ -163,7 +178,7 @@ if(!$conexion){
             $aux=0;
 
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."' AND EMAIL='".$email."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM usuarios WHERE ALIAS='".$alias."' AND EMAIL='".$email."'");
             
             //1 saco la cantidad de filas de la consulta, si es 1 existe
             if(mysqli_num_rows($resultado)==1){
@@ -183,9 +198,8 @@ if(!$conexion){
                 $password=password_hash($clave,PASSWORD_DEFAULT);
 
                 //modifico la tabla
-                $resultado=mysqli_query($conexion,"UPDATE USUARIOS 
-                SET ALIAS='".$alias."', F_NACIMIENTO='".$array[0][1]."', 
-                    LOCALIDAD='".$array[0][2]."', EMAIL='".$array[0][3]."', CONTRASEÑA='".$password."'
+                $resultado=mysqli_query($conexion,"UPDATE usuarios 
+                SET CONTRASEÑA='".$password."'
                 WHERE ALIAS='".$alias."'");               
 
                 //envio del correo
@@ -195,24 +209,24 @@ if(!$conexion){
                 $texto='Hola, he modificado tu clave como me pedistes. Tu clave temporal es <b>'.$array[0][5].'</b>';
 
                 //creo el mensaje con estilos html y css
-                $mensaje="<html><head><meta charset='UTF-8'><style> .contenedor { background-color: rgb(152, 226, 202); color: black;  border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; max-width: 500px; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } .hb{ padding-top: 100px; font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } .o{ padding-top: 100px; font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} .titulo { padding-top: 100px; font-weight: bold; } .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } </style></head><body><div class='contenedor'><span class='hb'>H</span><span class='o'>O</span><span class='hb '>B</span><hr class='amarillo'><center><p class='parrafo'>".$texto."</p></center></div></body></html>";
+                
+                $mensaje="<html><head><style> .contenedor { background-color: rgb(152, 226, 202); color: black; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } .hb{ font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } .o{ font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} .titulo { font-weight: bold; } .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } </style></head><body><div class='contenedor'><span class='hb'>H</span><span class='o'>O</span><span class='hb '>B</span><hr class='amarillo'><center><p class='parrafo'>".$texto."</p></center></div></body></html>";
                 
                 $unsalto="\r\n";
-                $encabezados = "";
                 
-                $cabeceras = 'From: <'.$from.'>'.$unsalto;
+                $cabeceras = 'From:'.$from.$unsalto;
                 $cabeceras .= "MIME-Version: 1.0".$unsalto;
 	            $cabeceras .= "Content-Type: text/html;";
-	            $cabeceras .= " boundary=Separador_de_partes"; 
+	            $cabeceras .= " boundary=Separador_de_partes";
 
                 //envio
                 mail($to,$titulo,$mensaje,$cabeceras);
 
-                //indico en la cabecera que sera un json
-                header("Content-type: application/json; charset=utf-8");
-                //muestro el JSON por pantalla
-                echo json_encode($array);
-            }  
+            }
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }//opcion correo
 
         //opcion para la modificacion de la imagen
@@ -225,22 +239,22 @@ if(!$conexion){
 
             $extension=substr(strstr($condicion['type'],"/"),1);
             
-            $destino=$_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion['name'];
+            $destino="../fotoPerfiles/".$condicion['name'];
 
-            if(file_exists($_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion2.".png")){
+            if(file_exists("../fotoPerfiles/".$condicion2.".png")){
                 $ext="png";
             }
-            if(file_exists($_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion2.".jpg")){
+            if(file_exists("../fotoPerfiles/".$condicion2.".jpg")){
                 $ext="jpg";
             }
-            if(file_exists($_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion2.".jpeg")){
+            if(file_exists("../fotoPerfiles/".$condicion2.".jpeg")){
                 $ext="jpeg";
             }
 
-            echo $_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion2.".".$ext."<br>";
+            echo "../fotoPerfiles/".$condicion2.".".$ext."<br>";
 
             //borrado de la foto si estuviera
-            if(unlink($_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion2.".".$ext)){
+            if(unlink("../fotoPerfiles/".$condicion2.".".$ext)){
                 echo "correcto";
             }else{
                 echo "lastima, continuar?";
@@ -248,14 +262,14 @@ if(!$conexion){
 
             //copio el fichero en la carpeta del servidor
             if(copy($condicion['tmp_name'],$destino)){
-                rename($_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion['name'],$_SERVER['DOCUMENT_ROOT']."/proyecto/fotoPerfiles/".$condicion2.".".$extension);
-                $resultado=mysqli_query($conexion,"UPDATE USUARIOS 
-                SET FOTO='./fotoPerfiles/".$condicion2.".".$extension."'
-                WHERE ALIAS='".$condicion2."'");
+                rename("../fotoPerfiles/".$condicion['name'],"../fotoPerfiles/".$condicion2.".".$extension);
+                $resultado=mysqli_query($conexion,"UPDATE usuarios 
+                        SET FOTO='./fotoPerfiles/".$condicion2.".".$extension."'
+                        WHERE ALIAS='".$condicion2."'");
             }
 
             //hago una busqueda para comprobar
-            $resultado=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$condicion."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM usuarios WHERE ALIAS='".$condicion."'");
 
             //recorro los resultados
             while($fila=mysqli_fetch_row($resultado)){
@@ -263,6 +277,7 @@ if(!$conexion){
             }//while que lo recorre
 
             //"http://".$_SERVER['DOCUMENT_ROOT']."/proyecto/perfil.html";
+            
             header("Refresh:0; url=".$root."/perfil.html");
         }//if cambio foto
 
@@ -283,31 +298,30 @@ if(!$conexion){
             $valoracion=$_GET['condicion8'];
             $editorial=str_replace("_"," ",$_GET['condicion9']);
             $comentario=str_replace("_"," ",$_GET['condicion10']);
-
-
+            
+            //echo $cod."\n".$alias."\n".$titulo."\n".$autor."\n".$pag."\n".$portada."\n".$leido."\n".$valoracion."\n".$editorial."\n".$comentario."\nprueba";
 
             //1 compruebo que el usuario este en la base de datos
-            $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM USUARIOS WHERE ALIAS='".$alias."'");
+            $comprobadorUsuario=mysqli_query($conexion,"SELECT * FROM usuarios WHERE ALIAS='".$alias."'");
            
             //si devuelve 1 o mas datos es que eexiste el usuario
             if(mysqli_num_rows($comprobadorUsuario)==1){
 
-                $comprobarUsuISBN=mysqli_query($conexion,"SELECT * FROM LIBROS 
+                $comprobarUsuISBN=mysqli_query($conexion,"SELECT * FROM libros 
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
-                
+
+
                 if(mysqli_num_rows($comprobarUsuISBN)==0){
-                    
                     //si no existe, inserto el libro
-                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION, EDITORIAL, COMENTARIO)
+                    $insercion=mysqli_query($conexion,"INSERT INTO libros (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION, EDITORIAL, COMENTARIO)
                     VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada
                     ."','".$leido."',".$valoracion.",'".$editorial."','".$comentario."')");
                     echo mysqli_error($conexion);
                 }else{
-                    echo "llega2";
                     //si ya lo tienes comprobamos si te lo has terminado
                     if(mysqli_num_rows($comprobarUsuISBN)==1){
                         
-                        $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET COD_LIBRO='".$cod."', ALIAS='".$alias."'
+                        $modificacion=mysqli_query($conexion,"UPDATE libros SET COD_LIBRO='".$cod."', ALIAS='".$alias."'
                         , TITULO='".$titulo."', AUTOR='".$autor."', PAGINAS='".$pag."', PORTADA='".$portada."'
                         , LEIDO='".$leido."', VALORACION='".$valoracion."'
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
@@ -318,11 +332,17 @@ if(!$conexion){
                 //echo "Lo siento ese usuario no existe";
             }//comprobacion de usuario
 
-            //compruebo que tengo registrado que el usuario practica este hobbie, y si no lo agrego a la tabla de "practica"
-            $resultado=mysqli_query($conexion,"SELECT * FROM PRACTICA WHERE ALIAS='".$alias."' AND COD_HOBBIE='1'");
-            if(mysqli_num_rows($resultado)==0){
-                $resultado=mysqli_query($conexion,"INSERT INTO PRACTICA (ALIAS,COD_HOBBIE) VALUES('".$alias."','1')");
+            try {
+                //compruebo que tengo registrado que el usuario practica este hobbie, y si no lo agrego a la tabla de "practica"
+                $resultado=mysqli_query($conexion,"SELECT * FROM practica WHERE ALIAS='".$alias."' AND COD_HOBBIE='1'");
+                if(mysqli_num_rows($resultado)==0){
+                    $resultado=mysqli_query($conexion,"INSERT INTO practica (ALIAS,COD_HOBBIE) VALUES('".$alias."','1')");
+                }
+            
+            } catch (\Throwable $th) {
+                $array= [mysqli_error($conexion)];
             }
+            
         }
 
         //opcion para mostrar libros que no estan terminados
@@ -330,11 +350,11 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion1']);
             $limite=intval($_GET['condicion2']);
 
-            $resultado=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='NO'
+            $resultado=mysqli_query($conexion,"SELECT * FROM libros WHERE ALIAS='".$alias."' AND LEIDO='NO'
             LIMIT ".$limite.",20");
                         /* LIMIT ".$limite.",20 */
 
-            $resultado2=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='NO'");
+            $resultado2=mysqli_query($conexion,"SELECT * FROM libros WHERE ALIAS='".$alias."' AND LEIDO='NO'");
             $registros2=mysqli_num_rows($resultado2);
 
             while($fila=mysqli_fetch_row($resultado)){
@@ -361,31 +381,35 @@ if(!$conexion){
             $portada=$_GET['condicion8'];
             $pag=$_GET['condicion9'];
 
-            $resultados=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
+            $resultados=mysqli_query($conexion,"SELECT * FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
             $resultado=mysqli_num_rows($resultados);
 
             if($resultado>0){
-                $modificacion=mysqli_query($conexion,"UPDATE LIBROS SET LEIDO='SI', VALORACION='".$nota."', COMENTARIO='".$comentario."'
+                $modificacion=mysqli_query($conexion,"UPDATE libros SET LEIDO='SI', VALORACION='".$nota."', COMENTARIO='".$comentario."'
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'"); 
             }else{
                 //hago la comprobacion de si este usuario esta o no modificando el comentario
-                $resultado=mysqli_query($conexion,"SELECT COMENTARIO FROM LIBROS
+                $resultado=mysqli_query($conexion,"SELECT COMENTARIO FROM libros
                     WHERE ALIAS='".$alias."' AND COD_LIBRO='".$isbn."'");
 
                 $fila=mysqli_fetch_row($resultado);//lo meto todo en la variable
 
                 if($fila[0]==null){
                     //no tiene comentario, se agrega
-                    $insercion=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO,ALIAS,TITULO,AUTOR,PAGINAS,PORTADA,LEIDO,VALORACION,EDITORIAL,COMENTARIO) 
+                    $insercion=mysqli_query($conexion,"INSERT INTO libros (COD_LIBRO,ALIAS,TITULO,AUTOR,PAGINAS,PORTADA,LEIDO,VALORACION,EDITORIAL,COMENTARIO) 
                         VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada."','SI','".$nota."','".$editorial."','".$comentario."')");
                 }else{
                     //tiene un comentario previo
-                    $edicion=mysqli_query($conexion,"UPDATE LIBROS SET LEIDO='SI', COMENTARIO='".$comentario."', VALORACION='".$nota."'
+                    $edicion=mysqli_query($conexion,"UPDATE libros SET LEIDO='SI', COMENTARIO='".$comentario."', VALORACION='".$nota."'
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
                 }
             }
 
             mysqli_error($conexion);
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
         //eliminacion del libro por abandono
@@ -393,7 +417,12 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion1']);
             $cod=$_GET['condicion2'];
 
-            $borrado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM BLACKLIST)");
+            $borrado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM blacklist)");
+            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
         
         //para mostrar ibros leidos de usuario indicado
@@ -401,10 +430,10 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion1']);
             $limite=intval($_GET['condicion2']);
 
-            $resultado=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='SI'
+            $resultado=mysqli_query($conexion,"SELECT * FROM libros WHERE ALIAS='".$alias."' AND LEIDO='SI'
             LIMIT ".$limite.",20");
 
-            $resultado2=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE ALIAS='".$alias."' AND LEIDO='SI'");
+            $resultado2=mysqli_query($conexion,"SELECT * FROM libros WHERE ALIAS='".$alias."' AND LEIDO='SI'");
             $registros2=mysqli_num_rows($resultado2);
 
             while($fila=mysqli_fetch_row($resultado)){
@@ -445,7 +474,7 @@ if(!$conexion){
             $nombreArchivo="copia".$fechaActual.".sql";
 
             //ejecutamos el mysqldump
-            $resultado=exec('C:/ServidorLocal/mysql/bin/mysqldump --opt -h localhost -u root --password="1234" hobbies > C:/Apache24/htdocs/proyecto/restore/'.$nombreArchivo);
+            $resultado=exec('mysqldump --opt -h localhost -u u720382761_administrador --password="Legolas_89" u720382761_hobbie > ../restore/'.$nombreArchivo);
             //segun el resultado que de informo de este
             switch($resultado){
                 case 0:
@@ -463,7 +492,7 @@ if(!$conexion){
                 default:
                     break;
             }
-            echo "url=".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html";
+            //echo "url=".$_SERVER['DOCUMENT_ROOT']."/proyecto/admin.html";
             header("Refresh:0 ; url=".$root."/admin.html");
         }//copia de seguridad
 
@@ -476,7 +505,7 @@ if(!$conexion){
             if($extension=="sql"){
                 echo 'C:/Apache24/htdocs/proyecto/restore/'.$fichero."<br>";
                     ////////////////////////////////////////////CUIDADO RUTA
-                    $resultado=exec('C:\ServidorLocal\mysql\bin\mysql -h localhost -u root --password="1234" hobbies < C:/Apache24/htdocs/proyecto/restore/'.$fichero);
+                    $resultado=exec('mysql -h localhost -u u720382761_administrador --password="Legolas_89" u720382761_hobbie < ../restore/'.$fichero);
                     switch($resultado){
                         case 0:
                             echo 'La base de datos <b>BibliotecaJimenezJM</b> se ha restaurado correctamente ';
@@ -503,25 +532,31 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion1']);
 
             //hago el borrado del usuario
-            $resultado=mysqli_query($conexion,"DELETE FROM USUARIOS WHERE ALIAS='".$alias."'");
-            $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS='".$condicion."'");
+            $resultado=mysqli_query($conexion,"DELETE FROM usuarios WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"DELETE FROM blacklist WHERE ALIAS='".$condicion."'");
             $opcion="actualizar";
+            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
         //actualizar la bbdd (eliminacion de registros de usuarios eliminados)
         if($opcion=="actualizar"){
-            $resultado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS NOT IN (SELECT ALIAS FROM USUARIOS)");
-            $resultado=mysqli_query($conexion,"DELETE FROM BLACKLIST WHERE ALIAS NOT IN (SELECT ALIAS FROM USUARIOS)");
-
+            
+            $resultado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS NOT IN (SELECT ALIAS FROM usuarios)");
+            $resultado=mysqli_query($conexion,"DELETE FROM blacklist WHERE ALIAS NOT IN (SELECT ALIAS FROM usuarios)");
+            
             //saco un array con los nombres de los usuarios en activo
-            $resultados=mysqli_query($conexion,"SELECT ALIAS FROM USUARIOS");
+            $resultados=mysqli_query($conexion,"SELECT ALIAS FROM usuarios");
             while($fila=mysqli_fetch_row($resultados)){
                 $array[$aux]=[$fila[0]];
                 $aux++;
             }//while que lo recorre 
-
+            
             //saco un array de las fotos del perfil de los usuarios
-            $archivos=scandir("C:\Apache24\htdocs\proyecto\\fotoPerfiles");
+            $archivos=scandir("../fotoPerfiles");
             array_shift($archivos);
             array_shift($archivos);
 
@@ -539,6 +574,11 @@ if(!$conexion){
                     unlink("../fotoPerfiles/".$value);
                 }
             }
+            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
         //agregar una tienda a la BBDD
@@ -552,14 +592,19 @@ if(!$conexion){
             $cod_hob=$_GET['condicion7'];
             $logo=$_GET['condicion8'];
             $web=$_GET['condicion9'];
-            $resultado=mysqli_query($conexion,"INSERT INTO TIENDAS (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE,LOGO,WEB)
+            $resultado=mysqli_query($conexion,"INSERT INTO tiendas (COD_TIENDA,LOCALIDAD,PROVINCIA,NOMBRE,DIRECCION,TELEFONO,COD_HOBBIE,LOGO,WEB)
                 VALUES('".$cod."','".$localidad."','".$provincia."','".$nombre."','".$direccion."','".$telefono."','".$cod_hob."','".$logo."','".$web."')");
             //agrego la tienda a la tabla de la relacion muchos a muchos    
-            $resultado=mysqli_query($conexion,"INSERT INTO TIENE (COD_TIENDA,COD_HOBBIE) VALUES ('".$cod."','".$cod_hob."')");
+            $resultado=mysqli_query($conexion,"INSERT INTO tiene (COD_TIENDA,COD_HOBBIE) VALUES ('".$cod."','".$cod_hob."')");
             
             echo mysqli_error($conexion);
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
             header("Refresh:0 ; url=".$root."/admin.html");
         }
+
 
         //modificar una tienda a la BBDD
         if($opcion=="modificartienda"){
@@ -573,21 +618,25 @@ if(!$conexion){
             $logo=$_GET['condicion8'];
             $web=$_GET['condicion9'];
 
-            echo "UPDATE  TIENDAS SET LOCALIDAD='".$localidad."' 
+            echo "UPDATE  tiendas SET LOCALIDAD='".$localidad."' 
             ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
             ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
             WHERE COD_TIENDA='".$cod."'";
 
-            $resultado=mysqli_query($conexion,"UPDATE  TIENDAS SET LOCALIDAD='".$localidad."' 
+            $resultado=mysqli_query($conexion,"UPDATE  tiendas SET LOCALIDAD='".$localidad."' 
                     ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
                     ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
                     WHERE COD_TIENDA='".$cod."'");
             //header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
         //saco un listado de los hobbies que estan en la BBDD
         if($opcion=="cod_hobbie"){
-            $resultado=mysqli_query($conexion,"SELECT COD_HOBBIE FROM HOBBIE");
+            $resultado=mysqli_query($conexion,"SELECT COD_HOBBIE FROM hobbie");
 
             while($fila=mysqli_fetch_row($resultado)){
                 $array[$aux]=[$fila[0]];
@@ -602,7 +651,7 @@ if(!$conexion){
 
         //opcion para ver los codigos insertados
         if($opcion=="cod"){
-            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA FROM TIENDAS");
+            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA FROM tiendas");
 
             while($fila=mysqli_fetch_row($resultado)){
                 $array[$aux]=[$fila[0]];
@@ -618,14 +667,14 @@ if(!$conexion){
         //opcion para borrar tienda
         if($opcion=="borrartienda"){
             $cod=$_GET['condicion1'];
-            $resultado=mysqli_query($conexion,"DELETE FROM TIENDAS WHERE COD_TIENDA='".$cod."'");
+            $resultado=mysqli_query($conexion,"DELETE FROM tiendas WHERE COD_TIENDA='".$cod."'");
         }//borrar tienda
 
         //buscar tienda
         if($opcion=="buscartienda"){
             $cod=$_GET['condicion1'];
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT * FROM TIENDAS WHERE COD_TIENDA='".$cod."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM tiendas WHERE COD_TIENDA='".$cod."'");
 
             //recorro las posibles salidas (al ser alias clave primaria es imposible que de mas de uno)
             while($fila=mysqli_fetch_row($resultado)){
@@ -639,19 +688,21 @@ if(!$conexion){
             echo json_encode($array);
         }//buscar tienda
 
+
         //buscar usuario
         if($opcion=="buscarusuario"){
+            
             $alias=str_replace("_"," ",$_GET['condicion1']);
             //hago la consulta
-            $resultado=mysqli_query($conexion,"SELECT EMAIL, ESTADO FROM USUARIOS WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"SELECT EMAIL, ESTADO FROM usuarios WHERE ALIAS='".$alias."'");
 
-            $vecesBaneado=mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM BLACKLIST WHERE ALIAS='".$alias."'"));
+            $vecesBaneado=mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM blacklist WHERE ALIAS='".$alias."'"));
 
             $fila=mysqli_fetch_row($resultado);
             if($fila[1]=="Banneado"){
-                $array[$aux]=[$fila[0],$fila[1],$vecesBaneado,mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM BLACKLIST WHERE ALIAS='".$alias."' 
+                $array[$aux]=[$fila[0],$fila[1],$vecesBaneado,mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM blacklist WHERE ALIAS='".$alias."' 
                 AND FEC_TOPE !='9999-01-01'"))];
-                /* $array[$aux]=[mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM BLACKLIST WHERE ALIAS='".$alias."' 
+                /* $array[$aux]=[mysqli_fetch_row(mysqli_query($conexion,"SELECT MOTIVO FROM blacklist WHERE ALIAS='".$alias."' 
                     AND FEC_TOPE !='9999-01-01'")),$vecesBaneado]; */
             }else{
                 $array[$aux]=[$fila[0],$fila[1],$vecesBaneado,""];
@@ -683,21 +734,21 @@ if(!$conexion){
             $fechaCaducidad=$fecha->format("Y-m-d");
 
             $motivo=str_replace("_"," ",$motivo);
-            $comprobacion=mysqli_fetch_row(mysqli_query($conexion,"SELECT ESTADO FROM USUARIOS WHERE ALIAS='".$alias."'"));
+            $comprobacion=mysqli_fetch_row(mysqli_query($conexion,"SELECT ESTADO FROM usuarios WHERE ALIAS='".$alias."'"));
 
             if($comprobacion[0]!="Banneado"){
-                $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='Banneado' WHERE ALIAS='".$alias."'");
-                $resultado=mysqli_query($conexion,"INSERT INTO BLACKLIST (ALIAS, FEC_TOPE, MOTIVO)
+                $resultado=mysqli_query($conexion,"UPDATE usuarios SET ESTADO='Banneado' WHERE ALIAS='".$alias."'");
+                $resultado=mysqli_query($conexion,"INSERT INTO blacklist (ALIAS, FEC_TOPE, MOTIVO)
                         VALUES ('".$alias."','".$fechaCaducidad."','".$motivo."')");
                 
                 //mail de aviso al usuario
-                $correo=mysqli_fetch_row(mysqli_query($conexion,"SELECT EMAIL FROM USUARIOS WHERE ALIAS='".$alias."'"));
+                $correo=mysqli_fetch_row(mysqli_query($conexion,"SELECT EMAIL FROM usuarios WHERE ALIAS='".$alias."'"));
                 $to=$correo[0];
                 $titulo=utf8_decode('Aviso de Banneo en HOB');
-                $texto=utf8_encode('Estimado usuario <b>'.$alias.' </b>,<br> Su cuenta ha sido bloqueada por un periado de 30 días. El motivo de esta sanción es:<br>'.$motivo.'.');
+                $texto=utf8_decode('Estimado usuario <b>'.$alias.'</b>,<br> Su cuenta ha sido bloqueada durante 30 días. El motivo es:<br><u>'.utf8_decode($motivo).'.</u>');
 
                 //creo el mensaje con estilos html y css
-                $mensaje="<html><head><meta charset='UTF-8'><style> .contenedor { background-color: rgb(152, 226, 202); color: black;  border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; max-width: 500px; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } .hb{ padding-top: 100px; font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } .o{ padding-top: 100px; font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} .titulo { padding-top: 100px; font-weight: bold; } .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } </style></head><body><div class='contenedor'><span class='hb'>H</span><span class='o'>O</span><span class='hb '>B</span><hr class='amarillo'><center><p class='parrafo'>".$texto."</p></center></div></body></html>";
+                $mensaje="<html><head><style> .contenedor { background-color: rgb(152, 226, 202); color: black;  border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } .hb{ font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } .o{ font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} .titulo { font-weight: bold; } .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } </style></head><body><div class='contenedor'><span class='hb'>H</span><span class='o'>O</span><span class='hb '>B</span><hr class='amarillo'><center><p class='parrafo'>".$texto."</p></center></div></body></html>";
                                 
                 $unsalto="\r\n";
                 $encabezados = "";
@@ -712,36 +763,45 @@ if(!$conexion){
             }else{
                 echo "no torturemos al usuario";
             }
-            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
 
         }//banear usuario
 
         //perdonar usuario
         if($opcion=="perdonarusuario"){
             $alias=str_replace("_"," ",$_GET['condicion1']);
-            $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$alias."'");
-            $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."' AND FEC_TOPE !='9999-01-01'");
+            $resultado=mysqli_query($conexion,"UPDATE usuarios SET ESTADO='OK' WHERE ALIAS='".$alias."'");
+            $resultado=mysqli_query($conexion,"UPDATE blacklist SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."' AND FEC_TOPE !='9999-01-01'");
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }//perdonar usuario
 
         //actualizacion de los usuarios baneados
         if($opcion=="redencion"){
             $fechaActual=date("Y-m-d");
             //busco los usuarios que han cumplido con su castigo
-            $resultado=mysqli_query($conexion,"SELECT * FROM BLACKLIST WHERE FEC_TOPE<='".$fechaActual."'");
+            $resultado=mysqli_query($conexion,"SELECT * FROM blacklist WHERE FEC_TOPE<='".$fechaActual."'");
 
             //recorro la tabla de los usuarios baneados para eliminar los registros
             while($fila=mysqli_fetch_row($resultado)){
                 //se borran
-                $resultado=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK' WHERE ALIAS='".$fila[2]."'");
-                $resultado=mysqli_query($conexion,"UPDATE BLACKLIST SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$fila[2]."'");
+                $resultado=mysqli_query($conexion,"UPDATE usuarios SET ESTADO='OK' WHERE ALIAS='".$fila[2]."'");
+                $resultado=mysqli_query($conexion,"UPDATE blacklist SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$fila[2]."'");
             }//while que recorreo los resultaods de la select
+            //indico que sera un JSON con UTF-8
+            
         }//opcion redencion
 
         //opcion para buscar libro
         if($opcion=="buscarLibro"){
             $cod=$_GET['condicion1'];
 
-            $resultados=mysqli_query($conexion,"SELECT * FROM LIBROS WHERE COD_LIBRO='".$cod."'");
+            $resultados=mysqli_query($conexion,"SELECT * FROM libros WHERE COD_LIBRO='".$cod."'");
 
              //recorro las posibles salidas )
             $fila=mysqli_fetch_row($resultados);
@@ -766,9 +826,14 @@ if(!$conexion){
             $valoracion=$_GET['condicion8'];
 
             //modificamos el registro que tenga los datos indicados
-            $resultado=mysqli_query($conexion,"UPDATE LIBROS SET TITULO='".$titulo."', AUTOR='".$autor."',
+            $resultado=mysqli_query($conexion,"UPDATE libros SET TITULO='".$titulo."', AUTOR='".$autor."',
                      PAGINAS='".$pag."', PORTADA='".$portada."', LEIDO='".$leido."', VALORACION='".$valoracion."'
                      WHERE Alias='".$alias."' AND COD_LIBRO='".$cod."'");
+            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
         //opcion para agregar un libro al usuario que elijamos
@@ -784,8 +849,13 @@ if(!$conexion){
             $valoracion=$_GET['condicion8'];
 
             //agregamos el libro
-            $resultado=mysqli_query($conexion,"INSERT INTO LIBROS (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
+            $resultado=mysqli_query($conexion,"INSERT INTO libros (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
             VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada."','".$leido."','".$valoracion."')");
+            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }//opcion de agregar libro
 
         //opcion de borrar libro
@@ -794,20 +864,24 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion2']);
 
             //Borramos el libro
-            $resultado=mysqli_query($conexion,"DELETE FROM LIBROS WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
+            $resultado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
+            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
         ////////////PAG tiendas
         if($opcion=="buscadorTiendaLocalidad"){
             $hobbie=$_GET['condicion1'];
             $localidad=$_GET['condicion2'];
-
             
             //saco las tiendas que concuerden con ambos resultados
-            $resultado=mysqli_query($conexion,"SELECT * FROM TIENDAS WHERE PROVINCIA='".$localidad."' 
-                    AND COD_HOBBIE=(SELECT COD_HOBBIE FROM HOBBIE WHERE COD_TIENDA IN (
-                                SELECT COD_TIENDA FROM TIENE WHERE COD_HOBBIE = (
-                                        SELECT COD_HOBBIE FROM HOBBIE WHERE NOMBRE='".$hobbie."')
+            $resultado=mysqli_query($conexion,"SELECT * FROM tiendas WHERE PROVINCIA='".$localidad."' 
+                    AND COD_HOBBIE=(SELECT COD_HOBBIE FROM hobbie WHERE COD_TIENDA IN (
+                                SELECT COD_TIENDA FROM tiene WHERE COD_HOBBIE = (
+                                        SELECT COD_HOBBIE FROM hobbie WHERE NOMBRE='".$hobbie."')
                                         ))");
             
             while($fila=mysqli_fetch_row($resultado)){
@@ -827,26 +901,26 @@ if(!$conexion){
             $mail=$_GET['condicion2'];
             $asunto=utf8_decode(str_replace("_"," ",$_GET['condicion3']));
             $mensaje=utf8_decode(str_replace("_"," ",$_GET['condicion4']));
-            $comprobacion=mysqli_query($conexion,"SELECT ALIAS FROM USUARIOS WHERE ALIAS='".$alias."'");
+            $comprobacion=mysqli_query($conexion,"SELECT ALIAS FROM usuarios WHERE ALIAS='".$alias."'");
 
             //compruebo que el usuario esta en la BBDD
             if(mysqli_num_rows($comprobacion)==1 && strlen($mensaje)<200){
 
                 //inserto la sugerencia en la BBDD
-                $insercion=mysqli_query($conexion,"INSERT INTO SUGERENCIAS (ALIAS,APARTADO,TEXTO)
+                $insercion=mysqli_query($conexion,"INSERT INTO sugerencias (ALIAS,APARTADO,TEXTO)
                     VALUES('".$alias."','".$asunto."','".utf8_encode($mensaje)."')");
 
                 echo mysqli_error($conexion);
-                $to='jes11989@hotmail.com';
-                $mensaje=utf8_encode("El mensaje es de ".$alias." cuyo Correo electronico es: ".$mail.". 
+                $to=$from;
+                $mensaje=utf8_decode("El mensaje es de ".$alias." cuyo Correo electronico es: ".$mail.". 
                 Y su Mensaje es:
                 ".$mensaje);
 
                 $mensaje="<html><head><meta charset='UTF-8'><style>
-                 .contenedor { background-color: rgb(152, 226, 202); color: black;  border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; border-radius: 0.375rem; max-width: 500px; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } 
-                 .hb{ padding-top: 100px; font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } 
-                 .o{ padding-top: 100px; font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} 
-                 .titulo { padding-top: 100px; font-weight: bold; } 
+                 .contenedor { background-color: rgb(152, 226, 202); color: black;  border-spacing: 2px; border: 5px double rgb(255, 217, 107); text-align: center; padding: 1rem 3rem; margin: 3rem auto; box-shadow: 0 1rem 3rem rgba(0, 0, 0, .5); } 
+                 .hb{ font-size: 35px; color: rgb(255, 217, 107); font-weight:bold; } 
+                 .o{ font-size: 35px; color: rgb(112, 173, 71); font-weight:bold;} 
+                 .titulo { font-weight: bold; } 
                  .amarillo { height: .5rem; background-color: rgb(255, 217, 107); margin: 2rem 0; border: 0px solid; border-radius: 0.375rem; } 
                  .parrafo { font-size: 1.5rem; margin-bottom: 2rem; text-align: center; } 
                  </style>
@@ -855,7 +929,7 @@ if(!$conexion){
                 $unsalto="\r\n";
                 $encabezados = "";
                 
-                $cabeceras = 'From: <'.$from.'>'.$unsalto;
+                $cabeceras = 'From:'.$mail.$unsalto;
                 $cabeceras .= "MIME-Version: 1.0".$unsalto;
 	            $cabeceras .= "Content-Type: text/html;";
 	            $cabeceras .= " boundary=Separador_de_partes";
@@ -871,7 +945,10 @@ if(!$conexion){
                 }
             }
             
-            
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
         }
 
         //Comentarios
@@ -879,12 +956,12 @@ if(!$conexion){
             $isbn=$_GET['condicion1'];
             $limite=intval($_GET['condicion2']);
 
-            $resultado=mysqli_query($conexion,"SELECT ALIAS, VALORACION, COMENTARIO FROM LIBROS WHERE COD_LIBRO='".$isbn."' AND COMENTARIO IS NOT NULL AND COMENTARIO <>''
+            $resultado=mysqli_query($conexion,"SELECT ALIAS, VALORACION, COMENTARIO FROM libros WHERE COD_LIBRO='".$isbn."' AND COMENTARIO IS NOT NULL AND COMENTARIO <>''
             LIMIT ".$limite.",1");
             $registros=mysqli_num_rows($resultado);
 
             while($fila=mysqli_fetch_row($resultado)){
-                $resultado2=mysqli_query($conexion,"SELECT FOTO FROM USUARIOS WHERE ALIAS='".$fila[0]."'");
+                $resultado2=mysqli_query($conexion,"SELECT FOTO FROM usuarios WHERE ALIAS='".$fila[0]."'");
                 $foto=mysqli_fetch_row($resultado2);
                 //guardo los resultados en un array que depues devolvere como JSON
                 $array[$aux]=[$fila[0],$fila[1],$fila[2],$foto[0],$registros];
@@ -902,7 +979,7 @@ if(!$conexion){
             $isbn=$_GET['condicion1'];
 
             $resultado=mysqli_query($conexion,"SELECT ALIAS, VALORACION, COMENTARIO 
-                        FROM LIBROS 
+                        FROM libros 
                         WHERE COD_LIBRO='".$isbn."' AND COMENTARIO IS NOT NULL AND COMENTARIO <>''");
             $registros=mysqli_num_rows($resultado);
             $array=[$registros];
@@ -915,7 +992,7 @@ if(!$conexion){
         //sacar los codigos de las tiendas
         if($opcion=="cod_tiendas"){
             $aux=0;
-            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA, NOMBRE FROM TIENDAS");
+            $resultado=mysqli_query($conexion,"SELECT COD_TIENDA, NOMBRE FROM tiendas");
 
             while(($fila=mysqli_fetch_row($resultado))){
                 $array[$aux]=[$fila[0],$fila[1]];
@@ -933,7 +1010,7 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion2']);//Usuario que lo pide
 
             //busqueda del comentario con los parametros indicados
-            $resultado=mysqli_query($conexion,"SELECT COMENTARIO FROM LIBROS
+            $resultado=mysqli_query($conexion,"SELECT COMENTARIO FROM libros
                     WHERE ALIAS='".$alias."' AND COD_LIBRO='".$isbn."'");
 
             $fila=mysqli_fetch_row($resultado);//lo meto todo en la variable
@@ -965,6 +1042,19 @@ if(!$conexion){
             //muestro por pantalla
             echo json_encode($retorno);
         }
+        if($opcion=="comprobarAlias"){
+            $resultado=mysqli_query($conexion,"SELECT ALIAS FROM usuarios");
+            
+            while($fila=mysqli_fetch_row($resultado)){
+                $array[$aux]=[$fila[0]];
+                $aux++;
+            }//while que lo recorre
+
+            //indico que sera un JSON con UTF-8
+            header("Content-type: application/json; charset=utf-8");
+            //muestro por pantalla
+            echo json_encode($array);
+        }//funcion para comprobar el alias
 
     }//uso de la bbdd hobbies
 }
