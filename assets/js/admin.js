@@ -431,7 +431,7 @@ window.addEventListener("load", () => {
 
         backupRespore("restauracion").then(() => {
             for (let i = 0; i < arrayrestore.length; i++) {
-                opciones += "<div class='col-5 text-end'><button type='button' id='restore" + i + "' value='" + arrayrestore[i] + "' class='restauracion'>" + arrayrestore[i] + "</button></div>";
+                opciones += "<div class='col-5 text-end'><button type='button' id='restore" + i + "' value='" + arrayrestore[i] + "' class='restauracion'>" + arrayrestore[i].slice(0,arrayrestore[i].indexOf(".")).replace("copia","") + "</button></div>";
             }
             opciones += "</div>";
             restauracion.innerHTML += opciones;

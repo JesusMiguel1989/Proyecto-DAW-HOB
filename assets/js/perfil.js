@@ -133,6 +133,13 @@ window.addEventListener("load", () => {
             }
 
         });
+    }else{
+        alias.value="";
+        fecha.value="";
+        mail.value="";
+        localidad.value="";
+        key.value="";
+        
     }
 
     //btn Cambiar

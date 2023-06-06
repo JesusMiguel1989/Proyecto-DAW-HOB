@@ -153,18 +153,7 @@ if(!$conexion){
                     $resultado=mysqli_query($conexion,"DELETE FROM blacklist WHERE ALIAS='".$alias."'");
                     $resultado=mysqli_query($conexion,"DELETE FROM usuarios WHERE ALIAS='".$alias."'");
                 }
-
-                //indico en la cabecera que sera un json
-                header("Content-type: application/json; charset=utf-8");
-                //muestro el JSON por pantalla
-                echo json_encode($array);
-            }
-            
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
-            
+            }            
         }//borrado
 
         //opcion para regenerar la contraseña
@@ -406,10 +395,10 @@ if(!$conexion){
             }
 
             mysqli_error($conexion);
-            //indico que sera un JSON con UTF-8
+            /* //indico que sera un JSON con UTF-8
             header("Content-type: application/json; charset=utf-8");
             //muestro por pantalla
-            echo json_encode($array);
+            echo json_encode($array); */
         }
 
         //eliminacion del libro por abandono
@@ -418,11 +407,6 @@ if(!$conexion){
             $cod=$_GET['condicion2'];
 
             $borrado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM blacklist)");
-            
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }
         
         //para mostrar ibros leidos de usuario indicado
@@ -535,11 +519,6 @@ if(!$conexion){
             $resultado=mysqli_query($conexion,"DELETE FROM usuarios WHERE ALIAS='".$alias."'");
             $resultado=mysqli_query($conexion,"DELETE FROM blacklist WHERE ALIAS='".$condicion."'");
             $opcion="actualizar";
-            
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }
 
         //actualizar la bbdd (eliminacion de registros de usuarios eliminados)
@@ -575,10 +554,10 @@ if(!$conexion){
                 }
             }
             
-            //indico que sera un JSON con UTF-8
+            /* //indico que sera un JSON con UTF-8
             header("Content-type: application/json; charset=utf-8");
             //muestro por pantalla
-            echo json_encode($array);
+            echo json_encode($array); */
         }
 
         //agregar una tienda a la BBDD
@@ -597,11 +576,11 @@ if(!$conexion){
             //agrego la tienda a la tabla de la relacion muchos a muchos    
             $resultado=mysqli_query($conexion,"INSERT INTO tiene (COD_TIENDA,COD_HOBBIE) VALUES ('".$cod."','".$cod_hob."')");
             
-            echo mysqli_error($conexion);
+            /* echo mysqli_error($conexion);
             //indico que sera un JSON con UTF-8
             header("Content-type: application/json; charset=utf-8");
             //muestro por pantalla
-            echo json_encode($array);
+            echo json_encode($array); */
             header("Refresh:0 ; url=".$root."/admin.html");
         }
 
@@ -618,20 +597,11 @@ if(!$conexion){
             $logo=$_GET['condicion8'];
             $web=$_GET['condicion9'];
 
-            echo "UPDATE  tiendas SET LOCALIDAD='".$localidad."' 
-            ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
-            ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
-            WHERE COD_TIENDA='".$cod."'";
-
             $resultado=mysqli_query($conexion,"UPDATE  tiendas SET LOCALIDAD='".$localidad."' 
                     ,PROVINCIA='".$provincia."', NOMBRE='".$nombre."' , DIRECCION='".$direccion."' 
                     ,TELEFONO='".$telefono."' ,COD_HOBBIE='".$cod_hob."' ,LOGO='".$logo."' , WEB='".$web."'
                     WHERE COD_TIENDA='".$cod."'");
             //header("Refresh:0 ; url=http://".$root."/proyecto/admin.html");
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }
 
         //saco un listado de los hobbies que estan en la BBDD
@@ -763,11 +733,6 @@ if(!$conexion){
             }else{
                 echo "no torturemos al usuario";
             }
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
-
         }//banear usuario
 
         //perdonar usuario
@@ -775,10 +740,6 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion1']);
             $resultado=mysqli_query($conexion,"UPDATE usuarios SET ESTADO='OK' WHERE ALIAS='".$alias."'");
             $resultado=mysqli_query($conexion,"UPDATE blacklist SET FEC_TOPE='9999-01-01' WHERE ALIAS='".$alias."' AND FEC_TOPE !='9999-01-01'");
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }//perdonar usuario
 
         //actualizacion de los usuarios baneados
@@ -829,11 +790,6 @@ if(!$conexion){
             $resultado=mysqli_query($conexion,"UPDATE libros SET TITULO='".$titulo."', AUTOR='".$autor."',
                      PAGINAS='".$pag."', PORTADA='".$portada."', LEIDO='".$leido."', VALORACION='".$valoracion."'
                      WHERE Alias='".$alias."' AND COD_LIBRO='".$cod."'");
-            
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }
 
         //opcion para agregar un libro al usuario que elijamos
@@ -851,11 +807,6 @@ if(!$conexion){
             //agregamos el libro
             $resultado=mysqli_query($conexion,"INSERT INTO libros (COD_LIBRO, ALIAS, TITULO, AUTOR, PAGINAS, PORTADA, LEIDO, VALORACION)
             VALUES('".$cod."','".$alias."','".$titulo."','".$autor."','".$pag."','".$portada."','".$leido."','".$valoracion."')");
-            
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }//opcion de agregar libro
 
         //opcion de borrar libro
@@ -865,11 +816,6 @@ if(!$conexion){
 
             //Borramos el libro
             $resultado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
-            
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }
 
         ////////////PAG tiendas
@@ -904,7 +850,7 @@ if(!$conexion){
             $comprobacion=mysqli_query($conexion,"SELECT ALIAS FROM usuarios WHERE ALIAS='".$alias."'");
 
             //compruebo que el usuario esta en la BBDD
-            if(mysqli_num_rows($comprobacion)==1 && strlen($mensaje)<200){
+            if(mysqli_num_rows($comprobacion)==1 && strlen($mensaje)<500){
 
                 //inserto la sugerencia en la BBDD
                 $insercion=mysqli_query($conexion,"INSERT INTO sugerencias (ALIAS,APARTADO,TEXTO)
@@ -944,11 +890,6 @@ if(!$conexion){
                     echo "mensaje no enviado";
                 }
             }
-            
-            //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array);
         }
 
         //Comentarios
