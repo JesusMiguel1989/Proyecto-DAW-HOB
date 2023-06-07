@@ -115,13 +115,13 @@ let divleyendo = document.getElementById("divleyendo");
 let divleidos = document.getElementById("divleidos");
 let tarjeta = document.getElementById("tarjeta");
 let btnDivComentario = document.getElementById("btnDivComentario");//div donde esta el boton de agregar comentario extra
-let libros=document.getElementById("libros");//div que indica que no tienes libros asignados a esa seccion
+let libros = document.getElementById("libros");//div que indica que no tienes libros asignados a esa seccion
 
 async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9, condicion10) {
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2) +"&condicion3="+ encodeURIComponent(condicion3)+ "&condicion4=" + encodeURIComponent(condicion4)+ "&condicion5=" + encodeURIComponent(condicion5)+ "&condicion6=" + encodeURIComponent(condicion6)
-        + "&condicion7=" + encodeURIComponent(condicion7)+ "&condicion8=" + encodeURIComponent(condicion8)+ "&condicion9=" + encodeURIComponent(condicion9) + "&condicion10=" + encodeURIComponent(condicion10)
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) + "&condicion6=" + encodeURIComponent(condicion6)
+        + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9) + "&condicion10=" + encodeURIComponent(condicion10)
         , {
             //method: "POST",
             headers: { "Content-type": "application/json" }
@@ -130,9 +130,9 @@ async function agregar(opcion, condicion1, condicion2, condicion3, condicion4,
 
 async function modificarLibro(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1)
-        + "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3)+ "&condicion4=" + encodeURIComponent(condicion4)
-        + "&condicion5=" + encodeURIComponent(condicion5)+ "&condicion6=" + encodeURIComponent(condicion6)+ "&condicion7=" + encodeURIComponent(condicion7)
-        + "&condicion8=" + encodeURIComponent(condicion8)+ "&condicion9=" + encodeURIComponent(condicion9), {
+        + "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4)
+        + "&condicion5=" + encodeURIComponent(condicion5) + "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7)
+        + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9), {
         //method: "PATCH",
         headers: { "Content-type": "application/json" }
     });
@@ -156,24 +156,24 @@ async function mostrarLeyendo(opcion, condicion1) {
     });
 
     response = await response.json();
-    if (response.length>0) {
-        libros.style.display="none";//oculto el div
+    if (response.length > 0) {
+        libros.style.display = "none";//oculto el div
         for (let i = 0; i < response.length; i++) {
             encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
             response[i][6], response[i][7], response[i][8], response[i][9]];
             array.push(encontrados);
             mostrar2(i);
         }
-        if(response.length<=0){
-            registros=0;
-        }else{
+        if (response.length <= 0) {
+            registros = 0;
+        } else {
             registros = response[0][8];
         }
         //funcion que introduce el boton siguiente y anterior
         pagina2();
         //return Promise.resolve(response);
-    }else{
-        libros.style.display="flex";//muestro el div
+    } else {
+        libros.style.display = "flex";//muestro el div
     }
 
 }//funcion asincrona para mostrar os libros que se estan leyendo ahora
@@ -188,8 +188,8 @@ async function mostrarLeidos(opcion, condicion1) {
     });
 
     response = await response.json();
-    if (response.length>0) {
-        libros.style.display="none";//oculto el div
+    if (response.length > 0) {
+        libros.style.display = "none";//oculto el div
         registros2 = response[0][8];
 
         for (let i = 0; i < response.length; i++) {
@@ -199,8 +199,8 @@ async function mostrarLeidos(opcion, condicion1) {
             mostrar2(i);
         }
         pagina2();
-    }else{
-        libros.style.display="flex";//muestro el div
+    } else {
+        libros.style.display = "flex";//muestro el div
     }
 
 }//funcion asincrona para mostrar los libros leidos
@@ -254,7 +254,7 @@ async function rankingHOB(opcion) {
 }//funcion asincrona que devuelve el top 10 de las valoraciones de los usuarios
 
 async function registro(opcion, condicion1) {
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -265,7 +265,7 @@ async function registro(opcion, condicion1) {
 
 async function comentariosISBN(opcion, condicion1) {//condicion1 es el ISBN
 
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + inicioComentarios, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + inicioComentarios, {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -508,13 +508,13 @@ function mostrar2(i) {
 
     btn.addEventListener("click", () => {
         //recorro los elementos estrellas para ponerlas en gris
-            for (let j = 0; j < estrellas.length; j++) {
-                if (estrellas[j].value == array[i][7]) {
-                    estrellas[j].checked = true;
-                }
-            }//for que recorre las estrellas
-            
-            
+        for (let j = 0; j < estrellas.length; j++) {
+            if (estrellas[j].value == array[i][7]) {
+                estrellas[j].checked = true;
+            }
+        }//for que recorre las estrellas
+
+
         addComentarios.style.display = "none";//oculto los comentarios
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
@@ -743,7 +743,7 @@ function acortarTitulo(titulo) {
 }//funcion para reducir los titulos (busco [,( y sino lo dejo a 50 caracteres)
 
 async function buscarall(condicion, condicion2, condicion3) {
-    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion)+ "&isbn=" + encodeURIComponent(condicion2) + "&author=" + encodeURIComponent(condicion3));
+    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion) + "&isbn=" + encodeURIComponent(condicion2) + "&author=" + encodeURIComponent(condicion3));
 
     let texto = await response.json();
     array = [];
@@ -786,7 +786,7 @@ async function buscarall(condicion, condicion2, condicion3) {
 }//funciones asincronas del buscador (TODOS LOS DATOS)
 
 async function buscar2(condicion, condicion2) {
-    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion)+ "&author=" + encodeURIComponent(condicion2)
+    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion) + "&author=" + encodeURIComponent(condicion2)
         + "&page=" + page + "&limit=" + limite);
 
     let texto = await response.json();
@@ -869,7 +869,7 @@ async function buscar2(condicion, condicion2) {
 
 async function buscar3(condicion) {
 
-    let response = await fetch("https://openlibrary.org/search.json?author=" + encodeURIComponent(condicion)+ "&page=" + page + "&limit=" + limite);
+    let response = await fetch("https://openlibrary.org/search.json?author=" + encodeURIComponent(condicion) + "&page=" + page + "&limit=" + limite);
 
     let texto = await response.json();
 
@@ -950,7 +950,7 @@ async function buscar3(condicion) {
 
 async function buscar4(condicion) {
 
-    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion)+ "&page=" + page + "&limit=" + limite);
+    let response = await fetch("https://openlibrary.org/search.json?title=" + encodeURIComponent(condicion) + "&page=" + page + "&limit=" + limite);
     let texto = await response.json();
 
     //calculo el numero de paginas
@@ -1027,7 +1027,7 @@ async function buscar4(condicion) {
 
 async function buscar5(condicion) {
 
-    let response = await fetch("https://openlibrary.org/search.json?isbn=" + encodeURIComponent(condicion)+ "&page=" + page + "&limit=" + limite);
+    let response = await fetch("https://openlibrary.org/search.json?isbn=" + encodeURIComponent(condicion) + "&page=" + page + "&limit=" + limite);
     let texto = await response.json();
 
     //calculo el numero de paginas
@@ -1274,12 +1274,12 @@ async function pagina2() {
                 if (!registros <= turno + 1) {
                     //comprobar que no puede haber una 2 o 3 hoja
                     if (registros > turno + 20) {
-                        if(turno==0){
+                        if (turno == 0) {
                             np.textContent = "Del 1 al " + (turno + 20);
-                        }else{
+                        } else {
                             np.textContent = "Del " + turno + " al " + (turno + 20);
                         }
-                        
+
                     } else {
                         np.textContent = "Del " + turno + " al " + registros;
                     }
@@ -1296,9 +1296,9 @@ async function pagina2() {
                 if (!registros2 <= turno2 + 1) {
                     //comprobar que no puede haber una 2 o 3 hoja
                     if (registros2 > turno2 + 20) {
-                        if(turno2==0){
+                        if (turno2 == 0) {
                             np.textContent = "Del 1 al " + (turno + 20);
-                        }else{
+                        } else {
                             np.textContent = "Del " + turno2 + " al " + (turno + 20);
                         }
                     } else {
@@ -1309,16 +1309,16 @@ async function pagina2() {
                 }
             }
         }
-        
+
         //agrego un nuevo div para que muestre cuantos libros tiene en total
         let npTotal = document.createElement("h4");
-        npTotal.style.fontWeight="bold";
-        if(registros2==0){
-            npTotal.textContent="Tienes un total de "+registros+" de Libros";
-        }else{
-            npTotal.textContent="Tienes un total de "+registros2+" de Libros";
+        npTotal.style.fontWeight = "bold";
+        if (registros2 == 0) {
+            npTotal.textContent = "Tienes un total de " + registros + " de Libros";
+        } else {
+            npTotal.textContent = "Tienes un total de " + registros2 + " de Libros";
         }
-        
+
 
         numPag.appendChild(np);
 
@@ -1334,16 +1334,16 @@ async function pagina2() {
         btnsiguiente.classList.add("btn-sugerencia");
         btnsiguiente.style.margin = "0 auto";
         siguientes.appendChild(btnsiguiente);
-        
+
         let paginacion2 = document.createElement("div");
         paginacion2.classList.add("row");
-        paginacion2.style.marginBottom="20px";
-        paginacion2.style.marginTop="10px";
+        paginacion2.style.marginBottom = "20px";
+        paginacion2.style.marginTop = "10px";
         paginacion2.style.height = "auto";
         let totales = document.createElement("div");
         totales.classList.add("col-12", "text-center");
         totales.appendChild(npTotal);
-        
+
         paginacion2.appendChild(totales);
 
         //agrego los div con los botones
@@ -1463,8 +1463,8 @@ window.addEventListener("load", () => {
 
     //////enter
     //clickEvent parra agilizar las busquedas (al apretar enter iniciara la busqueda)
-    document.addEventListener("keydown",(e)=>{
-        if(e.key=="Enter"){
+    document.addEventListener("keydown", (e) => {
+        if (e.key == "Enter") {
             btnBuscardor.dispatchEvent(clickEvent);
         }
     })
@@ -1472,8 +1472,8 @@ window.addEventListener("load", () => {
     /* console.log(root); */
 
     buscar.addEventListener("click", () => {
-        tarjetaBuscador.style.display="inline";//muestro el div del buscador
-        libros.style.display="none";//oculto el div
+        tarjetaBuscador.style.display = "inline";//muestro el div del buscador
+        libros.style.display = "none";//oculto el div
         /////////////////////////////////////////////////////////////////////////
         btnAddComentario.style.display = "inline";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Buscador";
@@ -1495,8 +1495,8 @@ window.addEventListener("load", () => {
     });
 
     btnBuscardor.addEventListener("click", () => {
-        tarjetaBuscador.style.display="inline";//muestro el div
-        libros.style.display="none";//oculto el div
+        tarjetaBuscador.style.display = "inline";//muestro el div
+        libros.style.display = "none";//oculto el div
         progreso.value = 0;
         divCuriosidades.style.display = "inline-flex";
         divCuriosidades.style.marginBottom = "100px";
@@ -1516,11 +1516,11 @@ window.addEventListener("load", () => {
     });//btn que inicia la busqueda
 
     leyendo.addEventListener("click", () => {
-        tarjetaBuscador.style.display="none";//oculto el div del buscador
+        tarjetaBuscador.style.display = "none";//oculto el div del buscador
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Pendientes";
         ubicacion.style.fontWeight = "bold";
-        libros.style.display="none";//oculto el div
+        libros.style.display = "none";//oculto el div
 
         navegador();//cambio  el fondo de los botones dle nav
         leyendo.style.backgroundColor = "#7a7a7a";
@@ -1554,8 +1554,8 @@ window.addEventListener("load", () => {
     });//boton leyendo
 
     leidos.addEventListener("click", () => {
-        tarjetaBuscador.style.display="none";//oculto el div del buscador
-        libros.style.display="none";//oculto el div de no tienes libros en esta seccion
+        tarjetaBuscador.style.display = "none";//oculto el div del buscador
+        libros.style.display = "none";//oculto el div de no tienes libros en esta seccion
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
 
         ubicacion.textContent = "Leidos";
@@ -1588,8 +1588,8 @@ window.addEventListener("load", () => {
     });//boton leidos
 
     ranking.addEventListener("click", () => {
-        tarjetaBuscador.style.display="none";//oculto el div del buscador
-        libros.style.display="none";//oculto el div de no tienes libros en eesta sección
+        tarjetaBuscador.style.display = "none";//oculto el div del buscador
+        libros.style.display = "none";//oculto el div de no tienes libros en eesta sección
         btnAddComentario.style.display = "none";//oculto el boton extra de agregar comentario
         ubicacion.textContent = "Top Libros";
         ubicacion.style.fontWeight = "bold";

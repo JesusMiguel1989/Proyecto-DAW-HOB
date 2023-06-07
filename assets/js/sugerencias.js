@@ -21,10 +21,7 @@ async function enviar(opcion, condicion1, condicion2, condicion3, condicion4) {
     + "&condicion3=" + condicion3 + "&condicion4=" + condicion4); */
     let response = await fetch(root+"/php/miniAPI.php?opcion=" + 
         opcion + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)
-        + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+        + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4));
 }
 
 window.addEventListener("load",()=>{

@@ -393,12 +393,6 @@ if(!$conexion){
                         WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."'");
                 }
             }
-
-            mysqli_error($conexion);
-            /* //indico que sera un JSON con UTF-8
-            header("Content-type: application/json; charset=utf-8");
-            //muestro por pantalla
-            echo json_encode($array); */
         }
 
         //eliminacion del libro por abandono
@@ -406,7 +400,7 @@ if(!$conexion){
             $alias=str_replace("_"," ",$_GET['condicion1']);
             $cod=$_GET['condicion2'];
 
-            $borrado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM blacklist)");
+            $borrado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM usuarios WHERE ESTADO = 'Baneado' OR ESTADO = 'Pendiente')");
         }
         
         //para mostrar ibros leidos de usuario indicado
@@ -657,7 +651,6 @@ if(!$conexion){
             //muestro por pantalla
             echo json_encode($array);
         }//buscar tienda
-
 
         //buscar usuario
         if($opcion=="buscarusuario"){

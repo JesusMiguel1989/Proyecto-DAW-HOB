@@ -176,10 +176,7 @@ async function comprobarCod(opcion, insertado) {
 
 async function borrartTienda(opcion, condicion1) {
     /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1));
 }//borrar tienda
 
 async function buscartienda(opcion, condicion1) {
@@ -206,18 +203,12 @@ async function banear(opcion, condicion1, condicion2) {
     /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2); */
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
-        "&condicion2=" + encodeURIComponent(condicion2), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+        "&condicion2=" + encodeURIComponent(condicion2));
 }//banear usuarios
 
 async function perdon(opcion, condicion1) {
     /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1));
 }//perdonar tienda
 
 //eliminacion del usuario y posterior actualizacion de la BBDD
