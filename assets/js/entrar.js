@@ -153,10 +153,9 @@ window.addEventListener("load", () => {
         }
 
         if (validador == true) {
-            olvido("correo", usuario.value, mail.value);
-            /* .then(data => {
+            olvido("correo", usuario.value, mail.value).then(data => {
                 console.log(data);
-            }); */
+            });
             usuario.setAttribute("readOnly", true);
             mail.setAttribute("readOnly", true);
             pedir.setAttribute("disabled", true);

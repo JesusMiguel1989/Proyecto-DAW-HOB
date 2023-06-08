@@ -31,11 +31,13 @@
         if(mysqli_query($conexion,"use ".$bbdd)){
 
             $correo=$_GET['correo'];
+            echo $correo;
             if(isset($correo)){
                 $nombre=$_GET['nombre'];
                 $mail=$_GET['mail'];
                 //se modifica el campo estado del usuario y la fecha de registro pasa a OK y fecha a 9999-01-01
                 $update=mysqli_query($conexion,"UPDATE usuarios SET ESTADO='OK', F_REGISTRO='9999-01-01' WHERE ALIAS='".$nombre."' AND EMAIL='".$mail."'");
+                
                 $datos=mysqli_query($conexion,"SELECT  ALIAS, F_NACIMIENTO, LOCALIDAD, EMAIL, CONTRASEÑA, ESTADO FROM usuarios WHERE ALIAS='".$nombre."' AND EMAIL='".$mail."'");
                 
                 while($fila=mysqli_fetch_row($datos)){

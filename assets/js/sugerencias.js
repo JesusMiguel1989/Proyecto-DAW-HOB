@@ -21,12 +21,15 @@ async function enviar(opcion, condicion1, condicion2, condicion3, condicion4) {
     + "&condicion3=" + condicion3 + "&condicion4=" + condicion4); */
     let response = await fetch(root+"/php/miniAPI.php?opcion=" + 
         opcion + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)
-        + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4));
+        + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4), {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
 }
 
 window.addEventListener("load",()=>{
-    nombre.value=sessionStorage.getItem("alias");//pongo por defecto el valor de la session
-    email.value=sessionStorage.getItem("mail");//pongo por defecto el valor de la session
+    nombre.textContent=sessionStorage.getItem("alias");//pongo por defecto el valor de la session
+    email.textContent=sessionStorage.getItem("mail");//pongo por defecto el valor de la session
 
     btnEnviar.addEventListener("click",()=>{
         let texto=cambio(sugerencia.value);

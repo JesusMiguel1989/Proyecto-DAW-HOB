@@ -139,11 +139,9 @@ async function modificarLibro(opcion, condicion1, condicion2, condicion3, condic
 }//funcion asincrona que llama a la API para modificar un libro
 
 async function eliminarLibro(opcion, condicion1, condicion2, condicion3) {
+        
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) + "&condicion2=" + encodeURIComponent(condicion2)
-        + "&condicion3=" + encodeURIComponent(condicion3), {
-        //method: "PATCH",
-        headers: { "Content-type": "application/json" }
-    });
+        + "&condicion3=" + encodeURIComponent(condicion3));
 }//funcion asincrona que llama a la API para eliminar un libro
 
 async function mostrarLeyendo(opcion, condicion1) {
@@ -237,7 +235,7 @@ async function rankingHOB(opcion) {
     response = await response.json();
 
     for (let i = 0; i < response.length; i++) {
-        encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5]];
+        encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5], response[i][6]];
         array.push(encontrados);
         //error al mostrarlos
         mostrar3(i);
@@ -603,18 +601,57 @@ function mostrar3(i) {
     let tit = document.createElement("h6");//elemento para indicar el titulo del libro
     tit.textContent = array[i][1];
     tit.style.fontWeight = "bold";
-    //tit.style.marginTop = "5px";
-    //tit.style.marginLeft = "45px";
     tit.style.margin = "0 auto";
     tit.style.size = "15px";
     tit.style.textAlign = "center";
     tit.style.width = "120px";
+    
+    let estrellas =document.createElement("div");
+    let valoracionMedia=document.createElement("p");
+    //estrellas.textContent=array[i][6].slice(0,4)+"★";
+    let stars="";
+    let valor=1;
+    
+    let relleno=0;
+    while(valor<=5){
+        if(array[i][6]<valor){
+          relleno=1;  
+          /*let numeroAux=array[i][6]/10;
+            if(numeroAux>0){
+                relleno=3;
+            }*/
+        }else{
+            relleno=2;
+            
+        }
+        
+        
+        switch(relleno){
+            case 1:
+                stars+="✩";
+                break;
+            case 2:
+                stars+="★";
+                break;
+            case 3:
+                stars+="✬";
+                break;
+        }
+        valor++;
+    }
+    
+    valoracionMedia.textContent=stars;
+    
+    estrellas.classList.add("row");
+    estrellas.style.margin = "0 auto";
+    estrellas.style.size = "15px";
+    estrellas.style.textAlign = "center";
+    estrellas.appendChild(valoracionMedia);
 
     let libro = document.createElement("div");
     libro.id = "libro" + i;
     libro.style.height = "300px";
     libro.classList.add("col-6", "col-sm-4", "col-md-3", "col-lg-3", "text-center", "mt-4");
-    /* , "px-4" */
 
     let posicion = document.createElement("h1");//elemento para indicar la posicion en el ranking
     posicion.textContent = (i + 1);
@@ -648,13 +685,14 @@ function mostrar3(i) {
     libro.appendChild(posicion);
     libro.appendChild(boton);
     libro.appendChild(tit);
+    libro.appendChild(estrellas);
     //libro.style.marginTop="50px";
     libro.style.display = "inline-block";
     resultados.appendChild(libro);
 
     //resultados.style = "display: flex ; flex-wrap:wrap; margin-top: 20px";
     resultados.classList.add("mt-4");
-    resultados.style.marginBottom = "80px";
+    resultados.style.marginBottom = "120px";
 
     op.textContent = "Estado actual";
     op.style.fontWeight = "bold";

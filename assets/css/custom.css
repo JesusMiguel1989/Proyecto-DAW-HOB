@@ -277,8 +277,8 @@ a:hover {
     width: 600px;
     position: relative;
     z-index: 2;
-    top: 5%;
-    /* margin-top: 10%;*/
+    /*top: 5%;
+     margin-top: 10%;*/
     margin-left: 22%; 
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
@@ -286,6 +286,18 @@ a:hover {
     padding-top: 12px;
     padding-bottom: 12px;
     margin-top: 50px;
+  }
+  
+  .rfondore {
+    width: 600px;
+    position: relative;
+    z-index: 2;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    border-radius: 5%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 20%;
   }
 
   .rfondoi {
@@ -558,7 +570,7 @@ a:hover {
     margin-bottom: 80px;
   }
 
-  .rfondor {
+  .rfondor, .rfondore {
     /*width: 95%;
      height: 820px; */
     background-color: rgb(152, 226, 202);
@@ -752,7 +764,7 @@ a:hover {
 /****************Media para mantener el alncho de los input fuera del movil*********/
 
 @media (min-width: 413px )  and (max-width: 1200px) {
-  .rfondor {
+  .rfondor, .rfondore {
     /* width: 80%;
     height: 730px; */
     background-color: rgb(152, 226, 202);
@@ -1057,6 +1069,14 @@ a:hover {
 
 .btn-sugerencia {
   margin-top: 15px;
+  border-radius: 20%;
+  font-weight: bold;
+  font-size:14px;
+  padding:5px;
+}
+
+.btn-sugerencia2 {
+  margin-top: 5px;
   border-radius: 20%;
   font-weight: bold;
   font-size:14px;
@@ -1419,7 +1439,7 @@ input[type="radio"]:checked~label {
 
 /********************************Admin*********************************/
 .administrador {
-  margin-top: 100px;
+  margin-top: 50px;
   z-index: 5;
 }
 
@@ -1436,6 +1456,7 @@ input[type="radio"]:checked~label {
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
   margin-left: 5px;
   border-radius: 5%;
+  margin-Bottom: 80px;
 }
 
 .admin {
@@ -1702,4 +1723,15 @@ footer a:hover{
   width: 33%;
 }
 
-/* conexion plus 642 642 642 */
+/*gestion */
+#gestion{
+    margin-Bottom:120px;
+}
+
+.label-sugerencia{
+    padding-Top: 10px;
+    font-weight: bold;
+  }
+
+
+

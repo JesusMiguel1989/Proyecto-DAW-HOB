@@ -116,7 +116,7 @@ function mostrar(num) {
         ;//indico la direccion
         telefono.textContent = array[num][5];//indico el telefono
         if (array[num][8] != "" && array[num][8] !=null) {
-            web.innerHTML = "<a href='https://" + array[num][8] + "' alt='Web de" + array[num][3] + "' title='" + array[num][3] + "' target='_blank'>Acceder</a>";//indico la Web
+            web.innerHTML = "<a href='https://" + array[num][8] + "' alt='Web de" + array[num][3] + "' title='" + array[num][3] + "' target='_blank'>Ir a la web</a>";//indico la Web
         } else {
             web.textContent = "Web no disponible";//indico la Web
         }

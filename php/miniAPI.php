@@ -399,6 +399,9 @@ if(!$conexion){
         if($opcion=="eliminarLibro"){
             $alias=str_replace("_"," ",$_GET['condicion1']);
             $cod=$_GET['condicion2'];
+            
+            echo $alias."\n".$cod."\n";
+            echo "DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM blacklist)";
 
             $borrado=mysqli_query($conexion,"DELETE FROM libros WHERE ALIAS='".$alias."' AND COD_LIBRO='".$cod."' AND ALIAS NOT IN (SELECT ALIAS FROM usuarios WHERE ESTADO = 'Baneado' OR ESTADO = 'Pendiente')");
         }

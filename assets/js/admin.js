@@ -41,6 +41,19 @@ let btnModificarLibro = document.getElementById("modificarLibro");//btn modifica
 let btnAgregarLibro = document.getElementById("agregarlibro");//btn agregar libro del div libros
 let btnBorrarLibro = document.getElementById("borrarlibro");//btn borrar libro del div libros
 
+let inicioAgregarTienda = document.getElementById("inicioAgregarTienda");
+let inicioModificarTienda = document.getElementById("inicioModificarTienda");
+let inicioBorrarTienda = document.getElementById("inicioBorrarTienda");
+let inicioBanearUsuario = document.getElementById("inicioBanearUsuario");
+let inicioPerdonarUsuario = document.getElementById("inicioPerdonarUsuario");
+let inicioEliminarUsuario = document.getElementById("inicioEliminarUsuario");
+let inicioAgregarLibro = document.getElementById("inicioAgregarLibro");
+let inicioModificarLibro = document.getElementById("inicioModificarLibro");
+let inicioEliminarLibro = document.getElementById("inicioEliminarLibro");
+let formularioTiendas = document.getElementById("formularioTiendas");
+let formularioLibros = document.getElementById("tituloLibros");
+let formularioUsuarios = document.getElementById("tituloUsuarios");
+
 let cerrarDiv = document.getElementsByName("cerrarDiv");
 
 //centinela global
@@ -75,7 +88,7 @@ let clickEvent = new Event('click');//evento
 let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
 let explocalidad = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/;//expresionregular para la localidad
 let exptelefono = /^[0-9 ]{9,12}$/i;//expresion regular para el telefono
-let expdireccion = /^[a-zñáéíóúA-ZÑÁÉÍÓÚ \/\\\.]+[\º\ \][0-9]{1,3}/;//expresion regular para la direccion
+let expdireccion = /^C\. [\w\sáéíóúÁÉÍÓÚ]+,\s?(?:\d{1,3}|S\/N|s\/n),\s?\d{5} [\w\sáéíóúÁÉÍÓÚ]+$/;//expresion regular para la direccion
 let expcodhob = /^[0-9]{1,2}$/;//expresion regular para el hobbie
 let explogo = /\w+.png$|\w+.jpg$|\w+.jpeg$/;//expresion regular para los logos (URL que sean png, jpg o jpeg)
 let expWeb = /^www\.\w*\.[a-z]{2,3}$/;
@@ -95,22 +108,12 @@ let eventoChange = new Event("click");
 
 async function copia(opcion) {
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
-
-    /* response = await response.json();
-    return Promise.resolve(response); */
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion));
 }//funcion asincrona que devuelve datos del usuario con el datos y correo indicado
 
 async function actualizar(opcion) {
 
-    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion));
 
 }//funcion asincrona que devuelve datos del usuario con el datos y correo indicado
 
@@ -120,10 +123,7 @@ async function agregarTienda(opcion, condicion1, condicion2, condicion3, condici
 
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
         "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) +
-        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9));
 
 }
 
@@ -132,10 +132,7 @@ async function modificarTienda(opcion, condicion1, condicion2, condicion3, condi
     condicion5, condicion6, condicion7, condicion8, condicion9) {
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
         "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) +
-        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9));
 
 }
 
@@ -209,14 +206,11 @@ async function banear(opcion, condicion1, condicion2) {
 async function perdon(opcion, condicion1) {
     /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
     let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1));
-}//perdonar tienda
+}//perdonar usuario
 
 //eliminacion del usuario y posterior actualizacion de la BBDD
 async function castigoFinal(opcion, condicion1) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1));
 }//eliminacion del usuario y posterior actualizacion de la BBDD
 
 //buscar un libro que ya este en la base de datos
@@ -234,10 +228,7 @@ async function buscarLibro(opcion, condicion1) {
 async function modificarLibros(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
         "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5)
-        + "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+        + "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8));
 }
 
 //funcion para sacar los codigos de las tiendas
@@ -252,6 +243,7 @@ async function cod_tiendas(opcion) {
 
     response = await response.json();
     let union = "";
+    opciones = "<option>Tiendas</option>";
     //arrayTiendas
     for (let i = 0; i < response.length; i++) {
         arrayTiendas.push(response[i]);
@@ -281,10 +273,7 @@ async function lanzarRestore(opcion, condicion1) {
     /* console.log("http://" + root + "/php/miniAPI.php?opcion=" + opcion +
         "&condicion1=" + condicion1); */
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) +
-        "&condicion1=" + encodeURIComponent(condicion1), {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+        "&condicion1=" + encodeURIComponent(condicion1));
 }
 
 //funcion para agregar libros de forma manual (administrador)
@@ -336,6 +325,7 @@ function cambio(cadena) {
 
 //funcion que limpia campos
 function limpieza() {
+    //tiendas
     cod2.value = "";
     nombre.value = "";
     localidad.value = "";
@@ -351,6 +341,41 @@ function limpieza() {
     nombre.style.border = "1px solid black";
     provincia.style.border = "1px solid black";
     localidad.style.border = "1px solid black";
+    
+    //usuarios
+    let aliasUsu = document.getElementById("aalias");
+    let emailUsu = document.getElementById("amail");
+    let estadoUsu = document.getElementById("aestado");
+    let motivoUsu = document.getElementById("amotivo");
+    let nvecesUsu = document.getElementById("nveces");
+    
+    aliasUsu.value="";
+    emailUsu.value="hob@hob.com";
+    estadoUsu.value="Estado";
+    motivoUsu.value="";
+    nvecesUsu.value="";
+    aliasUsu.style.border = "1px solid black";
+    motivoUsu.style.border = "1px solid black";
+    
+    //libros
+    cod_libro.value="";
+    alias.value="";
+    titulo.value="";
+    autor.value="";
+    pag.value="";
+    portada.value="";
+    leido.value="";
+    valoracion.value="";
+    cod_libro.style.border = "1px solid black";
+    alias.style.border = "1px solid black";
+    titulo.style.border = "1px solid black";
+    autor.style.border = "1px solid black";
+    pag.style.border = "1px solid black";
+    portada.style.border = "1px solid black";
+    leido.style.border = "1px solid black";
+    valoracion.style.border = "1px solid black";
+    
+    
     validacion1.style.display = "none";
     validacion2.style.display = "none";
     validacion3.style.display = "none";
@@ -358,6 +383,35 @@ function limpieza() {
     validacion5.style.display = "none";
     validacion6.style.display = "none";
     validacion7.style.display = "none";
+    
+    bbdd.style.display = "none";
+    gestion.style.display = "none";
+
+    restore.style.display = "none";//oculto los div
+    tiendas.style.display = "none";//oculto los div
+    usuarios.style.display = "none";//oculto los div
+    seleccion.style.display = "none";//oculto los div
+    libros.style.display = "none";//dejo visible el div
+    cod2.style.display = "inline";
+    cod.style.display = "none";
+        
+    //botones de tiendas    
+    btnAgregarTienda.style.display = "none";
+    btnBorrarTienda.style.display="none";
+    btnModificarTienda.style.display="none";
+    btnBuscarTienda.style.display="none";
+    
+    //botones de Libros
+    btnBuscarLibro.style.display="none";
+    btnModificarLibro.style.display="none";
+    btnAgregarLibro.style.display="none";
+    btnBorrarLibro.style.display="none";
+    
+    //botones de Usuarios
+    btnBuscarUsu.style.display="none";
+    btnPerdonar.style.display="none";
+    btnBanear.style.display="none";
+    btnBorrarUsu.style.display="none";
 }
 
 window.addEventListener("load", () => {
@@ -378,15 +432,18 @@ window.addEventListener("load", () => {
 
     let datos=new URLSearchParams(window.location.search);
     datos=decodeURIComponent(datos);
-    let cadena=datos.slice(datos.search("=")+1);
-    let array=cadena.split(",");
-    sessionStorage.setItem('alias', array[0]);
-    sessionStorage.setItem('fecha', array[1]);
-    sessionStorage.setItem('localidad', array[2]);
-    sessionStorage.setItem('mail', array[3]);
-    sessionStorage.setItem('key', array[4]);
-    sessionStorage.setItem('foto', array[5]);
-    sessionStorage.setItem('estado', array[6]);
+    if(datos!=""){
+        let cadena=datos.slice(datos.search("=")+1);
+        let array=cadena.split(",");
+        sessionStorage.setItem('alias', array[0]);
+        sessionStorage.setItem('fecha', array[1]);
+        sessionStorage.setItem('localidad', array[2]);
+        sessionStorage.setItem('mail', array[3]);
+        sessionStorage.setItem('key', array[4]);
+        sessionStorage.setItem('foto', array[5]);
+        sessionStorage.setItem('estado', array[6]);
+    }
+    
     
     let perfil = sessionStorage.getItem("alias");
 
@@ -422,7 +479,7 @@ window.addEventListener("load", () => {
 
         backupRespore("restauracion").then(() => {
             for (let i = 0; i < arrayrestore.length; i++) {
-                opciones += "<div class='col-5 text-end'><button type='button' id='restore" + i + "' value='" + arrayrestore[i] + "' class='restauracion'>" + arrayrestore[i].slice(0,arrayrestore[i].indexOf(".")).replace("copia","") + "</button></div>";
+                    opciones += "<div class='col-5 text-end'><button type='button' id='restore" + i + "' value='" + arrayrestore[i] + "' class='restauracion'>" + arrayrestore[i].slice(0,arrayrestore[i].indexOf(".")).replace("copia","") + "</button></div>";
             }
             opciones += "</div>";
             restauracion.innerHTML += opciones;
@@ -467,27 +524,6 @@ window.addEventListener("load", () => {
     //////////////////////////////GESTION DE DATOS
 
     //TIENDAS
-
-    //btn que muestra el div de tiendas para agregar registros o borrarlos
-    btnTiendas.addEventListener("click", () => {
-        accion2.style.display = "none";
-        bbdd.style.display = "none";
-        gestion.style.display = "none";
-
-        restore.style.display = "none";//oculto los div
-        tiendas.style.display = "flex";//dejo visible el div
-        tiendas.style.marginBottom = "100px";
-        usuarios.style.display = "none";//oculto los div
-        seleccion.style.display = "none";//oculto los div
-        libros.style.display = "none";//oculto los div
-        accion.style.display = "none";
-
-        cod.style.display = "inline";
-        cod2.style.display = "none";//oculto el campo de insercion de cod tienda
-
-        arrayTiendas = [];//la reinicializo
-        cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
-    });//btn que muestra el div de tiendas para agregar registros o borrarlos
 
     //agregar tiendas, cambio de div al de agregar tienda
     btnAgregarTienda.addEventListener("click", () => {
@@ -586,7 +622,7 @@ window.addEventListener("load", () => {
                 if (centinela) {
                     console.log("Felicidades");
                     agregarTienda("agregartienda", cod2.value, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), cambio(localidad.value), provincia.value, cod_hob.value, logo.value, web.value);
-                    limpieza();
+                    //limpieza();
                     cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
                     accion.style.display = "inline";
                 } else {
@@ -678,7 +714,7 @@ window.addEventListener("load", () => {
                         console.log("Felicidades");
                         modificarTienda("modificartienda", id_tienda, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value, web.value);
                         accion.style.display = "inline";
-                        limpieza();
+                        //limpieza();
                     } else {
                         console.log("Lastima, Continuar?");
                     }//si todo esta correcto pasa al servidor
@@ -711,9 +747,14 @@ window.addEventListener("load", () => {
                 arrayTiendas = [];//la reinicializo
                 cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
                 accion.style.display = "inline";
-                limpieza();
+                //limpieza();
                 arrayTiendas = [];//la reinicializo
                 cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
+                
+                bbdd.style.display = "flex";
+                gestion.style.display = "flex";
+
+                tiendas.style.display = "none";//oculto los div
             });
 
         }//verificacion codigo
@@ -739,7 +780,7 @@ window.addEventListener("load", () => {
             validacion1.style.display = "inline";
             e.preventDefault();
         }
-        limpieza();
+        //limpieza();
 
         buscartienda("buscartienda", cod.value).then(data => {
             //muestro los resultados de la busqueda
@@ -751,28 +792,13 @@ window.addEventListener("load", () => {
             cod_hob.value = data[0][6];//7
             logo.value = data[0][7];//8
             web.value = data[0][8];//9
-            accion.style.display = "inline";
+            //accion.style.display = "inline";
         });
 
 
     });//btn buscar tienda
 
     //USUARIOS
-
-    //btn que muestra el div de usuarios para banear o borrar usuarios, y recibir la gracia del señor por buena conducta
-    btnBaneos.addEventListener("click", () => {
-        bbdd.style.display = "none";
-        gestion.style.display = "none";
-
-        accion2.style.display = "none";
-        accion.style.display = "none";
-
-        restore.style.display = "none";//oculto los div
-        tiendas.style.display = "none";//oculto los div
-        usuarios.style.display = "flex";//dejo visible el div
-        seleccion.style.display = "none";//oculto los div
-        libros.style.display = "none";//oculto los div
-    });//btn que muestra el div de usuarios para banear o borrar usuarios, y recibir la gracia del señor por buena conducta
 
     btnBuscarUsu.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
@@ -833,23 +859,8 @@ window.addEventListener("load", () => {
         let motivo = document.getElementById("amotivo");
         //ahora borramos y actualizamos tablas
         castigoFinal("eliminacion", alias.value);//eliminacion del usuario
-        motivo.placeholder="Este usuario a recibido ha sido eliminado";
+        motivo.placeholder="Este usuario ha sido eliminado";
     })
-
-    //añadir regstros en tablas
-
-    //btn que muestra la opcion para agregar registros a las diferentes tablas
-    btnAñadir.addEventListener("click", () => {
-        accion2.style.display = "none";
-        bbdd.style.display = "none";
-        gestion.style.display = "none";
-        restore.style.display = "none";//oculto los div
-        tiendas.style.display = "none";//oculto los div
-        usuarios.style.display = "none";//oculto los div
-        seleccion.style.display = "none";//oculto visible el div
-        libros.style.display = "flex";// dejo los div
-        libros.style.marginBottom = "100px";
-    });//btn que muestra la opcion para agregar registros a las diferentes tablas
 
     //btn que muestra el div para insertar registros en libros (opcion libros del div seleccion)
     btnLibros.addEventListener("click", () => {
@@ -924,7 +935,7 @@ window.addEventListener("load", () => {
 
     //btn agregarlibro
     btnAgregarLibro.addEventListener("click", () => {
-        apiLibros("agregarLibro");
+        apiLibros("agregarleido");
     });//btn agregarlibro
 
     btnBorrarLibro.addEventListener("click", () => {
@@ -943,4 +954,92 @@ window.addEventListener("load", () => {
     cod.addEventListener("change", () => {
         btnBuscarTienda.dispatchEvent(eventoChange);
     });//evento change que efectua lo mismo que el boton de buscar
+    
+    
+    //boones EXTRAS de Tiendas
+    inicioAgregarTienda.addEventListener("click", ()=> {
+        limpieza();
+        tiendas.style.display = "flex";//oculto los div
+        
+        cod2.style.display = "inline";
+        cod.style.display = "none";
+        
+        btnAgregarTienda.style.display = "inline";
+        formularioTiendas.textContent="Agregar Tienda";
+    })
+    
+    inicioModificarTienda.addEventListener("click",()=>{
+        limpieza();
+        tiendas.style.display = "flex";//oculto los div
+        //funcion para sacar los codigos de las tiendas
+        cod_tiendas("cod_tiendas").then(()=>{
+            cod.style.display = "inline";
+            cod2.style.display = "none";
+            btnModificarTienda.style.display="inline";  
+            formularioTiendas.textContent="Modificar Tienda";
+        })
+    })
+    
+    inicioBorrarTienda.addEventListener("click",()=>{
+        limpieza();
+        tiendas.style.display = "flex";//oculto los div
+        //funcion para sacar los codigos de las tiendas
+        cod_tiendas("cod_tiendas").then(()=>{
+            cod.style.display = "inline";
+            cod2.style.display = "none";
+            btnBorrarTienda.style.display="inline";  
+            formularioTiendas.textContent="Borrar Tienda";
+        })
+    })
+    
+    //Botones EXTRAS de Libros
+    inicioAgregarLibro.addEventListener("click",()=>{
+        limpieza();
+        libros.style.display = "flex";//dejo visible el div
+        btnAgregarLibro.style.display="inline";
+        btnBuscarLibro.style.display="inline";
+        formularioLibros.textContent="Agregar Libro a un usuario";
+    })
+    
+    inicioModificarLibro.addEventListener("click",()=>{
+        limpieza();
+        libros.style.display = "flex";//dejo visible el div
+        btnModificarLibro.style.display="inline";
+        btnBuscarLibro.style.display="inline";
+        formularioLibros.textContent="Modificar Libro";
+    })
+    
+    inicioEliminarLibro.addEventListener("click",()=>{
+        limpieza();
+        libros.style.display = "flex";//dejo visible el div
+        btnBorrarLibro.style.display="inline";
+        btnBuscarLibro.style.display="inline";
+        formularioLibros.textContent="Eliminar Libro";
+    })
+    
+    //botones EXTRA de Baneo
+    inicioBanearUsuario.addEventListener("click",()=>{
+        limpieza();
+        usuarios.style.display = "flex";
+        btnBuscarUsu.style.display="inline";
+        btnBanear.style.display="inline";
+        formularioUsuarios.textContent="Bannear Usuario";
+    })
+    
+    
+    inicioPerdonarUsuario.addEventListener("click",()=>{
+        limpieza();
+        usuarios.style.display = "flex";
+        btnBuscarUsu.style.display="inline";
+        btnPerdonar.style.display="inline";
+        formularioUsuarios.textContent="Perdonar Usuario";
+    })
+    
+    inicioEliminarUsuario.addEventListener("click",()=>{
+        limpieza();
+        usuarios.style.display = "flex";
+        btnBuscarUsu.style.display="inline";
+        btnBorrarUsu.style.display="inline";
+        formularioUsuarios.textContent="Eliminar Usuario";
+    })
 })

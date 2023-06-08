@@ -1,10 +1,12 @@
-<?
-	$host="localhost";
+<?php
+	/* $host="localhost";
 	$usuario="root";
 	$password="1234";
-	$bbdd="HOBBIES"; 
-	/*$host="localhost";
+	$bbdd="HOBBIE"; */
+	
+	
+	$host="localhost";
 	$usuario="u720382761_administrador";
 	$password="Legolas_89";
-	$bbdd="u720382761_hobbie";*/
+	$bbdd="u720382761_hobbie";
 ?>

@@ -173,6 +173,7 @@ window.addEventListener("load", () => {
                 if (expresion_key.test(key.value) && expresionmail.test(mail.value) && expresion_nom.test(alias.value) && mili > milisegundos) {
 
                     modificacion("cambiar_usuario", cambio(alias.value), fecha.value, localidad.value, mail.value, key.value, cambio(antiguo)).then(data => {
+                        console.log(data);
 
                         sessionStorage.setItem('alias', data[0][0]);
                         sessionStorage.setItem('mail', data[0][3]);
