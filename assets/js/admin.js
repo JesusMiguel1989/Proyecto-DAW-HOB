@@ -807,29 +807,32 @@ window.addEventListener("load", () => {
         let motivo = document.getElementById("amotivo");
         let nveces = document.getElementById("nveces");
 
-        buscarUsuario("buscarusuario", alias.value).then(data => {
-            if (data[0][0] == null) {
-                motivo.textContent = "Usuario no registrado";
-            } else {
-                email.textContent = data[0][0];
-                estado.textContent = data[0][1];
-                nveces.textContent = data[0][2] + " veces";
-                if (data[0][3] == "") {
-                    motivo.placeholder = "No tiene castigo, !!TODAVIA¡¡";
+        btnBuscarUsu.addEventListener("click", () => {
+            let alias = document.getElementById("aalias");
+            let email = document.getElementById("amail");
+            let estado = document.getElementById("aestado");
+            let motivo = document.getElementById("amotivo");
+            let nveces = document.getElementById("nveces");
+    
+            buscarUsuario("buscarusuario", alias.value).then(data => {
+                if (data[0][0] == null) {
+                    motivo.placeholder = "Usuario no registrado";
+                    btnBanear.style.display="none";
+                    //motivo.textContent="";
                 } else {
-                    motivo.placeholder = data[0][3];
+                    btnBanear.style.display="inline";
+                    email.textContent = data[0][0];
+                    estado.textContent = data[0][1];
+                    nveces.textContent = data[0][2] + " veces";
+                    if (data[0][3] == "") {
+                        motivo.placeholder = "No tiene castigo, !!TODAVIA¡¡";
+                    } else {
+                        motivo.placeholder = data[0][3];
+                    }
                 }
-
-                /* if (data[0][0].includes("@")) {
-                    motivo.textContent = "Correo Electronico\n" + data[0][0];
-                    nveces.textContent = data[0][1] + " veces";
-                } else {
-                    motivo.textContent = data[0][0];
-                    nveces.textContent = data[0][1] + " veces";
-                } */
-
-            }
-        });
+            });
+    
+        });//boton buscar dentro del div usuarios
 
     });//boton buscar dentro del div usuarios
 
