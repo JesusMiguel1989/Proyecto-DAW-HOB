@@ -1025,7 +1025,7 @@ window.addEventListener("load", () => {
         limpieza();
         usuarios.style.display = "flex";
         btnBuscarUsu.style.display="inline";
-        btnBanear.style.display="inline";
+        btnBanear.style.display="none";
         formularioUsuarios.textContent="Bannear Usuario";
     })
     
