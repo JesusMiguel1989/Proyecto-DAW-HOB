@@ -1,5 +1,6 @@
 let arrayTiendas = [];//array de las tiendas (codigo de tiendas)
 let arrayrestore = [];//array para guardar los diferentes restores
+let arrayAlias = [];//array para los alias
 
 //div principales
 let bbdd = document.getElementById("bbdd");//parte de la bases de datos
@@ -41,7 +42,21 @@ let btnModificarLibro = document.getElementById("modificarLibro");//btn modifica
 let btnAgregarLibro = document.getElementById("agregarlibro");//btn agregar libro del div libros
 let btnBorrarLibro = document.getElementById("borrarlibro");//btn borrar libro del div libros
 
+let inicioAgregarTienda = document.getElementById("inicioAgregarTienda");
+let inicioModificarTienda = document.getElementById("inicioModificarTienda");
+let inicioBorrarTienda = document.getElementById("inicioBorrarTienda");
+let inicioBanearUsuario = document.getElementById("inicioBanearUsuario");
+let inicioPerdonarUsuario = document.getElementById("inicioPerdonarUsuario");
+let inicioEliminarUsuario = document.getElementById("inicioEliminarUsuario");
+let inicioAgregarLibro = document.getElementById("inicioAgregarLibro");
+let inicioModificarLibro = document.getElementById("inicioModificarLibro");
+let inicioEliminarLibro = document.getElementById("inicioEliminarLibro");
+let formularioTiendas = document.getElementById("formularioTiendas");
+let formularioLibros = document.getElementById("tituloLibros");
+let formularioUsuarios = document.getElementById("tituloUsuarios");
+
 let cerrarDiv = document.getElementsByName("cerrarDiv");
+let admin = document.getElementsByName("admin");
 
 //centinela global
 let id = false;//centinela para controlarque existe ese hobbie
@@ -56,6 +71,7 @@ let pag = document.getElementById("alpaginas");
 let portada = document.getElementById("alportada");
 let leido = document.getElementById("alleido");
 let valoracion = document.getElementById("alvaloracion");
+let editorial =document.getElementById("aleditorial");
 
 //"capturo" los campos para la insercion o eliminacion de tiendas
 let cod = document.getElementById("acodtienda");//input codigo tienda
@@ -75,7 +91,7 @@ let clickEvent = new Event('click');//evento
 let expcod = /^[A-Z]{2}[0-9]{4}$/;//expresion regular para el codigo ej CU1989
 let explocalidad = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/;//expresionregular para la localidad
 let exptelefono = /^[0-9 ]{9,12}$/i;//expresion regular para el telefono
-let expdireccion = /^[a-zñáéíóúA-ZÑÁÉÍÓÚ \/\\\.]+[\º\ \][0-9]{1,3}/;//expresion regular para la direccion
+let expdireccion = /^C\. [\w\sáéíóúÁÉÍÓÚ]+,\s?(?:\d{1,3}|S\/N|s\/n),\s?\d{5} [\w\sáéíóúÁÉÍÓÚ]+$/;//expresion regular para la direccion
 let expcodhob = /^[0-9]{1,2}$/;//expresion regular para el hobbie
 let explogo = /\w+.png$|\w+.jpg$|\w+.jpeg$/;//expresion regular para los logos (URL que sean png, jpg o jpeg)
 let expWeb = /^www\.\w*\.[a-z]{2,3}$/;
@@ -90,27 +106,41 @@ let validacion6 = document.getElementById("validacion6");//validacion Localidad
 let validacion7 = document.getElementById("validacion7");//validacion logo
 let validacion8 = document.getElementById("validacion8");//validacion web
 
+let validaciont1 = document.getElementById("validaciont1");//validacion ISBN
+let validaciont2 = document.getElementById("validaciont2");//validacion alias
+let validaciont3 = document.getElementById("validaciont3");//validacion título
+let validaciont4 = document.getElementById("validaciont4");//validacion autor
+let validaciont5 = document.getElementById("validaciont5");//validacion páginas
+let validaciont6 = document.getElementById("validaciont6");//validacion portada
+let validaciont7 = document.getElementById("validaciont7");//validacion leido
+let validaciont8 = document.getElementById("validaciont8");//validacion valoracion
+let validaciont9 = document.getElementById("validaciont9");//validacion editorial
+
 //evento propio
 let eventoChange = new Event("click");
 
-async function copia(opcion) {
-
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+async function aliasarray() {
+    let response = await fetch(root+"/php/comprobacionAlias.php", {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
-    /* response = await response.json();
-    return Promise.resolve(response); */
+    response = await response.json();
+
+    for (i = 0; i < response.length; i++) {
+        arrayAlias[i]=response[i];
+    }
+    return Promise.resolve(response);
+}
+
+async function copia(opcion) {
+
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion));
 }//funcion asincrona que devuelve datos del usuario con el datos y correo indicado
 
 async function actualizar(opcion) {
 
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion));
 
 }//funcion asincrona que devuelve datos del usuario con el datos y correo indicado
 
@@ -118,31 +148,25 @@ async function actualizar(opcion) {
 async function agregarTienda(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6,
     condicion7, condicion8, condicion9) {
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
-        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) +
+        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9));
 
 }
 
 //modificar tienda indicada
 async function modificarTienda(opcion, condicion1, condicion2, condicion3, condicion4,
     condicion5, condicion6, condicion7, condicion8, condicion9) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 +
-        "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8 + "&condicion9=" + condicion9, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) +
+        "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9));
 
 }
 
 async function comprobarId(opcion, insertado) {
     id = false;//pongo el centinela a false siempre al inicio
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion); */
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -160,7 +184,7 @@ async function comprobarId(opcion, insertado) {
 async function comprobarCod(opcion, insertado) {
     codinsertado = false;
 
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -175,15 +199,12 @@ async function comprobarCod(opcion, insertado) {
 }//comprobacion delcodigo
 
 async function borrartTienda(opcion, condicion1) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1));
 }//borrar tienda
 
 async function buscartienda(opcion, condicion1) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -193,7 +214,7 @@ async function buscartienda(opcion, condicion1) {
 }//mostrar tienda
 
 async function buscarUsuario(opcion, condicion1) {
-    let response = await fetch("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -203,35 +224,26 @@ async function buscarUsuario(opcion, condicion1) {
 }//funcion para buscar el usuario indicado
 
 async function banear(opcion, condicion1, condicion2) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
         "&condicion2=" + condicion2); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2));
 }//banear usuarios
 
 async function perdon(opcion, condicion1) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
-    let response = await fetch( root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
-}//perdonar tienda
+    /* console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1); */
+    let response = await fetch( root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1));
+}//perdonar usuario
 
 //eliminacion del usuario y posterior actualizacion de la BBDD
 async function castigoFinal(opcion, condicion1) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1));
 }//eliminacion del usuario y posterior actualizacion de la BBDD
 
 //buscar un libro que ya este en la base de datos
 async function buscarLibro(opcion, condicion1) {
-    //console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1);
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1, {
+    //console.log("http://"+root+"/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1);
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -240,13 +252,9 @@ async function buscarLibro(opcion, condicion1) {
     return Promise.resolve(response);
 }//buscar un libro
 
-async function modificarLibros(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion + "&condicion1=" + condicion1 +
-        "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5
-        + "&condicion6=" + condicion6 + "&condicion7=" + condicion7 + "&condicion8=" + condicion8, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+async function modificarLibros(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) + "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9));
 }
 
 //funcion para sacar los codigos de las tiendas
@@ -254,13 +262,14 @@ async function cod_tiendas(opcion) {
     let opciones = "";
     let cod = document.getElementById("acodtienda");
 
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
 
     response = await response.json();
     let union = "";
+    opciones = "<option>Tiendas</option>";
     //arrayTiendas
     for (let i = 0; i < response.length; i++) {
         arrayTiendas.push(response[i]);
@@ -273,7 +282,7 @@ async function cod_tiendas(opcion) {
 }
 
 async function backupRespore(opcion) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion, {
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -287,37 +296,105 @@ async function backupRespore(opcion) {
 }//funcion para saber que copias de seguridad estan en el servidor
 
 async function lanzarRestore(opcion, condicion1) {
-    /* console.log("http://" + root + "/proyecto/php/miniAPI.php?opcion=" + opcion +
-        "&condicion1=" + condicion1); */
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + opcion +
-        "&condicion1=" + condicion1, {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    });
+    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) +
+        "&condicion1=" + encodeURIComponent(condicion1));
 }
 
 //funcion para agregar libros de forma manual (administrador)
 function apiLibros(opcion) {
     let expcod = /^[0-9]{1,14}$/;
+    let expautor =/[a-zñA-ZÑáéíóú]{2,}/;//expresion regular para el autor
+    let exppagina = /[0-9]{1,3}/;//expresion regular para el numero de paginas
+    let expportada = /^https:\/\/[\w.\/-]{1,}(?:jpg|png|jpeg)$/;//expresion regular para la portada
+    let expvaloracion = /^[0-5]{1}$/;//expresion para las notas
     let centinela = true;//centinela para saber que se cumplen todas las condiciones
 
     if (expcod.test(cod_libro.value)) {
         cod_libro.style.border = "1px solid black";
+        validaciont1.style.display="none";
     } else {
         centinela = false;
         cod_libro.style.border = "2px solid red";
+        validaciont1.style.display="inline";
     }//else del cod_libro
 
-    if (alias != "") {
+    if (alias.value != "" && arrayAlias.includes(alias.value)) {
         alias.style.border = "1px solid black";
+        validaciont2.style.display="none";
     } else {
         centinela = false;
         alias.style.border = "2px solid red";
+        validaciont2.style.display="inline";
     }//else del alias
+    
+    if(titulo.value != ""){
+        titulo.style.border="1px solid black";
+        validaciont3.style.display="none";
+    }else{
+        centinela = false;
+        titulo.style.border = "2px solid red";
+        validaciont3.style.display="inline";
+    }
+    
+    if(expautor.test(autor.value)){
+        autor.style.border="1px solid black";
+        validaciont4.style.display="none";
+    }else{
+        centinela = false;
+        autor.style.border = "2px solid red";
+        validaciont4.style.display="inline";
+    }
+    
+    if(exppagina.test(pag.value)){
+        pag.style.border="1px solid black";
+        validaciont5.style.display="none";
+    }else{
+        centinela = false;
+        pag.style.border = "2px solid red";
+        validaciont5.style.display="inline";
+    }
+    
+    if(expportada.test(portada.value)){
+        portada.style.border="1px solid black";
+        validaciont6.style.display="none";
+    }else{
+        centinela = false;
+        portada.style.border = "2px solid red";
+        validaciont6.style.display="inline";
+    }
+    
+    if(leido.value=="SI" || leido.value=="NO"){
+        leido.style.border="1px solid black";
+        validaciont7.style.display="none";
+    }else{
+        centinela = false;
+        leido.style.border = "2px solid red";
+        validaciont7.style.display="inline";
+    }
+    
+    if(expvaloracion.test(valoracion.value)){
+        valoracion.style.boder ="1px solid black";
+        validaciont8.style.display="none";
+    }else{
+        centinela = false;
+        valoracion.style.border = "2px solid red";
+        validaciont8.style.display="inline";
+    }
+    
+    if(editorial.value!=""){
+        editorial.style.border = "1px solid black";
+        validaciont9.style.display="none";
+    }else{
+        centinela = false;
+        editorial.style.border = "2px solid red";
+        validaciont9.style.display="inline";
+    }
 
     if (centinela) {
-        modificarLibros(opcion, cod_libro.value, alias.value, titulo.value, autor.value, pag.value, portada.value, leido.value, valoracion.value).then(() => {
+        modificarLibros(opcion, cod_libro.value, alias.value, titulo.value, autor.value, pag.value, portada.value, leido.value, valoracion.value, editorial.value).then(() => {
             libros.style.display = "none";//oculto los div
+            bbdd.style.display="flex";
+            gestion.style.display="flex";
         });
     }
 }
@@ -343,6 +420,7 @@ function cambio(cadena) {
 
 //funcion que limpia campos
 function limpieza() {
+    //tiendas
     cod2.value = "";
     nombre.value = "";
     localidad.value = "";
@@ -358,6 +436,43 @@ function limpieza() {
     nombre.style.border = "1px solid black";
     provincia.style.border = "1px solid black";
     localidad.style.border = "1px solid black";
+    
+    //usuarios
+    let aliasUsu = document.getElementById("aalias");
+    let emailUsu = document.getElementById("amail");
+    let estadoUsu = document.getElementById("aestado");
+    let motivoUsu = document.getElementById("amotivo");
+    let nvecesUsu = document.getElementById("nveces");
+    
+    
+    aliasUsu.value="";
+    emailUsu.value="hob@hob.com";
+    estadoUsu.value="Estado";
+    motivoUsu.value="";
+    nvecesUsu.value="";
+    aliasUsu.style.border = "1px solid black";
+    motivoUsu.style.border = "1px solid black";
+    
+    //libros
+    cod_libro.value="";
+    alias.value="";
+    titulo.value="";
+    autor.value="";
+    pag.value="";
+    portada.value="";
+    leido.value="";
+    valoracion.value="";
+    editorial.value="";
+    cod_libro.style.border = "1px solid black";
+    alias.style.border = "1px solid black";
+    titulo.style.border = "1px solid black";
+    autor.style.border = "1px solid black";
+    pag.style.border = "1px solid black";
+    portada.style.border = "1px solid black";
+    leido.style.border = "1px solid black";
+    valoracion.style.border = "1px solid black";
+    
+    
     validacion1.style.display = "none";
     validacion2.style.display = "none";
     validacion3.style.display = "none";
@@ -365,10 +480,50 @@ function limpieza() {
     validacion5.style.display = "none";
     validacion6.style.display = "none";
     validacion7.style.display = "none";
+    validaciont1.style.display = "none";
+    validaciont2.style.display = "none";
+    validaciont3.style.display = "none";
+    validaciont4.style.display = "none";
+    validaciont5.style.display = "none";
+    validaciont6.style.display = "none";
+    validaciont7.style.display = "none";
+    validaciont8.style.display = "none";
+    validaciont9.style.display = "none";
+    
+    bbdd.style.display = "none";
+    gestion.style.display = "none";
+
+    restore.style.display = "none";//oculto los div
+    tiendas.style.display = "none";//oculto los div
+    usuarios.style.display = "none";//oculto los div
+    seleccion.style.display = "none";//oculto los div
+    libros.style.display = "none";//dejo visible el div
+    cod2.style.display = "inline";
+    cod.style.display = "none";
+        
+    //botones de tiendas    
+    btnAgregarTienda.style.display = "none";
+    btnBorrarTienda.style.display="none";
+    btnModificarTienda.style.display="none";
+    btnBuscarTienda.style.display="none";
+    
+    //botones de Libros
+    btnBuscarLibro.style.display="none";
+    btnModificarLibro.style.display="none";
+    btnAgregarLibro.style.display="none";
+    btnBorrarLibro.style.display="none";
+    
+    //botones de Usuarios
+    btnBuscarUsu.style.display="none";
+    btnPerdonar.style.display="none";
+    btnBanear.style.display="none";
+    btnBorrarUsu.style.display="none";
 }
 
 window.addEventListener("load", () => {
 
+//admin.style.display="block";
+    aliasarray();//saco los alias de los usuarios en la bbdd
     accion2.style.display = "none";
     bbdd.style.display = "flex";//dejo visible el div
     gestion.style.display = "flex";//dejo visible el div
@@ -383,6 +538,21 @@ window.addEventListener("load", () => {
     cod.style.display = "inline";//oculto los div
     cod2.style.display = "none";//oculto el campo de insercion de cod tienda
 
+    let datos=new URLSearchParams(window.location.search);
+    datos=decodeURIComponent(datos);
+    if(datos!=""){
+        let cadena=datos.slice(datos.search("=")+1);
+        let array=cadena.split(",");
+        sessionStorage.setItem('alias', array[0]);
+        sessionStorage.setItem('fecha', array[1]);
+        sessionStorage.setItem('localidad', array[2]);
+        sessionStorage.setItem('mail', array[3]);
+        sessionStorage.setItem('key', array[4]);
+        sessionStorage.setItem('foto', array[5]);
+        sessionStorage.setItem('estado', array[6]);
+    }
+    
+    
     let perfil = sessionStorage.getItem("alias");
 
     //verificador de que SOLO pueda entrar en admin el Administrador
@@ -417,7 +587,7 @@ window.addEventListener("load", () => {
 
         backupRespore("restauracion").then(() => {
             for (let i = 0; i < arrayrestore.length; i++) {
-                opciones += "<div class='col-5 text-end'><button type='button' id='restore" + i + "' value='" + arrayrestore[i] + "' class='restauracion'>" + arrayrestore[i] + "</button></div>";
+                    opciones += "<div class='col-5 text-end'><button type='button' id='restore" + i + "' value='" + arrayrestore[i] + "' class='restauracion'>" + arrayrestore[i].slice(0,arrayrestore[i].indexOf(".")).replace("copia","") + "</button></div>";
             }
             opciones += "</div>";
             restauracion.innerHTML += opciones;
@@ -462,27 +632,6 @@ window.addEventListener("load", () => {
     //////////////////////////////GESTION DE DATOS
 
     //TIENDAS
-
-    //btn que muestra el div de tiendas para agregar registros o borrarlos
-    btnTiendas.addEventListener("click", () => {
-        accion2.style.display = "none";
-        bbdd.style.display = "none";
-        gestion.style.display = "none";
-
-        restore.style.display = "none";//oculto los div
-        tiendas.style.display = "flex";//dejo visible el div
-        tiendas.style.marginBottom = "100px";
-        usuarios.style.display = "none";//oculto los div
-        seleccion.style.display = "none";//oculto los div
-        libros.style.display = "none";//oculto los div
-        accion.style.display = "none";
-
-        cod.style.display = "inline";
-        cod2.style.display = "none";//oculto el campo de insercion de cod tienda
-
-        arrayTiendas = [];//la reinicializo
-        cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
-    });//btn que muestra el div de tiendas para agregar registros o borrarlos
 
     //agregar tiendas, cambio de div al de agregar tienda
     btnAgregarTienda.addEventListener("click", () => {
@@ -581,7 +730,7 @@ window.addEventListener("load", () => {
                 if (centinela) {
                     console.log("Felicidades");
                     agregarTienda("agregartienda", cod2.value, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), cambio(localidad.value), provincia.value, cod_hob.value, logo.value, web.value);
-                    limpieza();
+                    //limpieza();
                     cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
                     accion.style.display = "inline";
                 } else {
@@ -673,7 +822,7 @@ window.addEventListener("load", () => {
                         console.log("Felicidades");
                         modificarTienda("modificartienda", id_tienda, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value, web.value);
                         accion.style.display = "inline";
-                        limpieza();
+                        //limpieza();
                     } else {
                         console.log("Lastima, Continuar?");
                     }//si todo esta correcto pasa al servidor
@@ -706,9 +855,14 @@ window.addEventListener("load", () => {
                 arrayTiendas = [];//la reinicializo
                 cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
                 accion.style.display = "inline";
-                limpieza();
+                //limpieza();
                 arrayTiendas = [];//la reinicializo
                 cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
+                
+                bbdd.style.display = "flex";
+                gestion.style.display = "flex";
+
+                tiendas.style.display = "none";//oculto los div
             });
 
         }//verificacion codigo
@@ -734,7 +888,7 @@ window.addEventListener("load", () => {
             validacion1.style.display = "inline";
             e.preventDefault();
         }
-        limpieza();
+        //limpieza();
 
         buscartienda("buscartienda", cod.value).then(data => {
             //muestro los resultados de la busqueda
@@ -746,28 +900,13 @@ window.addEventListener("load", () => {
             cod_hob.value = data[0][6];//7
             logo.value = data[0][7];//8
             web.value = data[0][8];//9
-            accion.style.display = "inline";
+            //accion.style.display = "inline";
         });
 
 
     });//btn buscar tienda
 
     //USUARIOS
-
-    //btn que muestra el div de usuarios para banear o borrar usuarios, y recibir la gracia del señor por buena conducta
-    btnBaneos.addEventListener("click", () => {
-        bbdd.style.display = "none";
-        gestion.style.display = "none";
-
-        accion2.style.display = "none";
-        accion.style.display = "none";
-
-        restore.style.display = "none";//oculto los div
-        tiendas.style.display = "none";//oculto los div
-        usuarios.style.display = "flex";//dejo visible el div
-        seleccion.style.display = "none";//oculto los div
-        libros.style.display = "none";//oculto los div
-    });//btn que muestra el div de usuarios para banear o borrar usuarios, y recibir la gracia del señor por buena conducta
 
     btnBuscarUsu.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
@@ -778,8 +917,25 @@ window.addEventListener("load", () => {
 
         buscarUsuario("buscarusuario", alias.value).then(data => {
             if (data[0][0] == null) {
-                motivo.textContent = "Usuario no registrado";
+                motivo.placeholder = "Usuario no registrado";
+                nveces.textContent = "-";
+                estado.textContent = "Sin Registrar";
+                //motivo.textContent="";
+                btnBanear.style.display="none";
+                btnPerdonar.style.display="none";
+                btnBorrarUsu.style.display="none";
             } else {
+                switch(formularioUsuarios.textContent){
+                    case "Bannear Usuario":
+                        btnBanear.style.display="inline";
+                        break;
+                    case "Perdonar Usuario":
+                        btnPerdonar.style.display="inline";
+                        break;
+                    case "Eliminar Usuario":
+                        btnBorrarUsu.style.display="inline";
+                        break;
+                }
                 email.textContent = data[0][0];
                 estado.textContent = data[0][1];
                 nveces.textContent = data[0][2] + " veces";
@@ -788,15 +944,6 @@ window.addEventListener("load", () => {
                 } else {
                     motivo.placeholder = data[0][3];
                 }
-
-                /* if (data[0][0].includes("@")) {
-                    motivo.textContent = "Correo Electronico\n" + data[0][0];
-                    nveces.textContent = data[0][1] + " veces";
-                } else {
-                    motivo.textContent = data[0][0];
-                    nveces.textContent = data[0][1] + " veces";
-                } */
-
             }
         });
 
@@ -818,29 +965,18 @@ window.addEventListener("load", () => {
     //btn perdonar usuarios
     btnPerdonar.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
+        let motivo = document.getElementById("amotivo");
         perdon("perdonarusuario", alias.value);
+        motivo.placeholder="Este usuario a recibido tus bendiciones";
     })//btn del perdon
 
     btnBorrarUsu.addEventListener("click", () => {
         let alias = document.getElementById("aalias");
+        let motivo = document.getElementById("amotivo");
         //ahora borramos y actualizamos tablas
         castigoFinal("eliminacion", alias.value);//eliminacion del usuario
+        motivo.placeholder="Este usuario ha sido eliminado";
     })
-
-    //añadir regstros en tablas
-
-    //btn que muestra la opcion para agregar registros a las diferentes tablas
-    btnAñadir.addEventListener("click", () => {
-        accion2.style.display = "none";
-        bbdd.style.display = "none";
-        gestion.style.display = "none";
-        restore.style.display = "none";//oculto los div
-        tiendas.style.display = "none";//oculto los div
-        usuarios.style.display = "none";//oculto los div
-        seleccion.style.display = "none";//oculto visible el div
-        libros.style.display = "flex";// dejo los div
-        libros.style.marginBottom = "100px";
-    });//btn que muestra la opcion para agregar registros a las diferentes tablas
 
     //btn que muestra el div para insertar registros en libros (opcion libros del div seleccion)
     btnLibros.addEventListener("click", () => {
@@ -866,6 +1002,7 @@ window.addEventListener("load", () => {
         let divPortada = document.getElementById("divPortada");
         let divLeido = document.getElementById("divLeido");
         let divValoracion = document.getElementById("divValoracion");
+        let divEditorial = document.getElementById("divEditorial");
 
         //expresion regular para admitir solo digitos
         let expcod = /^[0-9]{1,14}$/
@@ -885,6 +1022,7 @@ window.addEventListener("load", () => {
                     divPortada.style.display = "flex";
                     divLeido.style.display = "flex";
                     divValoracion.style.display = "flex";
+                    divEditorial.style.display = "flex";
                     //inserto los resultados
                     alias.value = data[1];
                     titulo.value = data[2];
@@ -893,6 +1031,7 @@ window.addEventListener("load", () => {
                     portada.value = data[5];
                     leido.value = data[6];
                     valoracion.value = data[7];
+                    editorial.value = data[8];
                 } else {
                     //lo oculto
                     label.textContent = "Resultado";
@@ -902,6 +1041,7 @@ window.addEventListener("load", () => {
                     divPortada.style.display = "none";
                     divLeido.style.display = "none";
                     divValoracion.style.display = "none";
+                    divEditorial.style.display = "none";
                     alias.value = "No existe ese Valor en la BBDD";
                 }
             });//promesa
@@ -915,7 +1055,7 @@ window.addEventListener("load", () => {
 
     //btn agregarlibro
     btnAgregarLibro.addEventListener("click", () => {
-        apiLibros("agregarLibro");
+        apiLibros("agregarleido");
     });//btn agregarlibro
 
     btnBorrarLibro.addEventListener("click", () => {
@@ -934,4 +1074,96 @@ window.addEventListener("load", () => {
     cod.addEventListener("change", () => {
         btnBuscarTienda.dispatchEvent(eventoChange);
     });//evento change que efectua lo mismo que el boton de buscar
+    
+    
+    //boones EXTRAS de Tiendas
+    inicioAgregarTienda.addEventListener("click", ()=> {
+        limpieza();
+        tiendas.style.display = "flex";//oculto los div
+        
+        cod2.style.display = "inline";
+        cod.style.display = "none";
+        
+        btnAgregarTienda.style.display = "inline";
+        formularioTiendas.textContent="Agregar Tienda";
+    })
+    
+    inicioModificarTienda.addEventListener("click",()=>{
+        limpieza();
+        tiendas.style.display = "flex";//oculto los div
+        //funcion para sacar los codigos de las tiendas
+        cod_tiendas("cod_tiendas").then(()=>{
+            cod.style.display = "inline";
+            cod2.style.display = "none";
+            btnModificarTienda.style.display="inline";  
+            formularioTiendas.textContent="Modificar Tienda";
+        })
+    })
+    
+    inicioBorrarTienda.addEventListener("click",()=>{
+        limpieza();
+        tiendas.style.display = "flex";//oculto los div
+        //funcion para sacar los codigos de las tiendas
+        cod_tiendas("cod_tiendas").then(()=>{
+            cod.style.display = "inline";
+            cod2.style.display = "none";
+            btnBorrarTienda.style.display="inline";  
+            formularioTiendas.textContent="Borrar Tienda";
+        })
+    })
+    
+    //Botones EXTRAS de Libros
+    inicioAgregarLibro.addEventListener("click",()=>{
+        limpieza();
+        libros.style.display = "flex";//dejo visible el div
+        btnAgregarLibro.style.display="inline";
+        btnBuscarLibro.style.display="inline";
+        formularioLibros.textContent="Agregar Libro a un usuario";
+    })
+    
+    inicioModificarLibro.addEventListener("click",()=>{
+        limpieza();
+        libros.style.display = "flex";//dejo visible el div
+        btnModificarLibro.style.display="inline";
+        btnBuscarLibro.style.display="inline";
+        formularioLibros.textContent="Modificar Libro";
+    })
+    
+    inicioEliminarLibro.addEventListener("click",()=>{
+        limpieza();
+        libros.style.display = "flex";//dejo visible el div
+        btnBorrarLibro.style.display="inline";
+        btnBuscarLibro.style.display="inline";
+        formularioLibros.textContent="Eliminar Libro";
+    })
+    
+    //botones EXTRA de Baneo
+    inicioBanearUsuario.addEventListener("click",()=>{
+        limpieza();
+        formularioUsuarios.textContent="Bannear Usuario";
+        usuarios.style.display = "flex";
+        btnBuscarUsu.style.display="inline";
+        //btnBanear.style.display="inline";
+    })
+    
+    
+    inicioPerdonarUsuario.addEventListener("click",()=>{
+        limpieza();
+        formularioUsuarios.textContent="Perdonar Usuario";
+        usuarios.style.display = "flex";
+        btnBuscarUsu.style.display="inline";
+    })
+    
+    inicioEliminarUsuario.addEventListener("click",()=>{
+        limpieza();
+        formularioUsuarios.textContent="Eliminar Usuario";
+        usuarios.style.display = "flex";
+        btnBuscarUsu.style.display="inline";
+        
+    })
 })
+
+
+
+
+

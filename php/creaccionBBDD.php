@@ -45,11 +45,12 @@
                 /* NOMBRE varchar(40) not null, */
                 F_NACIMIENTO date not null,
                 LOCALIDAD varchar(30),
-                EMAIL varchar(40) not null,
+                EMAIL varchar(40) not null UNIQUE,
                 CONTRASEÑA varchar(100) not null,
                 FOTO varchar(100),
                 ESTADO enum('OK','Pendiente','Banneado') not null DEFAULT 'Pendiente',
-                F_REGISTRO date not null
+                F_REGISTRO date not null,
+                UNIQUE KEY `Unico` (`EMAIL`)
             )");
             //comprobaciones
             if($tusuarios){

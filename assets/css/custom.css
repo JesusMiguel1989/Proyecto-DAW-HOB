@@ -277,8 +277,8 @@ a:hover {
     width: 600px;
     position: relative;
     z-index: 2;
-    top: 5%;
-    /* margin-top: 10%;*/
+    /*top: 5%;
+     margin-top: 10%;*/
     margin-left: 22%; 
     background-color: rgb(152, 226, 202);
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
@@ -286,6 +286,19 @@ a:hover {
     padding-top: 12px;
     padding-bottom: 12px;
     margin-top: 50px;
+  }
+  
+  .rfondore {
+    width: 600px;
+    position: relative;
+    z-index: 2;
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    border-radius: 5%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 5%;
+    margin-bottom: 5%;
   }
 
   .rfondoi {
@@ -457,6 +470,16 @@ a:hover {
   .rnav {
     width: 480px;
   }
+  
+  .rfondo23 {
+    /* ancho de la tarjeta */
+    background-color: rgb(152, 226, 202);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+    padding: 30px;
+    margin: 0 auto;
+    border-radius: 5%;
+    /*width: 750px;*/
+  }
 
   #lfoto {
     margin-top: 25px;
@@ -548,7 +571,7 @@ a:hover {
     margin-bottom: 80px;
   }
 
-  .rfondor {
+  .rfondor, .rfondore {
     /*width: 95%;
      height: 820px; */
     background-color: rgb(152, 226, 202);
@@ -557,7 +580,7 @@ a:hover {
     margin-top: 20px;
     border-radius: 5%;
     /* margin-top: 80px; */
-    margin-bottom: 110px;
+    margin-bottom: 120px;
     z-index: 20;
   }
 
@@ -724,6 +747,12 @@ a:hover {
     min-width: 210px;
     max-width: 90%;
   }
+  
+  #btnAddComentario,
+  #agregarComentarios,
+  #verComentarios{
+      font-size: 12px;
+  }
 
 }
 
@@ -736,7 +765,7 @@ a:hover {
 /****************Media para mantener el alncho de los input fuera del movil*********/
 
 @media (min-width: 413px )  and (max-width: 1200px) {
-  .rfondor {
+  .rfondor, .rfondore {
     /* width: 80%;
     height: 730px; */
     background-color: rgb(152, 226, 202);
@@ -837,7 +866,7 @@ a:hover {
     padding: 30px;
     margin: 0 auto;
     border-radius: 5%;
-    width: 750px;
+    /*width: 750px;*/
   }
 
   .rfondo3 {
@@ -1043,6 +1072,16 @@ a:hover {
   margin-top: 15px;
   border-radius: 20%;
   font-weight: bold;
+  font-size:14px;
+  padding:5px;
+}
+
+.btn-sugerencia2 {
+  margin-top: 5px;
+  border-radius: 20%;
+  font-weight: bold;
+  font-size:14px;
+  padding:5px;
 }
 
 .btn-sugerencia:hover {
@@ -1401,7 +1440,7 @@ input[type="radio"]:checked~label {
 
 /********************************Admin*********************************/
 .administrador {
-  margin-top: 100px;
+  margin-top: 50px;
   z-index: 5;
 }
 
@@ -1418,6 +1457,7 @@ input[type="radio"]:checked~label {
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
   margin-left: 5px;
   border-radius: 5%;
+  margin-Bottom: 80px;
 }
 
 .admin {
@@ -1428,7 +1468,7 @@ input[type="radio"]:checked~label {
 
 #acodtienda, #alocalidad, #aprovincia, #anombre, #adireccion, #atelefono, #acodhobie, #alogo, #aWeb,
 #acodtienda2, #alocalidad2, #aprovincia2, #anombre2, #adireccion2, #atelefono2, #acodhobie2, #alogo2,
-#alvaloracion, #alleido, #alportada, #alpaginas, #alautor, #altitulo, #alalias, #alcodlibro {
+#alvaloracion, #alleido, #alportada, #alpaginas, #alautor, #altitulo, #alalias, #alcodlibro, #aleditorial {
   width: 100%;
   margin-top: 10px;
 }
@@ -1684,4 +1724,15 @@ footer a:hover{
   width: 33%;
 }
 
-/* conexion plus 642 642 642 */
+/*gestion */
+#gestion{
+    margin-Bottom:120px;
+}
+
+.label-sugerencia{
+    padding-Top: 10px;
+    font-weight: bold;
+  }
+
+
+

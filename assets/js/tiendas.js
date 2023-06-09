@@ -14,8 +14,7 @@ async function buscar(op, hobie, localidad) {
     let encontrados = [];
     /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie + "&condicion2=" + localidad); */
 
-    let response = await fetch(root+"/php/miniAPI.php?opcion=" + op + "&condicion1=" + hobie
-        + "&condicion2=" + localidad, {
+    let response = await fetch(root+"/php/miniAPI.php?opcion=" + encodeURIComponent(op) + "&condicion1=" + encodeURIComponent(hobie) + "&condicion2=" + encodeURIComponent(localidad), {
         method: "GET",
         headers: { "Content-type": "application/json" }
     });
@@ -25,7 +24,7 @@ async function buscar(op, hobie, localidad) {
     for (let i = 0; i < response.length; i++) {
 
         encontrados = [response[i][0], response[i][1], response[i][2], response[i][3], response[i][4], response[i][5],
-        response[i][6], response[i][7], response[i][8]/* ,texto.descripcion.value */];
+        response[i][6], response[i][7], response[i][8]];
         array.push(encontrados);
         mostrar(i);
     }
@@ -69,7 +68,7 @@ function mostrar(num) {
     divTiendas.appendChild(tienda);
     //divTiendas.style.display = "inline-block";
 
-    divTiendas.classList.add("col-6", "col-sm-4", "col-md-4", "col-lg-3");
+    divTiendas.classList.add("col-5", "col-sm-4", "col-md-4", "col-lg-3");
     divTiendas.classList.add("text-center");
     divTiendas.classList.add("mt-4", "mb-sm-5", "mb-2");
     divTiendas.classList.add("ms-xs-3", "ms-lg-4");
@@ -88,9 +87,9 @@ function mostrar(num) {
         let web = document.getElementById("tWeb");
 
         ficha.style.display = "inline-flex";
-        ficha.style.width = "75%";
+        ficha.style.width = "95%";
         foto.setAttribute("src", array[num][7]);//indico la foto
-        foto.style.width = "75%";
+        foto.style.width = "95%";
         //centrar imagen
         foto.style.margin = "0 auto";
 
@@ -116,8 +115,8 @@ function mostrar(num) {
         direccion.innerHTML = array[num][4] + "  <a href='"+google+"' target='_blank'><i class='bi bi-geo-alt-fill'></i></a>";
         ;//indico la direccion
         telefono.textContent = array[num][5];//indico el telefono
-        if (array[num][8] != "") {
-            web.innerHTML = "<a href='https://" + array[num][8] + "' alt='Web de" + array[num][3] + "' title='" + array[num][3] + "' target='_blank'>Acceder</a>";//indico la Web
+        if (array[num][8] != "" && array[num][8] !=null) {
+            web.innerHTML = "<a href='https://" + array[num][8] + "' alt='Web de" + array[num][3] + "' title='" + array[num][3] + "' target='_blank'>Ir a la web</a>";//indico la Web
         } else {
             web.textContent = "Web no disponible";//indico la Web
         }

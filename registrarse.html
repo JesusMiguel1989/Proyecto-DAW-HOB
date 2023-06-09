@@ -11,7 +11,7 @@
 
     <!-- Favicons -->
     <link href="./assets/imagenes/favicon.png" rel="icon">
-    <link href="./assets/imagenes/apptouch.png" rel="apple-touch-icon">
+    <!--<link href="./assets/imagenes/apptouch.png" rel="apple-touch-icon">-->
 
     <!-- Google Fonts -->
     <link
@@ -31,6 +31,8 @@
     <link href="assets/css/custom.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./assets/css/custom.css">
+    
+    <script async src='https://www.google.com/recaptcha/api.js?hl=es'></script>
 </head>
 
 <body>
@@ -48,18 +50,6 @@
                         class="img-fluid rounded-circle"></a>
                 <h1 class="text-light"><a href="index.html" alt="Título Pagina" title="Título Pagina"><span
                             class="hb">H</span><span class="o">O</span><span class="hb">B</span></a></h1>
-                <div class="social-links mt-3 text-center">
-                    <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i
-                            class="bx bxl-twitter"><span style="display: none;">twitter</span></i></a>
-                    <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i
-                            class="bx bxl-facebook"><span style="display: none;">facebook</span></i></a>
-                    <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i
-                            class="bx bxl-instagram"><span style="display: none;">instagram</span></i></a>
-                    <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i
-                            class="bx bxl-telegram"><span style="display: none;">telegram</span></i></a>
-                    <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i
-                            class="bx bxl-whatsapp"><span style="display: none;">whatsapp</span></i></a>
-                </div>
             </div>
 
             <nav id="navbar" class="nav-menu navbar">
@@ -68,6 +58,7 @@
                             <span>Identificarse</span></a></li>
                     <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i>
                             <span>Perfil</span></a></li>
+
                     <li><a href="./lectura.html" class="nav-link scrollto"><i class="bi bi-book"></i>
                             <span>Lectura</span></a></li>
 
@@ -81,26 +72,33 @@
                             <span>Administración</span></a></li>
                 </ul>
             </nav><!-- .nav-menu -->
+                 <div class="profile">
+                    <!--<div class="social-links mt-3 text-center">
+                        <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i
+                                class="bx bxl-twitter"></i></a>
+                        <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i
+                                class="bx bxl-facebook"></i></a>
+                        <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i
+                                class="bx bxl-instagram"></i></a>
+                        <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i
+                                class="bx bxl-telegram"></i></a>
+                        <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i
+                                class="bx bxl-whatsapp"></i></a>
+                    </div>-->
+                 </div>
+            
         </div>
     </header><!-- End Header -->
 
-
-
-
     <!-- ======= inicio Section ======= Pantalla inicial de la plantilla, foto derecha -->
     <section id="seccion" class="d-flex flex-column justify-content-center align-items-center ">
-        <!-- <div class="row">
-            <div class="col-0 col-sm-0 col-md-0 col-lg-0 col-xl-4"></div>
-            <div class="col-10 col-sm-10 col-md-9 col-lg-9 col-xl-7 text-center">
-                <h1 class="rtitulo" title="Registro"> Registro </h1>
-                <span style="display: none;">registro</span>
-            </div>
-        </div> -->
-        <form id="inicio" action="php/Registro.php" method="POST" class="row needs-validation" novalidate>
+        
+        <form id="inicio" action="./php/Registro.php" method="POST" class="row needs-validation" novalidate>
 
             <div class="col-1 col-sm-1 col-md-1 col-lg-2 col-xl-4"></div>
-            <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-8 text-left inicio-container rfondor">
+            <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-8 text-left inicio-container rfondore">
                 <h1 class="rtitulo" title="Registro"> Registro </h1>
+                <span style="display: none;">registro</span>
                 <fieldset>
                     <center>
                         <h1 class="rfiel">Datos Web </h1>
@@ -114,6 +112,9 @@
                                 required><br>
                             <div id="validacion1" class="invalid-feedback">
                                 <span>Error en el correo.</span>
+                            </div>
+                            <div id="validacion11" class="invalid-feedback">
+                                <span>Ese corro ya esta en la Base de datos.</span>
                             </div>
                             <span class="rlabel">Ej.: ejemplo@ejemplo.com</span>
                         </div>
@@ -227,19 +228,12 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-12 col-sm-0  text-end">
-
-                    </div>
-                    <div class="col-8 col-sm-8 col-md-8 col-xl-8 text-end text-sm-center titulo">
-                        <input type="checkbox" id="rRobot" class="repite" title="F.Nacimiento">
-                        <label for="rRobot">No soy un robot</label><br>
+                <div class="row m-0 justify-content-center">
+                    <div class="col-12 col-sm-12 col-md-12 col-xl-12 text-center titulo">
+                        <div class="g-recaptcha" data-sitekey="6LfQy4EmAAAAAPf-GYP5ZIJXewKBYvIxjJnQYMPR" data-callback="captcha"></div>
                         <div id="validacion6" class="invalid-feedback">
                             <span>Eres un robot.</span>
                         </div>
-                    </div>
-                    <div class="col-4 col-sm-4 text-start">
-                        <img src="./assets/capcha2.png" id="avatar" alt="capcha registro" title="Capcha">
                     </div>
                 </div>
 

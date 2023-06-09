@@ -14,7 +14,7 @@
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">-->
   <!--<link rel=”shortcut icon” href=”favicon.ico” mce_href=”favicon.ico” type=”image/x-icon” />-->
   <link rel="icon" href="./assets/imagenes/favicon.png">
-  <link href="./assets/imagenes/apptouch.png" rel="apple-touch-icon">
+  <!--<link href="./assets/imagenes/apptouch.png" rel="apple-touch-icon">-->
 
   <!-- Google Fonts -->
   <link
@@ -45,76 +45,54 @@
   <i class="bi bi-list mobile-nav-toggle d-xl-none" id="menus"></i>
 
   <!-- ======= Header ======= -->
-  <header id="header">
-    <div class="d-flex flex-column">
+    <header id="header">
+        <div class="d-flex flex-column">
 
+            <!--MENU de la IZQUIERDA-->
+            <div class="profile">
+                <a href="index.html"><img src="assets/imagenes/recortado.png" alt="logo Pagina" title="logo Pagina"
+                        class="img-fluid rounded-circle"></a>
+                <h1 class="text-light"><a href="index.html" alt="Título Pagina" title="Título Pagina"><span
+                            class="hb">H</span><span class="o">O</span><span class="hb">B</span></a></h1>
+            </div>
 
-      <!--MENU de la IZQUIERDA-->
-      <div class="profile">
-        <a href="index.html"><img src="assets/imagenes/recortado.png" alt="logo Pagina" title="logo Pagina" class="img-fluid rounded-circle"></a>
-        <h1 class="text-light"><a href="index.html" alt="Título Pagina" title="Título Pagina"><span class="hb">H</span><span class="o">O</span><span
-              class="hb">B</span></a></h1>
-        <div class="social-links mt-3 text-center">
-          <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i class="bx bxl-twitter"></i></a>
-          <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i class="bx bxl-telegram"></i></a>
-          <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i class="bx bxl-whatsapp"></i></a>
-        </div>
-      </div>
+            <nav id="navbar" class="nav-menu navbar">
+                <ul>
+                    <li><a href="./identificarse.html" class="nav-link scrollto"><i class="bx bx-user"></i>
+                            <span>Identificarse</span></a></li>
+                    <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i>
+                            <span>Perfil</span></a></li>
 
-      <!-- <form id="buscador" action="·">
-        <label for="Idbuscar">&nbsp</label>
-        
-        <input id="Ibuscar" type="text" placeholder="Buscar">
-        <button type="button" class="btn btn-secondary Ibuscador">
-          <i class="bi-search "></i>
-        </button>
-      </form> -->
+                    <li><a href="./lectura.html" class="nav-link scrollto"><i class="bi bi-book"></i>
+                            <span>Lectura</span></a></li>
 
-      <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="./identificarse.html" class="nav-link scrollto"><i class="bx bx-user"></i>
-              <span>Identificarse</span></a></li>
-          <li><a href="./perfil.html" class="nav-link scrollto"><i class="bx bx-home"></i> <span>Perfil</span></a></li>
-
-          <li><a href="./lectura.html" class="nav-link scrollto"><i
-                class="bi bi-book"></i>
-              <span>Lectura</span></a></li>
-          <!--<li class="nav-link scrollto">
-            <button class="boton btn btn-toggle d-inline-flex align-items-center rounded"
-                data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
-                <a href="#" class="nav-link scrollto"><i class="bx bx-file-blank"></i>Hobies</a></button>
-             <div class="collapse" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="./retro.html"
-                            class="link-light d-inline-flex text-decoration-none rounded">Retro Gamming</a>
-                    </li>
-                    <li><a href="./arte.html"
-                            class="link-light d-inline-flex text-decoration-none rounded">Arte</a>
-                    </li>
-                    <li><a href="./lectura.html"
-                            class="link-light d-inline-flex text-decoration-none rounded">Lectura</a></li>
-                    <li><a href="./senderismo.html"
-                            class="link-light d-inline-flex text-decoration-none rounded disabled">Senderismo</a>
-                    </li>
+                    <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
+                            <span>Tiendas Locales</span></a></li>
+                    <li><a href="./sugerencias.html" class="nav-link scrollto"><i class="bx bx-home"></i>
+                            <span>Sugerencias</span></a></li>
+                    <li><a href="./preguntas.html" class="nav-link scrollto"><i class="bx bx-question-mark"></i>
+                            <span>Preguntas Frecuentes</span></a></li>
+                    <li id="admin"><a href="./admin.html" class="nav-link scrollto"><i class="bi bi-gear"></i>
+                            <span>Administración</span></a></li>
                 </ul>
-            </div> 
-        </li>-->
-
-          <li><a href="./tiendas.html" class="nav-link scrollto"><i class="bx bx-shopping-bag"></i>
-              <span>Tiendas Locales</span></a></li>
-          <li><a href="./sugerencias.html" class="nav-link scrollto"><i class="bx bx-home"></i>
-              <span>Sugerencias</span></a></li>
-
-          <li><a href="./preguntas.html" class="nav-link scrollto"><i class="bx bx-question-mark"></i>
-              <span>Preguntas Frecuentes</span></a></li>
-          <li id="admin"><a href="./admin.html" class="nav-link scrollto"><i class="bi bi-gear"></i>
-              <span>Administración</span></a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
-    </div>
-  </header><!-- End Header -->
+            </nav><!-- .nav-menu -->
+             <div class="profile">
+                <!--<div class="social-links mt-3 text-center">
+                    <a href="https://twitter.com/?lang=es" class="twitter" alt="Twitter" title="Twitter"><i
+                            class="bx bxl-twitter"></i></a>
+                    <a href="https://www.facebook.com/" class="facebook" alt="Facebook" title="Facebook"><i
+                            class="bx bxl-facebook"></i></a>
+                    <a href="https://www.instagram.com/" class="instagram" alt="Instagram" title="Instagram"><i
+                            class="bx bxl-instagram"></i></a>
+                    <a href="https://web.telegram.org/z/" class="instagram" alt="Telegram" title="Telegram"><i
+                            class="bx bxl-telegram"></i></a>
+                    <a href="https://web.whatsapp.com/" class="instagram" alt="Whatsapp" title="Whatsapp"><i
+                            class="bx bxl-whatsapp"></i></a>
+                </div>-->
+             </div>
+            
+        </div>
+    </header><!-- End Header -->
 
 
   <!-- ======= inicio Section ======= Pantalla inicial de la plantilla, foto derecha -->
@@ -123,29 +101,11 @@
 
       <img src="./assets/imagenes/HOB.png" id="hob">
       <h1>¿Cuales son tus intereses?<br></h1>
-      <!-- <p><span class="typed" id="visor"
-          data-typed-items="Retro Gamming, Lectura, Senderismo, Dibujo, Peliculas, Sellos, Modelismo, Coches"></span>
-      </p> -->
-
       <div id="hobies" class="row text-center">
-        <!-- <div id="sendero">
-          <a href="./senderismo.html"><img class="senderos disabled" src="./assets/imagenes/senderismo.png"
-              title="Senderismo"></a>
-            <h5>Senderismo</h5>
-        </div> -->
         <div id="lectura" class="col-12 text-center">
           <a href="./lectura.html"><img class="libros" src="./assets/imagenes/libro.png" title="Lectura"></a><br>
           <p class="alabel">Literatura</p>
         </div>
-        <!-- <div id="retro">
-          <a href="./retro.html"><img class="gaming disabled" src="./assets/imagenes/retrogaming.png" title="Retro Gamming"></a>
-          <h5>Retro-Gamming</h5>
-        </div>
-        <div id="arte">
-          <a href="./arte.html"><img class="pintar disabled" src="./assets/imagenes/arte.png" title="Arte"></a>
-          <h5>Arte</h5>
-        </div> -->
-
       </div>
     </div>
 

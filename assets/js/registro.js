@@ -1,9 +1,16 @@
 let arrayAlias = [];
+let arrayEmail = [];
+let verificadorFinal=true;
+let rRobot=false;
 
 let nuevoClick = new Event("click");
 let nuevoSubmit = new Event("submit");
-//let evento = document.createEvent("submit");
-let eventoClick = new Event("click");
+let evento = new Event("submit" ,{
+    bubbles: true,
+    cancelable: true
+});
+
+
 async function alias() {
     let response = await fetch(root+"/php/comprobacionAlias.php", {
         method: "GET",
@@ -11,16 +18,34 @@ async function alias() {
     });
 
     response = await response.json();
-    return Promise.resolve(response);
-    //let texto = await response.json();
 
-    //arrayAlias=texto;
-    /* for (i = 0; i < texto.length; i++) {
-        arrayAlias[i]=texto[i];
-    } */
+    for (i = 0; i < response.length; i++) {
+        arrayAlias[i]=response[i];
+    }
+    return Promise.resolve(response);
+}
+
+async function mail() {
+    let response = await fetch(root+"/php/miniAPI.php?opcion=email", {
+        method: "GET",
+        headers: { "Content-type": "application/json" }
+    });
+
+    response = await response.json();
+    
+    for (i = 0; i < response.length; i++) {
+        arrayEmail[i]=response[i];
+    }
+    return Promise.resolve(response);
+}
+
+function captcha(){
+    rRobot=true;
 }
 
 window.addEventListener("load", () => {
+    alias();//saco los alias de los usuarios en la bbdd
+    mail();//saco los email de los usuarios en la bbdd
     let remail = document.getElementById("remail");
     let contraseña = document.getElementById("key");
     let contraseña2 = document.getElementById("key2");
@@ -28,7 +53,8 @@ window.addEventListener("load", () => {
     let fecha_nac = document.getElementById("rfecha");
     let localidad = document.getElementById("rlocalidad");
     let condiciones = document.getElementById("condiciones");
-    let rRobot = document.getElementById("rRobot");
+    //let rRobot = document.getElementById("rRobot");
+    
 
     let ojo1 = document.getElementById("verclave1");//boton ojo 1
     let ojo2 = document.getElementById("verclave2");//boton ojo 1
@@ -69,7 +95,9 @@ window.addEventListener("load", () => {
         }
     })
 
-    enviar.addEventListener("click", (e) => {
+    //enviar.addEventListener("click", (e) => {
+    function verificar(){
+        
         let expresionmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         let expresion_key = /^\w{8,}$/;
         let expresion_nom = /[a-zA-ZñÑáéíóú0-9]{2,}$/;
@@ -82,18 +110,28 @@ window.addEventListener("load", () => {
         let validacion4 = document.getElementById("validacion4");
         let validacion34 = document.getElementById("validacion34");
 
+        let validacion=false;
+        verificadorFinal=false;
         if (!validado) {
             //e.preventDefault();
 
-            let validacion = true;
+            validacion = true;
             //comprobacion email
             if (!expresionmail.test(remail.value)) {
                 validacion = false;
                 validacion1.style.display = "block";
                 remail.style.border = "2px solid red";
             } else {
-                validacion1.style.display = "none";
-                remail.style.border = "1px solid black";
+                if(arrayEmail.includes(remail.value)){
+                    validacion = false;
+                    validacion11.style.display = "block";
+                    remail.style.border = "2px solid red";
+                }else{
+                    validacion11.style.display = "none";
+                    validacion1.style.display = "none";
+                    remail.style.border = "1px solid black";
+                }
+                
             }
 
             //comprobacion
@@ -139,7 +177,7 @@ window.addEventListener("load", () => {
             }
 
             //robot
-            if (rRobot.checked == false) {
+            if (rRobot == false) {
                 validacion = false;
                 let validacion6 = document.getElementById("validacion6");
                 validacion6.style.display = "block";
@@ -150,36 +188,38 @@ window.addEventListener("load", () => {
                 validacion = false;
                 validacion34.style.display = "block";
             } else {
-                alias().then(data => {
-                    console.log(data);
-                    if (data.includes(nombre.value)) {
-                        console.log(nombre.value);
-                        validacion = false;
-                        validacion34.style.display = "block";
-                    }
+                if (arrayAlias.includes(nombre.value)) {
+                    validacion = false;
+                    validacion34.style.display = "block";
+                    nombre.style.border="2px solid red";
+                }else{
+                    validacion34.style.display = "none";
+                    nombre.style.border="1px solid black";
+                }
 
-                    //comprobacion de si esta todo correcto
-                    if (validacion) {
-                        validado = true;
-                        console.log("llega");
-                        enviar.dispatchEvent(nuevoClick);
-                    }
-                });
+                //comprobacion de si esta todo correcto
+                if (validacion) {
+                    validado = true;
+                    console.log("llega");
+                    verificadorFinal=validacion;
+                    //formulario.dispatchEvent(evento);
+                }
             }
-        } else {
-            formulario.dispatchEvent(nuevoSubmit);
+        }
+    };
+
+    formulario.addEventListener("submit", (e) => {
+        //verificadorFinal=false;
+        verificar();
+        if(verificadorFinal==false){
+            e.preventDefault();
+        }else{
             sessionStorage.setItem('alias', nombre.value);
             sessionStorage.setItem('mail', remail.value);
             sessionStorage.setItem('key', contraseña.value);
             sessionStorage.setItem('fecha', fecha_nac.value);
             sessionStorage.setItem('localidad', localidad.value);
-            sessionStorage.setItem('estado', "Pendiente");
+            sessionStorage.setItem('estado', "Pendiente"); 
         }
-
-
-    });
-
-    formulario.addEventListener("submit", () => {
-        console.log("Se nabda");
     })
 })

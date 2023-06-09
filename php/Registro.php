@@ -1,7 +1,20 @@
 <?php
     include "./greenhob.php";
-    $root="http://localhost/proyecto";
-    $from="jes11989@hotmail.com";
+    $root="https://www.hoby.es";
+    $from="adminHOB@hoby.es";
+    
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+    header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    header("Access-Control-Allow-Credentials: true");
+    header('Content-Type: application/json');
+    $method = $_SERVER['REQUEST_METHOD'];
+    if ($method == "OPTIONS") {
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+        header("HTTP/1.1 200 OK");
+        die();
+    }
 
     $conexion=new mysqli($host,$usuario,$password,$bbdd);
 
@@ -15,16 +28,22 @@
         $localidad=$_POST['localidad'];
         
         //echo $key;
-        //echo $mail."<br>".$key."<br>".$nombre."<br>".$fecha."<br>".$localidad."<br>";
         if(mysqli_query($conexion,"use ".$bbdd)){
 
             $correo=$_GET['correo'];
+            echo $correo;
             if(isset($correo)){
                 $nombre=$_GET['nombre'];
                 $mail=$_GET['mail'];
                 //se modifica el campo estado del usuario y la fecha de registro pasa a OK y fecha a 9999-01-01
-                $update=mysqli_query($conexion,"UPDATE USUARIOS SET ESTADO='OK', F_REGISTRO='9999-01-01' WHERE ALIAS='".$nombre."' AND EMAIL='".$mail."'");
-                header("Refresh: 0; url=../index.html");
+                $update=mysqli_query($conexion,"UPDATE usuarios SET ESTADO='OK', F_REGISTRO='9999-01-01' WHERE ALIAS='".$nombre."' AND EMAIL='".$mail."'");
+                
+                $datos=mysqli_query($conexion,"SELECT  ALIAS, F_NACIMIENTO, LOCALIDAD, EMAIL, CONTRASEÑA, ESTADO FROM usuarios WHERE ALIAS='".$nombre."' AND EMAIL='".$mail."'");
+                
+                while($fila=mysqli_fetch_row($datos)){
+                    $arrayUsuario=array($fila[0],$fila[1],$fila[2],$fila[3],$fila[4], 'Administrador.png', $fila[5]);
+                }
+                header("Refresh: 0; url=".$root."/index.html?array=".json_encode($arrayUsuario));
             }else{
                 $mail=$_POST['mail'];
                 $key=$_POST['key'];
@@ -32,18 +51,13 @@
                 $fecha=$_POST['fecha'];
                 $localidad=$_POST['localidad'];
 
-                echo "valores:<br>".$mail."<br>".$key."<br>".$nombre."<br>".$fecha."<br>".$localidad."<br>";
+                
                 $fechaReg=date("Y-m-d");
                 $fecha=new DateTime($fecha);
                 $fechaNaci=$fecha->format("Y-m-d");
                 $password=password_hash($key,  PASSWORD_DEFAULT);
 
-                echo "INSERT INTO USUARIOS  (ALIAS, F_NACIMIENTO, LOCALIDAD, EMAIL, CONTRASEÑA, ESTADO, F_REGISTRO)
-                VALUES('".$nombre."','".$fechaNaci."','".$localidad."','".$mail."','".$password."','Pendiente',".$fechaReg.")"."<br>";
-
-                /* echo "INSERT INTO USUARIOS (ALIAS, F_NACIMIENTO, LOCALIDAD, EMAIL, CONTRASEÑA)
-                VALUES('".$nombre."','".$fechaNaci."','".$localidad."','".$mail."','".$password."')"; */
-                $insercion=mysqli_query($conexion,"INSERT INTO USUARIOS  (ALIAS, F_NACIMIENTO, LOCALIDAD, EMAIL, CONTRASEÑA, ESTADO, F_REGISTRO)
+                $insercion=mysqli_query($conexion,"INSERT INTO usuarios  (ALIAS, F_NACIMIENTO, LOCALIDAD, EMAIL, CONTRASEÑA, ESTADO, F_REGISTRO)
                             VALUES('".$nombre."','".$fechaNaci."','".$localidad."','".$mail."','".$password."','Pendiente','".$fechaReg."')");
                 if($insercion){
                     echo "Usuario guardado<br>";
@@ -64,15 +78,15 @@
                 $unsalto="\r\n";
                 $encabezados = "";
                 
-                $cabeceras = 'From: <'.$from.'>'.$unsalto;
+                $cabeceras = 'From:'.$from.$unsalto;
                 $cabeceras .= "MIME-Version: 1.0".$unsalto;
 	            $cabeceras .= "Content-Type: text/html;";
 	            $cabeceras .= " boundary=Separador_de_partes";
 
                 mail($to,$titulo,$mensaje,$cabeceras);
 
-                header("Refresh: 0; url=../index.html");
-                //header("Refresh: 0; url=../index.html");
+                $arrayUsuario=array($nombre,$fechaNaci,$localidad,$mail,$password,'Administrador.png','Pendiente');
+                header("Refresh: 0; url=".$root."/index.html?array=".json_encode($arrayUsuario));
             }//comprobacion de si vien desde el correo o desde la pagina
             
             //hago limpia de usuarios que no han hecho el ultimo paso del registro (correo)
