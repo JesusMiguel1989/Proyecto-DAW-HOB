@@ -49,10 +49,7 @@ async function alias(opcion, condicion1, condicion2) {
         
         //redireccionamiento del usuario segun rol
         if (perfil == "Administrador") {
-<<<<<<< HEAD
             admin.style.display="block";
-=======
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
             //refAdmin.dispatchEvent(clickEvent);
             location.href=root+"/admin.html?array="+encodeURIComponent(response[0]);
         } else {

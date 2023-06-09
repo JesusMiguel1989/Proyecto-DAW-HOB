@@ -850,12 +850,12 @@ async function buscar2(condicion, condicion2) {
             let isbn = 0;
             try {
                 if (typeof texto.docs[i].isbn[0] === "undefined") {
-                    isbn = 0000000000000;
+                    isbn = "0000000000000";
                 } else {
                     isbn = texto.docs[i].isbn[0]
                 }
             } catch {
-                isbn = 0000000000000;
+                isbn = "0000000000000";
             }
             response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 

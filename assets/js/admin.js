@@ -119,7 +119,6 @@ let validaciont9 = document.getElementById("validaciont9");//validacion editoria
 //evento propio
 let eventoChange = new Event("click");
 
-<<<<<<< HEAD
 async function aliasarray() {
     let response = await fetch(root+"/php/comprobacionAlias.php", {
         method: "GET",
@@ -134,8 +133,6 @@ async function aliasarray() {
     return Promise.resolve(response);
 }
 
-=======
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
 async function copia(opcion) {
 
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion));
@@ -255,16 +252,9 @@ async function buscarLibro(opcion, condicion1) {
     return Promise.resolve(response);
 }//buscar un libro
 
-<<<<<<< HEAD
 async function modificarLibros(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8, condicion9) {
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
         "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) + "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8) + "&condicion9=" + encodeURIComponent(condicion9));
-=======
-async function modificarLibros(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6, condicion7, condicion8) {
-    let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion1=" + encodeURIComponent(condicion1) +
-        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5)
-        + "&condicion6=" + encodeURIComponent(condicion6) + "&condicion7=" + encodeURIComponent(condicion7) + "&condicion8=" + encodeURIComponent(condicion8));
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
 }
 
 //funcion para sacar los codigos de las tiendas
@@ -306,11 +296,6 @@ async function backupRespore(opcion) {
 }//funcion para saber que copias de seguridad estan en el servidor
 
 async function lanzarRestore(opcion, condicion1) {
-<<<<<<< HEAD
-=======
-    /* console.log("http://" + root + "/php/miniAPI.php?opcion=" + opcion +
-        "&condicion1=" + condicion1); */
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) +
         "&condicion1=" + encodeURIComponent(condicion1));
 }
@@ -459,10 +444,7 @@ function limpieza() {
     let motivoUsu = document.getElementById("amotivo");
     let nvecesUsu = document.getElementById("nveces");
     
-<<<<<<< HEAD
     
-=======
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     aliasUsu.value="";
     emailUsu.value="hob@hob.com";
     estadoUsu.value="Estado";
@@ -480,10 +462,7 @@ function limpieza() {
     portada.value="";
     leido.value="";
     valoracion.value="";
-<<<<<<< HEAD
     editorial.value="";
-=======
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     cod_libro.style.border = "1px solid black";
     alias.style.border = "1px solid black";
     titulo.style.border = "1px solid black";
@@ -501,7 +480,6 @@ function limpieza() {
     validacion5.style.display = "none";
     validacion6.style.display = "none";
     validacion7.style.display = "none";
-<<<<<<< HEAD
     validaciont1.style.display = "none";
     validaciont2.style.display = "none";
     validaciont3.style.display = "none";
@@ -511,8 +489,6 @@ function limpieza() {
     validaciont7.style.display = "none";
     validaciont8.style.display = "none";
     validaciont9.style.display = "none";
-=======
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     
     bbdd.style.display = "none";
     gestion.style.display = "none";
@@ -939,7 +915,6 @@ window.addEventListener("load", () => {
         let motivo = document.getElementById("amotivo");
         let nveces = document.getElementById("nveces");
 
-<<<<<<< HEAD
         buscarUsuario("buscarusuario", alias.value).then(data => {
             if (data[0][0] == null) {
                 motivo.placeholder = "Usuario no registrado";
@@ -966,39 +941,11 @@ window.addEventListener("load", () => {
                 nveces.textContent = data[0][2] + " veces";
                 if (data[0][3] == "") {
                     motivo.placeholder = "No tiene castigo, !!TODAVIA¡¡";
-=======
-        btnBuscarUsu.addEventListener("click", () => {
-            let alias = document.getElementById("aalias");
-            let email = document.getElementById("amail");
-            let estado = document.getElementById("aestado");
-            let motivo = document.getElementById("amotivo");
-            let nveces = document.getElementById("nveces");
-    
-            buscarUsuario("buscarusuario", alias.value).then(data => {
-                if (data[0][0] == null) {
-                    motivo.placeholder = "Usuario no registrado";
-                    btnBanear.style.display="none";
-                    //motivo.textContent="";
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
                 } else {
-                    btnBanear.style.display="inline";
-                    email.textContent = data[0][0];
-                    estado.textContent = data[0][1];
-                    nveces.textContent = data[0][2] + " veces";
-                    if (data[0][3] == "") {
-                        motivo.placeholder = "No tiene castigo, !!TODAVIA¡¡";
-                    } else {
-                        motivo.placeholder = data[0][3];
-                    }
+                    motivo.placeholder = data[0][3];
                 }
-<<<<<<< HEAD
             }
         });
-=======
-            });
-    
-        });//boton buscar dentro del div usuarios
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
 
     });//boton buscar dentro del div usuarios
 
@@ -1193,37 +1140,22 @@ window.addEventListener("load", () => {
     //botones EXTRA de Baneo
     inicioBanearUsuario.addEventListener("click",()=>{
         limpieza();
-<<<<<<< HEAD
         formularioUsuarios.textContent="Bannear Usuario";
         usuarios.style.display = "flex";
         btnBuscarUsu.style.display="inline";
         //btnBanear.style.display="inline";
-=======
-        usuarios.style.display = "flex";
-        btnBuscarUsu.style.display="inline";
-        btnBanear.style.display="none";
-        formularioUsuarios.textContent="Bannear Usuario";
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     })
     
     
     inicioPerdonarUsuario.addEventListener("click",()=>{
         limpieza();
-<<<<<<< HEAD
         formularioUsuarios.textContent="Perdonar Usuario";
         usuarios.style.display = "flex";
         btnBuscarUsu.style.display="inline";
-=======
-        usuarios.style.display = "flex";
-        btnBuscarUsu.style.display="inline";
-        btnPerdonar.style.display="inline";
-        formularioUsuarios.textContent="Perdonar Usuario";
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     })
     
     inicioEliminarUsuario.addEventListener("click",()=>{
         limpieza();
-<<<<<<< HEAD
         formularioUsuarios.textContent="Eliminar Usuario";
         usuarios.style.display = "flex";
         btnBuscarUsu.style.display="inline";
@@ -1235,11 +1167,3 @@ window.addEventListener("load", () => {
 
 
 
-=======
-        usuarios.style.display = "flex";
-        btnBuscarUsu.style.display="inline";
-        btnBorrarUsu.style.display="inline";
-        formularioUsuarios.textContent="Eliminar Usuario";
-    })
-})
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
