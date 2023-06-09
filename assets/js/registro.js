@@ -1,7 +1,11 @@
 let arrayAlias = [];
+<<<<<<< HEAD
 let arrayEmail = [];
 let verificadorFinal=true;
 let rRobot=false;
+=======
+let verificadorFinal=true;
+>>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
 
 let nuevoClick = new Event("click");
 let nuevoSubmit = new Event("submit");
@@ -18,11 +22,19 @@ async function alias() {
     });
 
     response = await response.json();
+<<<<<<< HEAD
 
+=======
+    
+    //let texto = await response.json();
+
+    //arrayAlias=texto;
+>>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     for (i = 0; i < response.length; i++) {
         arrayAlias[i]=response[i];
     }
     return Promise.resolve(response);
+<<<<<<< HEAD
 }
 
 async function mail() {
@@ -46,6 +58,12 @@ function captcha(){
 window.addEventListener("load", () => {
     alias();//saco los alias de los usuarios en la bbdd
     mail();//saco los email de los usuarios en la bbdd
+=======
+}
+
+window.addEventListener("load", () => {
+    alias();
+>>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
     let remail = document.getElementById("remail");
     let contraseña = document.getElementById("key");
     let contraseña2 = document.getElementById("key2");
@@ -97,7 +115,10 @@ window.addEventListener("load", () => {
 
     //enviar.addEventListener("click", (e) => {
     function verificar(){
+<<<<<<< HEAD
         
+=======
+>>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
         let expresionmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         let expresion_key = /^\w{8,}$/;
         let expresion_nom = /[a-zA-ZñÑáéíóú0-9]{2,}$/;
@@ -189,12 +210,18 @@ window.addEventListener("load", () => {
                 validacion34.style.display = "block";
             } else {
                 if (arrayAlias.includes(nombre.value)) {
+<<<<<<< HEAD
                     validacion = false;
                     validacion34.style.display = "block";
                     nombre.style.border="2px solid red";
                 }else{
                     validacion34.style.display = "none";
                     nombre.style.border="1px solid black";
+=======
+                    console.log(nombre.value);
+                    validacion = false;
+                    validacion34.style.display = "block";
+>>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
                 }
 
                 //comprobacion de si esta todo correcto

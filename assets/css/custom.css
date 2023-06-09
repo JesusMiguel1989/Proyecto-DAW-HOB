@@ -297,8 +297,12 @@ a:hover {
     border-radius: 5%;
     padding-top: 12px;
     padding-bottom: 12px;
+<<<<<<< HEAD
     margin-top: 5%;
     margin-bottom: 5%;
+=======
+    margin-top: 20%;
+>>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
   }
 
   .rfondoi {
