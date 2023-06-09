@@ -992,7 +992,6 @@ if(!$conexion){
             //muestro por pantalla
             echo json_encode($array);
         }//funcion para comprobar el alias
-<<<<<<< HEAD
         
         if($opcion=="email"){
             $resultado=mysqli_query($conexion,"SELECT EMAIL FROM usuarios");
@@ -1007,8 +1006,6 @@ if(!$conexion){
             //muestro por pantalla
             echo json_encode($array);
         }
-=======
->>>>>>> 0668d6ea566b149825fc196e4dd592bdf70cc7ac
 
     }//uso de la bbdd hobbies
 }
