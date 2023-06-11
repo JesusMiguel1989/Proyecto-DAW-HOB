@@ -1,5 +1,5 @@
 <?php
-    include "./greenhob.php";
+    include "../../greenhob.php";
     $root="https://www.hoby.es";
     $from="adminHOB@hoby.es";
     
