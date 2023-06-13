@@ -420,6 +420,7 @@ function cambio(cadena) {
 
 //funcion que limpia campos
 function limpieza() {
+    accion2.style.display="none";
     //tiendas
     cod2.value = "";
     nombre.value = "";
@@ -518,6 +519,17 @@ function limpieza() {
     btnPerdonar.style.display="none";
     btnBanear.style.display="none";
     btnBorrarUsu.style.display="none";
+}
+
+function limpiezaTienda(){
+    cod2.value = "";
+    nombre.value = "";
+    localidad.value = "";
+    direccion.value = "";
+    telefono.value = "";
+    cod_hob.value = "";
+    logo.value = "";
+    web.value = "";
 }
 
 window.addEventListener("load", () => {
@@ -694,14 +706,15 @@ window.addEventListener("load", () => {
             validacion7.style.display = "none";
         }//verificacion del logo
 
-        if (!expWeb.test(web.value)) {
+        if (expWeb.test(web.value) || web.value=="") {
+            web.style.border = "1px solid black";
+            validacion8.style.display = "none";
+        } else {
             web.style.border = "2px solid red";
             validacion8.style.display = "inline";
             centinela = false;
-        } else {
-            web.style.border = "1px solid black";
-            validacion8.style.display = "none";
         }//verificacion del web
+        
 
         //recorro el arrayTiendas buscando el codigo nuevo, si esta el centinela cambia a false
         for (let j = 0; j < arrayTiendas.length; j++) {
@@ -733,6 +746,8 @@ window.addEventListener("load", () => {
                     //limpieza();
                     cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
                     accion.style.display = "inline";
+                    limpiezaTienda();
+                    
                 } else {
                     console.log("Lastima, Continuar?");
                 }//si todo esta correcto pasa al servidor
@@ -822,7 +837,7 @@ window.addEventListener("load", () => {
                         console.log("Felicidades");
                         modificarTienda("modificartienda", id_tienda, cambio(nombre.value), cambio(telefono.value), cambio(direccion.value), localidad.value, provincia.value, cod_hob.value, logo.value, web.value);
                         accion.style.display = "inline";
-                        //limpieza();
+                        limpiezaTienda();
                     } else {
                         console.log("Lastima, Continuar?");
                     }//si todo esta correcto pasa al servidor
@@ -858,11 +873,11 @@ window.addEventListener("load", () => {
                 //limpieza();
                 arrayTiendas = [];//la reinicializo
                 cod_tiendas("cod_tiendas");//funcion para sacar los codigos de las tiendas
-                
-                bbdd.style.display = "flex";
+                limpiezaTienda();
+                /*bbdd.style.display = "flex";
                 gestion.style.display = "flex";
 
-                tiendas.style.display = "none";//oculto los div
+                tiendas.style.display = "none";//oculto los div*/
             });
 
         }//verificacion codigo

@@ -386,7 +386,10 @@ function mostrar(i) {
     let foto = document.createElement("img");
     foto.style.width = "80px";
     foto.style.margin = "15px";
-    let img = array[i][4].replace("S", "M");
+    let img = array[i][4].replace("S", "L");
+    if(img.includes("covers")){
+        foto.style.height = "125px";
+    }
     foto.setAttribute("src", img);
     foto.alt = "Portada";
     foto.title = array[i][1];
@@ -850,12 +853,12 @@ async function buscar2(condicion, condicion2) {
             let isbn = 0;
             try {
                 if (typeof texto.docs[i].isbn[0] === "undefined") {
-                    isbn = "0000000000000";
+                    isbn = 0000000000000;
                 } else {
                     isbn = texto.docs[i].isbn[0]
                 }
             } catch {
-                isbn = "0000000000000";
+                isbn = 0000000000000;
             }
             response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
@@ -1507,7 +1510,6 @@ window.addEventListener("load", () => {
         }
     })
 
-    /* console.log(root); */
 
     buscar.addEventListener("click", () => {
         tarjetaBuscador.style.display = "inline";//muestro el div del buscador
@@ -1776,7 +1778,7 @@ window.addEventListener("load", () => {
     })//leido boton para agregar a tu perfil
 
     btnAddComentario.addEventListener("click", () => {
-
+        comentUsuario.value="";
         btnLeido.value = "Terminado";
         let textoComentario = "";
         if (comentUsuario.value != "") {
@@ -1806,6 +1808,7 @@ window.addEventListener("load", () => {
             }
         }
         tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
+        btnAddComentario.style.display = "none";//oculto el boton
     })//si seleccionas este camino hace lo mismo que en el camino del btnLeido
 
     verComentarios.addEventListener("click", () => {
@@ -1828,7 +1831,6 @@ window.addEventListener("load", () => {
         //llamo a la funcion asincrona
         comentariosISBN("comentario", array[aux][0]);
 
-        console.log(arrayComentarios);
     });// evento click del btn ver comentaios
 
     agregarComentarios.addEventListener("click", () => {
