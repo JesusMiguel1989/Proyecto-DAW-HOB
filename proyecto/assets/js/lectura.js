@@ -853,12 +853,12 @@ async function buscar2(condicion, condicion2) {
             let isbn = 0;
             try {
                 if (typeof texto.docs[i].isbn[0] === "undefined") {
-                    isbn = 0000000000000;
+                    isbn = "0000000000000";
                 } else {
                     isbn = texto.docs[i].isbn[0]
                 }
             } catch {
-                isbn = 0000000000000;
+                isbn = "0000000000000";
             }
             response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
@@ -1096,14 +1096,15 @@ async function buscar5(condicion) {
                 isbn = 9788373196131;
             } else {
                 isbn = texto.docs[i].isbn[0];
-                response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + texto.docs[i].isbn[0] + "&format=json");
+                response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
-                let cadena = "texto2.ISBN" + texto.docs[i].isbn[0] + ".thumbnail_url";
+                let texto2 = await response.json();
+                let prueba2 = texto2["ISBN" + texto.docs[i].isbn[0]];
 
-                if (typeof eval(cadena) === 'undefined') {
+                if (typeof prueba2["thumbnail_url"] === 'undefined') {
                     portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
                 } else {
-                    portada += eval(cadena);
+                    portada = prueba2["thumbnail_url"];
                 }
                 if (portada == "https://covers.openlibrary.org/b/id/-1-S.jpg") {
                     portada = "https://www.pronorte.es/_files/product/4994/image/imagen-no-disponible.jpg";
@@ -1171,27 +1172,27 @@ function buscador() {
                     pagina();
                 });
             } else {
-                if (autor.value != "") {
-                    //solo autor
-                    buscar3(autor.value).then(() => {
-                        pagina();
-                    });
-
-                } else {
-                    if (titulo.value != "") {
-                        //solo titulo
-                        buscar4(titulo.value).then(() => {
+                if (isbn.value != "") {
+                    buscar5(isbn.value).then(() => {
+                    pagina();
+                        });
+                }else {
+                    if (autor.value != "") {
+                        //solo autor
+                        buscar3(autor.value).then(() => {
                             pagina();
                         });
-                    } else {
-                        if (isbn.value != "") {
-                            buscar5(isbn.value).then(() => {
+
+                    }else {
+                        if (titulo.value != "") {
+                            //solo titulo
+                            buscar4(titulo.value).then(() => {
                                 pagina();
                             });
-                        }
-                    }
-                }
-            }
+                        }//if titulo
+                    }//else autor
+                }//else isbn
+            }//else todos los campos
         }
 
     }
