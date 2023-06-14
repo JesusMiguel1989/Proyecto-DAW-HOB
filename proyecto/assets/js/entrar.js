@@ -160,6 +160,16 @@ window.addEventListener("load", () => {
             usuario.setAttribute("readOnly", true);
             mail.setAttribute("readOnly", true);
             pedir.setAttribute("disabled", true);
+            
+            let perfil=usuario.value;;
+            //redireccionamiento del usuario segun rol
+            if (perfil == "Administrador") {
+                admin.style.display="block";
+                location.href=root+"/CambiarKey.html";
+            } else {
+                
+                location.href=root+"/CambiarKey.html";
+            }
         } else {
             e.preventDefault();
         }

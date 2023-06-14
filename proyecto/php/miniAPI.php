@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "../../greenhob.php";
     $root="https://www.hoby.es";
     $from="adminHOB@hoby.es";
@@ -55,7 +56,7 @@ if(!$conexion){
                 //compruebo la contraseña que me dio el usuario
                 if(password_verify($pass,$fila[4])){
                     //guardo los resultados en un array que depues devolvere como JSON
-                    $array[$aux]=[$fila[0],$fecha,$fila[2],$fila[3],$fila[4],$fila[5],$fila[6]];
+                    $array[$aux]=[$fila[0],$fecha,$fila[2],$fila[3],$fila[4],$fila[5],$fila[6],$_SESSIO['alias']];
                 }//verificacion de la contraseña
             }//while que lo recorre
 
@@ -179,8 +180,13 @@ if(!$conexion){
                     $clave.=$char;
                 }//for que genera las letras
 
+                //establezco los valores de la sesion
+                $_SESSION['alias'] = $alias;
+                $_SESSION['keynueva'] = $password;
+                $_SESSION['mail'] = $email;
+
                 while($fila=mysqli_fetch_row($resultado)){
-                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$clave];
+                    $array[$aux]=[$fila[0],$fila[1],$fila[2],$fila[3],$fila[4],$clave,$_SESSION['alias']];
                 }
 
                 /* echo print_r($array); */
@@ -1006,6 +1012,30 @@ if(!$conexion){
             //muestro por pantalla
             echo json_encode($array);
         }
+        
+        $opcionKey=$_GET['opcionKey'];
+        if($opcionKey!=""){
+            $aliasSesion=$_SESSION['alias'];
+            $aliasFormulario=$_GET['aliasFormulario'];
+            $keyMail=$_GET['contraseñaTemporal'];
+            $keyNueva=$_GET['contraseñaNueva'];
+            echo $aliasSesion."\n ".$aliasFormulario."\n".$keyMail."\n".$keyNueva."\n";
+            if($aliasSesion==$aliasFormulario){
+                $key=mysqli_query($conexion,"SELECT CONTRASEÑA FROM usuarios WHERE ALIAS='".$aliasFormulario."'");
+                $fila=mysqli_fetch_row($key);
+                echo print_r($fila);
+                if(password_verify($keyMail,$fila[0])){
+                    echo "entra";
+                    $pass=password_hash($keyNueva,PASSWORD_DEFAULT);
+                    mysqli_query($conexion,"UPDATE usuarios 
+                                    SET CONTRASEÑA='".$pass."'
+                                    WHERE ALIAS='".$aliasSesion."'");
+                    header("Refresh:100; url=".$root."/index.html");
+                }
+            }
+            header("Refresh:100; url=".$root."/index.html");
+        }
 
     }//uso de la bbdd hobbies
 }
+?>
