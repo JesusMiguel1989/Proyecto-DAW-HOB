@@ -95,29 +95,32 @@
       <h3 class="migasPan">Modificacion de Contraseña</h3>
       <img src="./assets/imagenes/recortado.png" class="recortado movil">
       <br>
-        <form action="./php/miniAPI.php" method="GET">
+        <form action="./php/miniAPI.php" method="POST" >
             <div class="row " >
                 <div class="col-6 mt-3">
-                    <label for="aliasFormulario">Alias:</label>
+                    <label for="aliasFormulario" class="titulo">Alias:</label>
                 </div>
                 <div class="col-6 mt-3">
-                    <input type="text" name="aliasFormulario" id="alias">
+                    <input type="text" name="aliasFormulario" id="alias" required>
                 </div>
             </div>
             <div class="row " >
                 <div class="col-6 mt-3">
-                    <label for="contraseñaTemporal">Codigo recibido:</label>
+                    <label for="contraseñaTemporal" class="titulo">Codigo recibido:</label>
                 </div>
                 <div class="col-6 mt-3">
-                    <input type="text" name="contraseñaTemporal" id="contraseñaTemporal">
+                    <input type="text" name="contraseñaTemporal" id="contraseñaTemporal" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6 mt-3">
-                    <label for="contraseñaNueva">Contraseña Nueva:</label>
+                    <label for="contraseñaNueva" class="titulo">Contraseña Nueva:</label>
                 </div>
                 <div class="col-6 mt-3">
-                    <input type="password" name="contraseñaNueva" id="contraseñaTemporal">
+                    <input type="password" name="contraseñaNueva" id="contraseñaTemporal" title="minimo 8 caracteres" required minlength="8">
+                </div>
+                <div class="col-12 mt-3 text-center">
+                    <label>*Recuerda que la contraseña debe tener mínimo 8 Caracteres</label>
                 </div>
             </div>
             <div class="row text-center mt-3">

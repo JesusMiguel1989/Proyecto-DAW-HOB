@@ -1013,12 +1013,12 @@ if(!$conexion){
             echo json_encode($array);
         }
         
-        $opcionKey=$_GET['opcionKey'];
+        $opcionKey=$_POST['opcionKey'];
         if($opcionKey!=""){
             $aliasSesion=$_SESSION['alias'];
-            $aliasFormulario=$_GET['aliasFormulario'];
-            $keyMail=$_GET['contraseñaTemporal'];
-            $keyNueva=$_GET['contraseñaNueva'];
+            $aliasFormulario=$_POST['aliasFormulario'];
+            $keyMail=$_POST['contraseñaTemporal'];
+            $keyNueva=$_POST['contraseñaNueva'];
             echo $aliasSesion."\n ".$aliasFormulario."\n".$keyMail."\n".$keyNueva."\n";
             if($aliasSesion==$aliasFormulario){
                 $key=mysqli_query($conexion,"SELECT CONTRASEÑA FROM usuarios WHERE ALIAS='".$aliasFormulario."'");
@@ -1030,10 +1030,9 @@ if(!$conexion){
                     mysqli_query($conexion,"UPDATE usuarios 
                                     SET CONTRASEÑA='".$pass."'
                                     WHERE ALIAS='".$aliasSesion."'");
-                    header("Refresh:100; url=".$root."/index.html");
+                    header("Refresh:10; url=".$root."/index.html");
                 }
             }
-            header("Refresh:100; url=".$root."/index.html");
         }
 
     }//uso de la bbdd hobbies
