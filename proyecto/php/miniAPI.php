@@ -111,7 +111,7 @@ if(!$conexion){
             
                 
             //realizo el cambio en blacklist
-            $resultado=mysqli_query($conexion,"UPDATE blacklist 
+            /*$resultado=mysqli_query($conexion,"UPDATE blacklist 
                 SET ALIAS='".$alias."'
                 WHERE ALIAS='".$alias2."'");
 
@@ -122,7 +122,7 @@ if(!$conexion){
             
             $resultado=mysqli_query($conexion,"UPDATE practica 
                 SET ALIAS='".$alias."'
-                WHERE ALIAS='".$alias2."'");
+                WHERE ALIAS='".$alias2."'");*/
 
             //realizo el update en usuarios
             $resultado=mysqli_query($conexion,"UPDATE usuarios 
