@@ -1020,7 +1020,7 @@ if(!$conexion){
             $keyMail=$_POST['contraseñaTemporal'];
             $keyNueva=$_POST['contraseñaNueva'];
             echo $aliasSesion."\n ".$aliasFormulario."\n".$keyMail."\n".$keyNueva."\n";
-            if($aliasSesion==$aliasFormulario){
+            if($aliasSesion==$aliasFormulario ){
                 $key=mysqli_query($conexion,"SELECT CONTRASEÑA FROM usuarios WHERE ALIAS='".$aliasFormulario."'");
                 $fila=mysqli_fetch_row($key);
                 echo print_r($fila);
@@ -1030,6 +1030,8 @@ if(!$conexion){
                     mysqli_query($conexion,"UPDATE usuarios 
                                     SET CONTRASEÑA='".$pass."'
                                     WHERE ALIAS='".$aliasSesion."'");
+                    //destruyo los datos de la sesion
+                    session_destroy();
                     header("Refresh:10; url=".$root."/index.html");
                 }
             }
