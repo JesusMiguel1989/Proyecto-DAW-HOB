@@ -1,4 +1,6 @@
 <?php
+    //dejo preparado la opcion de sesiones en PHP para una posible migracion
+    session_start();
     include "../../greenhob.php";
     $root="https://www.hoby.es";
     $from="adminHOB@hoby.es";
