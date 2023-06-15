@@ -1,6 +1,6 @@
 <?php
     //dejo preparado la opcion de sesiones en PHP para una posible migracion
-    session_start();
+    //session_start();
     include "../../greenhob.php";
 
     header('Access-Control-Allow-Origin: *');
