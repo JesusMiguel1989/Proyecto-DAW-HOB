@@ -96,6 +96,7 @@ if(!$conexion){
 
         //opcion que modifica los datos del usuario
         if($opcion=="cambiar_usuario"){
+
             //recojo las condiciones para la modificacion
             $alias=str_replace("_"," ",$_GET['condicion']);
             $fecha=$_GET['condicion2'];
@@ -107,13 +108,19 @@ if(!$conexion){
             $alias2=str_replace("_"," ",$_GET['condicion6']);//viejo alias
             //hasheo la clave dada por el usuario
             $pass=password_hash($condicion5,PASSWORD_DEFAULT);
-
+            
+                
             //realizo el cambio en blacklist
-            $resultado=mysqli_query($conexion,"UPDATE Blacklist 
+            $resultado=mysqli_query($conexion,"UPDATE blacklist 
                 SET ALIAS='".$alias."'
                 WHERE ALIAS='".$alias2."'");
+
             //realizo la update en Libros
-            $resultado=mysqli_query($conexion,"UPDATE Libros 
+            $resultado=mysqli_query($conexion,"UPDATE libros 
+                SET ALIAS='".$alias."'
+                WHERE ALIAS='".$alias2."'");
+            
+            $resultado=mysqli_query($conexion,"UPDATE practica 
                 SET ALIAS='".$alias."'
                 WHERE ALIAS='".$alias2."'");
 
@@ -121,8 +128,8 @@ if(!$conexion){
             $resultado=mysqli_query($conexion,"UPDATE usuarios 
                 SET ALIAS='".$alias."', F_NACIMIENTO='".$fecha."', 
                     LOCALIDAD='".$localidad."', EMAIL='".$email."', CONTRASEÑA='".$pass."'
-                WHERE ALIAS='".$alias2."'");
-
+                WHERE ALIAS='".$alias."'");
+                
             //tras la modificacion le pido a la bbdd que me devuelva la situacion de dicho usuario
             $resultado=mysqli_query($conexion,"SELECT * FROM usuarios WHERE ALIAS='".$alias."'");
 

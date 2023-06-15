@@ -17,14 +17,12 @@ async function nombre() {
 }
 
 //funcion asincrona para la modificacion de datos
-async function modificacion(opcion, condicion1, condicion2, condicion3, condicion4, condicion5, condicion6) {
-    /* console.log("http://"+root+"/proyecto/php/miniAPI.php?opcion=" + opcion + "&condicion=" + condicion1 +
-    "&condicion2=" + condicion2 + "&condicion3=" + condicion3 + "&condicion4=" + condicion4 + "&condicion5=" + condicion5 + "&condicion6=" + condicion6); */
+async function modificacion(opcion, condicion1, condicion2, condicion3, condicion4, condicion5) {
 
     let response = await fetch(root + "/php/miniAPI.php?opcion=" + encodeURIComponent(opcion) + "&condicion=" + encodeURIComponent(condicion1) +
-        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) + "&condicion6=" + encodeURIComponent(condicion6)
+        "&condicion2=" + encodeURIComponent(condicion2) + "&condicion3=" + encodeURIComponent(condicion3) + "&condicion4=" + encodeURIComponent(condicion4) + "&condicion5=" + encodeURIComponent(condicion5) 
         , {
-            method: "PUT",
+            method: "GET",
             headers: { "Content-type": "application/json" }
         });
 
@@ -98,7 +96,7 @@ let validacion1 = document.getElementById("validacion1");
 let validacion2 = document.getElementById("validacion2");
 let validacion4 = document.getElementById("validacion4");
 
-alias.value = sessionStorage.getItem('alias');
+alias.textContent = sessionStorage.getItem('alias');
 fecha.value = sessionStorage.getItem('fecha');
 mail.value = sessionStorage.getItem('mail');
 localidad.value = sessionStorage.getItem('localidad');
@@ -172,7 +170,7 @@ window.addEventListener("load", () => {
 
                 if (expresion_key.test(key.value) && expresionmail.test(mail.value) && expresion_nom.test(alias.value) && mili > milisegundos) {
 
-                    modificacion("cambiar_usuario", cambio(alias.value), fecha.value, localidad.value, mail.value, key.value, cambio(antiguo)).then(data => {
+                    modificacion("cambiar_usuario", cambio(alias.textContent), fecha.value, localidad.value, mail.value, key.value).then(data => {
                         console.log(data);
 
                         sessionStorage.setItem('alias', data[0][0]);
