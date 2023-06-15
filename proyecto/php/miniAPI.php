@@ -1020,6 +1020,7 @@ if(!$conexion){
             echo json_encode($array);
         }
         
+        
         $opcionKey=$_POST['opcionKey'];
         if($opcionKey!=""){
             $aliasSesion=$_SESSION['alias'];
