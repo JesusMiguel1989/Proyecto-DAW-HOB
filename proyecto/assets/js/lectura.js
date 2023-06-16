@@ -408,7 +408,8 @@ function mostrar(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
-        addComentarios.style.display = "none";//oculto los comentarios
+        btnLeido.value="Terminado";
+        btnAddComentario.style.display = "none";//oculto los comentarios
         aux = i;
         resultadosComentarios.style.display = "none";
         arrayComentarios = [];
@@ -508,6 +509,7 @@ function mostrar2(i) {
     let tarjeta = document.getElementById("tarjeta");
 
     btn.addEventListener("click", () => {
+        btnLeido.value="Abandonado";
         //recorro los elementos estrellas para ponerlas en gris
         for (let j = 0; j < estrellas.length; j++) {
             if (estrellas[j].value == array[i][7]) {
@@ -853,12 +855,12 @@ async function buscar2(condicion, condicion2) {
             let isbn = 0;
             try {
                 if (typeof texto.docs[i].isbn[0] === "undefined") {
-                    isbn = "0000000000000";
+                    isbn = 0000000000000;
                 } else {
                     isbn = texto.docs[i].isbn[0]
                 }
             } catch {
-                isbn = "0000000000000";
+                isbn = 0000000000000;
             }
             response = await fetch("https://openlibrary.org/api/books?bibkeys=ISBN" + isbn + "&format=json");
 
@@ -1779,7 +1781,6 @@ window.addEventListener("load", () => {
     })//leido boton para agregar a tu perfil
 
     btnAddComentario.addEventListener("click", () => {
-        comentUsuario.value="";
         btnLeido.value = "Terminado";
         let textoComentario = "";
         if (comentUsuario.value != "") {
@@ -1810,6 +1811,8 @@ window.addEventListener("load", () => {
         }
         tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
         btnAddComentario.style.display = "none";//oculto el boton
+        
+        comentUsuario.value="";
     })//si seleccionas este camino hace lo mismo que en el camino del btnLeido
 
     verComentarios.addEventListener("click", () => {

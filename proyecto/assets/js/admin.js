@@ -450,6 +450,7 @@ function limpieza() {
     emailUsu.value="hob@hob.com";
     estadoUsu.value="Estado";
     motivoUsu.value="";
+    motivoUsu.placeholder="";
     nvecesUsu.value="";
     aliasUsu.style.border = "1px solid black";
     motivoUsu.style.border = "1px solid black";
@@ -942,13 +943,19 @@ window.addEventListener("load", () => {
             } else {
                 switch(formularioUsuarios.textContent){
                     case "Bannear Usuario":
-                        btnBanear.style.display="inline";
+                        let cadenaMotivo=data[0][3][0];
+                        if(cadenaMotivo == undefined){
+                            btnBanear.style.display="inline";
+                            motivo.removeAttribute("readonly");
+                        }
                         break;
                     case "Perdonar Usuario":
                         btnPerdonar.style.display="inline";
+                        motivo.setAttribute("readonly",true);
                         break;
                     case "Eliminar Usuario":
                         btnBorrarUsu.style.display="inline";
+                        motivo.setAttribute("readonly",true);
                         break;
                 }
                 email.textContent = data[0][0];
@@ -982,7 +989,7 @@ window.addEventListener("load", () => {
         let alias = document.getElementById("aalias");
         let motivo = document.getElementById("amotivo");
         perdon("perdonarusuario", alias.value);
-        motivo.placeholder="Este usuario a recibido tus bendiciones";
+        motivo.value="Este usuario a recibido tus bendiciones";
     })//btn del perdon
 
     btnBorrarUsu.addEventListener("click", () => {
