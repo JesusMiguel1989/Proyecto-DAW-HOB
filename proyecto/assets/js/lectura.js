@@ -564,7 +564,7 @@ function mostrar2(i) {
             icono.appendChild(p);
 
             actual.innerHTML = "";
-            actual.value = "Terminado";
+            //actual.value = "Terminado";
             actual.appendChild(icono);
             actual.style.padding = "10px";
             actual.style.height = "50px";
@@ -1681,12 +1681,15 @@ window.addEventListener("load", () => {
                 } else {
                     validacion.style.display = "none";
                     //falta meter el comentario si existiera
-                    modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario, cambio(array[aux][2]), cambio(array[aux][3]), cambio(array[aux][9]), array[aux][5], array[aux][4]);
+                    modificarLibro("modificarLibroUsu", array[aux][0], cambio(alias),  nota, textoComentario, cambio(array[aux][2]), cambio(array[aux][3]), array[aux][4], array[aux][5] ,cambio(array[aux][9]));
                     comentUsuario.value = "";
                     array = [];
                     resultados.innerHTML = "";
                     tarjeta.style.display = "none";
-                    await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then(() => { });
+                    if(ubicacion.value=="Pendientes"){
+                        await mostrarLeyendo("mostrarLeyendo", cambio(nombre)).then(() => { });
+                    }
+                    
                     tarjeta.style.display = "none";//una vez registrado el libro oculto la tarjeta
                 }
             }

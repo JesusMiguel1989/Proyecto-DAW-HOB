@@ -372,7 +372,7 @@ if(!$conexion){
         }
 
         //modificacion de libro
-        if($opcion=="modificarLibro"){
+        if($opcion=="modificarLibroUsu"){
             $alias=str_replace("_"," ",$_GET['condicion2']);
             $cod=$_GET['condicion1'];
             $nota=$_GET['condicion3'];
