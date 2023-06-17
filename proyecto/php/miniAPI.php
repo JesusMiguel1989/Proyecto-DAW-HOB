@@ -373,8 +373,8 @@ if(!$conexion){
 
         //modificacion de libro
         if($opcion=="modificarLibro"){
-            $alias=str_replace("_"," ",$_GET['condicion1']);
-            $cod=$_GET['condicion2'];
+            $alias=str_replace("_"," ",$_GET['condicion2']);
+            $cod=$_GET['condicion1'];
             $nota=$_GET['condicion3'];
             $comentario=str_replace("_"," ",$_GET['condicion4']);
             $titulo=str_replace("_"," ",$_GET['condicion5']);
