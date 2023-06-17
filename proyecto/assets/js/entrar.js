@@ -99,7 +99,7 @@ window.addEventListener("load", () => {
             validacion2.style.display = "block";
             validacion2.style.fontWeight = "bold";
         } else {
-            fondo.style.height = "425px";
+            //fondo.style.height = "425px";
             key.style.border = "1px solid black";
             validacion2.style.display = "none";
         }

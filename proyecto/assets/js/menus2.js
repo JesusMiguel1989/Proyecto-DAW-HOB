@@ -50,7 +50,7 @@ window.addEventListener("load", () => {
             switch (estado) {
                 case "OK":
                     ofcanvas.style.backgroundColor = "#5564eb";
-                    h3.textContent = "Bienvenido " + alias;
+                    h3.textContent = "Bienvenid@ " + alias;
                     break;
                 case "Pendiente":
                     ofcanvas.style.backgroundColor = "#d6985a";

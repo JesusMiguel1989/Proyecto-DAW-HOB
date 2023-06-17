@@ -857,6 +857,7 @@ if(!$conexion){
             $asunto=utf8_decode(str_replace("_"," ",$_GET['condicion3']));
             $mensaje=utf8_decode(str_replace("_"," ",$_GET['condicion4']));
             $comprobacion=mysqli_query($conexion,"SELECT ALIAS FROM usuarios WHERE ALIAS='".$alias."'");
+            
 
             //compruebo que el usuario esta en la BBDD
             if(mysqli_num_rows($comprobacion)==1 && strlen($mensaje)<500){
@@ -894,10 +895,15 @@ if(!$conexion){
                 
                 //funcion para enviar el mensaje
                 if(mail($to,$asunto,$mensaje,$cabeceras)){
-                    echo "mensaje enviado";
+                    $array=1;
                 }else{
-                    echo "mensaje no enviado";
+                    $array=0;
                 }
+                
+                //indico que sera un JSON con UTF-8
+                header("Content-type: application/json; charset=utf-8");
+                //muestro por pantalla
+                echo json_encode($array);
             }
         }
 

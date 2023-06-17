@@ -765,6 +765,7 @@ function mostrar3(i) {
             btnLeido.style.marginBottom = "10px";
         });
         aux = i;
+        window.scroll(0, 0);
     })
 }//mostrar ranking
 
