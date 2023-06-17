@@ -1204,7 +1204,7 @@ function buscador() {
 function pagina() {
     //creo el div para los botones de la paginacion
     let paginacion = document.createElement("div");
-    paginacion.classList.add("row");
+    paginacion.classList.add("row","ms-3","ms-sm-0");
 
     //creo el div de previo
     let previo = document.createElement("div");
@@ -1810,7 +1810,7 @@ window.addEventListener("load", () => {
                 validacion.style.fontWeight = "bold";
             } else {
                 validacion.style.display = "none";
-                modificarLibro("modificarLibro", cambio(alias), array[aux][0], nota, textoComentario, cambio(array[aux][1]), cambio(array[aux][2]), cambio(array[aux][6]), array[aux][4], array[aux][3]);
+                modificarLibro("modificarLibroUsu", array[aux][0], cambio(alias), nota, textoComentario, cambio(array[aux][2]), cambio(array[aux][3]), cambio(array[aux][9]), array[aux][5], array[aux][4]);
             }
         }
         tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
