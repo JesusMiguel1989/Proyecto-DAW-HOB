@@ -189,7 +189,7 @@ if(!$conexion){
 
                 //establezco los valores de la sesion
                 $_SESSION['alias'] = $alias;
-                $_SESSION['keynueva'] = $password;
+                //$_SESSION['keynueva'] = $clave;
                 $_SESSION['mail'] = $email;
 
                 while($fila=mysqli_fetch_row($resultado)){

@@ -1544,7 +1544,7 @@ window.addEventListener("load", () => {
         progreso.value = 0;
         divCuriosidades.style.display = "inline-flex";
         divCuriosidades.style.marginBottom = "100px";
-        divCuriosidades.style.width = "95%";
+        //divCuriosidades.style.width = "95%";
 
         curiosidad();
 
@@ -1810,7 +1810,7 @@ window.addEventListener("load", () => {
                 validacion.style.fontWeight = "bold";
             } else {
                 validacion.style.display = "none";
-                modificarLibro("modificarLibroUsu", array[aux][0], cambio(alias), nota, textoComentario, cambio(array[aux][2]), cambio(array[aux][3]), cambio(array[aux][9]), array[aux][5], array[aux][4]);
+                modificarLibro("modificarLibroUsu", array[aux][0], cambio(alias),  nota, textoComentario, cambio(array[aux][1]), cambio(array[aux][2]), array[aux][6], array[aux][4] ,cambio(array[aux][3]));
             }
         }
         tarjeta.style.display = "none";//oculto la tarjeta tras el cambio de registro
