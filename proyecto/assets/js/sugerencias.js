@@ -38,21 +38,33 @@ async function enviar(opcion, condicion1, condicion2, condicion3, condicion4) {
 window.addEventListener("load",()=>{
     accion.style.display="none";
     nombre.textContent=sessionStorage.getItem("alias");//pongo por defecto el valor de la session
+    if(sessionStorage.getItem("alias")==""){
+        nombre.textContent="HOB";
+    }
     email.textContent=sessionStorage.getItem("mail");//pongo por defecto el valor de la session
+    if(sessionStorage.getItem("mail")=="undefined"){
+        email.textContent="Ejemplo";
+    }
 
-    btnEnviar.addEventListener("click",()=>{
+    btnEnviar.addEventListener("click",(e)=>{
         let texto=cambio(sugerencia.value);
         console.log(texto);
-        enviar("sugerencia",nombre.textContent,email.textContent,cambio(asunto.value),texto).then(() => {
+        
+        if(sessionStorage.getItem("mail")=="undefined"){
+            e.preventDefault();
+        }else{
+            enviar("sugerencia",nombre.textContent,email.textContent,cambio(asunto.value),texto).then(() => {
             
-            if(verificador){
-                sugerencia.value="";
-                asunto.value="";
-                accion.style.display="inline";
-            }else{
-                accion.style.display="none";
-            }
-        });
+                if(verificador){
+                    sugerencia.value="";
+                    asunto.value="";
+                    accion.style.display="inline";
+                }else{
+                    accion.style.display="none";
+                }
+            });
+        }
+        
         
     })
     
