@@ -941,6 +941,9 @@ window.addEventListener("load", () => {
                 btnPerdonar.style.display="none";
                 btnBorrarUsu.style.display="none";
             } else {
+                btnBanear.style.display="none";
+                btnPerdonar.style.display="none";
+                btnBorrarUsu.style.display="none";
                 switch(formularioUsuarios.textContent){
                     case "Bannear Usuario":
                         let cadenaMotivo=data[0][3][0];
@@ -950,8 +953,12 @@ window.addEventListener("load", () => {
                         }
                         break;
                     case "Perdonar Usuario":
-                        btnPerdonar.style.display="inline";
-                        motivo.setAttribute("readonly",true);
+                        let cadenaEstado=data[0][1];
+                        if(cadenaEstado=="Banneado"){
+                            btnPerdonar.style.display="inline";
+                            motivo.setAttribute("readonly",true);
+                        }
+                        
                         break;
                     case "Eliminar Usuario":
                         btnBorrarUsu.style.display="inline";
